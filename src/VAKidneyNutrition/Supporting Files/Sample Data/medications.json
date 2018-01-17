@@ -1,0 +1,42 @@
+[
+ {
+ "title": "Medicinole dietum 1",
+ "times": [
+ {
+           "weekday": -1,
+           "units": 2,
+           "hour": 9
+ },
+           {
+           "weekday": -1,
+           "units": 1,
+           "hour": 14
+           },
+           {
+           "weekday": -1,
+           "units": 3,
+           "hour": 21
+           }
+ ]
+ },
+ {
+ "title": "Medicinole dietum 2",
+ "times": [
+           {
+           "weekday": -1,
+           "units": 1,
+           "hour": 9
+           },
+           {
+           "weekday": -1,
+           "units": 2,
+           "hour": 14
+           },
+           {
+           "weekday": -1,
+           "units": 2,
+           "hour": 21
+           }
+           ]
+ }
+ ]

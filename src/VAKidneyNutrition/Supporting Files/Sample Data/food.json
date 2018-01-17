@@ -1,0 +1,22 @@
+[
+ {
+ "id": 1,
+ "time": "Breakfast",
+ "items": "Fooditem1, Fooditem2, Fooditem3"
+ },
+ {
+ "id": 2,
+ "time": "Lunch",
+ "items": "Fooditem1, Fooditem2, Fooditem3"
+ },
+ {
+ "id": 3,
+ "time": "Snacks",
+ "items": "Fooditem1, Fooditem2, Fooditem3"
+ },
+ {
+ "id": 4,
+ "time": "Dinner",
+ "items": "Fooditem1, Fooditem2, Fooditem3"
+ }
+ ]

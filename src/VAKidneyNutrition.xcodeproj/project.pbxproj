@@ -1,0 +1,1040 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7E1D747133B1B1334B306FD8 /* Pods_VAKidneyNutrition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D81CBC00F0B5DE4CD07D45 /* Pods_VAKidneyNutrition.framework */; };
+		FD03F6EA1FECFEE300E19304 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD03F6E91FECFEE300E19304 /* Home.storyboard */; };
+		FD03F6ED1FED012800E19304 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD03F6EC1FED012800E19304 /* MainViewController.swift */; };
+		FD37CD191FF12A9A00E2530E /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD37CD181FF12A9A00E2530E /* ResourcesViewController.swift */; };
+		FD3C1A6A1FF049C700B78908 /* Medications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD3C1A691FF049C700B78908 /* Medications.storyboard */; };
+		FD3C1A6D1FF04B2B00B78908 /* MedicationsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3C1A6C1FF04B2B00B78908 /* MedicationsMainViewController.swift */; };
+		FD3C1A6F1FF050E800B78908 /* MedicationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3C1A6E1FF050E800B78908 /* MedicationRowView.swift */; };
+		FD3C1A711FF0530500B78908 /* MedicationsScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3C1A701FF0530500B78908 /* MedicationsScheduleViewController.swift */; };
+		FD43685B1FF054E0003B22CE /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43685A1FF054E0003B22CE /* Medication.swift */; };
+		FD43685D1FF05561003B22CE /* MedicationTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43685C1FF05561003B22CE /* MedicationTime.swift */; };
+		FD43685F1FF056BE003B22CE /* medications.json in Resources */ = {isa = PBXBuildFile; fileRef = FD43685E1FF056BE003B22CE /* medications.json */; };
+		FD4368611FF06911003B22CE /* MedicationsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4368601FF06911003B22CE /* MedicationsCollectionViewController.swift */; };
+		FD4368631FF075D7003B22CE /* EditMedicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4368621FF075D7003B22CE /* EditMedicationViewController.swift */; };
+		FD4368651FF07B4C003B22CE /* EditMedicationScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4368641FF07B4C003B22CE /* EditMedicationScheduleViewController.swift */; };
+		FD4368671FF0ECF2003B22CE /* Food.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD4368661FF0ECF2003B22CE /* Food.storyboard */; };
+		FD43686A1FF0EF09003B22CE /* FoodIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4368691FF0EF09003B22CE /* FoodIntakeViewController.swift */; };
+		FD43686C1FF0F1A1003B22CE /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43686B1FF0F1A1003B22CE /* Food.swift */; };
+		FD43686E1FF0F239003B22CE /* food.json in Resources */ = {isa = PBXBuildFile; fileRef = FD43686D1FF0F239003B22CE /* food.json */; };
+		FD4368701FF0FE0D003B22CE /* FoodIntakeFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43686F1FF0FE0D003B22CE /* FoodIntakeFormViewController.swift */; };
+		FD4368721FF104EE003B22CE /* AddAssetButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4368711FF104EE003B22CE /* AddAssetButtonView.swift */; };
+		FD4368741FF10D44003B22CE /* FoodServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4368731FF10D44003B22CE /* FoodServiceCache.swift */; };
+		FD4368761FF11377003B22CE /* Workout.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD4368751FF11377003B22CE /* Workout.storyboard */; };
+		FD4368791FF1160C003B22CE /* DailyWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4368781FF1160C003B22CE /* DailyWorkoutViewController.swift */; };
+		FD43687B1FF11792003B22CE /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43687A1FF11792003B22CE /* Workout.swift */; };
+		FD43687D1FF11941003B22CE /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = FD43687C1FF11941003B22CE /* workouts.json */; };
+		FD43687F1FF1228F003B22CE /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43687E1FF1228F003B22CE /* ReminderViewController.swift */; };
+		FD70AC751FEBF523003854A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC741FEBF523003854A1 /* SignInViewController.swift */; };
+		FD70AC791FEBFC62003854A1 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC781FEBFC62003854A1 /* CustomTextField.swift */; };
+		FD70AC7C1FEC049E003854A1 /* ServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */; };
+		FD70AC7F1FEC059B003854A1 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC7E1FEC059B003854A1 /* UserInfo.swift */; };
+		FD70AC831FEC05E1003854A1 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC821FEC05E1003854A1 /* CoreDataStack.swift */; };
+		FD70AC851FEC0606003854A1 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC841FEC0606003854A1 /* DataService.swift */; };
+		FD70AC871FEC0626003854A1 /* NSManagedObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC861FEC0626003854A1 /* NSManagedObjectExtension.swift */; };
+		FD70AC891FEC0632003854A1 /* CacheableObjectMOExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC881FEC0632003854A1 /* CacheableObjectMOExtension.swift */; };
+		FD70AC8C1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC8A1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld */; };
+		FD70AC8E1FEC0696003854A1 /* CacheableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC8D1FEC0696003854A1 /* CacheableObject.swift */; };
+		FD70AC901FEC0772003854A1 /* CachingServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC8F1FEC0772003854A1 /* CachingServiceApi.swift */; };
+		FD70AC921FEC0946003854A1 /* MockServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC911FEC0946003854A1 /* MockServiceApi.swift */; };
+		FD70AC941FEC0965003854A1 /* ValidationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC931FEC0965003854A1 /* ValidationUtils.swift */; };
+		FD70AC961FEC09D3003854A1 /* FileUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC951FEC09D3003854A1 /* FileUtil.swift */; };
+		FD70AC981FEC0A31003854A1 /* AuthenticationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC971FEC0A31003854A1 /* AuthenticationUtil.swift */; };
+		FD70AC9A1FEC0AC6003854A1 /* UserInfoServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC991FEC0AC6003854A1 /* UserInfoServiceCache.swift */; };
+		FD70AC9C1FEC1655003854A1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC9B1FEC1655003854A1 /* SignUpViewController.swift */; };
+		FD8F991C1FEFCBBF00B4A6B5 /* goalCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = FD8F991B1FEFCBBF00B4A6B5 /* goalCategories.json */; };
+		FD8F991E1FEFCC1700B4A6B5 /* GoalCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F991D1FEFCC1700B4A6B5 /* GoalCategory.swift */; };
+		FD8F99201FEFD9DB00B4A6B5 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F991F1FEFD9DB00B4A6B5 /* CustomProgressView.swift */; };
+		FD94C67C1FEFFD7D0039D233 /* AddGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD94C67B1FEFFD7D0039D233 /* AddGoalViewController.swift */; };
+		FD94C67E1FF00B960039D233 /* tasks.json in Resources */ = {isa = PBXBuildFile; fileRef = FD94C67D1FF00B960039D233 /* tasks.json */; };
+		FD94C6831FF034460039D233 /* GoalServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD94C6821FF034460039D233 /* GoalServiceCache.swift */; };
+		FD9F959A1FEC3B3E000FECAD /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD9F95991FEC3B3E000FECAD /* Profile.storyboard */; };
+		FD9F959C1FEC3C40000FECAD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F959B1FEC3C40000FECAD /* ProfileViewController.swift */; };
+		FD9F95A01FEC4258000FECAD /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F959F1FEC4258000FECAD /* PickerViewController.swift */; };
+		FD9F95A41FEC6135000FECAD /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A31FEC6135000FECAD /* CustomView.swift */; };
+		FD9F95A61FEC6DFD000FECAD /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A51FEC6DFC000FECAD /* Profile.swift */; };
+		FD9F95A81FEC7018000FECAD /* ProfileServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */; };
+		FDB63C011FED03AF00015308 /* CustomTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB63C001FED03AF00015308 /* CustomTabButton.swift */; };
+		FDB63C031FED096A00015308 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB63C021FED096A00015308 /* RootViewController.swift */; };
+		FDC95EAE1FEFB1B000C04281 /* Goals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDC95EAD1FEFB1B000C04281 /* Goals.storyboard */; };
+		FDC95EB11FEFB84D00C04281 /* GoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC95EB01FEFB84D00C04281 /* GoalsViewController.swift */; };
+		FDE5D1171FEEF2D8006C7097 /* reports.json in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D1161FEEF2D8006C7097 /* reports.json */; };
+		FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */; };
+		FDE5D11D1FEF1EDD006C7097 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */; };
+		FDE5D1201FEF21D0006C7097 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5D11F1FEF21D0006C7097 /* ChartsViewController.swift */; };
+		FDF397DA1FEBD0C100DEED65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF397D91FEBD0C100DEED65 /* AppDelegate.swift */; };
+		FDF397DF1FEBD0C100DEED65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDF397DD1FEBD0C100DEED65 /* Main.storyboard */; };
+		FDF397E11FEBD0C100DEED65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDF397E01FEBD0C100DEED65 /* Assets.xcassets */; };
+		FDF397E41FEBD0C100DEED65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDF397E21FEBD0C100DEED65 /* LaunchScreen.storyboard */; };
+		FDF397F71FEBD2E500DEED65 /* UIComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = FDF397F51FEBD2E500DEED65 /* UIComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FDF397FA1FEBD2E500DEED65 /* UIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF397F31FEBD2E500DEED65 /* UIComponents.framework */; };
+		FDF397FB1FEBD2E500DEED65 /* UIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FDF397F31FEBD2E500DEED65 /* UIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FDF398011FEBD39700DEED65 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF398001FEBD39700DEED65 /* CustomButton.swift */; };
+		FDF398031FEBD42700DEED65 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF398021FEBD42700DEED65 /* Colors.swift */; };
+		FDF398051FEBD59900DEED65 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF398041FEBD59900DEED65 /* TermsViewController.swift */; };
+		FDF398091FEBD7F700DEED65 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF398081FEBD7F700DEED65 /* UIExtensions.swift */; };
+		FDF3980B1FEBE82200DEED65 /* HelpfulFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF3980A1FEBE82200DEED65 /* HelpfulFunctions.swift */; };
+		FDF748A91FEFEA5C00FB1037 /* RewardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF748A81FEFEA5C00FB1037 /* RewardsViewController.swift */; };
+		FDF748AB1FEFEAC200FB1037 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF748AA1FEFEAC200FB1037 /* Reward.swift */; };
+		FDF748AD1FEFED6100FB1037 /* rewards.json in Resources */ = {isa = PBXBuildFile; fileRef = FDF748AC1FEFED6100FB1037 /* rewards.json */; };
+		FDF7BBFC1FED216B0078970A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF7BBFB1FED216B0078970A /* HomeViewController.swift */; };
+		FDF7BBFE1FED41640078970A /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF7BBFD1FED41640078970A /* Goal.swift */; };
+		FDF7BC011FED452D0078970A /* goals.json in Resources */ = {isa = PBXBuildFile; fileRef = FDF7BC001FED452D0078970A /* goals.json */; };
+		FDF7BC031FED4B4B0078970A /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF7BC021FED4B4B0078970A /* Suggestion.swift */; };
+		FDF7BC051FED4BCB0078970A /* suggestions.json in Resources */ = {isa = PBXBuildFile; fileRef = FDF7BC041FED4BCB0078970A /* suggestions.json */; };
+		FDF7BC071FED60EC0078970A /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF7BC061FED60EC0078970A /* Report.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FDF397F81FEBD2E500DEED65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FDF397CE1FEBD0C100DEED65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDF397F21FEBD2E500DEED65;
+			remoteInfo = UIComponents;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FDF397FF1FEBD2E500DEED65 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FDF397FB1FEBD2E500DEED65 /* UIComponents.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4BEDB645296CA46E752055D0 /* Pods-VAKidneyNutrition.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VAKidneyNutrition.release.xcconfig"; path = "Pods/Target Support Files/Pods-VAKidneyNutrition/Pods-VAKidneyNutrition.release.xcconfig"; sourceTree = "<group>"; };
+		83D81CBC00F0B5DE4CD07D45 /* Pods_VAKidneyNutrition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VAKidneyNutrition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92DEE587591015103FC68D8D /* Pods-VAKidneyNutrition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VAKidneyNutrition.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VAKidneyNutrition/Pods-VAKidneyNutrition.debug.xcconfig"; sourceTree = "<group>"; };
+		FD03F6E91FECFEE300E19304 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		FD03F6EC1FED012800E19304 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		FD37CD181FF12A9A00E2530E /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
+		FD3C1A691FF049C700B78908 /* Medications.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Medications.storyboard; sourceTree = "<group>"; };
+		FD3C1A6C1FF04B2B00B78908 /* MedicationsMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsMainViewController.swift; sourceTree = "<group>"; };
+		FD3C1A6E1FF050E800B78908 /* MedicationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationRowView.swift; sourceTree = "<group>"; };
+		FD3C1A701FF0530500B78908 /* MedicationsScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsScheduleViewController.swift; sourceTree = "<group>"; };
+		FD43685A1FF054E0003B22CE /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
+		FD43685C1FF05561003B22CE /* MedicationTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTime.swift; sourceTree = "<group>"; };
+		FD43685E1FF056BE003B22CE /* medications.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = medications.json; sourceTree = "<group>"; };
+		FD4368601FF06911003B22CE /* MedicationsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsCollectionViewController.swift; sourceTree = "<group>"; };
+		FD4368621FF075D7003B22CE /* EditMedicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMedicationViewController.swift; sourceTree = "<group>"; };
+		FD4368641FF07B4C003B22CE /* EditMedicationScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMedicationScheduleViewController.swift; sourceTree = "<group>"; };
+		FD4368661FF0ECF2003B22CE /* Food.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Food.storyboard; sourceTree = "<group>"; };
+		FD4368691FF0EF09003B22CE /* FoodIntakeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIntakeViewController.swift; sourceTree = "<group>"; };
+		FD43686B1FF0F1A1003B22CE /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		FD43686D1FF0F239003B22CE /* food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = food.json; sourceTree = "<group>"; };
+		FD43686F1FF0FE0D003B22CE /* FoodIntakeFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIntakeFormViewController.swift; sourceTree = "<group>"; };
+		FD4368711FF104EE003B22CE /* AddAssetButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssetButtonView.swift; sourceTree = "<group>"; };
+		FD4368731FF10D44003B22CE /* FoodServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodServiceCache.swift; sourceTree = "<group>"; };
+		FD4368751FF11377003B22CE /* Workout.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Workout.storyboard; sourceTree = "<group>"; };
+		FD4368781FF1160C003B22CE /* DailyWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWorkoutViewController.swift; sourceTree = "<group>"; };
+		FD43687A1FF11792003B22CE /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		FD43687C1FF11941003B22CE /* workouts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
+		FD43687E1FF1228F003B22CE /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
+		FD70AC741FEBF523003854A1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		FD70AC781FEBFC62003854A1 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceApi.swift; sourceTree = "<group>"; };
+		FD70AC7E1FEC059B003854A1 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		FD70AC821FEC05E1003854A1 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		FD70AC841FEC0606003854A1 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		FD70AC861FEC0626003854A1 /* NSManagedObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtension.swift; sourceTree = "<group>"; };
+		FD70AC881FEC0632003854A1 /* CacheableObjectMOExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableObjectMOExtension.swift; sourceTree = "<group>"; };
+		FD70AC8B1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VAKidneyNutrition.xcdatamodel; sourceTree = "<group>"; };
+		FD70AC8D1FEC0696003854A1 /* CacheableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableObject.swift; sourceTree = "<group>"; };
+		FD70AC8F1FEC0772003854A1 /* CachingServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingServiceApi.swift; sourceTree = "<group>"; };
+		FD70AC911FEC0946003854A1 /* MockServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServiceApi.swift; sourceTree = "<group>"; };
+		FD70AC931FEC0965003854A1 /* ValidationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationUtils.swift; sourceTree = "<group>"; };
+		FD70AC951FEC09D3003854A1 /* FileUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtil.swift; sourceTree = "<group>"; };
+		FD70AC971FEC0A31003854A1 /* AuthenticationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUtil.swift; sourceTree = "<group>"; };
+		FD70AC991FEC0AC6003854A1 /* UserInfoServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoServiceCache.swift; sourceTree = "<group>"; };
+		FD70AC9B1FEC1655003854A1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FD8F991B1FEFCBBF00B4A6B5 /* goalCategories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = goalCategories.json; sourceTree = "<group>"; };
+		FD8F991D1FEFCC1700B4A6B5 /* GoalCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategory.swift; sourceTree = "<group>"; };
+		FD8F991F1FEFD9DB00B4A6B5 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
+		FD94C67B1FEFFD7D0039D233 /* AddGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalViewController.swift; sourceTree = "<group>"; };
+		FD94C67D1FF00B960039D233 /* tasks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tasks.json; sourceTree = "<group>"; };
+		FD94C67F1FF00E860039D233 /* VAKidneyNutrition.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VAKidneyNutrition.entitlements; sourceTree = "<group>"; };
+		FD94C6821FF034460039D233 /* GoalServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalServiceCache.swift; sourceTree = "<group>"; };
+		FD9F95991FEC3B3E000FECAD /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		FD9F959B1FEC3C40000FECAD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FD9F959F1FEC4258000FECAD /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		FD9F95A31FEC6135000FECAD /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		FD9F95A51FEC6DFC000FECAD /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceCache.swift; sourceTree = "<group>"; };
+		FDB63C001FED03AF00015308 /* CustomTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabButton.swift; sourceTree = "<group>"; };
+		FDB63C021FED096A00015308 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		FDC95EAD1FEFB1B000C04281 /* Goals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Goals.storyboard; sourceTree = "<group>"; };
+		FDC95EB01FEFB84D00C04281 /* GoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewController.swift; sourceTree = "<group>"; };
+		FDE5D1161FEEF2D8006C7097 /* reports.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = reports.json; sourceTree = "<group>"; };
+		FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuViewController.swift; sourceTree = "<group>"; };
+		FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
+		FDE5D11F1FEF21D0006C7097 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
+		FDF397D61FEBD0C100DEED65 /* VAKidneyNutrition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VAKidneyNutrition.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDF397D91FEBD0C100DEED65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FDF397DE1FEBD0C100DEED65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FDF397E01FEBD0C100DEED65 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FDF397E31FEBD0C100DEED65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FDF397E51FEBD0C100DEED65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDF397F31FEBD2E500DEED65 /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDF397F51FEBD2E500DEED65 /* UIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIComponents.h; sourceTree = "<group>"; };
+		FDF397F61FEBD2E500DEED65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDF398001FEBD39700DEED65 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		FDF398021FEBD42700DEED65 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		FDF398041FEBD59900DEED65 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		FDF398081FEBD7F700DEED65 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
+		FDF3980A1FEBE82200DEED65 /* HelpfulFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpfulFunctions.swift; sourceTree = "<group>"; };
+		FDF748A81FEFEA5C00FB1037 /* RewardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsViewController.swift; sourceTree = "<group>"; };
+		FDF748AA1FEFEAC200FB1037 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
+		FDF748AC1FEFED6100FB1037 /* rewards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rewards.json; sourceTree = "<group>"; };
+		FDF7BBFB1FED216B0078970A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FDF7BBFD1FED41640078970A /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		FDF7BC001FED452D0078970A /* goals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = goals.json; sourceTree = "<group>"; };
+		FDF7BC021FED4B4B0078970A /* Suggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
+		FDF7BC041FED4BCB0078970A /* suggestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = suggestions.json; sourceTree = "<group>"; };
+		FDF7BC061FED60EC0078970A /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FDF397D31FEBD0C100DEED65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDF397FA1FEBD2E500DEED65 /* UIComponents.framework in Frameworks */,
+				7E1D747133B1B1334B306FD8 /* Pods_VAKidneyNutrition.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDF397EF1FEBD2E500DEED65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		307281C3CA53997C1123EF5D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				92DEE587591015103FC68D8D /* Pods-VAKidneyNutrition.debug.xcconfig */,
+				4BEDB645296CA46E752055D0 /* Pods-VAKidneyNutrition.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4EF9CA00599743F9AFAB57C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83D81CBC00F0B5DE4CD07D45 /* Pods_VAKidneyNutrition.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FD03F6EB1FED011900E19304 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FD03F6EC1FED012800E19304 /* MainViewController.swift */,
+				FDF7BBFB1FED216B0078970A /* HomeViewController.swift */,
+				FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */,
+				FD37CD181FF12A9A00E2530E /* ResourcesViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FD3C1A6B1FF04B0800B78908 /* Medications */ = {
+			isa = PBXGroup;
+			children = (
+				FD3C1A6C1FF04B2B00B78908 /* MedicationsMainViewController.swift */,
+				FD3C1A701FF0530500B78908 /* MedicationsScheduleViewController.swift */,
+				FD4368601FF06911003B22CE /* MedicationsCollectionViewController.swift */,
+				FD4368621FF075D7003B22CE /* EditMedicationViewController.swift */,
+				FD4368641FF07B4C003B22CE /* EditMedicationScheduleViewController.swift */,
+			);
+			path = Medications;
+			sourceTree = "<group>";
+		};
+		FD4368681FF0EEF9003B22CE /* Food */ = {
+			isa = PBXGroup;
+			children = (
+				FD4368691FF0EF09003B22CE /* FoodIntakeViewController.swift */,
+				FD43686F1FF0FE0D003B22CE /* FoodIntakeFormViewController.swift */,
+			);
+			path = Food;
+			sourceTree = "<group>";
+		};
+		FD4368771FF115E5003B22CE /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				FD4368781FF1160C003B22CE /* DailyWorkoutViewController.swift */,
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
+		FD70AC7A1FEC048F003854A1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				FD70AC801FEC05C2003854A1 /* Caching */,
+				FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */,
+				FD70AC911FEC0946003854A1 /* MockServiceApi.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		FD70AC7D1FEC0590003854A1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FD70AC7E1FEC059B003854A1 /* UserInfo.swift */,
+				FD70AC8D1FEC0696003854A1 /* CacheableObject.swift */,
+				FD9F95A51FEC6DFC000FECAD /* Profile.swift */,
+				FDF7BBFD1FED41640078970A /* Goal.swift */,
+				FDF7BC021FED4B4B0078970A /* Suggestion.swift */,
+				FDF7BC061FED60EC0078970A /* Report.swift */,
+				FD8F991D1FEFCC1700B4A6B5 /* GoalCategory.swift */,
+				FDF748AA1FEFEAC200FB1037 /* Reward.swift */,
+				FD43685A1FF054E0003B22CE /* Medication.swift */,
+				FD43685C1FF05561003B22CE /* MedicationTime.swift */,
+				FD43686B1FF0F1A1003B22CE /* Food.swift */,
+				FD43687A1FF11792003B22CE /* Workout.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FD70AC801FEC05C2003854A1 /* Caching */ = {
+			isa = PBXGroup;
+			children = (
+				FD70AC8F1FEC0772003854A1 /* CachingServiceApi.swift */,
+				FD70AC811FEC05D9003854A1 /* Core Data */,
+				FD70AC991FEC0AC6003854A1 /* UserInfoServiceCache.swift */,
+				FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */,
+				FD94C6821FF034460039D233 /* GoalServiceCache.swift */,
+				FD4368731FF10D44003B22CE /* FoodServiceCache.swift */,
+			);
+			path = Caching;
+			sourceTree = "<group>";
+		};
+		FD70AC811FEC05D9003854A1 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				FD70AC821FEC05E1003854A1 /* CoreDataStack.swift */,
+				FD70AC841FEC0606003854A1 /* DataService.swift */,
+				FD70AC861FEC0626003854A1 /* NSManagedObjectExtension.swift */,
+				FD70AC881FEC0632003854A1 /* CacheableObjectMOExtension.swift */,
+				FD70AC8A1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		FD9F959D1FEC41DE000FECAD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FDF398041FEBD59900DEED65 /* TermsViewController.swift */,
+				FD70AC741FEBF523003854A1 /* SignInViewController.swift */,
+				FD70AC9B1FEC1655003854A1 /* SignUpViewController.swift */,
+				FDB63C021FED096A00015308 /* RootViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		FD9F959E1FEC41E8000FECAD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FD9F959B1FEC3C40000FECAD /* ProfileViewController.swift */,
+				FD9F959F1FEC4258000FECAD /* PickerViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FDC95EAF1FEFB83B00C04281 /* Goals */ = {
+			isa = PBXGroup;
+			children = (
+				FDC95EB01FEFB84D00C04281 /* GoalsViewController.swift */,
+				FDF748A81FEFEA5C00FB1037 /* RewardsViewController.swift */,
+				FD94C67B1FEFFD7D0039D233 /* AddGoalViewController.swift */,
+			);
+			path = Goals;
+			sourceTree = "<group>";
+		};
+		FDE5D11E1FEF21C2006C7097 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				FDE5D11F1FEF21D0006C7097 /* ChartsViewController.swift */,
+				FD43687E1FF1228F003B22CE /* ReminderViewController.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		FDF397CD1FEBD0C100DEED65 = {
+			isa = PBXGroup;
+			children = (
+				FDF397D81FEBD0C100DEED65 /* VAKidneyNutrition */,
+				FDF397F41FEBD2E500DEED65 /* UIComponents */,
+				FDF397D71FEBD0C100DEED65 /* Products */,
+				307281C3CA53997C1123EF5D /* Pods */,
+				4EF9CA00599743F9AFAB57C5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FDF397D71FEBD0C100DEED65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDF397D61FEBD0C100DEED65 /* VAKidneyNutrition.app */,
+				FDF397F31FEBD2E500DEED65 /* UIComponents.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDF397D81FEBD0C100DEED65 /* VAKidneyNutrition */ = {
+			isa = PBXGroup;
+			children = (
+				FD94C67F1FF00E860039D233 /* VAKidneyNutrition.entitlements */,
+				FDF397EC1FEBD22600DEED65 /* General */,
+				FD70AC7D1FEC0590003854A1 /* Model */,
+				FDF398061FEBD5A300DEED65 /* XIBs */,
+				FDF397EB1FEBD21D00DEED65 /* View Controllers */,
+				FDF398071FEBD7EB00DEED65 /* Utils */,
+				FD70AC7A1FEC048F003854A1 /* API */,
+				FDF397ED1FEBD23000DEED65 /* Supporting Files */,
+			);
+			path = VAKidneyNutrition;
+			sourceTree = "<group>";
+		};
+		FDF397EB1FEBD21D00DEED65 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FD9F959D1FEC41DE000FECAD /* Login */,
+				FD9F959E1FEC41E8000FECAD /* Profile */,
+				FD03F6EB1FED011900E19304 /* Home */,
+				FDE5D11E1FEF21C2006C7097 /* Charts */,
+				FDC95EAF1FEFB83B00C04281 /* Goals */,
+				FD3C1A6B1FF04B0800B78908 /* Medications */,
+				FD4368681FF0EEF9003B22CE /* Food */,
+				FD4368771FF115E5003B22CE /* Workout */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FDF397EC1FEBD22600DEED65 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				FDF397D91FEBD0C100DEED65 /* AppDelegate.swift */,
+				FDF397E01FEBD0C100DEED65 /* Assets.xcassets */,
+				FDF397E21FEBD0C100DEED65 /* LaunchScreen.storyboard */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		FDF397ED1FEBD23000DEED65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FDF7BBFF1FED45150078970A /* Sample Data */,
+				FDF397E51FEBD0C100DEED65 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FDF397F41FEBD2E500DEED65 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				FDF397F51FEBD2E500DEED65 /* UIComponents.h */,
+				FDF397F61FEBD2E500DEED65 /* Info.plist */,
+				FDF398001FEBD39700DEED65 /* CustomButton.swift */,
+				FDF398021FEBD42700DEED65 /* Colors.swift */,
+				FD70AC781FEBFC62003854A1 /* CustomTextField.swift */,
+				FD9F95A31FEC6135000FECAD /* CustomView.swift */,
+				FDB63C001FED03AF00015308 /* CustomTabButton.swift */,
+				FD8F991F1FEFD9DB00B4A6B5 /* CustomProgressView.swift */,
+				FD3C1A6E1FF050E800B78908 /* MedicationRowView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		FDF398061FEBD5A300DEED65 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				FDF397DD1FEBD0C100DEED65 /* Main.storyboard */,
+				FD9F95991FEC3B3E000FECAD /* Profile.storyboard */,
+				FD03F6E91FECFEE300E19304 /* Home.storyboard */,
+				FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */,
+				FDC95EAD1FEFB1B000C04281 /* Goals.storyboard */,
+				FD3C1A691FF049C700B78908 /* Medications.storyboard */,
+				FD4368661FF0ECF2003B22CE /* Food.storyboard */,
+				FD4368751FF11377003B22CE /* Workout.storyboard */,
+			);
+			path = XIBs;
+			sourceTree = "<group>";
+		};
+		FDF398071FEBD7EB00DEED65 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FDF398081FEBD7F700DEED65 /* UIExtensions.swift */,
+				FDF3980A1FEBE82200DEED65 /* HelpfulFunctions.swift */,
+				FD70AC931FEC0965003854A1 /* ValidationUtils.swift */,
+				FD70AC951FEC09D3003854A1 /* FileUtil.swift */,
+				FD70AC971FEC0A31003854A1 /* AuthenticationUtil.swift */,
+				FD4368711FF104EE003B22CE /* AddAssetButtonView.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		FDF7BBFF1FED45150078970A /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				FDF7BC001FED452D0078970A /* goals.json */,
+				FDF7BC041FED4BCB0078970A /* suggestions.json */,
+				FDE5D1161FEEF2D8006C7097 /* reports.json */,
+				FD8F991B1FEFCBBF00B4A6B5 /* goalCategories.json */,
+				FDF748AC1FEFED6100FB1037 /* rewards.json */,
+				FD94C67D1FF00B960039D233 /* tasks.json */,
+				FD43685E1FF056BE003B22CE /* medications.json */,
+				FD43686D1FF0F239003B22CE /* food.json */,
+				FD43687C1FF11941003B22CE /* workouts.json */,
+			);
+			path = "Sample Data";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FDF397F01FEBD2E500DEED65 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDF397F71FEBD2E500DEED65 /* UIComponents.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		FDF397D51FEBD0C100DEED65 /* VAKidneyNutrition */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDF397E81FEBD0C100DEED65 /* Build configuration list for PBXNativeTarget "VAKidneyNutrition" */;
+			buildPhases = (
+				2778CC58F30CA3D7C6B6CDC8 /* [CP] Check Pods Manifest.lock */,
+				FDF397D21FEBD0C100DEED65 /* Sources */,
+				FDF397D31FEBD0C100DEED65 /* Frameworks */,
+				FDF397D41FEBD0C100DEED65 /* Resources */,
+				FDF397FF1FEBD2E500DEED65 /* Embed Frameworks */,
+				CCF9C81940F4BB742F198AAC /* [CP] Embed Pods Frameworks */,
+				8E79036A63B8BF2259427B91 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FDF397F91FEBD2E500DEED65 /* PBXTargetDependency */,
+			);
+			name = VAKidneyNutrition;
+			productName = VAKidneyNutrition;
+			productReference = FDF397D61FEBD0C100DEED65 /* VAKidneyNutrition.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FDF397F21FEBD2E500DEED65 /* UIComponents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDF397FC1FEBD2E500DEED65 /* Build configuration list for PBXNativeTarget "UIComponents" */;
+			buildPhases = (
+				FDF397EE1FEBD2E500DEED65 /* Sources */,
+				FDF397EF1FEBD2E500DEED65 /* Frameworks */,
+				FDF397F01FEBD2E500DEED65 /* Headers */,
+				FDF397F11FEBD2E500DEED65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UIComponents;
+			productName = UIComponents;
+			productReference = FDF397F31FEBD2E500DEED65 /* UIComponents.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FDF397CE1FEBD0C100DEED65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Topcoder;
+				TargetAttributes = {
+					FDF397D51FEBD0C100DEED65 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 0;
+							};
+						};
+					};
+					FDF397F21FEBD2E500DEED65 = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FDF397D11FEBD0C100DEED65 /* Build configuration list for PBXProject "VAKidneyNutrition" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FDF397CD1FEBD0C100DEED65;
+			productRefGroup = FDF397D71FEBD0C100DEED65 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FDF397D51FEBD0C100DEED65 /* VAKidneyNutrition */,
+				FDF397F21FEBD2E500DEED65 /* UIComponents */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FDF397D41FEBD0C100DEED65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDF748AD1FEFED6100FB1037 /* rewards.json in Resources */,
+				FDF397E41FEBD0C100DEED65 /* LaunchScreen.storyboard in Resources */,
+				FDF7BC051FED4BCB0078970A /* suggestions.json in Resources */,
+				FD94C67E1FF00B960039D233 /* tasks.json in Resources */,
+				FD4368761FF11377003B22CE /* Workout.storyboard in Resources */,
+				FD8F991C1FEFCBBF00B4A6B5 /* goalCategories.json in Resources */,
+				FD3C1A6A1FF049C700B78908 /* Medications.storyboard in Resources */,
+				FD43685F1FF056BE003B22CE /* medications.json in Resources */,
+				FD03F6EA1FECFEE300E19304 /* Home.storyboard in Resources */,
+				FDE5D1171FEEF2D8006C7097 /* reports.json in Resources */,
+				FDE5D11D1FEF1EDD006C7097 /* Charts.storyboard in Resources */,
+				FDC95EAE1FEFB1B000C04281 /* Goals.storyboard in Resources */,
+				FDF397E11FEBD0C100DEED65 /* Assets.xcassets in Resources */,
+				FD9F959A1FEC3B3E000FECAD /* Profile.storyboard in Resources */,
+				FD43687D1FF11941003B22CE /* workouts.json in Resources */,
+				FD43686E1FF0F239003B22CE /* food.json in Resources */,
+				FDF7BC011FED452D0078970A /* goals.json in Resources */,
+				FD4368671FF0ECF2003B22CE /* Food.storyboard in Resources */,
+				FDF397DF1FEBD0C100DEED65 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDF397F11FEBD2E500DEED65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2778CC58F30CA3D7C6B6CDC8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8E79036A63B8BF2259427B91 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VAKidneyNutrition/Pods-VAKidneyNutrition-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCF9C81940F4BB742F198AAC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VAKidneyNutrition/Pods-VAKidneyNutrition-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FDF397D21FEBD0C100DEED65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD37CD191FF12A9A00E2530E /* ResourcesViewController.swift in Sources */,
+				FD70AC9A1FEC0AC6003854A1 /* UserInfoServiceCache.swift in Sources */,
+				FD03F6ED1FED012800E19304 /* MainViewController.swift in Sources */,
+				FDF7BC071FED60EC0078970A /* Report.swift in Sources */,
+				FDC95EB11FEFB84D00C04281 /* GoalsViewController.swift in Sources */,
+				FD4368791FF1160C003B22CE /* DailyWorkoutViewController.swift in Sources */,
+				FD4368631FF075D7003B22CE /* EditMedicationViewController.swift in Sources */,
+				FD9F95A61FEC6DFD000FECAD /* Profile.swift in Sources */,
+				FDF7BC031FED4B4B0078970A /* Suggestion.swift in Sources */,
+				FD70AC961FEC09D3003854A1 /* FileUtil.swift in Sources */,
+				FD4368651FF07B4C003B22CE /* EditMedicationScheduleViewController.swift in Sources */,
+				FDF748AB1FEFEAC200FB1037 /* Reward.swift in Sources */,
+				FD70AC851FEC0606003854A1 /* DataService.swift in Sources */,
+				FD4368701FF0FE0D003B22CE /* FoodIntakeFormViewController.swift in Sources */,
+				FDF398091FEBD7F700DEED65 /* UIExtensions.swift in Sources */,
+				FD43687F1FF1228F003B22CE /* ReminderViewController.swift in Sources */,
+				FD3C1A6D1FF04B2B00B78908 /* MedicationsMainViewController.swift in Sources */,
+				FDF748A91FEFEA5C00FB1037 /* RewardsViewController.swift in Sources */,
+				FDF398051FEBD59900DEED65 /* TermsViewController.swift in Sources */,
+				FD70AC7C1FEC049E003854A1 /* ServiceApi.swift in Sources */,
+				FDF3980B1FEBE82200DEED65 /* HelpfulFunctions.swift in Sources */,
+				FD70AC8C1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld in Sources */,
+				FDE5D1201FEF21D0006C7097 /* ChartsViewController.swift in Sources */,
+				FDF7BBFE1FED41640078970A /* Goal.swift in Sources */,
+				FD43685D1FF05561003B22CE /* MedicationTime.swift in Sources */,
+				FD70AC751FEBF523003854A1 /* SignInViewController.swift in Sources */,
+				FD70AC7F1FEC059B003854A1 /* UserInfo.swift in Sources */,
+				FD70AC891FEC0632003854A1 /* CacheableObjectMOExtension.swift in Sources */,
+				FDF397DA1FEBD0C100DEED65 /* AppDelegate.swift in Sources */,
+				FD43685B1FF054E0003B22CE /* Medication.swift in Sources */,
+				FD94C67C1FEFFD7D0039D233 /* AddGoalViewController.swift in Sources */,
+				FD43686A1FF0EF09003B22CE /* FoodIntakeViewController.swift in Sources */,
+				FD94C6831FF034460039D233 /* GoalServiceCache.swift in Sources */,
+				FD4368741FF10D44003B22CE /* FoodServiceCache.swift in Sources */,
+				FD43686C1FF0F1A1003B22CE /* Food.swift in Sources */,
+				FD70AC831FEC05E1003854A1 /* CoreDataStack.swift in Sources */,
+				FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */,
+				FD43687B1FF11792003B22CE /* Workout.swift in Sources */,
+				FD70AC871FEC0626003854A1 /* NSManagedObjectExtension.swift in Sources */,
+				FD70AC9C1FEC1655003854A1 /* SignUpViewController.swift in Sources */,
+				FD4368611FF06911003B22CE /* MedicationsCollectionViewController.swift in Sources */,
+				FD8F991E1FEFCC1700B4A6B5 /* GoalCategory.swift in Sources */,
+				FD70AC941FEC0965003854A1 /* ValidationUtils.swift in Sources */,
+				FDF7BBFC1FED216B0078970A /* HomeViewController.swift in Sources */,
+				FD70AC901FEC0772003854A1 /* CachingServiceApi.swift in Sources */,
+				FDB63C031FED096A00015308 /* RootViewController.swift in Sources */,
+				FD70AC921FEC0946003854A1 /* MockServiceApi.swift in Sources */,
+				FD9F95A81FEC7018000FECAD /* ProfileServiceCache.swift in Sources */,
+				FD9F95A01FEC4258000FECAD /* PickerViewController.swift in Sources */,
+				FD9F959C1FEC3C40000FECAD /* ProfileViewController.swift in Sources */,
+				FD70AC8E1FEC0696003854A1 /* CacheableObject.swift in Sources */,
+				FD3C1A711FF0530500B78908 /* MedicationsScheduleViewController.swift in Sources */,
+				FD70AC981FEC0A31003854A1 /* AuthenticationUtil.swift in Sources */,
+				FD4368721FF104EE003B22CE /* AddAssetButtonView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDF397EE1FEBD2E500DEED65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD9F95A41FEC6135000FECAD /* CustomView.swift in Sources */,
+				FD70AC791FEBFC62003854A1 /* CustomTextField.swift in Sources */,
+				FD3C1A6F1FF050E800B78908 /* MedicationRowView.swift in Sources */,
+				FDF398011FEBD39700DEED65 /* CustomButton.swift in Sources */,
+				FDB63C011FED03AF00015308 /* CustomTabButton.swift in Sources */,
+				FDF398031FEBD42700DEED65 /* Colors.swift in Sources */,
+				FD8F99201FEFD9DB00B4A6B5 /* CustomProgressView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FDF397F91FEBD2E500DEED65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDF397F21FEBD2E500DEED65 /* UIComponents */;
+			targetProxy = FDF397F81FEBD2E500DEED65 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FDF397DD1FEBD0C100DEED65 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDF397DE1FEBD0C100DEED65 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FDF397E21FEBD0C100DEED65 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDF397E31FEBD0C100DEED65 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FDF397E61FEBD0C100DEED65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FDF397E71FEBD0C100DEED65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FDF397E91FEBD0C100DEED65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92DEE587591015103FC68D8D /* Pods-VAKidneyNutrition.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
+				INFOPLIST_FILE = "VAKidneyNutrition/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.VAKidneyNutrition;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		FDF397EA1FEBD0C100DEED65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BEDB645296CA46E752055D0 /* Pods-VAKidneyNutrition.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
+				INFOPLIST_FILE = "VAKidneyNutrition/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.VAKidneyNutrition;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		FDF397FD1FEBD2E500DEED65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = UIComponents/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.UIComponents;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FDF397FE1FEBD2E500DEED65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = UIComponents/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.UIComponents;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FDF397D11FEBD0C100DEED65 /* Build configuration list for PBXProject "VAKidneyNutrition" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDF397E61FEBD0C100DEED65 /* Debug */,
+				FDF397E71FEBD0C100DEED65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDF397E81FEBD0C100DEED65 /* Build configuration list for PBXNativeTarget "VAKidneyNutrition" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDF397E91FEBD0C100DEED65 /* Debug */,
+				FDF397EA1FEBD0C100DEED65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDF397FC1FEBD2E500DEED65 /* Build configuration list for PBXNativeTarget "UIComponents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDF397FD1FEBD2E500DEED65 /* Debug */,
+				FDF397FE1FEBD2E500DEED65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FD70AC8A1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FD70AC8B1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodel */,
+			);
+			currentVersion = FD70AC8B1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodel */;
+			path = VAKidneyNutrition.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FDF397CE1FEBD0C100DEED65 /* Project object */;
+}

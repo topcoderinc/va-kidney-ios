@@ -1,0 +1,37 @@
+[
+ {
+ "id": 1,
+ "points": 600,
+ "isCompleted": true,
+ "text": "Reward description goes here",
+ "message": "Reward Claimed!"
+ },
+ {
+ "id": 2,
+ "points": 1000,
+ "isCompleted": false,
+ "text": "Reward description goes here",
+ "message": "Claim Reward"
+ },
+ {
+ "id": 3,
+ "points": 1000,
+ "isCompleted": false,
+ "text": "Reward description goes here",
+ "message": "Claim Reward"
+ },
+ {
+ "id": 4,
+ "points": 2000,
+ "isCompleted": false,
+ "text": "Reward description goes here",
+ "message": "Waiting for you to reach here!"
+ },
+ {
+ "id": 5,
+ "points": 1500,
+ "isCompleted": false,
+ "text": "Reward description goes here",
+ "message": "Earn more points and unlock!"
+ }
+ ]

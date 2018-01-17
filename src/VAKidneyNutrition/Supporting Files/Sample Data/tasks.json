@@ -1,0 +1,42 @@
+[
+ {
+ "categoryId": 2,
+ "title": "Weight loss",
+ "unit1": "kilogram",
+ "unitMultiple": "kilograms",
+ "min": 20,
+ "max": 100
+ },
+ {
+ "categoryId": 1,
+ "title": "Water Intake",
+ "unit1": "glass",
+ "unitMultiple": "glasses",
+ "min": 3,
+ "max": 20
+ },
+ {
+ "categoryId": 1,
+ "title": "Fruits/Veggies",
+ "unit1": "bowl",
+ "unitMultiple": "bowls",
+ "min": 1,
+ "max": 10
+ },
+ {
+ "categoryId": 2,
+ "title": "Run",
+ "unit1": "mile",
+ "unitMultiple": "miles",
+ "min": 1,
+ "max": 30
+ },
+ {
+ "categoryId": 3,
+ "title": "Pills",
+ "unit1": "pill",
+ "unitMultiple": "pills",
+ "min": 1,
+ "max": 12
+ }
+ ]

@@ -1,0 +1,95 @@
+[
+ {
+ "id": 1,
+ "title": "eGFR",
+ "units": 1,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "overflow",
+ "showTwoButtons": true
+ },
+ {
+ "id": 2,
+ "title": "Blood Sugar",
+ "units": 9,
+ "lastEventDate": "2017-12-23",
+ "limitStatus": "within",
+ "showTwoButtons": true
+ },
+ {
+ "id": 3,
+ "title": "Body Weight",
+ "units": 4,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "within",
+ "showTwoButtons": true
+ },
+ {
+ "id": 4,
+ "title": "Potassium",
+ "showTwoButtons": false
+ },
+ {
+ "id": 5,
+ "title": "Phosphorus",
+ "units": 10,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "below",
+ "showTwoButtons": true
+ },
+ {
+ "id": 6,
+ "title": "Haemoglobin A1c",
+ "units": 5,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "within",
+ "showTwoButtons": true
+ },
+ {
+ "id": 7,
+ "title": "Calcium",
+ "units": 11,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "within",
+ "showTwoButtons": true
+ },
+ {
+ "id": 8,
+ "title": "Bicarbonate",
+ "units": 6,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "below",
+ "showTwoButtons": true
+ },
+ {
+ "id": 9,
+ "title": "Uric Acid",
+ "units": 12,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "below",
+ "showTwoButtons": true
+ },
+ {
+ "id": 10,
+ "title": "Vitamin D",
+ "units": 7,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "within",
+ "showTwoButtons": true
+ },
+ {
+ "id": 11,
+ "title": "Albumin",
+ "units": 13,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "overflow",
+ "showTwoButtons": true
+ },
+ {
+ "id": 12,
+ "title": "Blood Pressure",
+ "units": 8,
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "overflow",
+ "showTwoButtons": true
+ },
+ ]
