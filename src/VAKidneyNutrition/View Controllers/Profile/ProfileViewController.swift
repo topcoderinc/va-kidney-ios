@@ -3,26 +3,65 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
 
-/// Possible types of profile data
+/// option: true - will add "Done" button and will save only after that, false - will save immidiately
+let OPTION_PROFILE_ADD_DONE_BUTTON = false
+
+/**
+ * Possible types of profile data
+ *
+ * - author: TCCODER
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - icons for types
+ */
 enum ProfileDataType {
-    case name, age, height, currentWeight, dialysis, diseaseCategory, setupGoals, avatar, devices
+    case name, date, height, currentWeight, dialysis, diseaseCategory, setupGoals, avatar, devices
+
+    /// Get icon
+    ///
+    /// - Returns: the image icon
+    func getIcon() -> UIImage {
+        switch self {
+        case .date: return #imageLiteral(resourceName: "iconBirth")
+        case .height: return #imageLiteral(resourceName: "iconHeight")
+        case .currentWeight: return #imageLiteral(resourceName: "iconWeight")
+        case .dialysis, .diseaseCategory: return #imageLiteral(resourceName: "iconQuestion")
+        case .setupGoals: return #imageLiteral(resourceName: "iconSetupGoals")
+        case .avatar: return #imageLiteral(resourceName: "iconAvatar")
+        case .devices: return #imageLiteral(resourceName: "iconDevices")
+        default:
+            return UIImage()
+        }
+    }
 }
 
 /// Possible types of profile items
 enum ProfilePickerType {
-    case text, picker, avatar, devices
+    case text, picker, avatar
 }
 
 /// boolean labels
 let YES = NSLocalizedString("Yes", comment: "Yes")
 let NO = NSLocalizedString("No", comment: "No")
 
-/// The profile item
+/**
+ * The profile item
+ *
+ * - author: TCCODER
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - birthday selection support
+ */
 class ProfileDataItem {
 
     /// the title
@@ -51,6 +90,10 @@ class ProfileDataItem {
     func getValue() -> String {
         if let value = value as? Bool {
             return value ? YES : NO
+        }
+        else if let date = value as? Date {
+            let years = date.yearsSinceDate()
+            return "\(years) \(years == 1 ? NSLocalizedString("year", comment: "year") : NSLocalizedString("years", comment: "years"))"
         }
         else if let value = value {
             return "\(value)"
@@ -81,7 +124,7 @@ class HeightProfileDataItem: ProfileDataItem {
     /// - Returns: the value
     override func getValue() -> String {
         if let value = value as? Int {
-            return "\(value) " + NSLocalizedString("cm", comment: "cm")
+            return "\(value)"
         }
         return super.getValue()
     }
@@ -95,7 +138,7 @@ class WeightProfileDataItem: ProfileDataItem {
     /// - Returns: the value
     override func getValue() -> String {
         if let value = value as? Int {
-            return "\(value) " + NSLocalizedString("kg", comment: "kg")
+            return "\(value)"
         }
         return super.getValue()
     }
@@ -105,12 +148,19 @@ class WeightProfileDataItem: ProfileDataItem {
  * Profile screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
-class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PickerViewControllerDelegate, AddAssetButtonViewDelegate {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PickerViewControllerDelegate, AddAssetButtonViewDelegate, DatePickerViewControllerDelegate {
 
     /// outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var birthDateLabel: UILabel!
 
     /// the items to show
     private var items = [ProfileDataItem]()
@@ -136,43 +186,89 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentOffset.y = -tableView.contentInset.top
+
+        profileImageView.makeRound()
+        profileImageView.addBorder(color: UIColor.white, borderWidth: 1)
         if profile == nil {
             navigationItem.leftBarButtonItem = nil
         }
         else {
             setupNavigation()
-            let item = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
-            self.navigationItem.rightBarButtonItem = item
+            if OPTION_PROFILE_ADD_DONE_BUTTON {
+                let item = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
+                self.navigationItem.rightBarButtonItem = item
+            }
+            else {
+                self.navigationItem.rightBarButtonItem = nil
+            }
         }
         loadData()
+
+    }
+
+    /// Setup navigation bar
+    ///
+    /// - Parameter animated: the animation flag
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
+    }
+
+    /// Setup navigation bar
+    ///
+    /// - Parameter animated: the animation flag
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupNavigationBar()
+    }
+
+    /// Setup navigation bar
+    private func setupNavigationBar() {
+        self.view.layer.masksToBounds = false
+        self.view.superview?.layer.masksToBounds = false
+        self.view.superview?.superview?.layer.masksToBounds = false
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.layer.masksToBounds = false
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
 
     /// Load data
     private func loadData() {
+        self.userNameLabel.text = ""
+        self.birthDateLabel.text = ""
+        self.profileImageView.image = #imageLiteral(resourceName: "noProfileIcon")
         if let profile = profile {
+            self.userNameLabel.text = profile.name.uppercased()
+            if let date = profile.birthday {
+                self.birthDateLabel.text = DateFormatters.shortDate.string(from: date)
+            }
+            if let image = profile.image {
+                self.profileImageView.image = image
+            }
             items = [
-                ProfileDataItem(title: "Name", type: .text, dataType: .name, value: profile.name),
-                AgeProfileDataItem(title: "Age", type: .picker, dataType: .age, value: profile.age),
+                AgeProfileDataItem(title: "Age", type: .picker, dataType: .date, value: profile.birthday),
                 HeightProfileDataItem(title: "Height", type: .picker, dataType: .height, value: profile.height),
                 WeightProfileDataItem(title: "Current Weight", type: .picker, dataType: .currentWeight, value: profile.currentWeight),
                 ProfileDataItem(title: "Are you on Dialysis?", type: .picker, dataType: .dialysis, value: profile.dialysis),
                 ProfileDataItem(title: "Disease Category", type: .picker, dataType: .diseaseCategory, value: profile.diseaseCategory),
-                ProfileDataItem(title: "Want to setup goals", type: .picker, dataType: .setupGoals, value: profile.setupGoals),
+                ProfileDataItem(title: "Want to setup goals?", type: .picker, dataType: .setupGoals, value: profile.setupGoals),
                 ProfileDataItem(title: "Avatar", type: .avatar, dataType: .avatar, value: profile.image),
-                ProfileDataItem(title: "Add Biometric Devices", type: .devices, dataType: .devices),
+                ProfileDataItem(title: "Add Biometric Device", type: .picker, dataType: .devices, value: profile.addDevice),
             ]
         }
         else {
             items = [
                 ProfileDataItem(title: "Name", type: .text, dataType: .name),
-                AgeProfileDataItem(title: "Age", type: .picker, dataType: .age),
+                AgeProfileDataItem(title: "Date of Birth", type: .picker, dataType: .date),
                 HeightProfileDataItem(title: "Height", type: .picker, dataType: .height),
                 WeightProfileDataItem(title: "Current Weight", type: .picker, dataType: .currentWeight),
                 ProfileDataItem(title: "Are you on Dialysis?", type: .picker, dataType: .dialysis, value: false),
                 ProfileDataItem(title: "Disease Category", type: .picker, dataType: .diseaseCategory),
                 ProfileDataItem(title: "Want to setup goals", type: .picker, dataType: .setupGoals, value: false),
                 ProfileDataItem(title: "Avatar", type: .avatar, dataType: .avatar),
-                ProfileDataItem(title: "Add Biometric Devices", type: .devices, dataType: .devices),
+                ProfileDataItem(title: "Add Biometric Devices", type: .picker, dataType: .devices),
             ]
         }
         tableView.reloadData()
@@ -182,20 +278,25 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     ///
     /// - parameter sender: the button
     @IBAction func doneAction(_ sender: Any) {
+        saveProfile()
+    }
+
+    /// Save profile
+    private func saveProfile() {
         guard let userInfo = AuthenticationUtil.sharedInstance.userInfo else { return }
 
         let profile = self.profile ?? Profile(id: "")
-        profile.name = (tableView?.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileNameCell)?.nameField.text ?? ""
-        profile.age = items.filter({$0.dataType == .age}).first?.value as? Int ?? -1
+        profile.birthday = items.filter({$0.dataType == .date}).first?.value as? Date
         profile.height = items.filter({$0.dataType == .height}).first?.value as? Int ?? -1
         profile.currentWeight = items.filter({$0.dataType == .currentWeight}).first?.value as? Int ?? -1
         profile.dialysis = items.filter({$0.dataType == .dialysis}).first?.value as? Bool ?? false
         profile.diseaseCategory = items.filter({$0.dataType == .diseaseCategory}).first?.value as? String ?? ""
         profile.setupGoals = items.filter({$0.dataType == .setupGoals}).first?.value as? Bool ?? false
         profile.image = items.filter({$0.dataType == .avatar}).first?.value as? UIImage
+        profile.addDevice = items.filter({$0.dataType == .devices}).first?.value as? Bool ?? false
 
         if profile.name.isEmpty
-            || profile.age < 0
+            || profile.birthday == nil
             || profile.height < 0
             || profile.currentWeight < 0
             || profile.diseaseCategory.isEmpty {
@@ -206,19 +307,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             return
         }
 
-        let loadingView = showLoadingView()
+        let loadingView = OPTION_PROFILE_ADD_DONE_BUTTON ? showLoadingView() : nil
         if self.profile == nil {
             self.api.register(userInfo: userInfo, profile: profile, callback: { (_) in
                 loadingView?.terminate()
-                self.dismiss(animated: true, completion: {
-                    self.openHomeScreen()
-                })
+                if OPTION_PROFILE_ADD_DONE_BUTTON {
+                    self.dismiss(animated: true, completion: {
+                        self.openHomeScreen()
+                    })
+                }
             }, failure: createGeneralFailureCallback(loadingView))
         }
         else {
             api.updateProfile(profile, callback: {
                 loadingView?.terminate()
-                MainViewControllerReference?.openHomeTab()
+                if OPTION_PROFILE_ADD_DONE_BUTTON {
+                    MainViewControllerReference?.openHomeTab()
+                }
             }, failure: createGeneralFailureCallback(loadingView))
         }
     }
@@ -247,24 +352,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
-        switch item.type {
-        case .picker:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "subtitle", for: indexPath)
-            cell.configure(item)
-            return cell
-        case .avatar:
-            let cell = tableView.getCell(indexPath, ofClass: AvatarTableViewCell.self)
-            cell.configureWithImage(item)
-            return cell
-        case .devices:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "basic", for: indexPath)
-            cell.configure(item)
-            return cell
-        case .text:
-            let cell = tableView.getCell(indexPath, ofClass: ProfileNameCell.self)
-            cell.configureText(item)
-            return cell
-        }
+        let cell = tableView.getCell(indexPath, ofClass: ProfileItemCell.self)
+        cell.configureItem(item)
+        return cell
     }
 
     /**
@@ -282,16 +372,19 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             var data = [String]()
             lastSelectedPickerType = item.dataType
             switch item.dataType {
-            case .age:
-                data = Array(0...100).map{"\($0)"}
-                selected = "\(item.value ?? 52)"
+            case .date:
+                DatePickerViewController.show(title: NSLocalizedString("Select Date of Birth", comment: "Select Date of Birth"),
+                                              selectedDate: self.profile?.birthday,
+                                              datePickerMode: .date,
+                                              delegate: self)
+                return
             case .height:
                 data = Array(30...220).map{"\($0)"}
                 selected = "\(item.value ?? 162)"
             case .currentWeight:
                 data = Array(20...200).map{"\($0)"}
                 selected = "\(item.value ?? 75)"
-            case .dialysis, .setupGoals:
+            case .dialysis, .setupGoals, .devices:
                 data = [YES, NO]
                 selected = (item.value as? Bool ?? false) ? YES : NO
             case .diseaseCategory:
@@ -306,8 +399,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case .avatar:
             imageUtil.delegate = self
             imageUtil.addAssetButtonTapped(imageUtil)
-        case .devices:
-            showStub()
         case .text:
             break
         }
@@ -315,6 +406,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
     // MARK: - PickerViewControllerDelegate
 
+    /// Picker value updated
+    ///
+    /// - Parameters:
+    ///   - value: the value
+    ///   - picker: the picker
     func pickerValueUpdated(_ value: String, picker: PickerViewController) {
         if let item = items.filter({$0.dataType == lastSelectedPickerType}).first {
             if value == YES {
@@ -330,6 +426,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 item.value = value
             }
             tableView.reloadData()
+            if !OPTION_PROFILE_ADD_DONE_BUTTON {
+                saveProfile()
+            }
         }
     }
 
@@ -347,6 +446,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 item.value = image
             }
             tableView.reloadData()
+            profileImageView.image = image
+            if !OPTION_PROFILE_ADD_DONE_BUTTON {
+                self.saveProfile()
+            }
         }
     }
 
@@ -354,57 +457,20 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func addAssetButtonTapped(_ view: AddAssetButtonView) {
         // nothing to do
     }
-}
 
-/**
- * Table cell
- *
- * - author: TCCODER
- * - version: 1.0
- */
-extension UITableViewCell {
+    // MARK: - DatePickerViewControllerDelegate
 
-    /// Update UI
+    /// Update birthday
     ///
-    /// - Parameter item: the item
-    func configure(_ item: ProfileDataItem) {
-        textLabel?.text = item.title
-        switch item.type {
-        case .picker:
-            detailTextLabel?.text = item.getValue()
-        default:
-            break
-        }
-    }
-}
-
-/**
- * Avatar cell
- *
- * - author: TCCODER
- * - version: 1.0
- */
-class AvatarTableViewCell: UITableViewCell {
-
-    /// the image
-    private var customImage: UIImageView!
-
-    /// Setup UI
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        let width: CGFloat = 44
-        let x = UIScreen.main.bounds.width / 4 * 3
-        customImage = UIImageView(frame: CGRect(x: x, y: 0, width: width, height: width))
-        self.addSubview(customImage)
-    }
-
-    /// Update UI
-    ///
-    /// - Parameter item: the item
-    func configureWithImage(_ item: ProfileDataItem) {
-        configure(item)
-        if let image = item.value as? UIImage {
-            self.customImage.image = image
+    /// - Parameters:
+    ///   - date: the date
+    ///   - picker: the picker
+    func datePickerDateSelected(_ date: Date, picker: DatePickerViewController) {
+        items.filter({$0.dataType == .date}).first?.value = date
+        birthDateLabel.text = DateFormatters.shortDate.string(from: date)
+        tableView.reloadData()
+        if !OPTION_PROFILE_ADD_DONE_BUTTON {
+            saveProfile()
         }
     }
 }
@@ -413,24 +479,67 @@ class AvatarTableViewCell: UITableViewCell {
  * Name field cell
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
-class ProfileNameCell: UITableViewCell {
+class ProfileItemCell: ZeroMarginsCell {
 
-    /// the image
-    @IBOutlet weak var nameField: UITextField!
+    /// outlets
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var valueEndingLabel: UILabel!
+    @IBOutlet weak var iconView: UIImageView!
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var shadowView: UIView!
 
     /// Setup UI
     override func awakeFromNib() {
         super.awakeFromNib()
+        mainView.roundCorners(3)
+        self.backgroundColor = UIColor.clear
+        self.contentView.backgroundColor = UIColor.clear
+        shadowView.addShadow(size: 3, shift: 2)
     }
 
     /// Update UI
     ///
     /// - Parameter item: the item
-    func configureText(_ item: ProfileDataItem) {
-        if let text = item.value as? String {
-            self.nameField.text = text
+    func configureItem(_ item: ProfileDataItem) {
+        iconView.image = item.dataType.getIcon()
+        titleLabel.text = item.title
+
+        switch item.dataType {
+        case .height:
+            valueEndingLabel.text = NSLocalizedString("cm", comment: "cm")
+        case .currentWeight:
+            if item.getValue() == "1" {
+                valueEndingLabel.text = NSLocalizedString("pound", comment: "pound")
+            }
+            else {
+                valueEndingLabel.text = NSLocalizedString("pounds", comment: "pounds")
+            }
+        default:
+            valueEndingLabel.text = ""
         }
+        switch item.type {
+        case .picker:
+            self.valueLabel.text = item.getValue()
+        case .avatar:
+            self.valueLabel.text = (item.value as? UIImage != nil) ? "Yes" : "No"
+        default:
+            if let text = item.value as? String {
+                self.valueLabel.text = text
+            }
+            else if let date = item.value as? Date {
+                self.valueLabel.text = DateFormatters.shortDate.string(from: date)
+            }
+            else {
+                self.valueLabel.text = ""
+            }
+        }
+
     }
 }

@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/22/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -15,13 +16,21 @@ var MainViewControllerReference: MainViewController?
  * Main view controller containing tab buttons
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
 class MainViewController: UIViewController {
 
     /// outlets
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var tabButtons: [CustomTabButton]!
+    @IBOutlet var tabTitles: [UILabel]!
+    @IBOutlet weak var tabButtonsView: UIView!
+    @IBOutlet weak var activeTabMarkerLeftMargin: NSLayoutConstraint!
+    @IBOutlet weak var activeTabMarkerView: UIView!
 
     /// the last selected tab index
     private var lastSelectedTabIndex: Int = -1
@@ -33,9 +42,17 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         MainViewControllerReference = self
-        tabButtonAction(tabButtons.filter({$0.tag == 0}).first!)
+        self.view.backgroundColor = Colors.darkBlue
+        tabButtonAction(tabButtons.filter({$0.tag == 0}).first!) // set to 0
+        tabButtonsView.addShadow(size: 3, shift: 0, opacity: 0.4)
+        tabButtonsView.backgroundColor = Colors.darkBlue
     }
 
+    /// Light status bar
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     /// Tab button action handler
     ///
     /// - parameter sender: the button
@@ -52,7 +69,7 @@ class MainViewController: UIViewController {
         case 1:
             openCharts()
         case 2:
-            if let vc = create(MedicationsMainViewController.self, storyboardName: "Medications")?.wrapInNavigationController() {
+            if let vc = create(MedicationsTableViewController.self, storyboardName: "Medications")?.wrapInNavigationController() {
                 lastLoadedViewController = vc
                 self.loadViewController(vc, self.containerView)
             }
@@ -76,14 +93,27 @@ class MainViewController: UIViewController {
     /// - Parameter index: the index
     func setSelectedTab(index: Int) {
         lastSelectedTabIndex = index
+        activeTabMarkerView.isHidden = true
         for button in tabButtons {
             button.isSelected = index == button.tag
+            button.tintColor = (index == button.tag) ? UIColor.white : Colors.blue
+            if button.isSelected {
+                CurrentMenuItem = -1
+                activeTabMarkerView.isHidden = false
+                UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [.beginFromCurrentState, .curveEaseOut], animations: {
+                    self.activeTabMarkerLeftMargin.constant = button.frame.origin.x + button.bounds.width / 2 - self.activeTabMarkerView.bounds.width / 2
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            }
+        }
+        for label in tabTitles {
+            label.textColor = (index == label.tag) ? UIColor.white : Colors.blue
         }
     }
 
     /// Open Home tab
     func openHomeTab() {
-        if let vc = create(HomeViewController.self, storyboardName: "Home")?.wrapInNavigationController() {
+        if let vc = create(HomeContainerViewController.self, storyboardName: "Home")?.wrapInNavigationController() {
             lastLoadedViewController = vc
             self.loadViewController(vc, self.containerView)
         }
@@ -97,7 +127,7 @@ class MainViewController: UIViewController {
             setSelectedTab(index: 1)
             lastLoadedViewController?.removeFromParent()
         }
-        if let vc = createInitialViewController(fromStoryboard: "Charts") as? ChartsViewController {
+        if let vc = createInitialViewController(fromStoryboard: "Charts") as? ChartViewController {
             vc.report = report
             let nav = vc.wrapInNavigationController()
             lastLoadedViewController = nav

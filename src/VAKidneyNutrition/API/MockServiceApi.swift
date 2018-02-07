@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import Foundation
@@ -15,13 +16,17 @@ let ERROR_ACCOUNT_EXISTS_USERNAME = NSLocalizedString("Account with given userna
 let ERROR_ACCOUNT_EXISTS_EMAIL = NSLocalizedString("Account with given email already exists", comment: "Account with given email already exists")
 
 /// the number of seconds to delay before callback is invoked
-let DELAY_FOR_DEMONSTRATION: TimeInterval = 1
+let DELAY_FOR_DEMONSTRATION: TimeInterval = 0.5
 
 /**
  * Mock ServiceApi implementation. Provides static data.
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes support
  */
 class MockServiceApi: ServiceApi {
 
@@ -35,6 +40,9 @@ class MockServiceApi: ServiceApi {
     private var allCities: [String]?
     private var citiesByState = [String:[String]]()
 
+    /// flag: true - goals was deleted, false - else
+    var goalsDeleted = false
+
     /// Authenticate using given email and password
     ///
     /// - Parameters:
@@ -42,15 +50,28 @@ class MockServiceApi: ServiceApi {
     ///   - password: the password
     ///   - callback: the callback to invoke when successfully authenticated and return UserInfo and Profile
     ///   - failure: the callback to invoke when an error occurred
-    func authenticate(email: String, password: String, callback: @escaping (UserInfo) -> (), failure: @escaping FailureCallback) {
-        let emptyStringCallback: FailureCallback = { (_) -> () in
-            failure(ERROR_EMPTY_CREDENTIALS)
-        }
-        if !ValidationUtils.validateEmail(email, emptyStringCallback)
-            || !ValidationUtils.validateStringNotEmpty(password, emptyStringCallback) {
+    func authenticate(email: String, password: String, callback: @escaping (UserInfo) -> (), failure: @escaping (String?, String?)->()) {
+        if !ValidationUtils.validateStringNotEmpty(email, { error in failure(ERROR_EMPTY_CREDENTIALS, nil) })
+            || !ValidationUtils.validateEmail(email, { error in failure(error, nil) })
+            || !ValidationUtils.validateStringNotEmpty(password, { error in failure(nil, ERROR_EMPTY_CREDENTIALS) }) {
             return
         }
-        failure(ERROR_WRONG_CREDENTIALS)
+
+        if let json = JSON.resource(named: "sampleAccount") {
+            let userInfo = UserInfo.fromJson(json)
+            if userInfo.email == email && userInfo.password == password {
+                AuthenticationUtil.sharedInstance.userInfo = userInfo
+                callback(userInfo)
+                return
+            }
+            else if userInfo.email != email {
+                failure(ERROR_WRONG_CREDENTIALS, ERROR_WRONG_CREDENTIALS)
+            }
+            else if userInfo.password != password {
+                failure(nil, ERROR_WRONG_CREDENTIALS)
+            }
+        }
+
     }
 
     /// Checks only if the fields are correctly filled and if they do not match to demo account.
@@ -103,7 +124,17 @@ class MockServiceApi: ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func getProfile(callback: @escaping (Profile) -> (), failure: @escaping FailureCallback) {
-        failure("Not supported")
+        if let json = JSON.resource(named: "sampleAccount"),
+            let currentUser = AuthenticationUtil.sharedInstance.userInfo {
+            let userInfo = UserInfo.fromJson(json)
+            if userInfo.email == currentUser.email && userInfo.password == currentUser.password {
+                let object = Profile.fromJson(json)
+                callback(object)
+            }
+            else {
+                failure(NSLocalizedString("Profile not found", comment: "Profile not found"))
+            }
+        }
     }
 
     /// Update profile. R->C
@@ -135,6 +166,7 @@ class MockServiceApi: ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func logout(callback: @escaping ()->(), failure: @escaping FailureCallback) {
+        goalsDeleted = false
         callback()
     }
 
@@ -143,6 +175,10 @@ class MockServiceApi: ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func getGoals(callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback) {
+        if goalsDeleted {
+            callback([], [])
+            return
+        }
         if let json = JSON.resource(named: "goals") {
             var goals = json.arrayValue.map({Goal.fromJson($0)})
             getCategories(callback: { (categories) in
@@ -167,6 +203,17 @@ class MockServiceApi: ServiceApi {
     ///   - failure: the failure callback to return an error
     func saveGoal(goal: Goal, callback: @escaping (Goal)->(), failure: @escaping FailureCallback) {
         failure("Not supported")
+    }
+
+    /// Delete goal
+    ///
+    /// - Parameters:
+    ///   - goal: the goal
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func deleteGoal(goal: Goal, callback: @escaping ()->(), failure: @escaping FailureCallback) {
+        goalsDeleted = true
+        callback()
     }
 
     class func applyCategories(_ list: [GoalCategory], toGoals goals: [Goal]) {
@@ -240,19 +287,21 @@ class MockServiceApi: ServiceApi {
     ///   - failure: the failure callback to return an error
     func getSuggestion(forReport report: Report, callback: @escaping (Suggestion?)->(), failure: @escaping FailureCallback) {
         if report.lastEventDate != nil {
-            getMainSuggestion(callback: callback, failure: failure)
+            self.getMainSuggestions(callback: { items in
+                callback(items.first)
+            }, failure: failure)
         }
         callback(nil)
     }
 
-    /// Get suggestion for Home screen
+    /// Get suggestions for Home screen
     ///
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getMainSuggestion(callback: @escaping (Suggestion?)->(), failure: @escaping FailureCallback) {
+    func getMainSuggestions(callback: @escaping ([Suggestion])->(), failure: @escaping FailureCallback) {
         if let json = JSON.resource(named: "suggestions") {
             let suggestions = json.arrayValue.map({Suggestion.fromJson($0)})
-            callback(suggestions.first)
+            callback(suggestions)
             return
         }
     }
@@ -289,12 +338,13 @@ class MockServiceApi: ServiceApi {
     ///   - task: the task
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getUnits(task: Task, callback: @escaping (TaskUnitLimits, TaskUnitSuffix)->(), failure: @escaping FailureCallback) {
+    func getUnits(task: Task, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback) {
         if let json = JSON.resource(named: "tasks"),
             let task = json.arrayValue.filter({$0["title"].stringValue == task}).first {
-            let limits: TaskUnitLimits = task["min"].intValue...task["max"].intValue
-            let suffixes: TaskUnitSuffix = (task["unit1"].stringValue, task["unitMultiple"].stringValue)
-            callback(limits, suffixes)
+            let limits: TaskUnitLimits = (task["min"].intValue...task["max"].intValue, task["interval"].intValue)
+            let suffixes: TaskUnitSuffix = (task["unit1"].stringValue, task["unitMultiple"].stringValue, task["valueText"].stringValue)
+            let extra: TaskExtraData = (task["iconName"].stringValue, UIColor.fromString(task["color"].stringValue) ?? .red)
+            callback(limits, suffixes, extra)
             return
         }
         failure("Not found")
@@ -357,6 +407,57 @@ class MockServiceApi: ServiceApi {
             }
             callback(medications)
             return
+        }
+    }
+
+    /// Get medication resources
+    ///
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getMedicationResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback) {
+        delay(DELAY_FOR_DEMONSTRATION) {
+            if let json = JSON.resource(named: "medicationResources") {
+                let items = json.arrayValue.map({($0["title"].stringValue, $0["items"].arrayValue.map({MedicationResource.fromJson($0)}))})
+                callback(items)
+            }
+        }
+    }
+
+    /// Get drag resources
+    ///
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getDragResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback) {
+        delay(DELAY_FOR_DEMONSTRATION) {
+            if let json = JSON.resource(named: "dragResources") {
+                let items = json.arrayValue.map({($0["title"].stringValue, $0["items"].arrayValue.map({MedicationResource.fromJson($0)}))})
+                callback(items)
+            }
+        }
+    }
+
+    /// Get resources.
+    /// Uses the same sample JSON file for all `types`.
+    ///
+    ///   - type: the type
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getResources(type: ResourceType, callback: @escaping ([Resource])->(), failure: @escaping FailureCallback) {
+        delay(DELAY_FOR_DEMONSTRATION) {
+            if let json = JSON.resource(named: "resources") {
+                let items = json.arrayValue.map({Resource.fromJson($0)})
+                callback(items)
+            }
+        }
+    }
+
+    /// Get goal form tips
+    ///
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getGoalTip(callback: @escaping (JSON)->(), failure: @escaping FailureCallback) {
+        if let json = JSON.resource(named: "goalTips") {
+            callback(json)
         }
     }
 

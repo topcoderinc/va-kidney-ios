@@ -3,31 +3,41 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/22/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 
-/// Possible report statuses in relation to the limit
-///
-/// - below: below the limit
-/// - overflow: overflow the limit
-/// - within: within the limit
+/**
+ * Possible report statuses in relation to the limit
+ *
+ * - below: below the limit
+ * - overflow: overflow the limit
+ * - within: within the limit
+ *
+ * - author: TCCODER
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - smile icons changed
+ */
 enum ReportLimitStatus: String {
     case below = "below", overflow = "overflow", within = "within"
 
     /// Get icon image
     ///
     /// - Returns: the image
-    func getIconImage() -> UIImage {
+    func getIconImage() -> UIImage? {
         switch self {
         case .below:
             return UIImage(named: "limitBelow") ?? UIImage()
         case .overflow:
             return UIImage(named: "limitOverflow") ?? UIImage()
         case .within:
-            return UIImage(named: "limitWithin") ?? UIImage()
+            return nil
         }
     }
 
@@ -38,8 +48,10 @@ enum ReportLimitStatus: String {
         switch self {
         case .within:
             return UIImage(named: "smileHappy") ?? UIImage()
-        default:
+        case .overflow:
             return UIImage(named: "smileSad") ?? UIImage()
+        default:
+            return UIImage(named: "smileNormal") ?? UIImage()
         }
     }
 }
@@ -48,13 +60,18 @@ enum ReportLimitStatus: String {
  * Report model object
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new field
  */
 class Report: CacheableObject {
 
     /// the fields
     var title = ""
     var units = 0
+    var unitsLabel = ""
     var lastEventDate: Date?
     var limitStatus: ReportLimitStatus = .within
     var showTwoButtons = true
@@ -63,7 +80,7 @@ class Report: CacheableObject {
     ///
     /// - Returns: the units
     func getUnitsText() -> String {
-        return "\(units) unit/unit"
+        return "\(units) \(unitsLabel)"
     }
 
     /// Get text representing when the report was updated
@@ -93,7 +110,9 @@ class Report: CacheableObject {
     class func fromJson(_ json: JSON) -> Report {
         let object = Report(id: json["id"].stringValue)
         object.title = json["title"].stringValue
-            object.units = json["units"].intValue
+        object.units = json["units"].intValue
+        object.unitsLabel = json["unitsLabel"].stringValue
+
         object.lastEventDate = DateFormatters.responseDate.date(from: json["lastEventDate"].stringValue)
         object.limitStatus = ReportLimitStatus(rawValue: json["limitStatus"].stringValue) ?? .within
         object.showTwoButtons = json["showTwoButtons"].boolValue

@@ -9,6 +9,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="MyriadPro-Regular.otf">
+            <string>MyriadPro-Regular</string>
+        </array>
+        <array key="MyriadPro-Semibold.otf">
+            <string>MyriadPro-Semibold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Medications-->
         <scene sceneID="QaF-ET-JIA">
@@ -785,17 +793,281 @@
             </objects>
             <point key="canvasLocation" x="2900" y="-36.431784107946029"/>
         </scene>
+        <!--NUTRITION & DRUG INTERACTIONS-->
+        <scene sceneID="gCD-GD-eZQ">
+            <objects>
+                <viewController storyboardIdentifier="MedicationsTableViewController" id="8Fg-jB-SVX" customClass="MedicationsTableViewController" customModule="VAKidneyNutrition" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lwS-Mw-96A">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2C-GG-cah">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MdA-3X-f2i">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijI-gT-aL9">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <state key="normal" title="Nutrition">
+                                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="selected">
+                                                    <color key="titleColor" red="0.0" green="0.2470588235" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="tabButtonAction:" destination="8Fg-jB-SVX" eventType="touchUpInside" id="SCw-MI-8zn"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-MN-EE1">
+                                                <rect key="frame" x="0.0" y="48" width="200" height="2"/>
+                                                <color key="backgroundColor" red="0.0" green="0.2470588235" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="2" id="NhQ-ld-0uT"/>
+                                                    <constraint firstAttribute="width" constant="200" id="xV2-rE-4j7"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K3X-3C-2Bw">
+                                                <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <state key="normal" title="Drug Interactions">
+                                                    <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="selected">
+                                                    <color key="titleColor" red="0.0" green="0.2470588235" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="tabButtonAction:" destination="8Fg-jB-SVX" eventType="touchUpInside" id="oYf-38-hrU"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="K3X-3C-2Bw" firstAttribute="bottom" secondItem="ijI-gT-aL9" secondAttribute="bottom" id="0AZ-hl-X1R"/>
+                                            <constraint firstItem="ijI-gT-aL9" firstAttribute="leading" secondItem="MdA-3X-f2i" secondAttribute="leading" id="5CV-IZ-344"/>
+                                            <constraint firstAttribute="bottom" secondItem="ijI-gT-aL9" secondAttribute="bottom" id="CGK-fz-Sqz"/>
+                                            <constraint firstAttribute="trailing" secondItem="K3X-3C-2Bw" secondAttribute="trailing" id="EFV-gt-856"/>
+                                            <constraint firstItem="K3X-3C-2Bw" firstAttribute="leading" secondItem="ijI-gT-aL9" secondAttribute="trailing" id="Ke4-53-hJb"/>
+                                            <constraint firstItem="K3X-3C-2Bw" firstAttribute="width" secondItem="ijI-gT-aL9" secondAttribute="width" id="VUM-BJ-OwJ"/>
+                                            <constraint firstItem="K3X-3C-2Bw" firstAttribute="top" secondItem="ijI-gT-aL9" secondAttribute="top" id="WhF-w4-a91"/>
+                                            <constraint firstItem="SwT-MN-EE1" firstAttribute="leading" secondItem="MdA-3X-f2i" secondAttribute="leading" id="a96-EU-vr2"/>
+                                            <constraint firstAttribute="bottom" secondItem="SwT-MN-EE1" secondAttribute="bottom" id="b2c-do-HXW"/>
+                                            <constraint firstAttribute="height" constant="50" id="cX9-qz-Nat"/>
+                                            <constraint firstItem="ijI-gT-aL9" firstAttribute="top" secondItem="MdA-3X-f2i" secondAttribute="top" id="dks-HW-qSj"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tbh-lv-9zK">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="553"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="separatorColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                                        <inset key="separatorInset" minX="13.5" minY="0.0" maxX="16.5" maxY="0.0"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MedicationResourceCell" rowHeight="134" id="znN-0k-eF5" customClass="MedicationResourceCell" customModule="VAKidneyNutrition" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="134"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="znN-0k-eF5" id="xez-ol-8Ui">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xF-ED-so8">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Best Food List  For You" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Dp-ZQ-VQB">
+                                                                    <rect key="frame" x="35" y="17.5" width="305" height="15"/>
+                                                                    <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="15"/>
+                                                                    <color key="textColor" red="0.0" green="0.51372549019607838" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWi-5O-hz0">
+                                                                    <rect key="frame" x="35" y="42.5" width="305" height="70.5"/>
+                                                                    <string key="text">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. </string>
+                                                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
+                                                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ReA-hv-8aU">
+                                                                    <rect key="frame" x="13.5" y="133" width="345" height="1"/>
+                                                                    <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="1" id="esP-FF-U7j"/>
+                                                                    </constraints>
+                                                                </view>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="ReA-hv-8aU" secondAttribute="bottom" id="4Cc-oR-d0R"/>
+                                                                <constraint firstItem="9Dp-ZQ-VQB" firstAttribute="top" secondItem="6xF-ED-so8" secondAttribute="top" constant="17.5" id="NXX-xf-cmO"/>
+                                                                <constraint firstItem="xWi-5O-hz0" firstAttribute="leading" secondItem="9Dp-ZQ-VQB" secondAttribute="leading" id="PNq-P8-r0E"/>
+                                                                <constraint firstAttribute="trailing" secondItem="9Dp-ZQ-VQB" secondAttribute="trailing" constant="35" id="Sbw-JN-dFf"/>
+                                                                <constraint firstItem="xWi-5O-hz0" firstAttribute="top" secondItem="9Dp-ZQ-VQB" secondAttribute="bottom" constant="10.5" id="Spy-jU-Xoo"/>
+                                                                <constraint firstItem="xWi-5O-hz0" firstAttribute="trailing" secondItem="9Dp-ZQ-VQB" secondAttribute="trailing" id="Zji-Gg-lGU"/>
+                                                                <constraint firstAttribute="trailing" secondItem="ReA-hv-8aU" secondAttribute="trailing" constant="16.5" id="a7w-DB-jIn"/>
+                                                                <constraint firstAttribute="bottom" secondItem="xWi-5O-hz0" secondAttribute="bottom" constant="20.5" id="aOs-ZD-wua"/>
+                                                                <constraint firstItem="ReA-hv-8aU" firstAttribute="leading" secondItem="6xF-ED-so8" secondAttribute="leading" constant="13.5" id="tIe-hs-H9u"/>
+                                                                <constraint firstItem="9Dp-ZQ-VQB" firstAttribute="leading" secondItem="6xF-ED-so8" secondAttribute="leading" constant="35" id="vYc-LZ-9nM"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="6xF-ED-so8" firstAttribute="top" secondItem="xez-ol-8Ui" secondAttribute="top" id="9bn-Ok-DfK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="6xF-ED-so8" secondAttribute="trailing" id="WSZ-tK-DaD"/>
+                                                        <constraint firstAttribute="bottom" secondItem="6xF-ED-so8" secondAttribute="bottom" priority="999" id="gZw-Ga-tDa"/>
+                                                        <constraint firstItem="6xF-ED-so8" firstAttribute="leading" secondItem="xez-ol-8Ui" secondAttribute="leading" id="xXP-xB-Fvp"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="detailsLabel" destination="xWi-5O-hz0" id="Mgb-Yw-VXW"/>
+                                                    <outlet property="lineView" destination="ReA-hv-8aU" id="gdJ-Vm-WFb"/>
+                                                    <outlet property="titleLabel" destination="9Dp-ZQ-VQB" id="CLS-r2-60g"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JrE-bO-Z8e">
+                                        <rect key="frame" x="0.0" y="292.5" width="375" height="18"/>
+                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="18"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Tbh-lv-9zK" secondAttribute="trailing" id="9VN-qB-zYd"/>
+                                    <constraint firstItem="Tbh-lv-9zK" firstAttribute="leading" secondItem="l2C-GG-cah" secondAttribute="leading" id="JgT-gX-8v7"/>
+                                    <constraint firstAttribute="trailing" secondItem="MdA-3X-f2i" secondAttribute="trailing" id="Kt7-jg-7ug"/>
+                                    <constraint firstItem="JrE-bO-Z8e" firstAttribute="centerY" secondItem="l2C-GG-cah" secondAttribute="centerY" id="Mfb-lh-0Sx"/>
+                                    <constraint firstItem="Tbh-lv-9zK" firstAttribute="top" secondItem="MdA-3X-f2i" secondAttribute="bottom" id="Qn6-3J-LTi"/>
+                                    <constraint firstAttribute="trailing" secondItem="JrE-bO-Z8e" secondAttribute="trailing" id="Uin-58-Z8o"/>
+                                    <constraint firstItem="MdA-3X-f2i" firstAttribute="leading" secondItem="l2C-GG-cah" secondAttribute="leading" id="ezr-Ar-OLM"/>
+                                    <constraint firstItem="JrE-bO-Z8e" firstAttribute="leading" secondItem="l2C-GG-cah" secondAttribute="leading" id="hPY-GO-hyF"/>
+                                    <constraint firstItem="MdA-3X-f2i" firstAttribute="top" secondItem="l2C-GG-cah" secondAttribute="top" id="qhW-Lg-beS"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tbh-lv-9zK" secondAttribute="bottom" id="wXd-ZM-bsg"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.87450980389999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="l2C-GG-cah" firstAttribute="leading" secondItem="PL5-3Z-kl5" secondAttribute="leading" id="X35-bv-7db"/>
+                            <constraint firstItem="l2C-GG-cah" firstAttribute="top" secondItem="PL5-3Z-kl5" secondAttribute="top" id="nuN-fc-n7n"/>
+                            <constraint firstItem="PL5-3Z-kl5" firstAttribute="bottom" secondItem="l2C-GG-cah" secondAttribute="bottom" id="uGB-Xe-Uww"/>
+                            <constraint firstItem="l2C-GG-cah" firstAttribute="trailing" secondItem="PL5-3Z-kl5" secondAttribute="trailing" id="uO0-av-a0q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PL5-3Z-kl5"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="NUTRITION &amp; DRUG INTERACTIONS" id="9Zx-Uq-AfF">
+                        <barButtonItem key="leftBarButtonItem" image="menuIcon" id="ln7-qt-DSU">
+                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="goalsIcon" id="rfI-91-S91">
+                            <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="noDataLabel" destination="JrE-bO-Z8e" id="R9l-Iw-Tkp"/>
+                        <outlet property="tableView" destination="Tbh-lv-9zK" id="VVE-cH-R9z"/>
+                        <outlet property="underLineLeftMargin" destination="a96-EU-vr2" id="DXd-TI-9cS"/>
+                        <outlet property="underLineView" destination="SwT-MN-EE1" id="TF8-4O-pl8"/>
+                        <outlet property="underLineWidth" destination="xV2-rE-4j7" id="RZm-T0-PKj"/>
+                        <outletCollection property="tabButtons" destination="ijI-gT-aL9" collectionClass="NSMutableArray" id="CtX-2U-Ndt"/>
+                        <outletCollection property="tabButtons" destination="K3X-3C-2Bw" collectionClass="NSMutableArray" id="hGC-wN-lXq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MTC-ZD-YKi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="280.80000000000001" y="626.53673163418296"/>
+        </scene>
+        <!--Resource Details View Controller-->
+        <scene sceneID="jNb-3U-Gge">
+            <objects>
+                <viewController storyboardIdentifier="ResourceDetailsViewController" id="zkn-TS-o2h" customClass="ResourceDetailsViewController" customModule="VAKidneyNutrition" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OTY-pl-aIu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1id-E5-xyk" userLabel="shadow">
+                                <rect key="frame" x="25" y="37.5" width="325" height="591.5"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utJ-7u-nqY">
+                                <rect key="frame" x="15" y="27.5" width="345" height="611.5"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATo-Cq-19b">
+                                        <rect key="frame" x="30" y="160" width="285" height="421.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. </string>
+                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Best Food List For You" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Utr-Xy-LbK">
+                                        <rect key="frame" x="35" y="44" width="275" height="17"/>
+                                        <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="17"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconPillLarge" translatesAutoresizingMaskIntoConstraints="NO" id="c18-Gh-gTJ">
+                                        <rect key="frame" x="120" y="72.5" width="105" height="79"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="79" id="Ay1-fk-vnP"/>
+                                            <constraint firstAttribute="width" constant="105" id="ROd-aE-cxO"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Utr-Xy-LbK" firstAttribute="leading" secondItem="utJ-7u-nqY" secondAttribute="leading" constant="35" id="44a-Et-Emt"/>
+                                    <constraint firstAttribute="trailing" secondItem="Utr-Xy-LbK" secondAttribute="trailing" constant="35" id="Itr-cL-OfX"/>
+                                    <constraint firstItem="c18-Gh-gTJ" firstAttribute="top" secondItem="Utr-Xy-LbK" secondAttribute="bottom" constant="11.5" id="SGi-EY-ER8"/>
+                                    <constraint firstAttribute="trailing" secondItem="ATo-Cq-19b" secondAttribute="trailing" constant="30" id="h8a-H1-Mcs"/>
+                                    <constraint firstAttribute="bottom" secondItem="ATo-Cq-19b" secondAttribute="bottom" constant="30" id="n02-4a-swi"/>
+                                    <constraint firstItem="Utr-Xy-LbK" firstAttribute="top" secondItem="utJ-7u-nqY" secondAttribute="top" constant="44.5" id="siQ-Pu-3ut"/>
+                                    <constraint firstItem="ATo-Cq-19b" firstAttribute="top" secondItem="c18-Gh-gTJ" secondAttribute="bottom" constant="8.5" id="tnd-Qz-fw2"/>
+                                    <constraint firstItem="c18-Gh-gTJ" firstAttribute="centerX" secondItem="utJ-7u-nqY" secondAttribute="centerX" id="tqy-xo-woz"/>
+                                    <constraint firstItem="ATo-Cq-19b" firstAttribute="leading" secondItem="utJ-7u-nqY" secondAttribute="leading" constant="30" id="wkP-bw-ALG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.87450980389999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="1id-E5-xyk" firstAttribute="trailing" secondItem="utJ-7u-nqY" secondAttribute="trailing" constant="-10" id="1a9-9n-WOX"/>
+                            <constraint firstItem="utJ-7u-nqY" firstAttribute="leading" secondItem="HMW-0Y-YHp" secondAttribute="leading" constant="15" id="34u-9A-Dx7"/>
+                            <constraint firstItem="1id-E5-xyk" firstAttribute="bottom" secondItem="utJ-7u-nqY" secondAttribute="bottom" constant="-10" id="DOb-8A-m1m"/>
+                            <constraint firstItem="HMW-0Y-YHp" firstAttribute="trailing" secondItem="utJ-7u-nqY" secondAttribute="trailing" constant="15" id="M4u-kA-DKY"/>
+                            <constraint firstItem="1id-E5-xyk" firstAttribute="leading" secondItem="utJ-7u-nqY" secondAttribute="leading" constant="10" id="VIj-bj-ynE"/>
+                            <constraint firstItem="HMW-0Y-YHp" firstAttribute="bottom" secondItem="utJ-7u-nqY" secondAttribute="bottom" constant="28" id="XPD-Hi-qYv"/>
+                            <constraint firstItem="1id-E5-xyk" firstAttribute="top" secondItem="utJ-7u-nqY" secondAttribute="top" constant="10" id="fnh-Om-fV1"/>
+                            <constraint firstItem="utJ-7u-nqY" firstAttribute="top" secondItem="OTY-pl-aIu" secondAttribute="top" constant="27.5" id="kpG-ou-KqG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HMW-0Y-YHp"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="bottomMargin" destination="n02-4a-swi" id="61D-tu-NHX"/>
+                        <outlet property="containerView" destination="utJ-7u-nqY" id="pdH-kj-Rxs"/>
+                        <outlet property="iconView" destination="c18-Gh-gTJ" id="7rz-WQ-vpN"/>
+                        <outlet property="shadowView" destination="1id-E5-xyk" id="ih6-2O-V1i"/>
+                        <outlet property="textView" destination="ATo-Cq-19b" id="nUR-hK-S5f"/>
+                        <outlet property="titleLabel" destination="Utr-Xy-LbK" id="HKW-yd-IGa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hgr-7y-w8O" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="937" y="626"/>
+        </scene>
     </scenes>
     <resources>
         <image name="arrowDetails" width="10" height="17"/>
         <image name="checkboxSquare" width="25" height="25"/>
         <image name="checkboxSquareSelected" width="25" height="25"/>
         <image name="editIcon" width="25" height="19"/>
-        <image name="goalsIcon" width="25" height="25"/>
-        <image name="iconClock" width="50" height="50"/>
+        <image name="goalsIcon" width="22" height="22"/>
+        <image name="iconClock" width="23" height="23"/>
         <image name="iconMore" width="16" height="4"/>
-        <image name="iconPills" width="50" height="50"/>
-        <image name="menuIcon" width="25" height="18"/>
-        <image name="smileHappy" width="25" height="25"/>
+        <image name="iconPillLarge" width="48" height="48"/>
+        <image name="iconPills" width="48" height="48"/>
+        <image name="menuIcon" width="20" height="18"/>
+        <image name="smileHappy" width="30" height="30"/>
     </resources>
 </document>

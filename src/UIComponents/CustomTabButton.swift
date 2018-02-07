@@ -3,7 +3,8 @@
 //  UIComponents
 //
 //  Created by TCCODER on 12/22/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +13,11 @@ import UIKit
  * Custom tab button
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
 @IBDesignable public class CustomTabButton: UIButton {
 
@@ -31,11 +36,6 @@ import UIKit
         super.layoutSubviews()
 
         setTitleColor(Colors.black, for: .normal)
-        self.backgroundColor = isSelected ? UIColor.white : Colors.lightGray
-
-        self.layer.masksToBounds = true
-        self.layer.borderColor = borderColor.cgColor
-        self.layer.borderWidth = isSelected ? borderWidth : 0
     }
 
     /// is selected

@@ -1,42 +1,50 @@
 [
  {
- "categoryId": 2,
- "title": "Weight loss",
- "unit1": "kilogram",
- "unitMultiple": "kilograms",
+ "categoryId": 4,
+ "title": "Lost Weight",
+ "unit1": "lb",
+ "unitMultiple": "lbs",
+ "valueText": "pound",
  "min": 20,
- "max": 100
+ "max": 100,
+ "interval": 1,
+ "color": "f3cf45",
+ "iconName": "iconWeightLossSmall"
  },
  {
  "categoryId": 1,
  "title": "Water Intake",
  "unit1": "glass",
  "unitMultiple": "glasses",
+ "valueText": "water",
  "min": 3,
- "max": 20
- },
- {
- "categoryId": 1,
- "title": "Fruits/Veggies",
- "unit1": "bowl",
- "unitMultiple": "bowls",
- "min": 1,
- "max": 10
+ "max": 12,
+ "interval": 3,
+ "color": "0083be",
+ "iconName": "iconWaserSmall"
  },
  {
  "categoryId": 2,
- "title": "Run",
- "unit1": "mile",
- "unitMultiple": "miles",
+ "title": "Food Intake",
+ "unit1": "bowl",
+ "unitMultiple": "bowls",
+ "valueText": "Fruits Or Veggies",
  "min": 1,
- "max": 30
+ "max": 10,
+ "interval": 1,
+ "color": "557630",
+ "iconName": "iconEatSmall"
  },
  {
  "categoryId": 3,
- "title": "Pills",
- "unit1": "pill",
- "unitMultiple": "pills",
+ "title": "Workout",
+ "unit1": "mile",
+ "unitMultiple": "miles",
+ "valueText": "Mile",
  "min": 1,
- "max": 12
+ "max": 30,
+ "interval": 1,
+ "color": "ff7f32",
+ "iconName": "iconWorkoutSmall"
  }
  ]

@@ -3,27 +3,41 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIComponents
+
+/// option: true - disable "Login" button if fiels are empty, false - else
+let OPTION_DISABLE_LOGIN_IF_EMPTY_FIELDS = true
+
+/// option: true - wrap login errors and replace with special messages, false - else
+let OPTION_WRAP_LOGIN_ERRORS = false
 
 /**
  * Sign In screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
 class SignInViewController: UIViewController, UITextFieldDelegate {
 
     /// outlets
     @IBOutlet weak var topImage: UIImageView!
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var emailField: CustomTextField!
+    @IBOutlet weak var passwordField: CustomTextField!
     @IBOutlet weak var loginButton: CustomButton!
-    @IBOutlet weak var forgotPasswordLabel: UILabel!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var signUpButton: CustomButton!
+    @IBOutlet weak var loginButtonMargin: NSLayoutConstraint!
+    @IBOutlet weak var loginErrorLabel: UILabel!
+    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet weak var passwordBottomMargin: NSLayoutConstraint!
 
     /// the reference to API
     private let api: ServiceApi = CachingServiceApi.shared
@@ -31,9 +45,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        forgotPasswordLabel.addUnderline()
         self.view.backgroundColor = UIColor.clear
+        updateLoginButtonState()
+        self.view.layoutIfNeeded()
+        showLoginError(nil)
+        showPasswordError(nil)
     }
 
     /// View did appear
@@ -44,11 +60,38 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         cleanNavigationStack()
     }
 
+    /// Show login error
+    ///
+    /// - Parameter error: the error
+    private func showLoginError(_ error: String?) {
+        self.emailField.borderWidth = error == nil ? 0 : 1
+        self.loginErrorLabel.isHidden = error == nil
+        self.loginButtonMargin.constant = error == nil ? 16 : 28.5
+        if let error = error {
+            self.loginErrorLabel.text = error
+        }
+    }
+
+    /// Show password error
+    ///
+    /// - Parameter error: the error
+    private func showPasswordError(_ error: String?) {
+        self.passwordField.borderWidth = error == nil ? 0 : 1
+        self.passwordErrorLabel.isHidden = error == nil
+        self.passwordBottomMargin.constant = error == nil ? 54.5 : 72
+        if let error = error {
+            self.passwordErrorLabel.text = error
+        }
+    }
+
     /// "Login" button action handler
     ///
     /// - parameter sender: the button
     @IBAction func loginAction(_ sender: Any) {
         self.view.endEditing(true)
+        showLoginError(nil)
+        showPasswordError(nil)
+        self.view.layoutIfNeeded()
         let loadingView = LoadingView(parentView: self.view).show()
 
         api.authenticate(email: emailField.text ?? "", password: passwordField.text ?? "",
@@ -58,7 +101,27 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                                 self.passwordField.text = ""
                                 loadingView.terminate()
                             }
-        }, failure: createGeneralFailureCallback(loadingView))
+        }, failure: { error1, error2 in
+            loadingView.terminate()
+            var error1 = error1
+            var error2 = error2
+            if OPTION_WRAP_LOGIN_ERRORS {
+                if let _ = error1 {
+                    error1 = NSLocalizedString("*Please re enter email address", comment: "*Please re enter email address")
+                }
+                if error2 == ERROR_WRONG_CREDENTIALS || error2 == ERROR_EMPTY_CREDENTIALS {
+                    error2 = NSLocalizedString("Please re enter password", comment: "Please re enter password")
+                }
+                if let error = error2 {
+                    error2 = "*\(error)"
+                }
+            }
+            UIView.animate(withDuration: 0.3) {
+                self.showLoginError(error1)
+                self.showPasswordError(error2)
+                self.view.layoutIfNeeded()
+            }
+        })
     }
 
     /// "Forgot password?" button action handler
@@ -88,7 +151,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     ///
     /// - parameter sender: the button
     @IBAction func signUpAction(_ sender: Any) {
-        pushViewController(SignUpViewController.self)
+        showStub()
     }
 
     /// Show popup with text field to enter email
@@ -137,4 +200,33 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+
+    /// Enable/disable Login button
+    ///
+    /// - Parameters:
+    ///   - textField: the textField
+    ///   - range: the range
+    ///   - string: the string
+    /// - Returns: true
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        var text = textField.text ?? ""
+        text.replaceSubrange(range.toRange(string: text), with: string)
+        updateLoginButtonState(field: textField, text: text)
+        return true
+    }
+
+    /// Update Login button state
+    ///
+    /// - Parameters:
+    ///   - field: one of the fields
+    ///   - text: the text
+    private func updateLoginButtonState(field: UITextField? = nil, text: String? = nil) {
+        let email = (field == emailField ? text ?? "" : emailField.text) ?? ""
+        let password = (field == passwordField ? text ?? "" : passwordField.text) ?? ""
+        if OPTION_DISABLE_LOGIN_IF_EMPTY_FIELDS {
+            loginButton.isEnabled = !email.trim().isEmpty && !password.isEmpty
+        }
+    }
 }
+
+

@@ -2,21 +2,25 @@
  {
  "id": 1,
  "time": "Breakfast",
- "items": "Fooditem1, Fooditem2, Fooditem3"
+ "items": "Salad, pasta, pudding, grape",
+ "imageUrls": ["sampleFood1", "sampleFood2", "sampleFood3", "sampleFood4"]
  },
  {
  "id": 2,
  "time": "Lunch",
- "items": "Fooditem1, Fooditem2, Fooditem3"
+ "items": "Salad, pasta, pudding, grape",
+ "imageUrls": ["sampleFood1", "sampleFood2", "sampleFood3", "sampleFood4"]
  },
  {
  "id": 3,
  "time": "Snacks",
- "items": "Fooditem1, Fooditem2, Fooditem3"
+ "items": "Salad, pasta, grape",
+ "imageUrls": ["sampleFood1", "sampleFood3", "sampleFood4"]
  },
  {
  "id": 4,
  "time": "Dinner",
- "items": "Fooditem1, Fooditem2, Fooditem3"
+ "items": "Pasta",
+ "imageUrls": ["sampleFood3"]
  }
  ]

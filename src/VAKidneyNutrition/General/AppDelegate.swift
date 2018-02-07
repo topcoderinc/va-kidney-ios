@@ -6,8 +6,18 @@
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
-import UIKit
+import UIComponents
 
+/**
+ * AppDelegate
+ *
+ * - author: TCCODER
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
+ */
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,10 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        UINavigationBar.appearance().tintColor = UIColor.black
-        UINavigationBar.appearance().barTintColor = UIColor.white
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().barTintColor = Colors.darkBlue
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().shadowImage = #imageLiteral(resourceName: "navBg")
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, .font: UIFont(name: Fonts.Regular, size: 16)!]
         return true
     }
 

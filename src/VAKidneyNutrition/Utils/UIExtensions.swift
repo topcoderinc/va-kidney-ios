@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -39,7 +40,11 @@ enum Transition {
  * and shortcut helpful methods for instantiating UIViewController
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new method
  */
 extension UIViewController {
 
@@ -119,7 +124,33 @@ extension UIViewController {
             callback?()
         }
     }
-    
+
+    /// Replace given view controller with another view controller from a side with animation
+    ///
+    /// - Parameters:
+    ///   - viewController: the view controller to replace
+    ///   - newViewController: the view controller to load
+    ///   - containerView: the container view
+    ///   - bounds: the bounds of the view controller (if nil, them containerView bounds are used)
+    ///   - side: the side to animate from, if nil, then no animation
+    ///   - callback: the callback to invoke when animation finished
+    func replaceFromSide(_ viewController: UIViewController?, withViewController newViewController: UIViewController,
+                         inContainer containerView: UIView, bounds: CGRect? = nil, side: Transition?, _ callback:(()->())?) {
+        let bounds = bounds ?? containerView.bounds
+        if let side = side {
+            self.showViewControllerFromSide(newViewController, inContainer: containerView, bounds: bounds, side: side, callback)
+            if let vc = viewController {
+                self.dismissViewControllerToSide(vc, side: side.reverse(), nil)
+            }
+        }
+        else {
+            self.loadViewController(newViewController, containerView)
+            viewController?.removeFromParent()
+            callback?()
+        }
+        self.view.layoutIfNeeded()
+    }
+
     /**
      Add the view controller and view into the current view controller
      and given containerView correspondingly.
@@ -322,7 +353,11 @@ extension UIViewController {
  * Extends UIView with shortcut methods
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new method
  */
 extension UIView {
 
@@ -337,6 +372,13 @@ extension UIView {
         bottomBorder.frame = CGRect(x: 0, y: self.frame.height - borderWidth, width: self.frame.size.width, height: borderWidth)
         bottomBorder.backgroundColor = color.cgColor
         self.layer.addSublayer(bottomBorder)
+    }
+
+    /// Animate with default settings
+    ///
+    /// - Parameter animations: the animation callback
+    class func animateWithDefaultSettings(animations: @escaping () -> Swift.Void) {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .beginFromCurrentState, animations: animations, completion: nil)
     }
 }
 
@@ -498,7 +540,11 @@ class LoadingView: UIView {
  * Extension adds methods that change navigation bar
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes support
  */
 extension UIViewController {
 
@@ -546,7 +592,7 @@ extension UIViewController {
 
         // Button title
         button.setTitle(" ", for: .normal)
-        button.setImage(#imageLiteral(resourceName: "btnBack"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "iconBack"), for: .normal)
 
         // Set custom view for left bar button
         customBarButtonView.addSubview(button)
@@ -589,40 +635,28 @@ extension UIViewController {
 
     /// Setup navigation bar
     func setupNavigation() {
-        let item = UIBarButtonItem(customView: createBarButton(#imageLiteral(resourceName: "goalsIcon"), selector: #selector(openGoals), xOffset: 0, yOffset: 0))
+        navigationController?.navigationBar.barTintColor = Colors.darkBlue
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.shadowImage = UIImage()
+
+        let item = UIBarButtonItem(customView: createBarButton(#imageLiteral(resourceName: "goalsIcon"), selector: #selector(openGoals), xOffset: 12, yOffset: 0))
         self.navigationItem.rightBarButtonItem = item
 
-        let menuItem = UIBarButtonItem(customView: createBarButton(#imageLiteral(resourceName: "menuIcon"), selector: #selector(menuAction(_:)), xOffset: 0, yOffset: 0))
+        let menuItem = UIBarButtonItem(customView: createBarButton(#imageLiteral(resourceName: "menuIcon"), selector: #selector(menuAction(_:)), xOffset: -12, yOffset: 0))
         self.navigationItem.leftBarButtonItem = menuItem
     }
 
 
     /// Open left menu
     @objc func menuAction(_ sender: UIButton) {
-        ContextMenuViewController.show([
-            ContextItem(title: NSLocalizedString("My Health Profile", comment: "My Health Profile")) {
-                if let vc = self.create(ProfileViewController.self, storyboardName: "Profile") {
-                    CachingServiceApi.shared.getProfile(callback: { (profile) in
-                        vc.profile = profile
-                        MainViewControllerReference?.showViewController(vc.wrapInNavigationController())
-                    }, failure: self.createGeneralFailureCallback())
-                }
-            },
-            ContextItem(title: NSLocalizedString("Resources Library", comment: "Resources Library")) { showStub() },
-            ContextItem(title: NSLocalizedString("My Biometric Devices", comment: "My Biometric Devices")) { showStub() },
-            ContextItem(title: NSLocalizedString("Avatar", comment: "Avatar")) { showStub() },
-            ContextItem(title: NSLocalizedString("Settings", comment: "Settings")) { showStub() },
-            ContextItem(title: NSLocalizedString("Reminders", comment: "Reminders")) { showStub() },
-            ContextItem(title: NSLocalizedString("Logout", comment: "Logout")) {
-                AuthenticationUtil.sharedInstance.cleanUp()
-                UIViewController.getCurrentViewController()?.dismiss(animated: true, completion: nil)
-            },
-            ], isLight: true, from: sender)
+        MenuViewController.show()
     }
 
     /// Open "Goals" screen
     @objc func openGoals() {
-        if let parent = MainViewControllerReference, let vc = parent.create(GoalsViewController.self, storyboardName: "Goals") {
+        if let parent = MainViewControllerReference, let vc = parent.create(GoalsCollectionViewController.self, storyboardName: "Goals") {
             parent.showViewController(vc.wrapInNavigationController())
         }
     }
@@ -664,6 +698,15 @@ extension UITableView {
         self.register(nib, forCellReuseIdentifier: className)
     }
 
+    /// Register given header class for the tableView
+    ///
+    /// - Parameter headerClass: the header class
+    func registerHeader(_ headerClass: UITableViewHeaderFooterView.Type) {
+        let className = NSStringFromClass(headerClass).components(separatedBy: ".").last!
+        let nib = UINib(nibName: className, bundle: nil)
+        self.register(nib, forHeaderFooterViewReuseIdentifier: className)
+    }
+
     /// Get cell of given class for indexPath
     ///
     /// - Parameters:
@@ -680,7 +723,11 @@ extension UITableView {
  * Shortcut methods for UICollectionView
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new method
  */
 extension UICollectionView {
 
@@ -693,6 +740,23 @@ extension UICollectionView {
     func getCell<T: UICollectionViewCell>(_ indexPath: IndexPath, ofClass cellClass: T.Type) -> T {
         let className = NSStringFromClass(cellClass).components(separatedBy: ".").last!
         return self.dequeueReusableCell(withReuseIdentifier: className, for: indexPath) as! T
+    }
+
+    /// Calculate collection height
+    ///
+    /// - Parameters:
+    ///   - n: the number of columns
+    ///   - items: the number of items
+    ///   - cellHeight: the cell height
+    func getCollectionHeight(forColumns n: Int = 2, items: Int, cellHeight: CGFloat) -> CGFloat {
+        let layout = (self.collectionViewLayout as! UICollectionViewFlowLayout)
+        let margins = layout.sectionInset
+        let spacing = CGSize(width: layout.minimumInteritemSpacing, height: layout.minimumLineSpacing)
+
+        let rows = Int(max(0, floor(Float(items - 1) / Float(n)) + 1))
+        let spaces = max(0, rows - 1)
+        let height = margins.top + CGFloat(rows) * cellHeight + CGFloat(spaces) * spacing.height + margins.bottom
+        return height
     }
 }
 
@@ -853,5 +917,29 @@ extension UIImage {
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return scaledImage!
+    }
+}
+
+/**
+ * Helpful methods in UILabel
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+extension UILabel {
+
+    /// Updates line spacing in the label
+    ///
+    /// - Parameter lineSpacing: the linespacing
+    func setLineSpacing(lineSpacing: CGFloat) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.alignment = self.textAlignment
+        let attributedString = NSMutableAttributedString(string: self.text ?? "", attributes: [
+            .paragraphStyle: paragraphStyle,
+            .foregroundColor: self.textColor,
+            .font: UIFont(name: self.font.fontName, size: self.font.pointSize)!
+            ])
+        self.attributedText = attributedString
     }
 }
