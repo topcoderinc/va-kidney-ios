@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -253,7 +254,11 @@ extension UIImage {
  * Shortcut methods for Date
  *
  * - author:  TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new method
  */
 extension Date {
 
@@ -276,6 +281,17 @@ extension Date {
         if minutes > 0 { return "\(minutes)\(useFullText ? (weeks == 1 ? " minute" : " minutes") : "m") ago" }
         if seconds > 0 { return "\(seconds)\(useFullText ? (weeks == 1 ? " second" : " seconds") : "s") ago" }
         return "just now"
+    }
+
+    /**
+     Get number of years since current date till now
+
+     - returns: the number of years
+     */
+    func yearsSinceDate() -> Int {
+        let calendar = Calendar.current
+        let comp = calendar.dateComponents([Calendar.Component.year], from: self, to: Date())
+        return comp.year ?? 0
     }
 
     /// Get weekday
@@ -333,7 +349,11 @@ extension Date {
  * Date and time formatters
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new formatters
  */
 struct DateFormatters {
 
@@ -341,6 +361,22 @@ struct DateFormatters {
     static var shortDate: DateFormatter = {
         let f = DateFormatter()
         f.dateFormat = "dd MMM yyyy"
+        f.timeZone = TimeZone.current
+        return f
+    }()
+
+    /// short date formatter for Food form
+    static var foodForm: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "MM/dd/yyyy"
+        f.timeZone = TimeZone.current
+        return f
+    }()
+
+    /// short date formatter for Profile screen
+    static var profileDate: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "MMM dd yyyy"
         f.timeZone = TimeZone.current
         return f
     }()
@@ -401,7 +437,11 @@ extension Array {
  * Extenstion adds helpful methods to Float
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new method
  */
 extension Float {
 
@@ -431,6 +471,13 @@ extension Float {
             return NSString.localizedStringWithFormat("%.1f", value) as String
         }
     }
+
+    /// Convert to clear string
+    ///
+    /// - Returns: string representation of the rounded value
+    func toStringClear() -> String {
+        return toString().replace(",", withString: "")
+    }
 }
 
 /**
@@ -454,4 +501,29 @@ extension Int {
     func toHourText() -> String {
         return self < 13 ? "\(self):00 AM" : "\(self - 12):00 PM"
     }
+}
+
+/**
+ * Extenstion adds helpful methods to NSRange
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+extension NSRange {
+
+    /// Convert to Range for given string
+    ///
+    /// - Parameter string: the string
+    /// - Returns: range
+    func toRange(string: String) -> Range<String.Index> {
+        let range = string.index(string.startIndex, offsetBy: self.lowerBound)..<string.index(string.startIndex, offsetBy: self.upperBound)
+        return range
+    }
+}
+
+/// Check if iPhone5 like device
+///
+/// - Returns: true - if this device has width as on iPhone5, false - else
+func isIPhone5() -> Bool {
+    return UIScreen.main.nativeBounds.width == 640
 }

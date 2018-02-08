@@ -1,7 +1,14 @@
 [
  {
- "title": "Article 2",
+ "title": "The best food for you stamina",
+ "text": "Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.",
+ "status": "Read Today",
+ "imageUrl": "sampleImage1"
+ },
+ {
+ "title": "Avoid this food",
  "text": "Gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes,Proin sodales pulvinar sic tempor. Sociis natoque penatibus et mdnascetur ridiculus muspulvinar sic pulvinar sic pulvi.",
  "status": "Read Today",
+ "imageUrl": "sampleImage2"
  }
  ]

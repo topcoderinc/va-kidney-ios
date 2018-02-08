@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/25/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -30,7 +31,13 @@ extension FoodMO: CoreDataEntity {
         object.items = items ?? ""
         object.date = date ?? Date()
 
-        object.image = UIImage(data: image ?? Data())
+
+        if (imageUrls ?? []).isEmpty {
+            object.images = (images ?? []).map{UIImage(data: $0) ?? UIImage()}
+        }
+        else {
+            object.images = imageUrls ?? []
+        }
         return object
     }
 
@@ -45,7 +52,10 @@ extension FoodMO: CoreDataEntity {
         time = object.time.rawValue
         items = object.items
         date = object.date
-        image = object.image?.toData()
+        let urls: [String] = object.images.filter({$0 is String}).map{$0 as! String}
+        let rawImages: [Data] = object.images.filter({$0 is UIImage}).map{($0 as! UIImage).toData() ?? Data()}
+        imageUrls = urls
+        images = rawImages
         userId = AuthenticationUtil.sharedInstance.userInfo?.id ?? ""
     }
 }

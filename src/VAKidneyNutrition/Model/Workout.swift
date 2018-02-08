@@ -3,16 +3,22 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/25/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import SwiftyJSON
+import UIComponents
 
 /**
  * Workout model object
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new field
  */
 public class Workout: CacheableObject {
 
@@ -34,6 +40,9 @@ public class Workout: CacheableObject {
     var isGoalAchived: Bool {
         return value >= targetValue
     }
+
+    /// the color
+    var color: UIColor = .red
 
     /// the progress
     var progress: Float {
@@ -59,6 +68,7 @@ public class Workout: CacheableObject {
         object.valueText1 = json["valueText1"].stringValue
         object.valueTextMultiple = json["valueTextMultiple"].stringValue
         object.canBeManuallyChanged = json["canBeManuallyChanged"].boolValue
+        object.color = UIColor.fromString(json["color"].stringValue) ?? .red
         return object
     }
 

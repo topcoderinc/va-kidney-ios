@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import Foundation
@@ -13,7 +14,11 @@ import SwiftyJSON
  * Class for storing user info
  *
  *  author: TCCODER
- *  version: 1.0
+ *  version: 1.1
+ */
+/* changes:
+ * 1.1:
+ * - minor modification
  */
 public class UserInfo: CacheableObject {
 
@@ -35,7 +40,8 @@ public class UserInfo: CacheableObject {
     }
 
     /// true - the (profile) setup is completed, false - else
-    var isSetupCompleted = false
+    /// kept for future
+    var isSetupCompleted = true
 
     /// Parse JSON into UserInfo
     ///
@@ -47,7 +53,6 @@ public class UserInfo: CacheableObject {
         object.password = json["password"].stringValue
         object.firstName = json["firstName"].stringValue
         object.lastName = json["lastName"].stringValue
-        object.isSetupCompleted = json["isSetupCompleted"].boolValue
         return object
     }
 
@@ -60,8 +65,7 @@ public class UserInfo: CacheableObject {
             "email": self.email,
             "password": self.password,
             "firstName": self.firstName,
-            "lastName": self.lastName,
-            "isSetupCompleted": self.isSetupCompleted
+            "lastName": self.lastName
         ]
         return JSON(dic)
     }

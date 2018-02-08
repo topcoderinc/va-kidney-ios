@@ -3,20 +3,35 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/22/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import SwiftyJSON
 
 /// Possible frequencies for the goals
 enum GoalFrequency: String {
-    case daily = "daily", weekly = "weekly"
+    case daily = "daily", weekly = "weekly", monthly = "monthly"
 
     /// Get all possible values
     ///
     /// - Returns: the list of values
     static func getAll() -> [GoalFrequency] {
-        return [GoalFrequency.daily, GoalFrequency.weekly]
+        return [.daily, .weekly, .monthly]
+    }
+
+    /// To singular
+    ///
+    /// - Returns: string
+    func toSingular() -> String {
+        switch self {
+        case .daily:
+            return NSLocalizedString("day", comment: "day")
+        case .weekly:
+            return NSLocalizedString("week", comment: "week")
+        case .monthly:
+            return NSLocalizedString("month", comment: "month")
+        }
     }
 }
 
@@ -24,7 +39,11 @@ enum GoalFrequency: String {
  * Goal model object
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ */
+/* changes:
+ * 1.1:
+ * - new fields
  */
 public class Goal: CacheableObject {
 
@@ -45,6 +64,8 @@ public class Goal: CacheableObject {
     /// fields depending on a task
     var valueText1 = ""
     var valueTextMultiple = ""
+    var valueText = ""
+
     // true - the data can be taken from external devices/sensors, false - else
     var hasExternalData = false
     /// true - the target is above the initial value, false - else
@@ -52,6 +73,12 @@ public class Goal: CacheableObject {
 
     // the index used to sort
     var sOrder = 0
+
+    /// the color
+    var color: UIColor = .red
+
+    /// flag: true - the app will remind about the goal, false - else
+    var isReminderOn = false
 
     /// true - if today goal is achieved, false - else
     var isGoalAchived: Bool {
@@ -82,10 +109,11 @@ public class Goal: CacheableObject {
         goal.value = json["value"].floatValue
         goal.targetValue = json["targetValue"].floatValue
         goal.valueText1 = json["valueText1"].stringValue
+        goal.valueText = json["valueText"].stringValue
         goal.valueTextMultiple = json["valueTextMultiple"].stringValue
         goal.hasExternalData = json["hasExternalData"].boolValue
         goal.isAscendantTarget = json["isAscendantTarget"].bool ?? true
-
+        goal.color = UIColor.fromString(json["color"].stringValue) ?? .red
         return goal
     }
 

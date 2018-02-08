@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/22/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -13,7 +14,11 @@ import CoreData
  * Model object for Core Data related to Profile
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - birthday instead of age
  */
 extension ProfileMO: CoreDataEntity {
 
@@ -30,12 +35,13 @@ extension ProfileMO: CoreDataEntity {
             object.image = UIImage.fromData(data)
         }
         object.name = name ?? ""
-        object.age = Int(age)
+        object.birthday = birthday
         object.height = Int(height)
         object.currentWeight = Int(currentWeight)
         object.dialysis = dialysis
         object.diseaseCategory = diseaseCategory ?? ""
         object.setupGoals = setupGoals
+        object.addDevice = addDevice
         return object
     }
 
@@ -49,7 +55,7 @@ extension ProfileMO: CoreDataEntity {
 
         image = object.image?.toData() as Data?
         name = object.name
-        age = Int32(object.age)
+        birthday = object.birthday
         height = Int32(object.height)
         currentWeight = Int32(object.currentWeight)
         dialysis = object.dialysis
@@ -58,6 +64,8 @@ extension ProfileMO: CoreDataEntity {
         
         diseaseCategory = object.diseaseCategory
         setupGoals = object.setupGoals
+        addDevice = object.addDevice
+
     }
 }
 

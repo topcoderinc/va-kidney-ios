@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/25/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -12,23 +13,18 @@ import UIKit
  * Food Intake screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
 class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    /// the space between cells
-    let CELL_SPACING: CGFloat = 10
-
-    /// the margins
-    let COLLETION_VIEW_MARGINS: CGFloat = 5
-
     /// the cell size
-    let CELL_SIZE: CGSize = CGSize(width: 170, height: 137)
+    let CELL_SIZE: CGSize = CGSize(width: 170, height: 162.5)
 
     /// outlets
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
 
     /// the items to show
@@ -42,9 +38,6 @@ class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
 
         setupNavigation()
-        leftButton.setTitle(NSLocalizedString("Yesterday", comment: "Yesterday"), for: .normal)
-        dateLabel.text = DateFormatters.shortDate.string(from: Date())
-        dayLabel.text = NSLocalizedString("Today", comment: "Today")
     }
 
     /// Load data
@@ -63,20 +56,6 @@ class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UI
             self.items = items
             self.collectionView.reloadData()
         }, failure: createGeneralFailureCallback(loadingView))
-    }
-
-    /// Left button action handler
-    ///
-    /// - parameter sender: the button
-    @IBAction func prevButtonAction(_ sender: Any) {
-        showStub()
-    }
-
-    /// Calendar button action handler
-    ///
-    /// - parameter sender: the button
-    @IBAction func calendarButtonAction(_ sender: Any) {
-        showStub()
     }
 
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
@@ -99,7 +78,7 @@ class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UI
     /// - Returns: the cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "new", for: indexPath)
+            let cell = collectionView.getCell(indexPath, ofClass: FoodAddIntakeCollectionViewCell.self)
             return cell
         }
         else {
@@ -131,8 +110,35 @@ class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UI
     /// - Returns: cell size
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         self.view.layoutIfNeeded()
-        let width = (self.collectionView.bounds.width -  CELL_SPACING - COLLETION_VIEW_MARGINS * 2) / 2
+        let layout = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout)
+        let margins = layout.sectionInset
+        let spacing = CGSize(width: layout.minimumInteritemSpacing, height: layout.minimumLineSpacing)
+        
+        let n: CGFloat = 2
+        let width = (collectionView.bounds.width - margins.left - margins.right - (n - 1) * spacing.width) / n
         return CGSize(width: width, height: CELL_SIZE.height)
+    }
+}
+
+/**
+ * Cell for adding reports in FoodIntakeViewController
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+class FoodAddIntakeCollectionViewCell: UICollectionViewCell {
+
+    /// outlets
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var mainView: UIView!
+
+    /// Setup UI
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.contentView.layer.masksToBounds = false
+        self.layer.masksToBounds = false
+        mainView.roundCorners()
+        shadowView.addShadow()
     }
 }
 
@@ -140,23 +146,74 @@ class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UI
  * Cell for reports in FoodIntakeViewController
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
-class FoodIntakeCollectionViewCell: UICollectionViewCell {
+class FoodIntakeCollectionViewCell: FoodAddIntakeCollectionViewCell {
 
     /// outlets
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet var imageViews: [UIImageView]!
+    @IBOutlet weak var imagesContainer: UIView!
+
+    /// the related item
+    private var item: Food!
+
+    /// Setup UI
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        iconView.roundCorners()
+        for view in imageViews {
+            view.roundCorners()
+        }
+    }
 
     /// Update UI
     ///
     /// - Parameters:
     ///   - item: the item to show
     func configure(_ item: Food) {
-        iconView.image = item.image ?? #imageLiteral(resourceName: "subImage")
+        self.item = item
+        imagesContainer.isHidden = item.images.count == 1
+        iconView.isHidden = item.images.count != 1
+        if let first = item.images.first, item.images.count == 1 {
+            loadImage(first, toView: iconView, item: item)
+        }
+        else {
+            for view in imageViews {
+                view.image = nil
+            }
+            for i in 0..<min(4, item.images.count) {
+                if let view = imageViews.filter({$0.tag == i}).first {
+                    loadImage(item.images[i], toView: view, item: item)
+                }
+            }
+        }
         titleLabel.text = item.time.rawValue.capitalized
         valueLabel.text = item.items
     }
 
+    /// Load image
+    ///
+    /// - Parameters:
+    ///   - image: the image or image URL
+    ///   - imageView: the image view
+    ///   - item: the related food item
+    private func loadImage(_ image: Any, toView imageView: UIImageView, item: Food) {
+        if let image = image as? UIImage {
+            imageView.image = image
+        }
+        else if let url = image as? String {
+            UIImage.loadAsync(url, callback: { (image) in
+                if self.item.id == item.id {
+                    imageView.image = image
+                }
+            })
+        }
+    }
 }

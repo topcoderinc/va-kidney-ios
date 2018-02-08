@@ -1,0 +1,18 @@
+{
+    "id": 0,
+    "email": "demo@demo.com",
+    "password": "demo",
+    "firstName": "John",
+    "lastName": "Smith",
+
+    "birthday": "1960-01-01",
+    "height": 162,
+    "currentWeight": 195,
+    "dialysis": false,
+    "diseaseCategory": "ESRD",
+    "setupGoals": true,
+    "imageUrl": "sampleAvatar",
+    "addDevice": true,
+    "name": "John Smith"
+}
+

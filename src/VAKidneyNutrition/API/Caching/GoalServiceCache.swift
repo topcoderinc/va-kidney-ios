@@ -3,17 +3,22 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/24/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
-import UIKit
+import UIComponents
 import CoreData
 
 /**
  * Model object for Core Data related to Goal
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new fields
  */
 extension GoalMO: CoreDataEntity {
 
@@ -38,10 +43,13 @@ extension GoalMO: CoreDataEntity {
         object.value = value
 
         object.valueText1 = valueText1 ?? ""
+        object.valueText = valueText ?? ""
         object.valueTextMultiple = valueTextMultiple ?? ""
         object.hasExternalData = hasExternalData
         object.isAscendantTarget = isAscendantTarget
         object.sOrder = Int(sOrder)
+        object.color = UIColor.fromString(color ?? "") ?? .red
+        object.isReminderOn = isReminderOn
         return object
     }
 
@@ -66,10 +74,13 @@ extension GoalMO: CoreDataEntity {
         userId = AuthenticationUtil.sharedInstance.userInfo?.id ?? ""
 
         valueText1 = object.valueText1
+        valueText = object.valueText
         valueTextMultiple = object.valueTextMultiple
         hasExternalData = object.hasExternalData
         isAscendantTarget = object.isAscendantTarget
         sOrder = Int32(object.sOrder)
+        color = object.color.toString()
+        isReminderOn = object.isReminderOn
     }
 }
 

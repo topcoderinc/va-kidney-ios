@@ -1,37 +1,46 @@
 [
  {
- "id": 1,
+ "id": 4,
  "title": "eGFR",
  "units": 1,
  "lastEventDate": "2017-12-21",
  "limitStatus": "overflow",
+ "unitsLabel": "mL/min",
  "showTwoButtons": true
  },
  {
- "id": 2,
+ "id": 1,
  "title": "Blood Sugar",
  "units": 9,
+ "unitsLabel": "mmol/L",
  "lastEventDate": "2017-12-23",
  "limitStatus": "within",
  "showTwoButtons": true
  },
  {
- "id": 3,
+ "id": 2,
  "title": "Body Weight",
  "units": 4,
+ "unitsLabel": "lbs",
  "lastEventDate": "2017-12-21",
  "limitStatus": "within",
  "showTwoButtons": true
  },
  {
- "id": 4,
+ "id": 3,
  "title": "Potassium",
- "showTwoButtons": false
+ "showTwoButtons": true,
+ "units": 4.1,
+ "unitsLabel": "mEq/L",
+ "lastEventDate": "2017-12-21",
+ "limitStatus": "within",
+ "showTwoButtons": true
  },
  {
  "id": 5,
  "title": "Phosphorus",
  "units": 10,
+ "unitsLabel": "mEq/L",
  "lastEventDate": "2017-12-21",
  "limitStatus": "below",
  "showTwoButtons": true
@@ -40,6 +49,7 @@
  "id": 6,
  "title": "Haemoglobin A1c",
  "units": 5,
+ "unitsLabel": "mEq/L",
  "lastEventDate": "2017-12-21",
  "limitStatus": "within",
  "showTwoButtons": true
@@ -48,6 +58,7 @@
  "id": 7,
  "title": "Calcium",
  "units": 11,
+ "unitsLabel": "mEq/L",
  "lastEventDate": "2017-12-21",
  "limitStatus": "within",
  "showTwoButtons": true
@@ -56,6 +67,7 @@
  "id": 8,
  "title": "Bicarbonate",
  "units": 6,
+ "unitsLabel": "mEq/L",
  "lastEventDate": "2017-12-21",
  "limitStatus": "below",
  "showTwoButtons": true
@@ -64,6 +76,7 @@
  "id": 9,
  "title": "Uric Acid",
  "units": 12,
+ "unitsLabel": "mEq/L",
  "lastEventDate": "2017-12-21",
  "limitStatus": "below",
  "showTwoButtons": true
@@ -72,6 +85,7 @@
  "id": 10,
  "title": "Vitamin D",
  "units": 7,
+ "unitsLabel": "mEq/L",
  "lastEventDate": "2017-12-21",
  "limitStatus": "within",
  "showTwoButtons": true
@@ -80,6 +94,7 @@
  "id": 11,
  "title": "Albumin",
  "units": 13,
+ "unitsLabel": "mEq/L",
  "lastEventDate": "2017-12-21",
  "limitStatus": "overflow",
  "showTwoButtons": true
@@ -88,6 +103,7 @@
  "id": 12,
  "title": "Blood Pressure",
  "units": 8,
+ "unitsLabel": "mmHg",
  "lastEventDate": "2017-12-21",
  "limitStatus": "overflow",
  "showTwoButtons": true

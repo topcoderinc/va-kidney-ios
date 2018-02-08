@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import Foundation
@@ -15,11 +16,14 @@ public typealias FailureCallback = (String)->()
 /// type alias for a task
 public typealias Task = String
 
-/// type alias for suffixes for the units, e.g. ("mile", "miles")
-public typealias TaskUnitSuffix = (String, String)
+/// type alias for suffixes for the units, e.g. ("mile", "miles", "Mile")
+public typealias TaskUnitSuffix = (String, String, String)
 
-/// type alias for limits  for the units, e.g. ("mile", "miles")
-public typealias TaskUnitLimits = CountableClosedRange<Int>
+/// type alias for extra data for the task renrering (iconUrl, color)
+public typealias TaskExtraData = (String, UIColor)
+
+/// type alias for limits  for the units, e.g. ((2, 12), 2)
+public typealias TaskUnitLimits = (CountableClosedRange<Int>, Int)
 
 /// type alias for one group of medications
 public typealias MedicationScheduleItem = (Int, [(Medication, MedicationTime)])
@@ -34,7 +38,11 @@ let ERROR_PASSWORDS_NOT_MATCH = NSLocalizedString("The passwords do not match to
  * Protocol for API implementaion
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes support
  */
 protocol ServiceApi {
 
@@ -45,7 +53,10 @@ protocol ServiceApi {
     ///   - password: the password
     ///   - callback: the callback to invoke when successfully authenticated and return UserInfo and Profile
     ///   - failure: the callback to invoke when an error occurred
-    func authenticate(email: String, password: String, callback: @escaping (UserInfo) -> (), failure: @escaping FailureCallback)
+    /// (nil,error) - password error
+    /// (error,nil) - email error
+    /// (error,error) - system error or ERROR_WRONG_CREDENTIALS
+    func authenticate(email: String, password: String, callback: @escaping (UserInfo) -> (), failure: @escaping (String?, String?)->())
 
     /// Check if account not exists and verify the used field
     ///
@@ -118,6 +129,14 @@ protocol ServiceApi {
     ///   - failure: the failure callback to return an error
     func saveGoal(goal: Goal, callback: @escaping (Goal)->(), failure: @escaping FailureCallback)
 
+    /// Delete goal
+    ///
+    /// - Parameters:
+    ///   - goal: the goal
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func deleteGoal(goal: Goal, callback: @escaping ()->(), failure: @escaping FailureCallback)
+
     // MARK: - Reports
 
     /// Get reports
@@ -141,11 +160,11 @@ protocol ServiceApi {
     ///   - failure: the failure callback to return an error
     func getSuggestion(forReport report: Report, callback: @escaping (Suggestion?)->(), failure: @escaping FailureCallback)
 
-    /// Get suggestion for Home screen
+    /// Get suggestions for Home screen
     ///
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getMainSuggestion(callback: @escaping (Suggestion?)->(), failure: @escaping FailureCallback)
+    func getMainSuggestions(callback: @escaping ([Suggestion])->(), failure: @escaping FailureCallback)
 
     /// Get rewards
     ///
@@ -167,7 +186,7 @@ protocol ServiceApi {
     ///   - task: the task
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getUnits(task: Task, callback: @escaping (TaskUnitLimits, TaskUnitSuffix)->(), failure: @escaping FailureCallback)
+    func getUnits(task: Task, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback)
 
     // MARK: - Medications
 
@@ -184,6 +203,31 @@ protocol ServiceApi {
     ///   - callback: the callback to invoke when success: (list of medications)
     ///   - failure: the failure callback to return an error
     func getMedicationForToday(callback: @escaping ([Medication])->(), failure: @escaping FailureCallback)
+
+    /// Get medication resources
+    ///
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getMedicationResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback)
+
+    /// Get drag resources
+    ///
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getDragResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback)
+
+    /// Get resources
+    ///
+    ///   - type: the type
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getResources(type: ResourceType, callback: @escaping ([Resource])->(), failure: @escaping FailureCallback)
+
+    /// Get goal form tips
+    ///
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getGoalTip(callback: @escaping (JSON)->(), failure: @escaping FailureCallback)
 
     // MARK: - Food
 

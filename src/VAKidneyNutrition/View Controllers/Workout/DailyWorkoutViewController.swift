@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/25/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 02/04/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -12,22 +13,23 @@ import UIKit
  * Daily Workout screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
 class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    /// the space between cells
-    let CELL_SPACING: CGFloat = 10
-
-    /// the margins
-    let COLLETION_VIEW_MARGINS: CGFloat = 5
-
     /// the cell size
-    let CELL_SIZE: CGSize = CGSize(width: 170, height: 110)
+    let CELL_SIZE: CGSize = CGSize(width: 170, height: 181)
 
     /// outlets
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var lastSyncInfoLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
 
     /// the items to show
     private var items = [Workout]()
@@ -38,7 +40,8 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        topView.roundCorners()
+        shadowView.addShadow(size: 3, shift: 1.5, opacity: 1)
         setupNavigation()
         loadData()
     }
@@ -48,6 +51,8 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
         api.getWorkout(callback: { (items) in
             self.items = items
             self.collectionView.reloadData()
+            self.collectionView.isScrollEnabled = false
+            self.collectionViewHeight.constant = self.collectionView.getCollectionHeight(items: self.items.count, cellHeight: self.CELL_SIZE.height)
         }, failure: createGeneralFailureCallback())
     }
 
@@ -101,7 +106,13 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
     /// - Returns: the width
     private func getCellWidth() -> CGFloat {
         self.view.layoutIfNeeded()
-        return (self.collectionView.bounds.width -  CELL_SPACING - COLLETION_VIEW_MARGINS * 2) / 2
+        let layout = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout)
+        let margins = layout.sectionInset
+        let spacing = CGSize(width: layout.minimumInteritemSpacing, height: layout.minimumLineSpacing)
+
+        let n: CGFloat = 2
+        let width = (collectionView.bounds.width - margins.left - margins.right - (n - 1) * spacing.width) / n
+        return width
     }
 
     /// Get cell size
@@ -120,12 +131,13 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
  * Cell for reports in DailyWorkoutViewController
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - UI changes
  */
 class WorkoutCollectionViewCell: GoalCollectionViewCell {
-
-    /// outlets
-    @IBOutlet weak var goalIcon: UIImageView!
 
     /// Update UI
     ///
@@ -135,29 +147,20 @@ class WorkoutCollectionViewCell: GoalCollectionViewCell {
     func configure(_ item: Workout, cellWidth: CGFloat) {
         iconView.image = item.getIcon()
         titleLabel.text = item.title
-        category.text = ""
-        pointsLabel.text = ""
-        valueLabel.text = item.getValueText()
-        goalLabel.text = item.getTargetText()
 
+        achievedPointsLabel?.text = "+\(item.targetValue.toStringClear())"
 
-        let showTwoButtons = item.canBeManuallyChanged
-
-        achievedView.isHidden = !showTwoButtons || !item.isGoalAchived
-
-        addOneButton.isHidden = !showTwoButtons
-        let prefix = NSLocalizedString("Add one", comment: "Add one")
-        addOneButton.setTitle(prefix + " " + item.valueText1.lowercased(), for: .normal)
-
-        if showTwoButtons {
-            buttonLeftMargin.constant = cellWidth / 2
-            goalIcon.image = #imageLiteral(resourceName: "goalsIcon")
+        valueLabel.text = "\(item.value.toStringClear())/\(item.targetValue.toStringClear())"
+        if OPTION_USE_SINGULAR_FOR_TOP_GOALS && item.value == 1 {
+            goalValueLabel.text = item.valueText1
         }
         else {
-            buttonLeftMargin.constant = self.bounds.width - 1.5
-            goalIcon.image = #imageLiteral(resourceName: "smileHappy")
+            goalValueLabel.text = item.valueTextMultiple
         }
-        progressView.isHidden = !showTwoButtons
-        goalLabel.isHidden = !showTwoButtons
+
+        achievedView?.isHidden = !item.isGoalAchived
+        progressCircle.processValue = item.progress
+        progressCircle.mainColor = item.color
+        iconView.tintColor = item.color
     }
 }
