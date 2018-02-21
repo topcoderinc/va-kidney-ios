@@ -52,6 +52,44 @@ enum ProfilePickerType {
 let YES = NSLocalizedString("Yes", comment: "Yes")
 let NO = NSLocalizedString("No", comment: "No")
 
+class HeightPickerValue: PickerValue {
+
+    let height: Int
+    init(_ height: Int) {
+        self.height = height
+        super.init("")
+    }
+
+    override var description: String {
+        var str = ""
+        let feets = height / 12
+        if feets > 0 {
+            str = "\(feets)ft "
+        }
+        let inches = height % 12
+        if inches > 0 {
+            str += "\(inches)in"
+        }
+        return str.trim()
+    }
+
+    override var hashValue: Int {
+        return height.hashValue
+    }
+}
+
+/**
+ Equatable protocol implementation
+
+ - parameter lhs: the left object
+ - parameter rhs: the right object
+
+ - returns: true - if objects are equal, false - else
+ */
+func ==<T: HeightPickerValue>(lhs: T, rhs: T) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
 /**
  * The profile item
  *
@@ -124,7 +162,7 @@ class HeightProfileDataItem: ProfileDataItem {
     /// - Returns: the value
     override func getValue() -> String {
         if let value = value as? Int {
-            return "\(value)"
+            return HeightPickerValue(value).description
         }
         return super.getValue()
     }
@@ -379,8 +417,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                                               delegate: self)
                 return
             case .height:
-                data = Array(30...220).map{"\($0)"}
-                selected = "\(item.value ?? 162)"
+                PickerViewController.show(title: item.title, selected: HeightPickerValue(item.value as? Int ?? 162), data: Array(12...100).map{HeightPickerValue($0)}, delegate: self)
+                return
             case .currentWeight:
                 data = Array(20...200).map{"\($0)"}
                 selected = "\(item.value ?? 75)"
@@ -394,7 +432,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 showStub()
                 return
             }
-            PickerViewController.show(title: item.title, selected: selected, data: data, delegate: self)
+            PickerViewController.show(title: item.title, selected: PickerValue(selected), data: data.map{PickerValue($0)}, delegate: self)
             break
         case .avatar:
             imageUtil.delegate = self
@@ -402,7 +440,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case .text:
             break
         }
-    }
+            }
 
     // MARK: - PickerViewControllerDelegate
 
@@ -411,19 +449,24 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     /// - Parameters:
     ///   - value: the value
     ///   - picker: the picker
-    func pickerValueUpdated(_ value: String, picker: PickerViewController) {
+    func pickerValueUpdated(_ value: PickerValue, picker: PickerViewController) {
         if let item = items.filter({$0.dataType == lastSelectedPickerType}).first {
-            if value == YES {
-                item.value = true
-            }
-            else if value == NO {
-                item.value = false
-            }
-            else if let int = Int(value) {
-                item.value = int
+            if let value = value as? HeightPickerValue {
+                item.value = value.height
             }
             else {
-                item.value = value
+                if value.description == YES {
+                    item.value = true
+                }
+                else if value.description == NO {
+                    item.value = false
+                }
+                else if let int = Int(value.description) {
+                    item.value = int
+                }
+                else {
+                    item.value = value
+                }
             }
             tableView.reloadData()
             if !OPTION_PROFILE_ADD_DONE_BUTTON {
@@ -513,7 +556,7 @@ class ProfileItemCell: ZeroMarginsCell {
 
         switch item.dataType {
         case .height:
-            valueEndingLabel.text = NSLocalizedString("cm", comment: "cm")
+            valueEndingLabel.text = ""
         case .currentWeight:
             if item.getValue() == "1" {
                 valueEndingLabel.text = NSLocalizedString("pound", comment: "pound")
