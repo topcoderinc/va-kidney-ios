@@ -23,7 +23,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--DAILY WORKOUT-->
+        <!--ACTIVITY-->
         <scene sceneID="b3f-mP-50S">
             <objects>
                 <viewController storyboardIdentifier="DailyWorkoutViewController" id="Qko-bo-krs" customClass="DailyWorkoutViewController" customModule="VAKidneyNutrition" customModuleProvider="target" sceneMemberID="viewController">
@@ -394,7 +394,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5vR-BF-I0S"/>
                     </view>
-                    <navigationItem key="navigationItem" title="DAILY WORKOUT" id="yD2-o0-FaS">
+                    <navigationItem key="navigationItem" title="ACTIVITY" id="yD2-o0-FaS">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="RXL-Jl-ooM">
                             <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>

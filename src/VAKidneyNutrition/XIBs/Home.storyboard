@@ -76,8 +76,8 @@
                                             <action selector="tabButtonAction:" destination="2T5-jZ-Fcc" eventType="touchUpInside" id="ZmK-Ex-cDG"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medication" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZd-jB-vsa">
-                                        <rect key="frame" x="150" y="32.5" width="75" height="11"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recommendations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aZd-jB-vsa">
+                                        <rect key="frame" x="145" y="32.5" width="85" height="11"/>
                                         <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="11"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -90,7 +90,7 @@
                                             <action selector="tabButtonAction:" destination="2T5-jZ-Fcc" eventType="touchUpInside" id="FXj-rC-5yw"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAg-bk-d1K">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food/Drug" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAg-bk-d1K">
                                         <rect key="frame" x="225" y="32.5" width="75" height="11"/>
                                         <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="11"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -104,7 +104,7 @@
                                             <action selector="tabButtonAction:" destination="2T5-jZ-Fcc" eventType="touchUpInside" id="6E7-lO-Bcz"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-9Y-imf">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-9Y-imf">
                                         <rect key="frame" x="300" y="32.5" width="75" height="11"/>
                                         <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="11"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,7 +128,7 @@
                                     <constraint firstItem="XPF-1g-J17" firstAttribute="leading" secondItem="zEq-F7-CQU" secondAttribute="leading" constant="17.5" id="44E-5e-vT6"/>
                                     <constraint firstAttribute="bottom" secondItem="5F9-wh-TYT" secondAttribute="bottom" constant="5.5" id="4f8-CH-YFM"/>
                                     <constraint firstItem="ecU-9Y-imf" firstAttribute="trailing" secondItem="qUI-J4-vCB" secondAttribute="trailing" id="4fF-b8-Ybg"/>
-                                    <constraint firstItem="aZd-jB-vsa" firstAttribute="trailing" secondItem="9QL-xg-JPS" secondAttribute="trailing" id="6cD-S5-6tC"/>
+                                    <constraint firstItem="aZd-jB-vsa" firstAttribute="trailing" secondItem="9QL-xg-JPS" secondAttribute="trailing" constant="5" id="6cD-S5-6tC"/>
                                     <constraint firstItem="9QL-xg-JPS" firstAttribute="width" secondItem="xCu-2P-Tzw" secondAttribute="width" id="9Yt-H4-qeV"/>
                                     <constraint firstItem="zAg-bk-d1K" firstAttribute="leading" secondItem="jgy-FH-1cc" secondAttribute="leading" id="CDs-We-fvq"/>
                                     <constraint firstAttribute="height" constant="49" id="DCR-tp-qC3"/>
@@ -139,7 +139,7 @@
                                     <constraint firstItem="ecU-9Y-imf" firstAttribute="leading" secondItem="qUI-J4-vCB" secondAttribute="leading" id="PGU-ra-Bks"/>
                                     <constraint firstItem="qUI-J4-vCB" firstAttribute="leading" secondItem="jgy-FH-1cc" secondAttribute="trailing" id="QOG-bc-eJI"/>
                                     <constraint firstItem="jgy-FH-1cc" firstAttribute="width" secondItem="xCu-2P-Tzw" secondAttribute="width" id="VRh-77-ie8"/>
-                                    <constraint firstItem="aZd-jB-vsa" firstAttribute="leading" secondItem="9QL-xg-JPS" secondAttribute="leading" id="XS2-8X-xfn"/>
+                                    <constraint firstItem="aZd-jB-vsa" firstAttribute="leading" secondItem="9QL-xg-JPS" secondAttribute="leading" constant="-5" id="XS2-8X-xfn"/>
                                     <constraint firstItem="aZd-jB-vsa" firstAttribute="centerY" secondItem="5F9-wh-TYT" secondAttribute="centerY" id="XpE-2b-4FM"/>
                                     <constraint firstItem="5F9-wh-TYT" firstAttribute="trailing" secondItem="xCu-2P-Tzw" secondAttribute="trailing" id="ZyX-2S-dNx"/>
                                     <constraint firstItem="jgy-FH-1cc" firstAttribute="top" secondItem="zEq-F7-CQU" secondAttribute="top" id="a2q-ZZ-RBf"/>
