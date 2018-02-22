@@ -143,13 +143,6 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgProfile" translatesAutoresizingMaskIntoConstraints="NO" id="l2F-lS-rOm">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="153"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noProfileIcon" translatesAutoresizingMaskIntoConstraints="NO" id="UTU-uV-I88">
-                                                <rect key="frame" x="81" y="78.5" width="93" height="93"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="93" id="0ir-jx-cuq"/>
-                                                    <constraint firstAttribute="width" constant="93" id="bVT-oM-Djs"/>
-                                                </constraints>
-                                            </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOHN SMITH?" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rF-se-Npk">
                                                 <rect key="frame" x="190" y="104" width="95" height="16"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="16"/>
@@ -162,18 +155,26 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JS6-IA-eB3" customClass="AddAssetButtonView" customModule="VAKidneyNutrition" customModuleProvider="target">
+                                                <rect key="frame" x="81" y="78.5" width="93" height="93"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="93" id="3J5-JW-xAB"/>
+                                                    <constraint firstAttribute="width" constant="93" id="HUK-Fw-aeR"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.2470588235" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="6rF-se-Npk" firstAttribute="leading" secondItem="UTU-uV-I88" secondAttribute="trailing" constant="16" id="0ly-Xm-LOo"/>
-                                            <constraint firstItem="6rF-se-Npk" firstAttribute="centerY" secondItem="UTU-uV-I88" secondAttribute="centerY" constant="-13" id="CPd-1S-az8"/>
-                                            <constraint firstItem="UTU-uV-I88" firstAttribute="leading" secondItem="cIu-i9-E36" secondAttribute="leading" constant="81" id="KEa-u4-Jiz"/>
+                                            <constraint firstItem="JS6-IA-eB3" firstAttribute="leading" secondItem="cIu-i9-E36" secondAttribute="leading" constant="81" id="M6C-xx-55i"/>
                                             <constraint firstAttribute="trailing" secondItem="l2F-lS-rOm" secondAttribute="trailing" id="N8s-GC-wdc"/>
                                             <constraint firstItem="l2F-lS-rOm" firstAttribute="top" secondItem="cIu-i9-E36" secondAttribute="top" id="R2C-ha-pRZ"/>
+                                            <constraint firstItem="6rF-se-Npk" firstAttribute="leading" secondItem="JS6-IA-eB3" secondAttribute="trailing" constant="16" id="V2b-Zb-V2I"/>
                                             <constraint firstItem="rUJ-rJ-Fec" firstAttribute="trailing" secondItem="6rF-se-Npk" secondAttribute="trailing" id="WuR-bj-HvZ"/>
                                             <constraint firstAttribute="bottom" secondItem="l2F-lS-rOm" secondAttribute="bottom" id="cby-KR-1hz"/>
+                                            <constraint firstItem="6rF-se-Npk" firstAttribute="centerY" secondItem="JS6-IA-eB3" secondAttribute="centerY" constant="-13" id="eTB-6d-YZr"/>
                                             <constraint firstItem="rUJ-rJ-Fec" firstAttribute="top" secondItem="6rF-se-Npk" secondAttribute="bottom" constant="2" id="gIm-zB-aQ3"/>
-                                            <constraint firstAttribute="bottom" secondItem="UTU-uV-I88" secondAttribute="bottom" constant="-18.5" id="h6q-5y-jtt"/>
+                                            <constraint firstAttribute="bottom" secondItem="JS6-IA-eB3" secondAttribute="bottom" constant="-18.5" id="qpm-re-fZR"/>
                                             <constraint firstItem="rUJ-rJ-Fec" firstAttribute="leading" secondItem="6rF-se-Npk" secondAttribute="leading" id="tcj-69-CCK"/>
                                             <constraint firstItem="l2F-lS-rOm" firstAttribute="leading" secondItem="cIu-i9-E36" secondAttribute="leading" id="uru-tz-FGk"/>
                                         </constraints>
@@ -218,7 +219,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="birthDateLabel" destination="rUJ-rJ-Fec" id="S76-zR-fm8"/>
-                        <outlet property="profileImageView" destination="UTU-uV-I88" id="mz0-JR-r72"/>
+                        <outlet property="profileImageView" destination="JS6-IA-eB3" id="gaM-Hk-ddf"/>
                         <outlet property="tableView" destination="p0O-wa-SbO" id="DmI-Ep-DT5"/>
                         <outlet property="userNameLabel" destination="6rF-se-Npk" id="0Jk-GR-aow"/>
                     </connections>
@@ -484,6 +485,5 @@
         <image name="bgProfile" width="375" height="153"/>
         <image name="disclosure" width="9" height="15"/>
         <image name="menuIcon" width="20" height="18"/>
-        <image name="noProfileIcon" width="56" height="56"/>
     </resources>
 </document>
