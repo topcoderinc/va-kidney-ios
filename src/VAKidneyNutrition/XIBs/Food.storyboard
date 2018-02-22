@@ -19,7 +19,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--FOOD INTAKE-->
+        <!--FOOD/DRUG INTAKE-->
         <scene sceneID="1eR-rQ-9O1">
             <objects>
                 <viewController storyboardIdentifier="FoodIntakeViewController" id="UdQ-12-noy" customClass="FoodIntakeViewController" customModule="VAKidneyNutrition" customModuleProvider="target" sceneMemberID="viewController">
@@ -284,7 +284,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1x4-vB-0xb"/>
                     </view>
-                    <navigationItem key="navigationItem" title="FOOD INTAKE" id="lmv-fw-AyJ">
+                    <navigationItem key="navigationItem" title="FOOD/DRUG INTAKE" id="lmv-fw-AyJ">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="8qN-nA-flR">
                             <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
