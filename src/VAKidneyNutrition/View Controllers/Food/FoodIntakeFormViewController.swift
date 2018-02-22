@@ -309,7 +309,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
         self.view.endEditing(true)
         if let json = JSON.resource(named: "units") {
             let items = json.arrayValue.map{$0.stringValue}
-            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items, delegate: self)
+            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
         }
     }
 
@@ -320,8 +320,8 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
     /// - Parameters:
     ///   - value: the value
     ///   - picker: the picker
-    func pickerValueUpdated(_ value: String, picker: PickerViewController) {
-        unitsField.text = value
+    func pickerValueUpdated(_ value: PickerValue, picker: PickerViewController) {
+        unitsField.text = value.description
     }
 
     // MARK: - DatePickerViewControllerDelegate

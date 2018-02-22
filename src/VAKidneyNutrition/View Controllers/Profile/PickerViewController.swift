@@ -25,7 +25,7 @@ var LastPickerViewController: PickerViewController?
      - parameter value:   the value
      - parameter picker: the picker
      */
-    @objc func pickerValueUpdated(_ value: String, picker: PickerViewController)
+    @objc func pickerValueUpdated(_ value: PickerValue, picker: PickerViewController)
 
     /**
      Picker cancelled
@@ -33,6 +33,34 @@ var LastPickerViewController: PickerViewController?
      - parameter picker: the picker
      */
     @objc optional func pickerCancelled(_ picker: PickerViewController)
+}
+
+class PickerValue: NSObject {
+
+    let string: String
+    init(_ string: String?) {
+        self.string = string ?? ""
+    }
+
+    override var description: String {
+        return string
+    }
+
+    override var hashValue: Int {
+        return string.hashValue
+    }
+}
+
+/**
+ Equatable protocol implementation
+
+ - parameter lhs: the left object
+ - parameter rhs: the right object
+
+ - returns: true - if objects are equal, false - else
+ */
+func ==<T: PickerValue>(lhs: T, rhs: T) -> Bool {
+    return lhs.hashValue == rhs.hashValue
 }
 
 /**
@@ -52,8 +80,8 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     private var delegate: PickerViewControllerDelegate?
 
     /// the data to show
-    private var data = [String]()
-    private var selected: String? = nil
+    private var data = [PickerValue]()
+    private var selected: PickerValue? = nil
 
     /**
      Show the picker
@@ -65,8 +93,8 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
      */
     @discardableResult
     class func show(title: String,
-                    selected: String? = nil,
-                    data: [String],
+                    selected: PickerValue? = nil,
+                    data: [PickerValue],
                     delegate: PickerViewControllerDelegate) -> PickerViewController? {
         LastPickerViewController?.closePicker()
         if let parent = UIViewController.getCurrentViewController() {
@@ -96,7 +124,7 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
 
         picker.delegate = self
         self.view.backgroundColor = UIColor.clear
-        if let selected = selected, let index = data.index(of: selected) {
+        if let selected = selected?.description, let index = data.map({$0.description}).index(of: selected) {
             picker.selectRow(index, inComponent: 0, animated: false)
         }
     }
@@ -125,7 +153,7 @@ class PickerViewController: UIViewController, UIPickerViewDataSource, UIPickerVi
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return data[row]
+        return data[row].description
     }
 
     // MARK: - UIPickerViewDelegate

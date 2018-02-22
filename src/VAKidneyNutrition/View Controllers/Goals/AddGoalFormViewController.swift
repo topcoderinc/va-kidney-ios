@@ -323,14 +323,14 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
                     for i in stride(from: limits.0.lowerBound, to: limits.0.upperBound + 1, by: limits.1) {
                         values.append("\(i) \((i == 1 ? suffix.0 : suffix.1))")
                     }
-                    PickerViewController.show(title: "units", selected: self.unitLabel.text, data: values, delegate: self)
+                    PickerViewController.show(title: "units", selected: PickerValue(self.unitLabel.text), data: values.map{PickerValue($0)}, delegate: self)
                 }, failure: createGeneralFailureCallback())
             }
             else {
                 showAlert(NSLocalizedString("Select task", comment: "Select task"), NSLocalizedString("Please select a category and a task first", comment: "Please select a category and a task first"))
             }
         case frequencyField:
-            PickerViewController.show(title: "frequency", selected: freqLabel.text, data: GoalFrequency.getAll().map({$0.rawValue.capitalized}), delegate: self)
+            PickerViewController.show(title: "frequency", selected: PickerValue(freqLabel.text), data: GoalFrequency.getAll().map({PickerValue($0.rawValue.capitalized)}), delegate: self)
         default:
             break
         }
@@ -344,15 +344,15 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
     /// - Parameters:
     ///   - value: the value
     ///   - picker: the picker
-    func pickerValueUpdated(_ value: String, picker: PickerViewController) {
+    func pickerValueUpdated(_ value: PickerValue, picker: PickerViewController) {
         switch picker.title ?? "" {
         case "units":
-            self.selectedUnits = Float(value.split(separator: " ").first ?? "") ?? 0
+            self.selectedUnits = Float(value.description.split(separator: " ").first ?? "") ?? 0
             if let cat = selectedCategory, let units = self.selectedUnits {
                 self.selectedUnitsForCategory[cat.id] = units
             }
         case "frequency":
-            self.selectedFrequency = GoalFrequency(rawValue: value.lowercased())
+            self.selectedFrequency = GoalFrequency(rawValue: value.description.lowercased())
         default:
             return
         }
