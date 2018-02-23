@@ -195,8 +195,8 @@ class WeightProfileDataItem: ProfileDataItem {
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PickerViewControllerDelegate, AddAssetButtonViewDelegate, DatePickerViewControllerDelegate {
 
     /// outlets
+    @IBOutlet weak var profileImageView: AddAssetButtonView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var birthDateLabel: UILabel!
 
@@ -208,9 +208,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
     /// last picker type
     private var lastSelectedPickerType: ProfileDataType?
-
-    /// the utility used to take image
-    private var imageUtil = AddAssetButtonView()
 
     /// the profile to show
     var profile: Profile?
@@ -227,6 +224,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
         profileImageView.makeRound()
         profileImageView.addBorder(color: UIColor.white, borderWidth: 1)
+        profileImageView.delegate = self
         if profile == nil {
             navigationItem.leftBarButtonItem = nil
         }
@@ -276,14 +274,14 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     private func loadData() {
         self.userNameLabel.text = ""
         self.birthDateLabel.text = ""
-        self.profileImageView.image = #imageLiteral(resourceName: "noProfileIcon")
+        self.profileImageView.setSelectedImage(#imageLiteral(resourceName: "noProfileIcon"), resetPreviousImage: true)
         if let profile = profile {
             self.userNameLabel.text = profile.name.uppercased()
             if let date = profile.birthday {
                 self.birthDateLabel.text = DateFormatters.shortDate.string(from: date)
             }
             if let image = profile.image {
-                self.profileImageView.image = image
+                self.profileImageView.setSelectedImage(image, resetPreviousImage: true)
             }
             items = [
                 AgeProfileDataItem(title: "Age", type: .picker, dataType: .date, value: profile.birthday),
@@ -292,7 +290,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 ProfileDataItem(title: "Are you on Dialysis?", type: .picker, dataType: .dialysis, value: profile.dialysis),
                 ProfileDataItem(title: "Disease Category", type: .picker, dataType: .diseaseCategory, value: profile.diseaseCategory),
                 ProfileDataItem(title: "Want to setup goals?", type: .picker, dataType: .setupGoals, value: profile.setupGoals),
-                ProfileDataItem(title: "Avatar", type: .avatar, dataType: .avatar, value: profile.image),
                 ProfileDataItem(title: "Add Biometric Device", type: .picker, dataType: .devices, value: profile.addDevice),
             ]
         }
@@ -330,7 +327,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         profile.dialysis = items.filter({$0.dataType == .dialysis}).first?.value as? Bool ?? false
         profile.diseaseCategory = items.filter({$0.dataType == .diseaseCategory}).first?.value as? String ?? ""
         profile.setupGoals = items.filter({$0.dataType == .setupGoals}).first?.value as? Bool ?? false
-        profile.image = items.filter({$0.dataType == .avatar}).first?.value as? UIImage
+        profile.image = profileImageView.image
         profile.addDevice = items.filter({$0.dataType == .devices}).first?.value as? Bool ?? false
 
         if profile.name.isEmpty
@@ -435,8 +432,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             PickerViewController.show(title: item.title, selected: PickerValue(selected), data: data.map{PickerValue($0)}, delegate: self)
             break
         case .avatar:
-            imageUtil.delegate = self
-            imageUtil.addAssetButtonTapped(imageUtil)
+            break
         case .text:
             break
         }
@@ -489,7 +485,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 item.value = image
             }
             tableView.reloadData()
-            profileImageView.image = image
             if !OPTION_PROFILE_ADD_DONE_BUTTON {
                 self.saveProfile()
             }
@@ -498,7 +493,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
     /// method required by AddAssetButtonViewDelegate
     func addAssetButtonTapped(_ view: AddAssetButtonView) {
-        // nothing to do
+        profileImageView.addAssetButtonTapped(profileImageView)
     }
 
     // MARK: - DatePickerViewControllerDelegate
