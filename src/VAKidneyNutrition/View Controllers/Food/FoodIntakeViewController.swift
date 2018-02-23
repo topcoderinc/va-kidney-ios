@@ -195,7 +195,7 @@ class FoodIntakeCollectionViewCell: FoodAddIntakeCollectionViewCell {
             }
         }
         titleLabel.text = item.time.rawValue.capitalized
-        valueLabel.text = item.items
+        valueLabel.text = item.items.map({$0.title}).joined(separator: ", ")
     }
 
     /// Load image

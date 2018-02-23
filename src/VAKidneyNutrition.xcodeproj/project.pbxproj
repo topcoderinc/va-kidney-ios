@@ -50,6 +50,10 @@
 		FD43687B1FF11792003B22CE /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43687A1FF11792003B22CE /* Workout.swift */; };
 		FD43687D1FF11941003B22CE /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = FD43687C1FF11941003B22CE /* workouts.json */; };
 		FD43687F1FF1228F003B22CE /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43687E1FF1228F003B22CE /* ReminderViewController.swift */; };
+		FD53C5E82040571D00AB7FDB /* FoodIntakeAddMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53C5E72040571D00AB7FDB /* FoodIntakeAddMealViewController.swift */; };
+		FD53C5EA204058F200AB7FDB /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53C5E9204058F200AB7FDB /* FoodItem.swift */; };
+		FD53C5EC20405CA700AB7FDB /* InfiniteTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53C5EB20405CA700AB7FDB /* InfiniteTableViewModel.swift */; };
+		FD53C5EE20405DB800AB7FDB /* FoodItemServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD53C5ED20405DB800AB7FDB /* FoodItemServiceCache.swift */; };
 		FD5EF4562023AE5200E6BD23 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5EF4552023AE5200E6BD23 /* UIExtensions.swift */; };
 		FD5EF4622023AFE900E6BD23 /* MyriadPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FD5EF4582023AFE900E6BD23 /* MyriadPro-Bold.otf */; };
 		FD5EF4632023AFE900E6BD23 /* MyriadPro-BoldCond.otf in Resources */ = {isa = PBXBuildFile; fileRef = FD5EF4592023AFE900E6BD23 /* MyriadPro-BoldCond.otf */; };
@@ -202,6 +206,10 @@
 		FD43687A1FF11792003B22CE /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		FD43687C1FF11941003B22CE /* workouts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
 		FD43687E1FF1228F003B22CE /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
+		FD53C5E72040571D00AB7FDB /* FoodIntakeAddMealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodIntakeAddMealViewController.swift; sourceTree = "<group>"; };
+		FD53C5E9204058F200AB7FDB /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
+		FD53C5EB20405CA700AB7FDB /* InfiniteTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteTableViewModel.swift; sourceTree = "<group>"; };
+		FD53C5ED20405DB800AB7FDB /* FoodItemServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemServiceCache.swift; sourceTree = "<group>"; };
 		FD5EF4552023AE5200E6BD23 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		FD5EF4582023AFE900E6BD23 /* MyriadPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-Bold.otf"; sourceTree = "<group>"; };
 		FD5EF4592023AFE900E6BD23 /* MyriadPro-BoldCond.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-BoldCond.otf"; sourceTree = "<group>"; };
@@ -374,6 +382,7 @@
 			children = (
 				FD4368691FF0EF09003B22CE /* FoodIntakeViewController.swift */,
 				FD43686F1FF0FE0D003B22CE /* FoodIntakeFormViewController.swift */,
+				FD53C5E72040571D00AB7FDB /* FoodIntakeAddMealViewController.swift */,
 			);
 			path = Food;
 			sourceTree = "<group>";
@@ -441,6 +450,7 @@
 				FD43685A1FF054E0003B22CE /* Medication.swift */,
 				FD43685C1FF05561003B22CE /* MedicationTime.swift */,
 				FD43686B1FF0F1A1003B22CE /* Food.swift */,
+				FD53C5E9204058F200AB7FDB /* FoodItem.swift */,
 				FD43687A1FF11792003B22CE /* Workout.swift */,
 				FD12605220265B76009514D6 /* MedicationResource.swift */,
 				FD19E2CE20267301008C46BF /* Resource.swift */,
@@ -456,6 +466,7 @@
 				FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */,
 				FD94C6821FF034460039D233 /* GoalServiceCache.swift */,
 				FD4368731FF10D44003B22CE /* FoodServiceCache.swift */,
+				FD53C5ED20405DB800AB7FDB /* FoodItemServiceCache.swift */,
 			);
 			path = Caching;
 			sourceTree = "<group>";
@@ -629,6 +640,7 @@
 				FD70AC951FEC09D3003854A1 /* FileUtil.swift */,
 				FD70AC971FEC0A31003854A1 /* AuthenticationUtil.swift */,
 				FD4368711FF104EE003B22CE /* AddAssetButtonView.swift */,
+				FD53C5EB20405CA700AB7FDB /* InfiniteTableViewModel.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -873,6 +885,7 @@
 				FD12605320265B76009514D6 /* MedicationResource.swift in Sources */,
 				FD03F6ED1FED012800E19304 /* MainViewController.swift in Sources */,
 				FDF7BC071FED60EC0078970A /* Report.swift in Sources */,
+				FD53C5E82040571D00AB7FDB /* FoodIntakeAddMealViewController.swift in Sources */,
 				FD4368791FF1160C003B22CE /* DailyWorkoutViewController.swift in Sources */,
 				FD19E2CD2026717F008C46BF /* ResourcesTableViewController.swift in Sources */,
 				FD4368631FF075D7003B22CE /* EditMedicationViewController.swift in Sources */,
@@ -891,6 +904,7 @@
 				FD3C1A6D1FF04B2B00B78908 /* MedicationsMainViewController.swift in Sources */,
 				FD12605120265A1F009514D6 /* MedicationsTableViewController.swift in Sources */,
 				FDF748A91FEFEA5C00FB1037 /* RewardsViewController.swift in Sources */,
+				FD53C5EE20405DB800AB7FDB /* FoodItemServiceCache.swift in Sources */,
 				FD81F4AC20247578009EF447 /* WelcomePage1ViewController.swift in Sources */,
 				FD70AC7C1FEC049E003854A1 /* ServiceApi.swift in Sources */,
 				FDAA0B5C2024B24F0094515D /* HomeDashboardViewController.swift in Sources */,
@@ -904,9 +918,11 @@
 				FD70AC751FEBF523003854A1 /* SignInViewController.swift in Sources */,
 				FD70AC7F1FEC059B003854A1 /* UserInfo.swift in Sources */,
 				FD19E2D320267D7B008C46BF /* GoalsCollectionViewController.swift in Sources */,
+				FD53C5EA204058F200AB7FDB /* FoodItem.swift in Sources */,
 				FD70AC891FEC0632003854A1 /* CacheableObjectMOExtension.swift in Sources */,
 				FDF397DA1FEBD0C100DEED65 /* AppDelegate.swift in Sources */,
 				FD43685B1FF054E0003B22CE /* Medication.swift in Sources */,
+				FD53C5EC20405CA700AB7FDB /* InfiniteTableViewModel.swift in Sources */,
 				FD43686A1FF0EF09003B22CE /* FoodIntakeViewController.swift in Sources */,
 				FD19E2CF20267301008C46BF /* Resource.swift in Sources */,
 				FD81F4AA20247561009EF447 /* WelcomePageContainerViewController.swift in Sources */,

@@ -34,6 +34,7 @@ class CachingServiceApi: ServiceApi {
     private let profileService = ProfileServiceCache()
     private let goalServiceCache = GoalServiceCache()
     private let foodServiceCache = FoodServiceCache()
+    private let foodItemServiceCache = FoodItemServiceCache()
 
     /// Initializer
     ///
@@ -401,8 +402,15 @@ class CachingServiceApi: ServiceApi {
         if food.id.isEmpty {
             food.id = UUID().uuidString
         }
-        foodServiceCache.upsert([food], success: { (cached) in
-            callback(cached.first!)
+
+        foodItemServiceCache.upsert(food.items, success: { (items) in
+            food.items = items
+            let predicate = self.foodItemServiceCache.createStringArrayPredicate("id", value: items.map { $0.id })
+            self.foodItemServiceCache.getMO(withPredicate: predicate, { (itemsMO) in
+                self.foodServiceCache.upsert([food], relatedObjects: itemsMO, success: { (cached) in
+                    callback(cached.first!)
+                }, failure: self.wrapFailure(failure))
+            }, failure: self.wrapFailure(failure))
         }, failure: wrapFailure(failure))
     }
 
