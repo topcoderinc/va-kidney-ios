@@ -23,7 +23,7 @@ public class Food: CacheableObject {
 
     /// the fields
     var time: FoodIntakeTime!
-    var items = ""
+    var items = [FoodItem]()
     var date: Date = Date()
     var images = [Any]() // UIImage or String
 
@@ -34,7 +34,7 @@ public class Food: CacheableObject {
     class func fromJson(_ json: JSON) -> Food {
         let object = Food(id: json["id"].stringValue)
         object.time = FoodIntakeTime(rawValue: json["time"].stringValue.lowercased()) ?? .breakfast
-        object.items = json["items"].stringValue
+        object.items = json["items"].arrayValue.map({FoodItem.fromJson($0)})
         object.images = json["imageUrls"].arrayValue.map{$0.stringValue}
         return object
     }

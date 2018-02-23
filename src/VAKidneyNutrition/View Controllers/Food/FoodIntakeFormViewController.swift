@@ -25,23 +25,19 @@ enum FoodIntakeTime: String {
  * 1.1:
  * - UI changes
  */
-class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
-    PickerViewControllerDelegate, DatePickerViewControllerDelegate, AddAssetButtonViewDelegate,
-    UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DatePickerViewControllerDelegate, AddAssetButtonViewDelegate,
+    UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, FoodIntakeAddMealViewControllerDelegate {
 
     /// the cell size
     let CELL_SIZE: CGFloat = 129.5
 
+    /// outlets
     @IBOutlet weak var dateView: CustomView!
     @IBOutlet weak var timeView: CustomView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var timeInfoLabel: UILabel!
-
-    @IBOutlet weak var itemsField: CustomTextField!
-    @IBOutlet weak var amountField: CustomTextField!
-    @IBOutlet weak var unitsField: CustomTextField!
 
     @IBOutlet var mealTimeButtons: [UIButton]!
     @IBOutlet weak var mealTimeButtonsView: UIView!
@@ -50,11 +46,9 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
     @IBOutlet weak var mealSelectorWidth: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionHeight: NSLayoutConstraint!
-    @IBOutlet weak var mealErrorLabel: UILabel!
-    @IBOutlet weak var mealBottomMargin: NSLayoutConstraint! // 33.5 (+15)
-    @IBOutlet weak var amountErrorLabel: UILabel!
-    @IBOutlet weak var unitErrorLabel: UILabel!
-    @IBOutlet weak var amountBottomMargin: NSLayoutConstraint! // 17.5 (+15)
+
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeight: NSLayoutConstraint!
 
     /// the food to edit
     var food: Food?
@@ -71,6 +65,12 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
     /// the images
     private var images = [Any]()
 
+    /// the meal items
+    private var meals = [FoodItem]()
+
+    /// the table model
+    private var table = InfiniteTableViewModel<FoodItem, FoodItemTableViewCell>()
+
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +86,26 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
         self.mealTimeAction(self.mealTimeButtons.filter({$0.tag == 0}).first!)
 
         images = food?.images ?? []
-        resetErrors()
+        meals = food?.items ?? []
+
+        table.tableHeight = tableHeight
+        table.extraHeight = 7
+        table.configureCell = { indexPath, item, _, cell in
+            cell.titleLabel?.text = item.title
+            cell.amountLabel?.text = "\(item.amount)"
+            cell.unitsLabel?.text = item.units
+        }
+        table.onSelect = { _, item in
+            self.openForm(item)
+        }
+        table.loadItems = { callback, failure in
+            callback(self.meals)
+        }
+        table.bindData(to: tableView)
+
         updateUI()
         updateCollection()
+        self.view.layoutIfNeeded()
     }
 
     /// Update UI
@@ -118,17 +135,20 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
         }
     }
 
-    /// Hide error fields
-    private func resetErrors() {
-        showFieldError(nil, field: amountField,
-                       bottomMargin: amountBottomMargin,
-                       errorLabel: amountErrorLabel, constant: 17.5)
-        showFieldError(nil, field: itemsField,
-                       bottomMargin: mealBottomMargin,
-                       errorLabel: mealErrorLabel, constant: 33.5)
-        showFieldError(nil, field: unitsField,
-                       bottomMargin: amountBottomMargin,
-                       errorLabel: unitErrorLabel, constant: 17.5)
+    /// Open form
+    private func openForm(_ item: FoodItem? = nil) {
+        if let vc = create(FoodIntakeAddMealViewController.self), let parent = UIViewController.getCurrentViewController() {
+            vc.item = item
+            vc.delegate = self
+            parent.showViewControllerFromSide(vc, inContainer: parent.view, bounds: parent.view.bounds, side: .bottom, nil)
+        }
+    }
+
+    /// "Add Meal" button action handler
+    ///
+    /// - parameter sender: the button
+    @IBAction func addMealAction(_ sender: Any) {
+        openForm()
     }
 
     /// Save action
@@ -137,32 +157,9 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
     @IBAction func saveButtonAction(_ sender: Any) {
         self.view.endEditing(true)
 
-        resetErrors()
-
-        let meal = (itemsField.text ?? "").trim()
-        let amount = Float(amountField.text ?? "")
-        let units = (unitsField.text ?? "").trim()
         var hasError = false
-        if amount == nil || (amount ?? 0) <= 0 {
-            showFieldError(NSLocalizedString("Should be a positive number", comment: "Should be a positive number"),
-                           field: amountField,
-                           bottomMargin: amountBottomMargin,
-                           errorLabel: amountErrorLabel, constant: 17.5)
-            hasError = true
-        }
-
-        if meal.isEmpty {
-            showFieldError(NSLocalizedString("Should be non-empty string", comment: "Should be non-empty string"),
-                           field: itemsField,
-                           bottomMargin: mealBottomMargin,
-                           errorLabel: mealErrorLabel, constant: 33.5)
-            hasError = true
-        }
-        if units.isEmpty {
-            showFieldError(NSLocalizedString("Select units", comment: "Select units"),
-                           field: unitsField,
-                           bottomMargin: amountBottomMargin,
-                           errorLabel: unitErrorLabel, constant: 17.5)
+        if meals.isEmpty {
+            showError(errorMessage: "Please add at least one meal/")
             hasError = true
         }
         if selectedMealTime == nil {
@@ -174,7 +171,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
         }
 
         let food = Food(id: "")
-        food.items = meal
+        food.items = meals
         switch selectedMealTime ?? 0 {
         case 0:
             food.time = .breakfast
@@ -195,18 +192,6 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
         api.saveFood(food: food, callback: { (_) in
             self.navigationController?.popViewController(animated: true)
         }, failure: createGeneralFailureCallback())
-    }
-
-    /// Show field error
-    ///
-    /// - Parameter error: the error
-    private func showFieldError(_ error: String?, field: CustomTextField, bottomMargin: NSLayoutConstraint, errorLabel: UILabel, constant: CGFloat) {
-        field.borderWidth = error == nil ? 0 : 1
-        errorLabel.isHidden = error == nil
-        bottomMargin.constant = error == nil ? constant : (constant + 15)
-        if let error = error {
-            errorLabel.text = "*\(error)"
-        }
     }
 
     /// "Change Date" button action handler
@@ -273,55 +258,6 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
         super.touchesBegan(touches, with: event)
-    }
-
-    // MARK: - UITextFieldDelegate
-
-    /// Switch to next field
-    ///
-    /// - Parameter textField: the text field
-    /// - Returns: true
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == itemsField {
-            amountField.becomeFirstResponder()
-        }
-        else if textField == amountField {
-            amountField.resignFirstResponder()
-            openUnitsPicker()
-        }
-        return true
-    }
-
-    /// Open picker from units field
-    ///
-    /// - Parameter textField: the textField
-    /// - Returns: false - if units field, true - else
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField == unitsField {
-            openUnitsPicker()
-            return false
-        }
-        return true
-    }
-
-    /// Open units picker
-    private func openUnitsPicker() {
-        self.view.endEditing(true)
-        if let json = JSON.resource(named: "units") {
-            let items = json.arrayValue.map{$0.stringValue}
-            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
-        }
-    }
-
-    // MARK: - PickerViewControllerDelegate
-
-    /// Update units field
-    ///
-    /// - Parameters:
-    ///   - value: the value
-    ///   - picker: the picker
-    func pickerValueUpdated(_ value: PickerValue, picker: PickerViewController) {
-        unitsField.text = value.description
     }
 
     // MARK: - DatePickerViewControllerDelegate
@@ -418,6 +354,33 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate,
     func addAssetButtonTapped(_ view: AddAssetButtonView) {
         // nothing to do
     }
+
+    // MARK: - FoodIntakeAddMealViewControllerDelegate
+
+    /// Add food item
+    ///
+    /// - Parameter item: the item
+    func foodItemAdd(_ item: FoodItem) {
+        self.meals.append(item)
+        self.table.loadData()
+    }
+
+    /// Update food item
+    ///
+    /// - Parameter item: the item
+    func foodItemUpdate(_ item: FoodItem) {
+        self.table.loadData()
+    }
+
+    /// Delete food item
+    ///
+    /// - Parameter item: the item
+    func foodItemDelete(_ item: FoodItem) {
+        if let item = self.meals.index(of: item) {
+            self.meals.remove(at: item)
+        }
+        table.loadData()
+    }
 }
 
 /**
@@ -480,4 +443,18 @@ class FoodImageCollectionViewCell: FoodAddIntakeCollectionViewCell {
             })
         }
     }
+}
+
+/**
+ * Cell for food items
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+class FoodItemTableViewCell: ZeroMarginsCell {
+
+    /// outlets
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var unitsLabel: UILabel!
 }

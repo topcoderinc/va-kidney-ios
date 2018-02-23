@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 
 /**
- * Model object for Core Data related to Goal
+ * Model object for Core Data related to Food
  *
  * - author: TCCODER
  * - version: 1.0
@@ -28,7 +28,7 @@ extension FoodMO: CoreDataEntity {
         updateEntity(object: object)
 
         object.time = FoodIntakeTime(rawValue: (time ?? "").lowercased()) ?? .breakfast
-        object.items = items ?? ""
+        object.items = (items as! Set<FoodItemMO>).map({$0.toEntity()})
         object.date = date ?? Date()
 
 
@@ -50,7 +50,8 @@ extension FoodMO: CoreDataEntity {
         super.fillDataFromCacheableObject(object, relatedObjects: relatedObjects)
 
         time = object.time.rawValue
-        items = object.items
+        let items: [FoodItemMO] = (relatedObjects as? [FoodItemMO]) ?? []
+        self.items = NSSet(array: items)
         date = object.date
         let urls: [String] = object.images.filter({$0 is String}).map{$0 as! String}
         let rawImages: [Data] = object.images.filter({$0 is UIImage}).map{($0 as! UIImage).toData() ?? Data()}
@@ -61,7 +62,7 @@ extension FoodMO: CoreDataEntity {
 }
 
 /**
- * Service caching Profile data
+ * Service caching Food
  *
  * - author: TCCODER
  * - version: 1.0
