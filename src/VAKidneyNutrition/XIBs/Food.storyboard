@@ -430,7 +430,7 @@
                                                                 <rect key="frame" x="0.0" y="66.5" width="165.5" height="42"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Change Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMY-DN-LLm">
-                                                                        <rect key="frame" x="5" y="14.5" width="155.5" height="13"/>
+                                                                        <rect key="frame" x="5" y="15" width="155.5" height="13"/>
                                                                         <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="13"/>
                                                                         <color key="textColor" red="0.0" green="0.51372549019607838" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -454,19 +454,19 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="05 Dec 2017" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5V-HV-PCr">
-                                                                <rect key="frame" x="71.5" y="37.5" width="67" height="13"/>
+                                                                <rect key="frame" x="71" y="37.5" width="67" height="13"/>
                                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" text="Today" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqP-tA-CEW">
-                                                                <rect key="frame" x="71.5" y="19.5" width="41.5" height="16"/>
+                                                                <rect key="frame" x="71" y="19.5" width="41.5" height="16"/>
                                                                 <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="16"/>
                                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconCalendar" translatesAutoresizingMaskIntoConstraints="NO" id="wBE-zd-Sag">
-                                                                <rect key="frame" x="33.5" y="20" width="21" height="23"/>
+                                                                <rect key="frame" x="33" y="20" width="21" height="23"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="23" id="2kP-jl-hVc"/>
                                                                     <constraint firstAttribute="width" constant="21" id="Bz8-W4-LXq"/>
@@ -516,7 +516,7 @@
                                                                 <rect key="frame" x="-0.5" y="66.5" width="166.5" height="42"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Change Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-bI-mdp">
-                                                                        <rect key="frame" x="5" y="14.5" width="156.5" height="13"/>
+                                                                        <rect key="frame" x="5" y="15" width="156.5" height="13"/>
                                                                         <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="13"/>
                                                                         <color key="textColor" red="0.0" green="0.51372549020000002" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -1043,7 +1043,7 @@
                                                     <constraint firstAttribute="height" constant="36" id="zrb-k2-IFX"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="14"/>
-                                                <state key="normal" title="ADD NEW MEAL"/>
+                                                <state key="normal" title="ADD FOOD ITEM"/>
                                                 <connections>
                                                     <action selector="saveButtonAction:" destination="DSa-hM-rGl" eventType="touchUpInside" id="AYC-IE-0Qu"/>
                                                 </connections>
@@ -1107,7 +1107,9 @@
                                             <constraint firstAttribute="height" constant="36" id="rc9-Rd-Vpa"/>
                                             <constraint firstAttribute="width" constant="36" id="rzB-XC-AK9"/>
                                         </constraints>
-                                        <state key="normal" title="X"/>
+                                        <state key="normal" title="X">
+                                            <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="closeAction:" destination="DSa-hM-rGl" eventType="touchUpInside" id="Lhm-66-sKJ"/>
                                         </connections>
