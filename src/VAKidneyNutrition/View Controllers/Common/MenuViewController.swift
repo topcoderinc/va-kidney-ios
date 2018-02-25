@@ -66,8 +66,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 MainViewControllerReference?.showViewController(vc.wrapInNavigationController())
             }
         }),
-        ContextItem(title: NSLocalizedString("My Biometric Device", comment: "My Biometric Device"), action: nil),
-        ContextItem(title: NSLocalizedString("Avatar", comment: "Avatar"), action: nil)]
+        ContextItem(title: NSLocalizedString("My Biometric Device", comment: "My Biometric Device"), action: nil)]
         tableView.reloadData()
 
         if let userInfo = AuthenticationUtil.sharedInstance.userInfo {
