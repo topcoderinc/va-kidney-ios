@@ -4,10 +4,23 @@
 //
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
+
+/// Possible Disease Categories
+enum DiseaseCategory: String {
+    case stage1 = "Stage 1", stage2 = "Stage 2", stage3a = "Stage 3a", stage3b = "Stage 3b", stage4 = "Stage 4", stage5 = "Stage 5"
+
+    /// Get all options
+    ///
+    /// - Returns: the list with all categories
+    static func getAll() -> [DiseaseCategory] {
+        return [.stage1, .stage2, .stage3a, .stage3b, .stage4, .stage5]
+    }
+}
 
 /// option: true - will add "Done" button and will save only after that, false - will save immidiately
 let OPTION_PROFILE_ADD_DONE_BUTTON = false
@@ -54,8 +67,8 @@ let NO = NSLocalizedString("No", comment: "No")
 
 class HeightPickerValue: PickerValue {
 
-    let height: Int
-    init(_ height: Int) {
+    let height: Double
+    init(_ height: Double) {
         self.height = height
         super.init("")
     }
@@ -64,11 +77,11 @@ class HeightPickerValue: PickerValue {
         var str = ""
         let feets = height / 12
         if feets > 0 {
-            str = "\(feets)ft "
+            str = "\(Int(feets))ft "
         }
-        let inches = height % 12
+        let inches = height.truncatingRemainder(dividingBy: 12)
         if inches > 0 {
-            str += "\(inches)in"
+            str += "\(Int(inches))in"
         }
         return str.trim()
     }
@@ -161,7 +174,7 @@ class HeightProfileDataItem: ProfileDataItem {
     ///
     /// - Returns: the value
     override func getValue() -> String {
-        if let value = value as? Int {
+        if let value = value as? Double {
             return HeightPickerValue(value).description
         }
         return super.getValue()
@@ -175,8 +188,8 @@ class WeightProfileDataItem: ProfileDataItem {
     ///
     /// - Returns: the value
     override func getValue() -> String {
-        if let value = value as? Int {
-            return "\(value)"
+        if let value = value as? Double {
+            return "\(Int(value))"
         }
         return super.getValue()
     }
@@ -186,11 +199,14 @@ class WeightProfileDataItem: ProfileDataItem {
  * Profile screen
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - integration changes
  */
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PickerViewControllerDelegate, AddAssetButtonViewDelegate, DatePickerViewControllerDelegate {
 
@@ -289,8 +305,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 WeightProfileDataItem(title: "Current Weight", type: .picker, dataType: .currentWeight, value: profile.currentWeight),
                 ProfileDataItem(title: "Are you on Dialysis?", type: .picker, dataType: .dialysis, value: profile.dialysis),
                 ProfileDataItem(title: "Disease Category", type: .picker, dataType: .diseaseCategory, value: profile.diseaseCategory),
-                ProfileDataItem(title: "Want to setup goals?", type: .picker, dataType: .setupGoals, value: profile.setupGoals),
-                ProfileDataItem(title: "Add Biometric Device", type: .picker, dataType: .devices, value: profile.addDevice),
+                ProfileDataItem(title: "Setup goals", type: .picker, dataType: .setupGoals, value: profile.setupGoals),
             ]
         }
         else {
@@ -301,9 +316,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 WeightProfileDataItem(title: "Current Weight", type: .picker, dataType: .currentWeight),
                 ProfileDataItem(title: "Are you on Dialysis?", type: .picker, dataType: .dialysis, value: false),
                 ProfileDataItem(title: "Disease Category", type: .picker, dataType: .diseaseCategory),
-                ProfileDataItem(title: "Want to setup goals", type: .picker, dataType: .setupGoals, value: false),
+                ProfileDataItem(title: "Setup goals", type: .picker, dataType: .setupGoals, value: false),
                 ProfileDataItem(title: "Avatar", type: .avatar, dataType: .avatar),
-                ProfileDataItem(title: "Add Biometric Devices", type: .picker, dataType: .devices),
             ]
         }
         tableView.reloadData()
@@ -322,8 +336,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
         let profile = self.profile ?? Profile(id: "")
         profile.birthday = items.filter({$0.dataType == .date}).first?.value as? Date
-        profile.height = items.filter({$0.dataType == .height}).first?.value as? Int ?? -1
-        profile.currentWeight = items.filter({$0.dataType == .currentWeight}).first?.value as? Int ?? -1
+        profile.height = items.filter({$0.dataType == .height}).first?.value as? Double ?? -1
+        profile.currentWeight = items.filter({$0.dataType == .currentWeight}).first?.value as? Double ?? -1
         profile.dialysis = items.filter({$0.dataType == .dialysis}).first?.value as? Bool ?? false
         profile.diseaseCategory = items.filter({$0.dataType == .diseaseCategory}).first?.value as? String ?? ""
         profile.setupGoals = items.filter({$0.dataType == .setupGoals}).first?.value as? Bool ?? false
@@ -414,17 +428,16 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                                               delegate: self)
                 return
             case .height:
-                PickerViewController.show(title: item.title, selected: HeightPickerValue(item.value as? Int ?? 162), data: Array(12...100).map{HeightPickerValue($0)}, delegate: self)
+                PickerViewController.show(title: item.title, selected: HeightPickerValue(item.value as? Double ?? 162), data: Array(12...100).map{HeightPickerValue(Double($0))}, delegate: self)
                 return
             case .currentWeight:
                 data = Array(20...200).map{"\($0)"}
-                selected = "\(item.value ?? 75)"
+                selected = "\(Int(item.value as? Double ?? 75))"
             case .dialysis, .setupGoals, .devices:
                 data = [YES, NO]
                 selected = (item.value as? Bool ?? false) ? YES : NO
             case .diseaseCategory:
-                // TODO lookup
-                data = ["ESRD", "ABCD"]
+                data = DiseaseCategory.getAll().map({$0.rawValue})
             default:
                 showStub()
                 return
@@ -457,11 +470,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 else if value.description == NO {
                     item.value = false
                 }
-                else if let int = Int(value.description) {
+                else if let int = Double(value.description) {
                     item.value = int
                 }
                 else {
-                    item.value = value
+                    item.value = value.string
                 }
             }
             tableView.reloadData()

@@ -2,7 +2,8 @@
 //  InfiniteTableViewModel.swift
 //  VAKidneyNutrition
 //
-//  Created by Volkov Alexander on 2/23/18.
+//  Created by TCCODER on 2/23/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -12,7 +13,11 @@ import UIKit
  * Convenience viewmodel for table view controllers
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ */
+/* changes:
+ * 1.1:
+ * - changes required for SectionInfiniteTableViewModel
  */
 class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSource, UITableViewDelegate {
 
@@ -42,7 +47,7 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
     internal var LIMIT = 10
 
     /// the items to show
-    internal var items = [T]()
+    private var items = [T]()
 
     /// the last used offset
     internal var offset: Any?
@@ -57,7 +62,7 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
     internal var cellMinHeight: CGFloat = 44
 
     /// the request ID
-    private var requestId = ""
+    internal var requestId = ""
 
     /// the heights of the cell
     internal var heights = [Int: [Int:CGFloat]]()
@@ -90,7 +95,7 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
     }
 
     /// Loading next items
-    private func loadNextItems(showLoadingIndicator: Bool = false) {
+    internal func loadNextItems(showLoadingIndicator: Bool = false) {
         if !loadCompleted {
             let requestId = UUID().uuidString
             self.requestId = requestId
@@ -170,9 +175,17 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.getCell(indexPath, ofClass: C.self)
-        let value = items[indexPath.row]
+        let value = getItem(indexPath: indexPath)
         configureCell?(indexPath, value, items, cell)
         return cell
+    }
+
+    /// Get item for indexPath
+    ///
+    /// - Parameter indexPath: the indexPath
+    /// - Returns: the item
+    internal func getItem(indexPath: IndexPath) -> T {
+        return items[indexPath.row]
     }
 
     /// Open details screen
@@ -181,7 +194,7 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
     ///   - tableView: the tableView
     ///   - indexPath: the indexPath
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let value = items[indexPath.row]
+        let value = getItem(indexPath: indexPath)
         self.onSelect?(indexPath, value)
     }
 
@@ -204,10 +217,18 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
         }
     }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+
     // MARK: - Table height
 
     /// Initialize heights array
-    private func initCellHeights() {
+    internal func initCellHeights() {
         heights.removeAll()
         let n = self.numberOfSections(in: tableView)
         for i in 0..<n {
@@ -223,12 +244,12 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
     ///
     /// - Parameter section: the section
     /// - Returns: the number of items in section
-    private func getItems(inSection section: Int) -> [T] {
+    internal func getItems(inSection section: Int) -> [T] {
         return items
     }
 
     /// Update table height
-    private func updateTableHeight() {
+    internal func updateTableHeight() {
         if let tableHeight = tableHeight {
             var height: CGFloat = 0
             for (_,list) in heights{

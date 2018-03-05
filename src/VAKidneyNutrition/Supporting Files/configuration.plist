@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ndbApiBaseUrl</key>
+	<string>https://api.nal.usda.gov/ndb/</string>
+	<key>ndbApiKey</key>
+	<string>RRsuimKHTOocPYhmzonbv03mIqN3CB7OGzaQtvlE</string>
+	<key>fdaApiBaseUrl</key>
+	<string>https://api.fda.gov/drug/event.json</string>
+	<key>fdaApiKey</key>
+	<string>M19F7ValXdbz2jGtnLIEG77VgNyw4TQS4JXOY6hW</string>
+</dict>
+</plist>

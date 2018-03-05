@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -349,11 +350,13 @@ extension Date {
  * Date and time formatters
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - new formatters
+ * 1.2:
+ * - new formatter
  */
 struct DateFormatters {
 
@@ -405,13 +408,25 @@ struct DateFormatters {
         return f
     }()
 
+    /// date parser for FDA response date
+    static var pdaDate: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyyMMdd"
+        f.timeZone = TimeZone(abbreviation: "GMT")
+        return f
+    }()
+
 }
 
 /**
  * Helpful extension for arrays
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new method
  */
 extension Array {
 
@@ -428,6 +443,29 @@ extension Array {
         for item in self {
             let key = transform(item)
             hashmap[key] = item
+        }
+        return hashmap
+    }
+
+    /**
+     Convert array to hash array
+
+     - parameter transform: the transformation of an object to a key
+
+     - returns: a hashmap with arrays as values
+     */
+    func hasharrayWithKey<K>(_ transform: (Element) -> (K)) -> [K:[Element]] {
+        var hashmap = [K:[Element]]()
+
+        for item in self {
+            let key = transform(item)
+            var a = hashmap[key]
+            if a == nil {
+                a = [Element]()
+                hashmap[key] = a
+            }
+            a!.append(item)
+            hashmap[key] = a
         }
         return hashmap
     }
@@ -526,4 +564,29 @@ extension NSRange {
 /// - Returns: true - if this device has width as on iPhone5, false - else
 func isIPhone5() -> Bool {
     return UIScreen.main.nativeBounds.width == 640
+}
+
+/**
+ * Dictionary Extension
+ * Some useful functions added to Dictionary class
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+extension Dictionary {
+
+    /// Create url string from Dictionary
+    ///
+    /// - Returns: the url string
+    func toURLString() -> String {
+        var urlString = ""
+
+        // Iterate all key,value and form the url string
+        for (key, value) in self {
+            let keyEncoded = (key as! String).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            let valueEncoded = (value as! String).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            urlString += ((urlString == "") ? "" : "&") + keyEncoded + "=" + valueEncoded
+        }
+        return urlString
+    }
 }

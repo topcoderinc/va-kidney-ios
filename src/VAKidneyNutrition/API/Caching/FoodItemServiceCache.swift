@@ -2,7 +2,8 @@
 //  FoodItemServiceCache.swift
 //  VAKidneyNutrition
 //
-//  Created by Volkov Alexander on 2/23/18.
+//  Created by TCCODER on 2/23/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,7 +14,11 @@ import CoreData
  * Model object for Core Data related to FoodItem
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - type added
  */
 extension FoodItemMO: CoreDataEntity {
 
@@ -29,6 +34,7 @@ extension FoodItemMO: CoreDataEntity {
         object.title = title ?? ""
         object.amount = amount
         object.units = units ?? ""
+        object.type = FoodItemType(rawValue: type ?? "") ?? .food
         return object
     }
 
@@ -43,6 +49,7 @@ extension FoodItemMO: CoreDataEntity {
         title = object.title
         amount = object.amount
         units = object.units
+        type = object.type.rawValue
     }
 }
 

@@ -2,7 +2,8 @@
 //  FoodIntakeAddMealViewController.swift
 //  VAKidneyNutrition
 //
-//  Created by Volkov Alexander on 2/23/18.
+//  Created by TCCODER on 2/23/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -37,22 +38,25 @@ protocol FoodIntakeAddMealViewControllerDelegate {
  * Food Intake form
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - integration changes
  */
 class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, PickerViewControllerDelegate {
 
     /// outlets
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var itemsField: CustomTextField!
+    @IBOutlet weak var itemsField: CustomTextField?
     @IBOutlet weak var amountField: CustomTextField!
     @IBOutlet weak var unitsField: CustomTextField!
 
-    @IBOutlet weak var mealErrorLabel: UILabel!
-    @IBOutlet weak var mealBottomMargin: NSLayoutConstraint! // 33.5 (+15)
+    @IBOutlet weak var mealErrorLabel: UILabel?
+    @IBOutlet weak var mealBottomMargin: NSLayoutConstraint? // 33.5 (+15)
     @IBOutlet weak var amountErrorLabel: UILabel!
     @IBOutlet weak var unitErrorLabel: UILabel!
     @IBOutlet weak var amountBottomMargin: NSLayoutConstraint! // 17.5 (+15)
@@ -62,9 +66,11 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
 
     // the item to edit
     var item: FoodItem?
+    /// the type of the item
+    var type: FoodItemType = .food
 
     /// the delegate
-    var delegate: FoodIntakeAddMealViewControllerDelegate?
+    var delegate: NSObject?
 
     /// Setup UI
     override func viewDidLoad() {
@@ -82,16 +88,20 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     /// - Parameter animated: the animation flag
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        itemsField.becomeFirstResponder()
+        itemsField?.becomeFirstResponder()
     }
 
     /// Update UI
     private func updateUI() {
         if let item = item {
-            self.itemsField.text = item.title
+            self.itemsField?.text = item.title
             self.amountField.text = "\(item.amount)"
             self.unitsField.text = item.units
-            saveButton.setTitle("Edit Meal".uppercased(), for: .normal)
+            saveButton.setTitle((type == .food ? "Edit Meal" : "Edit Drug").uppercased(), for: .normal)
+            deleteButton.setTitle((type == .food ? "Delete Meal" : "Delete Drug").uppercased(), for: .normal)
+        }
+        else if type == .drug {
+            saveButton.setTitle("Add Drug".uppercased(), for: .normal)
         }
         self.view.layoutIfNeeded()
         deleteButton.isHidden = item == nil
@@ -100,16 +110,18 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     }
 
     /// Hide error fields
-    private func resetErrors() {
+    internal func resetErrors() {
         showFieldError(nil, field: amountField,
                        bottomMargin: amountBottomMargin,
                        errorLabel: amountErrorLabel, constant: 33.5)
-        showFieldError(nil, field: itemsField,
-                       bottomMargin: mealBottomMargin,
-                       errorLabel: mealErrorLabel, constant: 33.5)
+        if let mealBottomMargin = mealBottomMargin {
+            showFieldError(nil, field: itemsField!,
+                           bottomMargin: mealBottomMargin,
+                           errorLabel: mealErrorLabel!, constant: 33.5)
+        }
         showFieldError(nil, field: unitsField,
                        bottomMargin: amountBottomMargin,
-                       errorLabel: unitErrorLabel, constant: 17.5)
+                       errorLabel: unitErrorLabel!, constant: 17.5)
     }
 
     /// "Close" button action handler
@@ -125,7 +137,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     /// - parameter sender: the button
     @IBAction func deleteAction(_ sender: Any) {
         if let item = item {
-            delegate?.foodItemDelete(item)
+            (delegate as? FoodIntakeAddMealViewControllerDelegate)?.foodItemDelete(item)
         }
         closeAction(self)
     }
@@ -138,7 +150,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
 
         resetErrors()
 
-        let meal = (itemsField.text ?? "").trim()
+        let meal = (itemsField?.text ?? "").trim()
         let amount = Float(amountField.text ?? "") ?? 0
         let units = (unitsField.text ?? "").trim()
         var hasError = false
@@ -150,11 +162,11 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
             hasError = true
         }
 
-        if meal.isEmpty {
+        if let mealBottomMargin = mealBottomMargin, meal.isEmpty {
             showFieldError(NSLocalizedString("Should be non-empty string", comment: "Should be non-empty string"),
-                           field: itemsField,
+                           field: itemsField!,
                            bottomMargin: mealBottomMargin,
-                           errorLabel: mealErrorLabel, constant: 33.5)
+                           errorLabel: mealErrorLabel!, constant: 33.5)
             hasError = true
         }
         if units.isEmpty {
@@ -169,16 +181,17 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
             return
         }
 
-        let item = self.item ?? FoodItem(id: "")
+        let item = self.item ?? FoodItem(id: UUID().uuidString)
         item.title = meal
         item.amount = amount
         item.units = units
+        item.type = type
 
         if self.item == nil {
-            delegate?.foodItemAdd(item)
+            (delegate as? FoodIntakeAddMealViewControllerDelegate)?.foodItemAdd(item)
         }
         else {
-            delegate?.foodItemUpdate(item)
+            (delegate as? FoodIntakeAddMealViewControllerDelegate)?.foodItemUpdate(item)
         }
         self.closeAction(self)
     }
@@ -186,7 +199,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     /// Show field error
     ///
     /// - Parameter error: the error
-    private func showFieldError(_ error: String?, field: CustomTextField, bottomMargin: NSLayoutConstraint, errorLabel: UILabel, constant: CGFloat) {
+    internal func showFieldError(_ error: String?, field: CustomTextField, bottomMargin: NSLayoutConstraint, errorLabel: UILabel, constant: CGFloat) {
         field.borderWidth = error == nil ? 0 : 1
         errorLabel.isHidden = error == nil
         bottomMargin.constant = error == nil ? constant : (constant + 15)
@@ -235,10 +248,14 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     }
 
     /// Open units picker
-    private func openUnitsPicker() {
+    internal func openUnitsPicker() {
         self.view.endEditing(true)
-        if let json = JSON.resource(named: "units") {
-            let items = json.arrayValue.map{$0.stringValue}
+        if type == .food {
+            let items = HealthKitUtil.shared.getFoodUnits().map({$0.unitString})
+            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
+        }
+        else {
+            let items = HealthKitUtil.shared.getUnits(forLabValue: LabValue())
             PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
         }
     }

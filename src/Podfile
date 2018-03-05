@@ -7,4 +7,5 @@ target 'VAKidneyNutrition' do
 
   # Pods
   pod 'SwiftyJSON'
+  pod 'Charts'
 end

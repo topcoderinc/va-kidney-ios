@@ -4,20 +4,29 @@
 //
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
 
+/// Supported workouts
+enum WorkoutType: String {
+    case steps = "Steps", distance = "Distance", flights = "Flights Climbed"
+}
+
 /**
  * Daily Workout screen
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - integration changes
  */
 class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -53,14 +62,58 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
             self.collectionView.reloadData()
             self.collectionView.isScrollEnabled = false
             self.collectionViewHeight.constant = self.collectionView.getCollectionHeight(items: self.items.count, cellHeight: self.CELL_SIZE.height)
+
+            self.syncFromHK()
         }, failure: createGeneralFailureCallback())
+    }
+
+    /// Synchronize
+    private func syncFromHK() {
+        HealthKitUtil.shared.getDistance(callback: { (distance) in
+            self.items.filter({$0.title == WorkoutType.distance.rawValue}).first?.value = Float(distance)
+
+            HealthKitUtil.shared.getSteps(callback: { (steps) in
+                self.items.filter({$0.title == WorkoutType.steps.rawValue}).first?.value = Float(steps)
+
+                HealthKitUtil.shared.getFlights(callback: { (flgihts) in
+                    self.items.filter({$0.title == WorkoutType.flights.rawValue}).first?.value = Float(flgihts)
+
+                    self.collectionView.reloadData()
+                })
+            })
+        })
+    }
+
+    /// Sync data
+    ///
+    /// - Parameter item: the item to sync
+    fileprivate func sync(with item: Workout) {
+        if let type = WorkoutType(rawValue: item.title) {
+            switch type {
+            case .distance:
+                HealthKitUtil.shared.getDistance(callback: { (distance) in
+                    self.items.filter({$0.title == WorkoutType.distance.rawValue}).first?.value = Float(distance)
+                    self.collectionView.reloadData()
+                })
+            case .steps:
+                HealthKitUtil.shared.getSteps(callback: { (steps) in
+                    self.items.filter({$0.title == WorkoutType.steps.rawValue}).first?.value = Float(steps)
+                    self.collectionView.reloadData()
+                })
+            case .flights:
+                HealthKitUtil.shared.getFlights(callback: { (flgihts) in
+                    self.items.filter({$0.title == WorkoutType.flights.rawValue}).first?.value = Float(flgihts)
+                    self.collectionView.reloadData()
+                })
+            }
+        }
     }
 
     /// "Sync Data" button action handler
     ///
     /// - parameter sender: the button
     @IBAction func syncAllAction(_ sender: Any) {
-        showStub()
+        syncFromHK()
     }
 
     /// "Manage Devices" button action handler
@@ -97,6 +150,7 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
     /// - Returns: the cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.getCell(indexPath, ofClass: WorkoutCollectionViewCell.self)
+        cell.parent = self
         cell.configure(items[indexPath.row],  cellWidth: getCellWidth())
         return cell
     }
@@ -131,13 +185,20 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
  * Cell for reports in DailyWorkoutViewController
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * changes:
+ * 1.2:
+ * - partial data synchronization implementation
  */
 class WorkoutCollectionViewCell: GoalCollectionViewCell {
+
+    var parent: DailyWorkoutViewController?
+    private var item: Workout!
 
     /// Update UI
     ///
@@ -145,6 +206,7 @@ class WorkoutCollectionViewCell: GoalCollectionViewCell {
     ///   - item: the item to show
     ///   - cellWidth: the width of the cell
     func configure(_ item: Workout, cellWidth: CGFloat) {
+        self.item = item
         iconView.image = item.getIcon()
         titleLabel.text = item.title
 
@@ -162,5 +224,12 @@ class WorkoutCollectionViewCell: GoalCollectionViewCell {
         progressCircle.processValue = item.progress
         progressCircle.mainColor = item.color
         iconView.tintColor = item.color
+    }
+
+    /// Sync action
+    ///
+    /// - Parameter sender: the button
+    override func syncAction(_ sender: Any) {
+        parent?.sync(with: self.item)
     }
 }

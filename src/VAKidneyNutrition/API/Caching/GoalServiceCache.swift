@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/24/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -14,11 +15,14 @@ import CoreData
  * Model object for Core Data related to Goal
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - new fields
+ *
+ * 1.2:
+ * - goal type
  */
 extension GoalMO: CoreDataEntity {
 
@@ -46,10 +50,12 @@ extension GoalMO: CoreDataEntity {
         object.valueText = valueText ?? ""
         object.valueTextMultiple = valueTextMultiple ?? ""
         object.hasExternalData = hasExternalData
-        object.isAscendantTarget = isAscendantTarget
+        object.goalType = ComparisonResult(rawValue: Int(goalType)) ?? .orderedDescending
         object.sOrder = Int(sOrder)
         object.color = UIColor.fromString(color ?? "") ?? .red
         object.isReminderOn = isReminderOn
+        object.min = min > 0 ? min : nil
+        object.max = max > 0 ? max : nil
         return object
     }
 
@@ -77,10 +83,12 @@ extension GoalMO: CoreDataEntity {
         valueText = object.valueText
         valueTextMultiple = object.valueTextMultiple
         hasExternalData = object.hasExternalData
-        isAscendantTarget = object.isAscendantTarget
+        goalType = Int32(object.goalType.rawValue)
         sOrder = Int32(object.sOrder)
         color = object.color.toString()
         isReminderOn = object.isReminderOn
+        min = object.min ?? -1
+        max = object.max ?? -1
     }
 }
 
@@ -103,6 +111,18 @@ class GoalServiceCache: DataService<GoalMO, Goal> {
         fetchRequest.predicate = self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
         fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "sOrder", ascending: true)]
         self.get(withRequest: fetchRequest, callback, failure: failure)
+    }
+
+    /// Remove all goals for the current user
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback used to return an error
+    func removeAllGoals(callback: @escaping ()->(), failure: @escaping GeneralFailureBlock) {
+        let fetchRequest = NSFetchRequest<GoalMO>(entityName: GoalMO.entityName)
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.predicate = self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
+        self.removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }
 }
 

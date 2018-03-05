@@ -11,6 +11,7 @@
     <entity name="FoodItemMO" representedClassName="FoodItemMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="units" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FoodMO" inverseName="items" inverseEntity="FoodMO" syncable="YES"/>
     </entity>
@@ -27,11 +28,13 @@
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="frequency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="goalType" optional="YES" attributeType="Integer 32" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="hasExternalData" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="initialValue" optional="YES" attributeType="Float" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="isAscendantTarget" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isReminderOn" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="max" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="min" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="points" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="targetValue" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -42,13 +45,21 @@
         <attribute name="valueText1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="valueTextMultiple" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="MedicationResourceMO" representedClassName="MedicationResourceMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="relatedFoodInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tintColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="ProfileMO" representedClassName="ProfileMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
         <attribute name="addDevice" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="birthday" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="currentWeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="currentWeight" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dialysis" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="diseaseCategory" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="height" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="setupGoals" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -63,10 +74,11 @@
     </entity>
     <elements>
         <element name="CacheableObjectMO" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="FoodItemMO" positionX="-54" positionY="135" width="128" height="120"/>
         <element name="FoodMO" positionX="-54" positionY="135" width="128" height="135"/>
-        <element name="GoalMO" positionX="-54" positionY="63" width="128" height="315"/>
+        <element name="GoalMO" positionX="-54" positionY="63" width="128" height="345"/>
+        <element name="MedicationResourceMO" positionX="-45" positionY="135" width="128" height="135"/>
         <element name="ProfileMO" positionX="-54" positionY="45" width="128" height="195"/>
         <element name="UserInfoMO" positionX="-45" positionY="45" width="128" height="118"/>
-        <element name="FoodItemMO" positionX="-54" positionY="135" width="128" height="105"/>
     </elements>
 </model>

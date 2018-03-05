@@ -27,7 +27,7 @@
  "valueTextMultiple": "lbs",
  "valueText": "pound",
  "hasExternalData": false,
- "isAscendantTarget": true,
+ "goalType": "orderedAscending",
  "color": "f3cf45"
  },
  {
@@ -73,6 +73,9 @@
  "valueTextMultiple": "pills",
  "valueText": "Pill",
  "hasExternalData": false,
+ "goalType": "orderedSame",
+    "min": 100,
+    "max": 200,
  "color": "0083be"
  }
  ]

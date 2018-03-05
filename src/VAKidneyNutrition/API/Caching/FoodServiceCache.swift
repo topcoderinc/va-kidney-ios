@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -14,7 +15,11 @@ import CoreData
  * Model object for Core Data related to Food
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - food item order fixed
  */
 extension FoodMO: CoreDataEntity {
 
@@ -28,7 +33,7 @@ extension FoodMO: CoreDataEntity {
         updateEntity(object: object)
 
         object.time = FoodIntakeTime(rawValue: (time ?? "").lowercased()) ?? .breakfast
-        object.items = (items as! Set<FoodItemMO>).map({$0.toEntity()})
+        object.items = (items as? Set<FoodItemMO>)?.map({$0.toEntity()}).sorted(by: {$0.retrievalDate < $1.retrievalDate}) ?? []
         object.date = date ?? Date()
 
 
@@ -65,11 +70,15 @@ extension FoodMO: CoreDataEntity {
  * Service caching Food
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - limit the request to current day
  */
 class FoodServiceCache: DataService<FoodMO, Food> {
 
-    /// Get all food for the current user
+    /// Get all food for the current user FOR TODAY
     ///
     /// - Parameters:
     ///   - callback: the callback used to return data
@@ -77,7 +86,17 @@ class FoodServiceCache: DataService<FoodMO, Food> {
     func getAll(callback: @escaping ([Food])->(), failure: @escaping GeneralFailureBlock) {
         let fetchRequest = NSFetchRequest<FoodMO>(entityName: FoodMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
-        fetchRequest.predicate = self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
+
+        let now = Date()
+        let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: now)
+        let startOfDay = Calendar.current.date(from: components)!
+        let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
+
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? ""),
+            self.createDateLessOrEqualToPredicate("date", date: endOfDay),
+            self.createDateGreaterOrEqualToPredicate("date", date: startOfDay)
+            ])
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
 }
