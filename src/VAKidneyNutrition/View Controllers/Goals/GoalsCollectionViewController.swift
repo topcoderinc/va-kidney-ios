@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/4/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -12,7 +13,11 @@ import UIComponents
  * Goals screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - integration changes
  */
 class GoalsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -54,7 +59,7 @@ class GoalsCollectionViewController: UIViewController, UICollectionViewDataSourc
         self.view.layoutIfNeeded()
         let loadingView = initialLoading ? showLoadingView() : nil
         initialLoading = false
-        api.getGoals(callback: { (goals, categories) in
+        api.getGoals(profile: nil, callback: { (goals, categories) in
             loadingView?.terminate()
             self.items = goals
 
@@ -152,11 +157,14 @@ class GoalsCollectionViewController: UIViewController, UICollectionViewDataSourc
  * Cell for goals
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - changes in UI
+ *
+ * 1.2:
+ * - goal type support
  */
 class GoalCollectionViewCell: UICollectionViewCell {
 
@@ -207,8 +215,15 @@ class GoalCollectionViewCell: UICollectionViewCell {
             syncButton.setTitle(NSLocalizedString("Sync Now", comment: "Sync Now"), for: .normal)
         }
         else {
-            let prefix = item.isAscendantTarget ? NSLocalizedString("Add", comment: "Add") : NSLocalizedString("Remove", comment: "Remove")
-            syncButton.setTitle(prefix + " " + item.valueText.capitalized, for: .normal)
+            if item.goalType != .orderedSame {
+                let prefix = item.isAscendantTarget ? NSLocalizedString("Remove", comment: "Remove") : NSLocalizedString("Add", comment: "Add")
+                syncButton.setTitle(prefix + " " + item.valueText.capitalized, for: .normal)
+            }
+            else {
+                // Goal type is equality. Hence, either user always increments, e.g. "Vitamin C", or he can enter specific value, e.g. for "Blood Sugar" goal.
+                // The second is not yet supported by UI, so we show "Add"
+                syncButton.setTitle(NSLocalizedString("Add", comment: "Add") + " " + item.valueText.capitalized, for: .normal)
+            }
         }
     }
 

@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -13,11 +14,14 @@ import SwiftyJSON
  * Food Intake model object
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - multiple images support
+ *
+ * 1.2:
+ * - Integration changes
  */
 public class Food: CacheableObject {
 
@@ -26,6 +30,10 @@ public class Food: CacheableObject {
     var items = [FoodItem]()
     var date: Date = Date()
     var images = [Any]() // UIImage or String
+
+    // in-memory fields
+    /// the amount of food added after update
+    var extraAddedItems = [FoodItem:Double]()
 
     /// Parse JSON to model object
     ///

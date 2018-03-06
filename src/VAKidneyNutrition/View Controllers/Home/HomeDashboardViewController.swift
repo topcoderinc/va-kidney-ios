@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/2/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -15,7 +16,11 @@ let OPTION_USE_SINGULAR_FOR_TOP_GOALS = false
  * First Home screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - integration changes
  */
 class HomeDashboardViewController: UIViewController {
 
@@ -56,7 +61,7 @@ class HomeDashboardViewController: UIViewController {
         self.view.layoutIfNeeded()
         do {
             let loadingView = LoadingView(parentView: goalsView, dimming: false).show()
-            api.getGoals(callback: { (goals, _) in
+            api.getGoals(profile: nil, callback: { (goals, _) in
                 loadingView.terminate()
                 self.goals = goals
                 self.updateUI()

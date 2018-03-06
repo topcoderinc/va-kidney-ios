@@ -1014,15 +1014,24 @@
                                             <constraint firstAttribute="width" constant="105" id="ROd-aE-cxO"/>
                                         </constraints>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="related info" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8uv-1Q-PUi">
+                                        <rect key="frame" x="30" y="582.5" width="285" height="14"/>
+                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Utr-Xy-LbK" firstAttribute="leading" secondItem="utJ-7u-nqY" secondAttribute="leading" constant="35" id="44a-Et-Emt"/>
+                                    <constraint firstItem="8uv-1Q-PUi" firstAttribute="leading" secondItem="utJ-7u-nqY" secondAttribute="leading" constant="30" id="7R1-vL-jWu"/>
                                     <constraint firstAttribute="trailing" secondItem="Utr-Xy-LbK" secondAttribute="trailing" constant="35" id="Itr-cL-OfX"/>
                                     <constraint firstItem="c18-Gh-gTJ" firstAttribute="top" secondItem="Utr-Xy-LbK" secondAttribute="bottom" constant="11.5" id="SGi-EY-ER8"/>
+                                    <constraint firstAttribute="bottom" secondItem="8uv-1Q-PUi" secondAttribute="bottom" constant="15" id="fQ7-8I-lks"/>
                                     <constraint firstAttribute="trailing" secondItem="ATo-Cq-19b" secondAttribute="trailing" constant="30" id="h8a-H1-Mcs"/>
                                     <constraint firstAttribute="bottom" secondItem="ATo-Cq-19b" secondAttribute="bottom" constant="30" id="n02-4a-swi"/>
                                     <constraint firstItem="Utr-Xy-LbK" firstAttribute="top" secondItem="utJ-7u-nqY" secondAttribute="top" constant="44.5" id="siQ-Pu-3ut"/>
+                                    <constraint firstAttribute="trailing" secondItem="8uv-1Q-PUi" secondAttribute="trailing" constant="30" id="tHn-aN-1zj"/>
                                     <constraint firstItem="ATo-Cq-19b" firstAttribute="top" secondItem="c18-Gh-gTJ" secondAttribute="bottom" constant="8.5" id="tnd-Qz-fw2"/>
                                     <constraint firstItem="c18-Gh-gTJ" firstAttribute="centerX" secondItem="utJ-7u-nqY" secondAttribute="centerX" id="tqy-xo-woz"/>
                                     <constraint firstItem="ATo-Cq-19b" firstAttribute="leading" secondItem="utJ-7u-nqY" secondAttribute="leading" constant="30" id="wkP-bw-ALG"/>
@@ -1047,6 +1056,7 @@
                         <outlet property="bottomMargin" destination="n02-4a-swi" id="61D-tu-NHX"/>
                         <outlet property="containerView" destination="utJ-7u-nqY" id="pdH-kj-Rxs"/>
                         <outlet property="iconView" destination="c18-Gh-gTJ" id="7rz-WQ-vpN"/>
+                        <outlet property="relatedInfoLabel" destination="8uv-1Q-PUi" id="40e-Hg-wdO"/>
                         <outlet property="shadowView" destination="1id-E5-xyk" id="ih6-2O-V1i"/>
                         <outlet property="textView" destination="ATo-Cq-19b" id="nUR-hK-S5f"/>
                         <outlet property="titleLabel" destination="Utr-Xy-LbK" id="HKW-yd-IGa"/>

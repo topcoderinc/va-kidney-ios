@@ -68,6 +68,23 @@
 		FD5EF46E2023B0C300E6BD23 /* WelcomeLaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5EF46D2023B0C300E6BD23 /* WelcomeLaunchViewController.swift */; };
 		FD5EF4712023D3DB00E6BD23 /* WelcomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5EF4702023D3DB00E6BD23 /* WelcomeContainerViewController.swift */; };
 		FD5EF4732023D74000E6BD23 /* CustomUIPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5EF4722023D74000E6BD23 /* CustomUIPageControl.swift */; };
+		FD64C159204A21ED000C1501 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD64C158204A21ED000C1501 /* HealthKit.framework */; };
+		FD64C15B204A2B30000C1501 /* HealthKitUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C15A204A2B30000C1501 /* HealthKitUtil.swift */; };
+		FD64C15D204A3E44000C1501 /* allGoals.json in Resources */ = {isa = PBXBuildFile; fileRef = FD64C15C204A3E44000C1501 /* allGoals.json */; };
+		FD64C15F204AECAD000C1501 /* ChartsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C15E204AECAD000C1501 /* ChartsTableViewController.swift */; };
+		FD64C161204AF028000C1501 /* LabValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C160204AF028000C1501 /* LabValue.swift */; };
+		FD64C163204AF61E000C1501 /* labValues.json in Resources */ = {isa = PBXBuildFile; fileRef = FD64C162204AF61E000C1501 /* labValues.json */; };
+		FD64C167204B48FE000C1501 /* ChartAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C166204B48FE000C1501 /* ChartAddItemViewController.swift */; };
+		FD64C169204B51D2000C1501 /* FoodUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C168204B51D2000C1501 /* FoodUtils.swift */; };
+		FD64C16C204B5E15000C1501 /* RecommendationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C16B204B5E15000C1501 /* RecommendationSolver.swift */; };
+		FD64C16E204B5EA9000C1501 /* SimpleRecommendationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C16D204B5EA9000C1501 /* SimpleRecommendationSolver.swift */; };
+		FD64C170204B5F2A000C1501 /* RecommendationSolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C16F204B5F2A000C1501 /* RecommendationSolution.swift */; };
+		FD64C173204B641C000C1501 /* RESTApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C172204B641C000C1501 /* RESTApi.swift */; };
+		FD64C175204B647E000C1501 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C174204B647E000C1501 /* Reachability.swift */; };
+		FD64C177204B64AB000C1501 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C176204B64AB000C1501 /* Configuration.swift */; };
+		FD64C179204B665C000C1501 /* configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD64C178204B665C000C1501 /* configuration.plist */; };
+		FD64C17B204B6678000C1501 /* NDBServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C17A204B6678000C1501 /* NDBServiceApi.swift */; };
+		FD64C17D204B79AB000C1501 /* MedicationResourceServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C17C204B79AB000C1501 /* MedicationResourceServiceCache.swift */; };
 		FD70AC751FEBF523003854A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC741FEBF523003854A1 /* SignInViewController.swift */; };
 		FD70AC791FEBFC62003854A1 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC781FEBFC62003854A1 /* CustomTextField.swift */; };
 		FD70AC7C1FEC049E003854A1 /* ServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */; };
@@ -85,6 +102,7 @@
 		FD70AC981FEC0A31003854A1 /* AuthenticationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC971FEC0A31003854A1 /* AuthenticationUtil.swift */; };
 		FD70AC9A1FEC0AC6003854A1 /* UserInfoServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC991FEC0AC6003854A1 /* UserInfoServiceCache.swift */; };
 		FD70AC9C1FEC1655003854A1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC9B1FEC1655003854A1 /* SignUpViewController.swift */; };
+		FD7B524F204C1E340099A57E /* SectionInfiniteTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B524E204C1E340099A57E /* SectionInfiniteTableViewModel.swift */; };
 		FD81F4AA20247561009EF447 /* WelcomePageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4A920247561009EF447 /* WelcomePageContainerViewController.swift */; };
 		FD81F4AC20247578009EF447 /* WelcomePage1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4AB20247578009EF447 /* WelcomePage1ViewController.swift */; };
 		FD81F4AE20247587009EF447 /* WelcomePage2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4AD20247587009EF447 /* WelcomePage2ViewController.swift */; };
@@ -126,6 +144,7 @@
 		FDF398031FEBD42700DEED65 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF398021FEBD42700DEED65 /* Colors.swift */; };
 		FDF398091FEBD7F700DEED65 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF398081FEBD7F700DEED65 /* UIExtensions.swift */; };
 		FDF3980B1FEBE82200DEED65 /* HelpfulFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF3980A1FEBE82200DEED65 /* HelpfulFunctions.swift */; };
+		FDF4AA33204B889F00F6738A /* FDAServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF4AA32204B889F00F6738A /* FDAServiceApi.swift */; };
 		FDF748A91FEFEA5C00FB1037 /* RewardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF748A81FEFEA5C00FB1037 /* RewardsViewController.swift */; };
 		FDF748AB1FEFEAC200FB1037 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF748AA1FEFEAC200FB1037 /* Reward.swift */; };
 		FDF748AD1FEFED6100FB1037 /* rewards.json in Resources */ = {isa = PBXBuildFile; fileRef = FDF748AC1FEFED6100FB1037 /* rewards.json */; };
@@ -224,6 +243,23 @@
 		FD5EF46D2023B0C300E6BD23 /* WelcomeLaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeLaunchViewController.swift; sourceTree = "<group>"; };
 		FD5EF4702023D3DB00E6BD23 /* WelcomeContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeContainerViewController.swift; sourceTree = "<group>"; };
 		FD5EF4722023D74000E6BD23 /* CustomUIPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIPageControl.swift; sourceTree = "<group>"; };
+		FD64C158204A21ED000C1501 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		FD64C15A204A2B30000C1501 /* HealthKitUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitUtil.swift; sourceTree = "<group>"; };
+		FD64C15C204A3E44000C1501 /* allGoals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allGoals.json; sourceTree = "<group>"; };
+		FD64C15E204AECAD000C1501 /* ChartsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsTableViewController.swift; sourceTree = "<group>"; };
+		FD64C160204AF028000C1501 /* LabValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabValue.swift; sourceTree = "<group>"; };
+		FD64C162204AF61E000C1501 /* labValues.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labValues.json; sourceTree = "<group>"; };
+		FD64C166204B48FE000C1501 /* ChartAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartAddItemViewController.swift; sourceTree = "<group>"; };
+		FD64C168204B51D2000C1501 /* FoodUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodUtils.swift; sourceTree = "<group>"; };
+		FD64C16B204B5E15000C1501 /* RecommendationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationSolver.swift; sourceTree = "<group>"; };
+		FD64C16D204B5EA9000C1501 /* SimpleRecommendationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRecommendationSolver.swift; sourceTree = "<group>"; };
+		FD64C16F204B5F2A000C1501 /* RecommendationSolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationSolution.swift; sourceTree = "<group>"; };
+		FD64C172204B641C000C1501 /* RESTApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTApi.swift; sourceTree = "<group>"; };
+		FD64C174204B647E000C1501 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		FD64C176204B64AB000C1501 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		FD64C178204B665C000C1501 /* configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = configuration.plist; sourceTree = "<group>"; };
+		FD64C17A204B6678000C1501 /* NDBServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDBServiceApi.swift; sourceTree = "<group>"; };
+		FD64C17C204B79AB000C1501 /* MedicationResourceServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationResourceServiceCache.swift; sourceTree = "<group>"; };
 		FD70AC741FEBF523003854A1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		FD70AC781FEBFC62003854A1 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceApi.swift; sourceTree = "<group>"; };
@@ -241,6 +277,7 @@
 		FD70AC971FEC0A31003854A1 /* AuthenticationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUtil.swift; sourceTree = "<group>"; };
 		FD70AC991FEC0AC6003854A1 /* UserInfoServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoServiceCache.swift; sourceTree = "<group>"; };
 		FD70AC9B1FEC1655003854A1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FD7B524E204C1E340099A57E /* SectionInfiniteTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionInfiniteTableViewModel.swift; sourceTree = "<group>"; };
 		FD81F4A920247561009EF447 /* WelcomePageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageContainerViewController.swift; sourceTree = "<group>"; };
 		FD81F4AB20247578009EF447 /* WelcomePage1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage1ViewController.swift; sourceTree = "<group>"; };
 		FD81F4AD20247587009EF447 /* WelcomePage2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage2ViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +322,7 @@
 		FDF398021FEBD42700DEED65 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		FDF398081FEBD7F700DEED65 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		FDF3980A1FEBE82200DEED65 /* HelpfulFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpfulFunctions.swift; sourceTree = "<group>"; };
+		FDF4AA32204B889F00F6738A /* FDAServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDAServiceApi.swift; sourceTree = "<group>"; };
 		FDF748A81FEFEA5C00FB1037 /* RewardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsViewController.swift; sourceTree = "<group>"; };
 		FDF748AA1FEFEAC200FB1037 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		FDF748AC1FEFED6100FB1037 /* rewards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rewards.json; sourceTree = "<group>"; };
@@ -300,6 +338,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD64C159204A21ED000C1501 /* HealthKit.framework in Frameworks */,
 				FDF397FA1FEBD2E500DEED65 /* UIComponents.framework in Frameworks */,
 				7E1D747133B1B1334B306FD8 /* Pods_VAKidneyNutrition.framework in Frameworks */,
 			);
@@ -327,6 +366,7 @@
 		4EF9CA00599743F9AFAB57C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FD64C158204A21ED000C1501 /* HealthKit.framework */,
 				83D81CBC00F0B5DE4CD07D45 /* Pods_VAKidneyNutrition.framework */,
 			);
 			name = Frameworks;
@@ -425,13 +465,36 @@
 			path = Welcome;
 			sourceTree = "<group>";
 		};
+		FD64C16A204B5E07000C1501 /* Food */ = {
+			isa = PBXGroup;
+			children = (
+				FD64C168204B51D2000C1501 /* FoodUtils.swift */,
+				FD64C16B204B5E15000C1501 /* RecommendationSolver.swift */,
+				FD64C16F204B5F2A000C1501 /* RecommendationSolution.swift */,
+				FD64C16D204B5EA9000C1501 /* SimpleRecommendationSolver.swift */,
+			);
+			path = Food;
+			sourceTree = "<group>";
+		};
+		FD64C171204B6414000C1501 /* Rest */ = {
+			isa = PBXGroup;
+			children = (
+				FD64C172204B641C000C1501 /* RESTApi.swift */,
+				FD64C174204B647E000C1501 /* Reachability.swift */,
+			);
+			path = Rest;
+			sourceTree = "<group>";
+		};
 		FD70AC7A1FEC048F003854A1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				FD64C171204B6414000C1501 /* Rest */,
 				FD70AC801FEC05C2003854A1 /* Caching */,
 				FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */,
 				FD70AC911FEC0946003854A1 /* MockServiceApi.swift */,
 				FD70AC8F1FEC0772003854A1 /* CachingServiceApi.swift */,
+				FD64C17A204B6678000C1501 /* NDBServiceApi.swift */,
+				FDF4AA32204B889F00F6738A /* FDAServiceApi.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -454,6 +517,7 @@
 				FD43687A1FF11792003B22CE /* Workout.swift */,
 				FD12605220265B76009514D6 /* MedicationResource.swift */,
 				FD19E2CE20267301008C46BF /* Resource.swift */,
+				FD64C160204AF028000C1501 /* LabValue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -467,6 +531,7 @@
 				FD94C6821FF034460039D233 /* GoalServiceCache.swift */,
 				FD4368731FF10D44003B22CE /* FoodServiceCache.swift */,
 				FD53C5ED20405DB800AB7FDB /* FoodItemServiceCache.swift */,
+				FD64C17C204B79AB000C1501 /* MedicationResourceServiceCache.swift */,
 			);
 			path = Caching;
 			sourceTree = "<group>";
@@ -515,9 +580,11 @@
 		FDE5D11E1FEF21C2006C7097 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
+				FD64C15E204AECAD000C1501 /* ChartsTableViewController.swift */,
 				FD12604C20264A38009514D6 /* ChartViewController.swift */,
 				FDE5D11F1FEF21D0006C7097 /* ChartsViewController.swift */,
 				FD43687E1FF1228F003B22CE /* ReminderViewController.swift */,
+				FD64C166204B48FE000C1501 /* ChartAddItemViewController.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -591,6 +658,7 @@
 				FD5EF4572023AFE900E6BD23 /* Fonts */,
 				FDF7BBFF1FED45150078970A /* Sample Data */,
 				FDF397E51FEBD0C100DEED65 /* Info.plist */,
+				FD64C178204B665C000C1501 /* configuration.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -634,6 +702,7 @@
 		FDF398071FEBD7EB00DEED65 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FD64C16A204B5E07000C1501 /* Food */,
 				FDF398081FEBD7F700DEED65 /* UIExtensions.swift */,
 				FDF3980A1FEBE82200DEED65 /* HelpfulFunctions.swift */,
 				FD70AC931FEC0965003854A1 /* ValidationUtils.swift */,
@@ -641,6 +710,9 @@
 				FD70AC971FEC0A31003854A1 /* AuthenticationUtil.swift */,
 				FD4368711FF104EE003B22CE /* AddAssetButtonView.swift */,
 				FD53C5EB20405CA700AB7FDB /* InfiniteTableViewModel.swift */,
+				FD64C15A204A2B30000C1501 /* HealthKitUtil.swift */,
+				FD64C176204B64AB000C1501 /* Configuration.swift */,
+				FD7B524E204C1E340099A57E /* SectionInfiniteTableViewModel.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -665,6 +737,8 @@
 				FD96C3D120270EEE0063A2BE /* goalTips.json */,
 				FD2F095E202737530015376B /* welcome1.json */,
 				FD2F0960202738F00015376B /* welcome2.json */,
+				FD64C15C204A3E44000C1501 /* allGoals.json */,
+				FD64C162204AF61E000C1501 /* labValues.json */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
@@ -738,7 +812,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -777,8 +851,10 @@
 				FD5EF4652023AFE900E6BD23 /* MyriadPro-BoldIt.otf in Resources */,
 				FDF397E41FEBD0C100DEED65 /* LaunchScreen.storyboard in Resources */,
 				FD5EF4622023AFE900E6BD23 /* MyriadPro-Bold.otf in Resources */,
+				FD64C15D204A3E44000C1501 /* allGoals.json in Resources */,
 				FD2F0961202738F00015376B /* welcome2.json in Resources */,
 				FDF7BC051FED4BCB0078970A /* suggestions.json in Resources */,
+				FD64C179204B665C000C1501 /* configuration.plist in Resources */,
 				FD94C67E1FF00B960039D233 /* tasks.json in Resources */,
 				FD2F095F202737530015376B /* welcome1.json in Resources */,
 				FD19E2CA2026712C008C46BF /* Resources.storyboard in Resources */,
@@ -796,6 +872,7 @@
 				FDE5D1171FEEF2D8006C7097 /* reports.json in Resources */,
 				FDE5D11D1FEF1EDD006C7097 /* Charts.storyboard in Resources */,
 				FD81F4B220249754009EF447 /* sampleAccount.json in Resources */,
+				FD64C163204AF61E000C1501 /* labValues.json in Resources */,
 				FD5EF4642023AFE900E6BD23 /* MyriadPro-BoldCondIt.otf in Resources */,
 				FD1260572026620C009514D6 /* dragResources.json in Resources */,
 				FD5EF46A2023AFE900E6BD23 /* MyriadPro-Semibold.otf in Resources */,
@@ -879,18 +956,24 @@
 			files = (
 				FD81F4B020247594009EF447 /* WelcomePage3ViewController.swift in Sources */,
 				FD37CD191FF12A9A00E2530E /* ResourcesViewController.swift in Sources */,
+				FD64C15F204AECAD000C1501 /* ChartsTableViewController.swift in Sources */,
 				FD70AC9A1FEC0AC6003854A1 /* UserInfoServiceCache.swift in Sources */,
 				FD5EF46E2023B0C300E6BD23 /* WelcomeLaunchViewController.swift in Sources */,
 				FD12605920266BAF009514D6 /* ResourceDetailsViewController.swift in Sources */,
+				FD64C167204B48FE000C1501 /* ChartAddItemViewController.swift in Sources */,
 				FD12605320265B76009514D6 /* MedicationResource.swift in Sources */,
 				FD03F6ED1FED012800E19304 /* MainViewController.swift in Sources */,
 				FDF7BC071FED60EC0078970A /* Report.swift in Sources */,
+				FD64C16C204B5E15000C1501 /* RecommendationSolver.swift in Sources */,
 				FD53C5E82040571D00AB7FDB /* FoodIntakeAddMealViewController.swift in Sources */,
 				FD4368791FF1160C003B22CE /* DailyWorkoutViewController.swift in Sources */,
+				FD64C15B204A2B30000C1501 /* HealthKitUtil.swift in Sources */,
+				FD64C175204B647E000C1501 /* Reachability.swift in Sources */,
 				FD19E2CD2026717F008C46BF /* ResourcesTableViewController.swift in Sources */,
 				FD4368631FF075D7003B22CE /* EditMedicationViewController.swift in Sources */,
 				FDAA0B602024E1250094515D /* HomeSuggestionsViewController.swift in Sources */,
 				FD9F95A61FEC6DFD000FECAD /* Profile.swift in Sources */,
+				FD64C173204B641C000C1501 /* RESTApi.swift in Sources */,
 				FD96C3D0202693A40063A2BE /* AddGoalFormViewController.swift in Sources */,
 				FDF7BC031FED4B4B0078970A /* Suggestion.swift in Sources */,
 				FD70AC961FEC09D3003854A1 /* FileUtil.swift in Sources */,
@@ -907,6 +990,7 @@
 				FD53C5EE20405DB800AB7FDB /* FoodItemServiceCache.swift in Sources */,
 				FD81F4AC20247578009EF447 /* WelcomePage1ViewController.swift in Sources */,
 				FD70AC7C1FEC049E003854A1 /* ServiceApi.swift in Sources */,
+				FDF4AA33204B889F00F6738A /* FDAServiceApi.swift in Sources */,
 				FDAA0B5C2024B24F0094515D /* HomeDashboardViewController.swift in Sources */,
 				FD2D96042025D8EE006C8E0A /* DatePickerViewController.swift in Sources */,
 				FDF3980B1FEBE82200DEED65 /* HelpfulFunctions.swift in Sources */,
@@ -914,7 +998,9 @@
 				FD70AC8C1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld in Sources */,
 				FDE5D1201FEF21D0006C7097 /* ChartsViewController.swift in Sources */,
 				FDF7BBFE1FED41640078970A /* Goal.swift in Sources */,
+				FD64C170204B5F2A000C1501 /* RecommendationSolution.swift in Sources */,
 				FD43685D1FF05561003B22CE /* MedicationTime.swift in Sources */,
+				FD7B524F204C1E340099A57E /* SectionInfiniteTableViewModel.swift in Sources */,
 				FD70AC751FEBF523003854A1 /* SignInViewController.swift in Sources */,
 				FD70AC7F1FEC059B003854A1 /* UserInfo.swift in Sources */,
 				FD19E2D320267D7B008C46BF /* GoalsCollectionViewController.swift in Sources */,
@@ -924,23 +1010,28 @@
 				FD43685B1FF054E0003B22CE /* Medication.swift in Sources */,
 				FD53C5EC20405CA700AB7FDB /* InfiniteTableViewModel.swift in Sources */,
 				FD43686A1FF0EF09003B22CE /* FoodIntakeViewController.swift in Sources */,
+				FD64C16E204B5EA9000C1501 /* SimpleRecommendationSolver.swift in Sources */,
 				FD19E2CF20267301008C46BF /* Resource.swift in Sources */,
 				FD81F4AA20247561009EF447 /* WelcomePageContainerViewController.swift in Sources */,
 				FD94C6831FF034460039D233 /* GoalServiceCache.swift in Sources */,
+				FD64C17D204B79AB000C1501 /* MedicationResourceServiceCache.swift in Sources */,
 				FD4368741FF10D44003B22CE /* FoodServiceCache.swift in Sources */,
 				FD43686C1FF0F1A1003B22CE /* Food.swift in Sources */,
 				FD70AC831FEC05E1003854A1 /* CoreDataStack.swift in Sources */,
+				FD64C177204B64AB000C1501 /* Configuration.swift in Sources */,
 				FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */,
 				FD43687B1FF11792003B22CE /* Workout.swift in Sources */,
 				FD2D960120251AC7006C8E0A /* MenuViewController.swift in Sources */,
 				FD70AC871FEC0626003854A1 /* NSManagedObjectExtension.swift in Sources */,
 				FD70AC9C1FEC1655003854A1 /* SignUpViewController.swift in Sources */,
+				FD64C17B204B6678000C1501 /* NDBServiceApi.swift in Sources */,
 				FD4368611FF06911003B22CE /* MedicationsCollectionViewController.swift in Sources */,
 				FDAA0B622024F52C0094515D /* HomeReportsViewController.swift in Sources */,
 				FD8F991E1FEFCC1700B4A6B5 /* GoalCategory.swift in Sources */,
 				FD70AC941FEC0965003854A1 /* ValidationUtils.swift in Sources */,
 				FD70AC901FEC0772003854A1 /* CachingServiceApi.swift in Sources */,
 				FDB63C031FED096A00015308 /* RootViewController.swift in Sources */,
+				FD64C169204B51D2000C1501 /* FoodUtils.swift in Sources */,
 				FD70AC921FEC0946003854A1 /* MockServiceApi.swift in Sources */,
 				FD9F95A81FEC7018000FECAD /* ProfileServiceCache.swift in Sources */,
 				FD9F95A01FEC4258000FECAD /* PickerViewController.swift in Sources */,
@@ -948,6 +1039,7 @@
 				FD70AC8E1FEC0696003854A1 /* CacheableObject.swift in Sources */,
 				FD3C1A711FF0530500B78908 /* MedicationsScheduleViewController.swift in Sources */,
 				FD5EF4712023D3DB00E6BD23 /* WelcomeContainerViewController.swift in Sources */,
+				FD64C161204AF028000C1501 /* LabValue.swift in Sources */,
 				FD70AC981FEC0A31003854A1 /* AuthenticationUtil.swift in Sources */,
 				FD4368721FF104EE003B22CE /* AddAssetButtonView.swift in Sources */,
 				FD12604D20264A38009514D6 /* ChartViewController.swift in Sources */,
@@ -1114,6 +1206,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VAKidneyNutrition/VAKidneyNutrition.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4LPM7QKY6W;
 				INFOPLIST_FILE = "VAKidneyNutrition/Supporting Files/Info.plist";
@@ -1131,6 +1224,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VAKidneyNutrition/VAKidneyNutrition.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4LPM7QKY6W;
 				INFOPLIST_FILE = "VAKidneyNutrition/Supporting Files/Info.plist";

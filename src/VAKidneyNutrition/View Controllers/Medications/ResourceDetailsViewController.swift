@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/4/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -12,7 +13,11 @@ import UIKit
  * Resource details
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - integration changes
  */
 class ResourceDetailsViewController: UIViewController {
 
@@ -23,6 +28,7 @@ class ResourceDetailsViewController: UIViewController {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var bottomMargin: NSLayoutConstraint!
+    @IBOutlet weak var relatedInfoLabel: UILabel!
 
     /// the
     var medicationResource: MedicationResource?
@@ -30,7 +36,7 @@ class ResourceDetailsViewController: UIViewController {
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        relatedInfoLabel.text = ""
         initBackButtonFromChild()
         
         shadowView.addShadow(size: 11, shift: 1.5, opacity: 0.2)
@@ -58,6 +64,13 @@ class ResourceDetailsViewController: UIViewController {
             UIImage.loadAsync(item.imageUrl, callback: { (image) in
                 self.iconView.image = image
             })
+
+            if let color = item.tintColor {
+                self.iconView.tintColor = color
+            }
+            if !item.relatedFoodInfo.isEmpty {
+                relatedInfoLabel.text = NSLocalizedString("Related meal: ", comment: "Related meal: ") + item.relatedFoodInfo
+            }
         }
     }
 

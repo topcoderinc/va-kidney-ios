@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -627,6 +628,13 @@ extension UIViewController {
     ///
     /// - Parameter completion: the completion callback
     func openHomeScreen(completion: (()->())? = nil) {
+        HealthKitUtil.shared.authorizeHealthKit(callback: { (success) in
+            if !success {
+                print("ALL DATA WILL BE SAVED IN THE APP (HeaithKit is not enabled)")
+            }
+        }, failure: { (error) in
+            showError(errorMessage: error)
+        })
         if let vc = self.createInitialViewController(fromStoryboard: "Home") {
             vc.modalTransitionStyle = .flipHorizontal
             UIViewController.getCurrentViewController()?.present(vc, animated: true, completion: completion)

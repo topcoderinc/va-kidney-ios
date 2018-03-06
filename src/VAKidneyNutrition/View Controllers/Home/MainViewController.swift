@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/22/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -16,11 +17,14 @@ var MainViewControllerReference: MainViewController?
  * Main view controller containing tab buttons
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - new charts UI
  */
 class MainViewController: UIViewController {
 
@@ -127,7 +131,7 @@ class MainViewController: UIViewController {
             setSelectedTab(index: 1)
             lastLoadedViewController?.removeFromParent()
         }
-        if let vc = createInitialViewController(fromStoryboard: "Charts") as? ChartViewController {
+        if let vc = createInitialViewController(fromStoryboard: "Charts") as? ChartsTableViewController {
             vc.report = report
             let nav = vc.wrapInNavigationController()
             lastLoadedViewController = nav

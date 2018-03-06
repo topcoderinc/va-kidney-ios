@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/22/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -14,11 +15,14 @@ import CoreData
  * Model object for Core Data related to Profile
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - birthday instead of age
+ *
+ * 1.2:
+ * - minor changes
  */
 extension ProfileMO: CoreDataEntity {
 
@@ -36,8 +40,8 @@ extension ProfileMO: CoreDataEntity {
         }
         object.name = name ?? ""
         object.birthday = birthday
-        object.height = Int(height)
-        object.currentWeight = Int(currentWeight)
+        object.height = height
+        object.currentWeight = currentWeight
         object.dialysis = dialysis
         object.diseaseCategory = diseaseCategory ?? ""
         object.setupGoals = setupGoals
@@ -56,8 +60,8 @@ extension ProfileMO: CoreDataEntity {
         image = object.image?.toData() as Data?
         name = object.name
         birthday = object.birthday
-        height = Int32(object.height)
-        currentWeight = Int32(object.currentWeight)
+        height = object.height
+        currentWeight = object.currentWeight
         dialysis = object.dialysis
 
         userId = AuthenticationUtil.sharedInstance.userInfo?.id ?? ""

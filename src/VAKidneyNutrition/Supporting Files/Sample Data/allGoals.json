@@ -1,0 +1,195 @@
+{
+    "styles": [
+               {
+               "title": "Water Intake",
+               "categoryId": 1,
+               "iconName": "iconWaserSmall",
+               "valueText1": "glass",
+               "valueTextMultiple": "glasses",
+               "valueText": "glass",
+               "hasExternalData": false,
+               "color": "bec292"
+               },
+               {
+               "title": "Pills",
+               "categoryId": 2,
+               "iconName": "iconPillSmall",
+               "valueText1": "pill",
+               "valueTextMultiple": "pills",
+               "valueText": "Pill",
+               "hasExternalData": false,
+               "color": "0083be",
+               "goalType": "orderedSame",
+               "min": 100,
+               "max": 200,
+               },
+               {
+               "title": "Run",
+               "categoryId": 3,
+               "iconName": "iconWorkoutSmall",
+               "valueText1": "mile",
+               "valueTextMultiple": "miles",
+               "valueText": "Mile",
+               "hasExternalData": true,
+               "color": "ff7f32"
+               },
+               {
+               "title": "Fruits/Veggies",
+               "categoryId": 2,
+               "iconName": "iconEatSmall",
+               "valueText1": "bowl",
+               "valueTextMultiple": "bowls",
+               "valueText": "Fruits Or Veggies",
+               "hasExternalData": false,
+               "color": "557630"
+               }
+    ],
+  "allGoals":[
+              {
+              "comment": "Adjust fluid intake",
+              "id": 2,
+              "title": "Fluid Intake",
+              "style": "Water Intake",
+              "iconName": "iconWaserSmall",
+              "points": 520,
+              "initialValue": 0,
+              "value": 6,
+              "targetValue": 8,
+              "min": 2000
+              },
+              {
+              "comment": "Obtain optimal energy requirements",
+              "id": 4,
+              "title": "Run",
+              "style": "Run",
+              "points": 220,
+              "initialValue": 0,
+              "value": 4.5,
+              "targetValue": 6.2
+              },
+              {
+              "comment": "Adjust protein intake",
+              "id": 1,
+              "title": "Protein Intake",
+              "style": "Pills",
+              "points": 120,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 3,
+              "color": "ffcc00"
+              },
+              {
+              "comment": "Reduce your potassium intake",
+              "id": 101,
+              "title": "Potassium Intake",
+              "style": "Pills",
+              "points": 120,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 3,
+              "color": "fb6869"
+              },
+              {
+              "comment": "Reduce your sodium intake",
+              "id": 102,
+              "title": "Sodium Intake",
+              "style": "Pills",
+              "points": 120,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 3
+              },
+              {
+              "comment": "Reduce your phosphorus intake",
+              "id": 103,
+              "title": "Phosphorus Intake",
+              "style": "Pills",
+              "points": 120,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 3,
+              "color": "7e2a36"
+              },
+              {
+              "comment": "Reduce your alcohol intake",
+              "id": 201,
+              "title": "Alcohol Intake",
+              "style": "Water Intake",
+              "iconName": "iconWaserSmall",
+              "points": 520,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 8,
+              "color": "ff0000"
+              },
+              {
+              "comment": "Adjust meat meals",
+              "id": 302,
+              "title": "Meat Intake",
+              "style": "Fruits/Veggies",
+              "points": 320,
+              "initialValue": 0,
+              "value": 2,
+              "targetValue": 3,
+              "color": "b61f1f",
+              "iconName": "iconMeatSmall",
+              "valueText1": "piece",
+              "valueTextMultiple": "pieces",
+              "valueText": "Piece",
+              },
+              {
+              "comment": "Increase your intake of fiber - rich foods",
+              "id": 301,
+              "title": "Fruits/Veggies",
+              "style": "Fruits/Veggies",
+              "points": 320,
+              "initialValue": 0,
+              "value": 2,
+              "targetValue": 3
+              },
+
+              {
+              "comment": "Ensure intake of Vitamin B1 - thiamin",
+              "id": 104,
+              "title": "Vitamin B1 Intake",
+              "style": "Pills",
+              "points": 120,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 3,
+              "color": "75a322"
+              },
+              {
+              "comment": "Ensure intake of Vitamin C",
+              "id": 105,
+              "title": "Vitamin C Intake",
+              "style": "Pills",
+              "points": 120,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 3,
+              "color": "ff9900"
+              },
+
+              {
+              "comment": "Adjust intake of calcium",
+              "id": 106,
+              "title": "Calcium Intake",
+              "style": "Pills",
+              "points": 120,
+              "initialValue": 0,
+              "value": 0,
+              "targetValue": 3,
+              "color": "fcab70"
+              }
+              ],
+    "diseaseCategories": {
+        "Stage 1": [2,4,1,101,102,103,201,302,301],
+        "Stage 2": [2,4,1,101,102,103,201,302,301],
+        "Stage 3a": [2,4,1,101,102,103,201,302,301,104,105],
+        "Stage 3b": [2,4,1,101,102,103,201,302,301,104,105],
+        "Stage 4": [2,4,1,101,102,103,201,302,301,104,105],
+        "Stage 5 no": [2,4,1,101,102,103,201,302,301,104,105],
+        "Stage 5 yes": [2,4,1,101,102,103,201,302,301,104,105, 106]
+    }
+  }

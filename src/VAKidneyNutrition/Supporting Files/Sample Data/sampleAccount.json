@@ -6,10 +6,10 @@
     "lastName": "Smith",
 
     "birthday": "1960-01-01",
-    "height": 162,
-    "currentWeight": 195,
+    "height": 200,
+    "currentWeight": 200,
     "dialysis": false,
-    "diseaseCategory": "ESRD",
+    "diseaseCategory": "Stage 1",
     "setupGoals": true,
     "imageUrl": "sampleAvatar",
     "addDevice": true,

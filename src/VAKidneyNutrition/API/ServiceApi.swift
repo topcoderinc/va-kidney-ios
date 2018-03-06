@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -38,11 +39,14 @@ let ERROR_PASSWORDS_NOT_MATCH = NSLocalizedString("The passwords do not match to
  * Protocol for API implementaion
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes support
+ *
+ * 1.2:
+ * - integration related changes
  */
 protocol ServiceApi {
 
@@ -110,9 +114,11 @@ protocol ServiceApi {
 
     /// Get goals
     ///
+    /// - Parameters:
+    ///   - profile: the profile (used to get category for goal setup)
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getGoals(callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback)
+    func getGoals(profile: Profile?, callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback)
 
     /// Get goal categories
     ///

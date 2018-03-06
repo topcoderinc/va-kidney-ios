@@ -3,6 +3,7 @@
 //  UIComponents
 //
 //  Created by TCCODER on 2/1/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -62,7 +63,11 @@ extension UIView {
  * Extends UIColor with helpful methods
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new initializer
  */
 extension UIColor {
 
@@ -92,6 +97,18 @@ extension UIColor {
             return UIColor(red: r, green: g, blue: b, alpha: alpha)
         }
         return self
+    }
+
+    /// Create new color with hex values
+    ///
+    /// - Parameter hex: the color in hex
+    public convenience init(hex: Int) {
+        let components = (
+            r: CGFloat((hex >> 16) & 0xff) / 255,
+            g: CGFloat((hex >> 08) & 0xff) / 255,
+            b: CGFloat((hex >> 00) & 0xff) / 255
+        )
+        self.init(red: components.r, green: components.g, blue: components.b, alpha: 1)
     }
 
     /**

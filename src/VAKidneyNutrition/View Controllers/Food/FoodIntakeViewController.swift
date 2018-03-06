@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -13,11 +14,14 @@ import UIKit
  * Food Intake screen
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - integration changes
  */
 class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -94,10 +98,11 @@ class FoodIntakeViewController: UIViewController, UICollectionViewDataSource, UI
     ///   - collectionView: the collectionView
     ///   - indexPath: the indexPath
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            if let vc = create(FoodIntakeFormViewController.self) {
-                navigationController?.pushViewController(vc, animated: true)
+        if let vc = create(FoodIntakeFormViewController.self) {
+            if indexPath.row != 0 {
+                vc.food = items[indexPath.row - 1]
             }
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 

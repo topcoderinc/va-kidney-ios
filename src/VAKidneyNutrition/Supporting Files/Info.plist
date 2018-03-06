@@ -45,5 +45,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSHealthShareUsageDescription</key>
+	<string>The app will use HealthKit data to make recommendations and show graphs</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>The app will save your profile and food/drug intake data</string>
 </dict>
 </plist>

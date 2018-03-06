@@ -58,7 +58,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuY-aV-XJE" customClass="CustomView" customModule="UIComponents">
                                                                     <rect key="frame" x="0.0" y="120" width="176" height="42"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Add New Meal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNA-QF-KOK">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Add New Meal/Drug" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNA-QF-KOK">
                                                                             <rect key="frame" x="5" y="15" width="166" height="13"/>
                                                                             <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="13"/>
                                                                             <color key="textColor" red="0.0" green="0.51372549019607838" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
@@ -801,7 +801,10 @@
                                                         </prototypes>
                                                     </tableView>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWH-I3-5Js">
-                                                        <rect key="frame" x="144.5" y="178" width="56" height="26"/>
+                                                        <rect key="frame" x="87.5" y="178" width="80" height="26"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="80" id="0qa-C3-xKf"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
                                                         <state key="normal" title="Add Meal">
                                                             <color key="titleColor" red="0.25098039220000001" green="0.5568627451" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -813,16 +816,34 @@
                                                             <action selector="addMealAction:" destination="cK2-kk-UF9" eventType="touchUpInside" id="uMM-VY-iSX"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W7Q-5f-8Bc">
+                                                        <rect key="frame" x="177.5" y="178" width="80" height="26"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="80" id="27r-xN-xbr"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                        <state key="normal" title="Add Drug">
+                                                            <color key="titleColor" red="0.25098039220000001" green="0.5568627451" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <state key="selected">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="addDrugAction:" destination="cK2-kk-UF9" eventType="touchUpInside" id="nhI-9Z-63a"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="SB5-8t-zeU" firstAttribute="top" secondItem="ZLw-WZ-Zzn" secondAttribute="bottom" constant="14.5" id="0RR-on-L54"/>
                                                     <constraint firstAttribute="trailing" secondItem="Yjg-EA-dMV" secondAttribute="trailing" id="0ss-8R-csE"/>
                                                     <constraint firstItem="u9i-fX-OJt" firstAttribute="leading" secondItem="PJZ-By-Rup" secondAttribute="leading" id="5Wl-hq-vlX"/>
+                                                    <constraint firstItem="W7Q-5f-8Bc" firstAttribute="centerY" secondItem="CWH-I3-5Js" secondAttribute="centerY" id="630-fC-S2u"/>
                                                     <constraint firstItem="lih-DY-i2D" firstAttribute="leading" secondItem="PJZ-By-Rup" secondAttribute="leading" id="6Ce-Ly-n2F"/>
                                                     <constraint firstItem="lih-DY-i2D" firstAttribute="top" secondItem="SB5-8t-zeU" secondAttribute="bottom" constant="40" id="9PV-4I-1t6"/>
                                                     <constraint firstItem="CWH-I3-5Js" firstAttribute="top" secondItem="SB5-8t-zeU" secondAttribute="bottom" id="CRS-ow-BOr"/>
                                                     <constraint firstItem="rDt-R4-j6y" firstAttribute="top" secondItem="PJZ-By-Rup" secondAttribute="top" id="FzA-va-20Y"/>
+                                                    <constraint firstItem="W7Q-5f-8Bc" firstAttribute="leading" secondItem="CWH-I3-5Js" secondAttribute="trailing" constant="10" id="GGu-dJ-eRw"/>
                                                     <constraint firstAttribute="trailing" secondItem="SB5-8t-zeU" secondAttribute="trailing" id="Ns5-C1-1sv"/>
                                                     <constraint firstItem="ZLw-WZ-Zzn" firstAttribute="leading" secondItem="PJZ-By-Rup" secondAttribute="leading" id="PzS-aj-HvF"/>
                                                     <constraint firstAttribute="trailing" secondItem="lih-DY-i2D" secondAttribute="trailing" id="QMA-z3-S3G"/>
@@ -835,7 +856,7 @@
                                                     <constraint firstItem="SB5-8t-zeU" firstAttribute="leading" secondItem="PJZ-By-Rup" secondAttribute="leading" id="nLz-7N-XbY"/>
                                                     <constraint firstAttribute="trailing" secondItem="u9i-fX-OJt" secondAttribute="trailing" id="pMs-47-xNf"/>
                                                     <constraint firstItem="Yjg-EA-dMV" firstAttribute="bottom" secondItem="ZLw-WZ-Zzn" secondAttribute="bottom" id="t46-3x-S3q"/>
-                                                    <constraint firstItem="CWH-I3-5Js" firstAttribute="centerX" secondItem="PJZ-By-Rup" secondAttribute="centerX" id="tGX-dL-q5J"/>
+                                                    <constraint firstItem="CWH-I3-5Js" firstAttribute="centerX" secondItem="PJZ-By-Rup" secondAttribute="centerX" constant="-45" id="tGX-dL-q5J"/>
                                                     <constraint firstItem="u9i-fX-OJt" firstAttribute="top" secondItem="lih-DY-i2D" secondAttribute="bottom" constant="24" id="yLJ-gt-vgs"/>
                                                     <constraint firstItem="Yjg-EA-dMV" firstAttribute="leading" secondItem="ZLw-WZ-Zzn" secondAttribute="trailing" constant="13" id="zAk-8F-fFP"/>
                                                 </constraints>
@@ -876,6 +897,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="addButton" destination="u9i-fX-OJt" id="ZKy-um-bgG"/>
                         <outlet property="collectionHeight" destination="EKk-C1-Mwd" id="FV7-eV-OUY"/>
                         <outlet property="collectionView" destination="lih-DY-i2D" id="DU7-Ku-83R"/>
                         <outlet property="dateLabel" destination="k5V-HV-PCr" id="Fk1-Wl-0EM"/>

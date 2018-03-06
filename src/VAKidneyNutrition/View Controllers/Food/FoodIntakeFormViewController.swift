@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -19,11 +20,14 @@ enum FoodIntakeTime: String {
  * Food Intake form
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - integration changes
  */
 class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DatePickerViewControllerDelegate, AddAssetButtonViewDelegate,
     UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, FoodIntakeAddMealViewControllerDelegate {
@@ -46,6 +50,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
     @IBOutlet weak var mealSelectorWidth: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionHeight: NSLayoutConstraint!
+    @IBOutlet weak var addButton: CustomButton!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeight: NSLayoutConstraint!
@@ -85,8 +90,12 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         self.view.layoutIfNeeded()
         self.mealTimeAction(self.mealTimeButtons.filter({$0.tag == 0}).first!)
 
+        date = food?.date ?? Date()
         images = food?.images ?? []
-        meals = food?.items ?? []
+        meals = (food?.items ?? []).map{$0.clone()}
+        if food != nil {
+            addButton.setTitle(NSLocalizedString("Save Meal", comment: "Save Meal").uppercased(), for: .normal)
+        }
 
         table.tableHeight = tableHeight
         table.extraHeight = 7
@@ -136,9 +145,10 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
     }
 
     /// Open form
-    private func openForm(_ item: FoodItem? = nil) {
+    private func openForm(_ item: FoodItem? = nil, type: FoodItemType = .food) {
         if let vc = create(FoodIntakeAddMealViewController.self), let parent = UIViewController.getCurrentViewController() {
             vc.item = item
+            vc.type = item?.type ?? type
             vc.delegate = self
             parent.showViewControllerFromSide(vc, inContainer: parent.view, bounds: parent.view.bounds, side: .bottom, nil)
         }
@@ -151,11 +161,19 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         openForm()
     }
 
+    /// "Add Drug" button action handler
+    ///
+    /// - parameter sender: the button
+    @IBAction func addDrugAction(_ sender: Any) {
+        openForm(type: .drug)
+    }
+
     /// Save action
     ///
     /// - Parameter sender: the button
-    @IBAction func saveButtonAction(_ sender: Any) {
+    @IBAction func saveButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        sender.isEnabled = false
 
         var hasError = false
         if meals.isEmpty {
@@ -170,7 +188,23 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
             return
         }
 
-        let food = Food(id: "")
+        let food = self.food ?? Food(id: "")
+
+        // Check the difference in updated food items
+        if self.food != nil {
+            var diff = [FoodItem: Double]()
+            for item in self.meals {
+                if let previousMeal = self.food?.items.filter({$0.id == item.id}).first {
+                    let added = item.amount - previousMeal.amount
+                    diff[item] = Double(added)
+                }
+                else {
+                    diff[item] = Double(item.amount)
+                }
+            }
+            food.extraAddedItems = diff
+        }
+
         food.items = meals
         switch selectedMealTime ?? 0 {
         case 0:
@@ -191,6 +225,11 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
 
         api.saveFood(food: food, callback: { (_) in
             self.navigationController?.popViewController(animated: true)
+
+            // Update related data
+            FoodUtils.shared.process(food: food)
+
+            sender.isEnabled = true
         }, failure: createGeneralFailureCallback())
     }
 

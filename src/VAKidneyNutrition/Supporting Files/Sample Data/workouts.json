@@ -1,15 +1,15 @@
  [
   {
   "id": 1,
-  "title": "Run",
+  "title": "Distance",
   "iconName": "iconRun",
   "initialValue": 0,
-  "value": 1.9,
+  "value": 0,
   "targetValue": 2.2,
   "valueText1": "mile",
   "valueTextMultiple": "miles",
   "hasExternalData": false,
-  "canBeManuallyChanged": true,
+  "canBeManuallyChanged": false,
   "color": "ff7f32"
   },
   {
@@ -17,7 +17,7 @@
   "title": "Steps",
   "iconName": "iconStep",
   "initialValue": 0,
-  "value": 1568,
+  "value": 0,
   "targetValue": 2400,
   "valueText1": "step",
   "valueTextMultiple": "steps",
@@ -26,26 +26,14 @@
   },
   {
   "id": 3,
-  "title": "Jump Rope",
-  "iconName": "iconJump",
+  "title": "Flights Climbed",
+  "iconName": "iconFlights",
   "initialValue": 0,
-  "value": 45,
+  "value": 0,
   "targetValue": 80,
-  "valueText1": "jump",
-  "valueTextMultiple": "jumps",
+  "valueText1": "flight",
+  "valueTextMultiple": "flights",
   "canBeManuallyChanged": false,
   "color": "0083be"
-  },
-  {
-  "id": 4,
-  "title": "Swimming",
-  "iconName": "iconSwim",
-  "initialValue": 0,
-  "value": 45,
-  "targetValue": 80,
-  "valueText1": "lap",
-  "valueTextMultiple": "laps",
-  "canBeManuallyChanged": false,
-  "color": "557630"
   }
 ]

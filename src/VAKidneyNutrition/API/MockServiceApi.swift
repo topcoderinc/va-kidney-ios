@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 03/04/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -22,11 +23,14 @@ let DELAY_FOR_DEMONSTRATION: TimeInterval = 0.5
  * Mock ServiceApi implementation. Provides static data.
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes support
+ *
+ * 1.2:
+ * - integration related changes
  */
 class MockServiceApi: ServiceApi {
 
@@ -172,27 +176,40 @@ class MockServiceApi: ServiceApi {
 
     /// Get goals
     ///
+    /// - Parameters:
+    ///   - profile: the profile (used to get category for goal setup)
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getGoals(callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback) {
+    func getGoals(profile: Profile?, callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback) {
         if goalsDeleted {
             callback([], [])
             return
         }
-        if let json = JSON.resource(named: "goals") {
-            var goals = json.arrayValue.map({Goal.fromJson($0)})
-            getCategories(callback: { (categories) in
-                MockServiceApi.applyCategories(categories, toGoals: goals)
-                var sOrder = 0
-                for goal in goals {
-                    goal.sOrder = sOrder
-                    sOrder += 1
-                }
-                goals = goals.filter({$0.category != nil})
-                callback(goals, categories)
-                return
-            }, failure: failure)
-        }
+        getCategories(callback: { (categories) in
+            var goals = [Goal]()
+            if let profile = profile, let json = JSON.resource(named: "allGoals") {
+                let styles = json["styles"].arrayValue.map({Goal.fromJson($0)})
+                MockServiceApi.applyCategories(categories, toGoals: styles)
+                let allGoals = json["allGoals"].arrayValue.map({Goal.fromJson($0, withStyles: styles)})
+                let goalIds = (json["diseaseCategories"][profile.diseaseCategory].array ?? json["diseaseCategories"][profile.diseaseCategory + " \(profile.dialysis ? "yes" : "no")"].arrayValue).map({$0.stringValue})
+                goals = allGoals.filter({goalIds.contains($0.id)})
+            }
+            // Old version of goals (if no profile provided)
+            else if let json = JSON.resource(named: "goals") {
+                goals = json.arrayValue.map({Goal.fromJson($0)})
+            }
+
+            // Categories
+            MockServiceApi.applyCategories(categories, toGoals: goals)
+            var sOrder = 0
+            for goal in goals {
+                goal.sOrder = sOrder
+                sOrder += 1
+            }
+            goals = goals.filter({$0.category != nil})
+            callback(goals, categories)
+            return
+        }, failure: failure)
     }
 
     /// Save goal
