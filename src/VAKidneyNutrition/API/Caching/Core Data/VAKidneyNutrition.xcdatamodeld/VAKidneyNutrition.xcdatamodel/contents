@@ -24,7 +24,6 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FoodItemMO" inverseName="parent" inverseEntity="FoodItemMO" syncable="YES"/>
     </entity>
     <entity name="GoalMO" representedClassName="GoalMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
-        <attribute name="categoryId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateStart" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="frequency" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,7 +34,9 @@
         <attribute name="isReminderOn" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="max" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="min" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="oneUnitValue" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="points" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="relatedQuantityId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="targetValue" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -44,14 +45,6 @@
         <attribute name="valueText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="valueText1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="valueTextMultiple" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
-    <entity name="MedicationResourceMO" representedClassName="MedicationResourceMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
-        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="relatedFoodInfo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tintColor" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="ProfileMO" representedClassName="ProfileMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
         <attribute name="addDevice" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -65,6 +58,22 @@
         <attribute name="setupGoals" optional="YES" attributeType="Boolean" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="QuantitySampleMO" representedClassName="QuantitySampleMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RecommendationMO" representedClassName="RecommendationMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
+        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="relatedFoodInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tintColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ServiceResponseMO" representedClassName="ServiceResponseMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
+        <attribute name="json" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="UserInfoMO" representedClassName="UserInfoMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -76,9 +85,11 @@
         <element name="CacheableObjectMO" positionX="-63" positionY="-18" width="128" height="135"/>
         <element name="FoodItemMO" positionX="-54" positionY="135" width="128" height="120"/>
         <element name="FoodMO" positionX="-54" positionY="135" width="128" height="135"/>
-        <element name="GoalMO" positionX="-54" positionY="63" width="128" height="345"/>
-        <element name="MedicationResourceMO" positionX="-45" positionY="135" width="128" height="135"/>
+        <element name="GoalMO" positionX="-54" positionY="63" width="128" height="360"/>
         <element name="ProfileMO" positionX="-54" positionY="45" width="128" height="195"/>
+        <element name="QuantitySampleMO" positionX="-45" positionY="135" width="128" height="75"/>
+        <element name="RecommendationMO" positionX="-45" positionY="135" width="128" height="135"/>
+        <element name="ServiceResponseMO" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="UserInfoMO" positionX="-45" positionY="45" width="128" height="118"/>
     </elements>
 </model>

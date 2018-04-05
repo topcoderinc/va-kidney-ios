@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/3/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -12,7 +13,11 @@ import UIComponents
  * Medications main screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - API changes
  */
 class MedicationsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -28,10 +33,10 @@ class MedicationsTableViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var underLineWidth: NSLayoutConstraint!
 
     /// the items
-    private var items = [(String,[MedicationResource])]()
+    private var items = [(String,[Recommendation])]()
 
     /// the reference to API
-    private let api: ServiceApi = CachingServiceApi.shared
+    private let api: RecommendationServiceApi = CachingServiceApi.shared
 
     /// the selected tab index
     private var selectedTabIndex = -1
@@ -58,7 +63,7 @@ class MedicationsTableViewController: UIViewController, UITableViewDataSource, U
     /// Load data
     private func loadData() {
         let loadingView = LoadingView(parentView: self.view, dimming: false).show()
-        let callback: ([(String,[MedicationResource])])->() = { (items) in
+        let callback: ([(String,[Recommendation])])->() = { (items) in
             loadingView.terminate()
             self.items = items
             self.noDataLabel.isHidden = !items.isEmpty
@@ -66,9 +71,9 @@ class MedicationsTableViewController: UIViewController, UITableViewDataSource, U
         }
         switch selectedTabIndex {
         case 0:
-            api.getMedicationResources(callback: callback, failure: createGeneralFailureCallback(loadingView))
+            api.getMedicationRecommendations(callback: callback, failure: createGeneralFailureCallback(loadingView))
         case 1:
-            api.getDragResources(callback: callback, failure: createGeneralFailureCallback(loadingView))
+            api.getDragRecommendations(callback: callback, failure: createGeneralFailureCallback(loadingView))
         default:
             loadingView.terminate()
             break
@@ -217,7 +222,7 @@ class MedicationResourceCell: ZeroMarginsCell {
     /// - Parameters:
     ///   - item: the data to show in the cell
     ///   - isLast: true - if last row
-    func configure(_ item: MedicationResource, isLast: Bool) {
+    func configure(_ item: Recommendation, isLast: Bool) {
         titleLabel.text = item.title
         titleLabel.textColor = Colors.blue
         detailsLabel.text = item.text

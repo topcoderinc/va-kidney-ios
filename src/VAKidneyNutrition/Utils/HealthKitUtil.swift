@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/3/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,9 +14,14 @@ import HealthKit
  * Util that simplifies access to HealthKit storage data
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - QuantitySampleService protocol support
+ * - crash fixed
  */
-class HealthKitUtil {
+class HealthKitUtil: QuantitySampleService {
 
     /// the singleton
     static let shared = HealthKitUtil()
@@ -65,11 +71,13 @@ class HealthKitUtil {
         }
 
         healthStore.requestAuthorization(toShare: shareableTypes, read: (readableTypes)) { (fin, error) in
-            if let error = error {
-                failure(error.localizedDescription)
-            }
-            else {
-                callback(true)
+            DispatchQueue.main.async {
+                if let error = error {
+                    failure(error.localizedDescription)
+                }
+                else {
+                    callback(true)
+                }
             }
         }
     }
@@ -109,7 +117,9 @@ class HealthKitUtil {
         let weight = HKQuantity(unit: HKUnit.pound(), doubleValue: Double(profile.currentWeight))
         saveItem(identifier: HKQuantityTypeIdentifier.height, quantity: height) { (_) in
             self.saveItem(identifier: HKQuantityTypeIdentifier.bodyMass, quantity: weight) { (_) in
-                callback()
+                DispatchQueue.main.async {
+                    callback()
+                }
             }
         }
     }
@@ -203,7 +213,7 @@ class HealthKitUtil {
         healthStore.execute(query)
     }
 
-    // MARK: - Lab values
+    // MARK: - Lab values (QuantitySampleService)
 
     /// Get all IDs for lab values
     ///
@@ -254,13 +264,13 @@ class HealthKitUtil {
     /// Get lab values
     ///
     /// - Returns: the list of all lab values
-    func getLabValues(profile: Profile?) -> [[LabValue]] {
+    func getLabValues(profile: Profile?) -> [[QuantityType]] {
         let allHKIds = getAllLabValueIds()
         var allIds = allHKIds.map({$0.rawValue})
         allIds.append(contentsOf: [
-            "alcohol",
-            "meat",
-            "vegetables"
+            QuantityTypeCustom.alcohol.rawValue,
+            QuantityTypeCustom.meat.rawValue,
+            QuantityTypeCustom.vegetables.rawValue
             ])
         if let json = JSON.resource(named: "labValues") {
             let titlesToOverride = json["labValues"].arrayValue.hashmapWithKey({$0["id"].stringValue})
@@ -289,9 +299,8 @@ class HealthKitUtil {
     ///   - id: theID
     ///   - titles: the title
     /// - Returns: LabValue
-    private func convertIdToLabValue(id: String, titles: [String:JSON]) -> LabValue {
-        let object = LabValue()
-        object.id = id
+    private func convertIdToLabValue(id: String, titles: [String:JSON]) -> QuantityType {
+        let object = QuantityType.fromId(id)
         object.title = titles[id]?["title"].string ?? id
         return object
     }
@@ -299,11 +308,11 @@ class HealthKitUtil {
     /// Get per month statistics
     ///
     /// - Parameters:
-    ///   - labValue: the labValue
+    ///   - quantityType: the quantityType
     ///   - callback: the callback to return data
     ///   - customTypeCallback: the callback to invoke if custom type is requested
-    func getPerMonthStatistics(labValue: LabValue, callback: @escaping ([(Date, Double)], String)->(), customTypeCallback: ()->()) {
-        let type = HKQuantityTypeIdentifier(rawValue: labValue.id)
+    func getPerMonthStatistics(_ quantityType: QuantityType, callback: @escaping ([(Date, Double)], String)->(), customTypeCallback: @escaping ()->()) {
+        let type = HKQuantityTypeIdentifier(rawValue: quantityType.id)
         var unit: HKUnit!
         switch type {
         case HKQuantityTypeIdentifier.dietaryWater:
@@ -330,44 +339,69 @@ class HealthKitUtil {
     ///   - identifier: the ID
     ///   - callback: the callback to return data
     ///   - customTypeCallback: the callback to invoke if custom type is requested
-    func getPerMonthStatistics(identifier: HKQuantityTypeIdentifier, callback: @escaping ([(Date, HKQuantity)])->(), customTypeCallback: ()->()) {
+    func getPerMonthStatistics(identifier: HKQuantityTypeIdentifier, callback: @escaping ([(Date, HKQuantity)])->(), customTypeCallback: @escaping ()->()) {
         if let type = HKQuantityType.quantityType(forIdentifier: identifier) {
 
             let componentFlags = Set<Calendar.Component>([.month])
             let now = Date()
-            let lastYear = Calendar.current.date(byAdding: .year, value: -1, to: now)!
-            let lastYearPlusMonth = Calendar.current.date(byAdding: .month, value: 1, to: lastYear)!
-            let components = Calendar.current.dateComponents(componentFlags, from: lastYear, to: lastYearPlusMonth)
+            let lastYear = Calendar.current.date(from: Calendar.current.dateComponents([.era, .year, .month], from: Calendar.current.date(byAdding: .year, value: -1, to: now)!))!
+            let nextReferencePeriodDate = Calendar.current.date(byAdding: .month, value: 1, to: lastYear)!
+            let monthComponents = Calendar.current.dateComponents(componentFlags, from: lastYear, to: nextReferencePeriodDate)
 
-            let query = HKStatisticsCollectionQuery(quantityType: type, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: lastYear, intervalComponents: components)
-            query.initialResultsHandler = { query, collection, error in
-                if let error = error {
-                    print("getPerMonthStatistics: ERROR: \(error.localizedDescription)")
+            getStatistics(type: type, components: monthComponents, anchorDate: lastYear, toDate: now, callback: { (data) in
+                if data.isEmpty {
+                    print("Trying to fetch per-day statistics")
+                    let componentFlags = Set<Calendar.Component>([.day])
+                    let lastMonth = Calendar.current.date(from: Calendar.current.dateComponents([.era, .year, .month, .day], from: Calendar.current.date(byAdding: .month, value: -1, to: now)!))!
+                    let nextReferencePeriodDate = Calendar.current.date(byAdding: .day, value: 1, to: lastMonth)!
+                    let dayComponents = Calendar.current.dateComponents(componentFlags, from: lastMonth, to: nextReferencePeriodDate)
+                    self.getStatistics(type: type, components: dayComponents, anchorDate: lastMonth, toDate: now, callback: callback)
                 }
-                var data = [(Date, HKQuantity)]()
-                collection?.enumerateStatistics(from: lastYear, to: now, with: { (statistics, _) in
-                    if let quantity = statistics.sumQuantity() {
-                        print("getPerMonthStatistics: \(quantity)")
-                        data.append((statistics.endDate, quantity))
-                    }
-                })
-                callback(data)
-            }
-            healthStore.execute(query)
+                else {
+                    callback(data)
+                }
+            })
         }
         else {
             customTypeCallback()
         }
     }
 
+    /// Get statistics
+    ///
+    /// - Parameters:
+    ///   - type: the type
+    ///   - components: the components
+    ///   - anchorDate: the anchor date
+    ///   - toDate: the and date
+    ///   - callback: the callback to return data
+    private func getStatistics(type: HKQuantityType, components: DateComponents, anchorDate: Date, toDate: Date, callback: @escaping ([(Date, HKQuantity)])->()) {
+        let query = HKStatisticsCollectionQuery(quantityType: type, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: components)
+        query.initialResultsHandler = { query, collection, error in
+            if let error = error {
+                print("getStatistics: ERROR: \(error.localizedDescription)")
+            }
+            var data = [(Date, HKQuantity)]()
+            collection?.enumerateStatistics(from: anchorDate, to: toDate, with: { (statistics, _) in
+                print("statistics: \(statistics)")
+                if let quantity = statistics.sumQuantity() {
+                    print("getStatistics: \(quantity)")
+                    data.append((statistics.endDate, quantity))
+                }
+            })
+            callback(data)
+        }
+        healthStore.execute(query)
+    }
+
     /// Get today statistics
     ///
     /// - Parameters:
-    ///   - identifier: the ID
+    ///   - quantityType: the quantity type
     ///   - callback: the callback to return data
     ///   - customTypeCallback: the callback to invoke if custom type is requested
-    func getTodayStatistics(identifier: HKQuantityTypeIdentifier, callback: @escaping (HKQuantity)->(), customTypeCallback: ()->()) {
-        if let type = HKQuantityType.quantityType(forIdentifier: identifier) {
+    func getTodayStatistics(_ quantityType: QuantityType, callback: @escaping (HKQuantity)->(), customTypeCallback: @escaping ()->()) {
+        if let type = HKQuantityType.quantityType(forIdentifier: quantityType.toHKType()) {
 
             let componentFlags = Set<Calendar.Component>([.day])
             let now = Date()
@@ -385,9 +419,11 @@ class HealthKitUtil {
                         if let quantity = statistics.sumQuantity() {
                             print("getTodayStatistics: \(quantity)")
                             callback(quantity)
+                            return
                         }
                     }
                 }
+                customTypeCallback()
             }
             healthStore.execute(query)
         }
@@ -396,23 +432,48 @@ class HealthKitUtil {
         }
     }
 
+    /// Check if has data for given type
+    ///
+    /// - Parameters:
+    ///   - quantityType: the quantityType
+    ///   - callback: the callback to return data
+    ///   - customTypeCallback: the callback to invoke if custom type is requested
+    func hasData(_ quantityType: QuantityType, callback: @escaping (Bool)->(), customTypeCallback: @escaping ()->()) {
+        if let type = HKQuantityType.quantityType(forIdentifier: quantityType.toHKType()) {
+
+            let componentFlags = Set<Calendar.Component>([.year])
+            let now = Date()
+            let lastYear = Calendar.current.date(from: Calendar.current.dateComponents([.era, .year, .month], from: Calendar.current.date(byAdding: .year, value: -1, to: now)!))!
+            let nextReferencePeriodDate = Calendar.current.date(byAdding: .year, value: 1, to: lastYear)!
+            let yearComponents = Calendar.current.dateComponents(componentFlags, from: lastYear, to: nextReferencePeriodDate)
+
+            getStatistics(type: type, components: yearComponents, anchorDate: lastYear, toDate: now, callback: { (data) in
+                DispatchQueue.main.async {
+                    callback(!data.isEmpty)
+                }
+            })
+        }
+        else {
+            customTypeCallback()
+        }
+    }
+
     // MARK: - Units and IDs
 
-    /// Get list of possible units for given
+    /// Get list of possible units for given type
     ///
-    /// - Parameter labValue: the labValue
+    /// - Parameter type: the type
     /// - Returns: the units
-    func getUnits(forLabValue labValue: LabValue) -> [String] {
-        let type = HKQuantityTypeIdentifier(rawValue: labValue.id ?? "")
+    func getUnits(forType type: QuantityType) -> [String] {
         var units = [HKUnit]()
-        switch type {
-        case HKQuantityTypeIdentifier.dietaryWater:
+        switch type.id {
+        case HKQuantityTypeIdentifier.dietaryWater.rawValue, QuantityTypeCustom.alcohol.rawValue:
             units = [
                 HKUnit.literUnit(with: HKMetricPrefix.milli),
                 HKUnit.liter(),
                 HKUnit.literUnit(with: HKMetricPrefix.deci)
             ]
-        case HKQuantityTypeIdentifier.dietaryEnergyConsumed:
+        case HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue:
             units = [
                 HKUnit.kilocalorie(),
                 HKUnit.calorie()
@@ -424,6 +485,21 @@ class HealthKitUtil {
             ]
         }
         return units.map({$0.unitString})
+    }
+
+    /// Get unit for given type
+    ///
+    /// - Parameter type: the type
+    /// - Returns: the units
+    func getUnit(forType type: QuantityType) -> HKUnit {
+        switch type.id {
+        case HKQuantityTypeIdentifier.dietaryWater.rawValue, QuantityTypeCustom.alcohol.rawValue:
+            return HKUnit.liter()
+        case HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue:
+            return HKUnit.calorie()
+        default:
+            return HKUnit.gram()
+        }
     }
 
     /// Get food units
@@ -451,14 +527,20 @@ class HealthKitUtil {
 
     /// Get HK Id by raw nutrition title
     ///
-    /// - Parameter string: the ID
-    func getId(byString string: String) -> HKQuantityTypeIdentifier? {
+    /// - Parameters:
+    ///   - string: the ID
+    ///   - cleaned: true - cleaned string (no spaces or other symbols)
+    /// - Returns: HKQuantityTypeIdentifier
+    func getId(byString string: String, cleaned: Bool = false) -> HKQuantityTypeIdentifier? {
         let map = getTitleByIdMap()
         let string = string.lowercased()
         for (id, title) in map {
             if string.contains(title.lowercased()) {
                 return id
             }
+        }
+        if !cleaned {
+            return getId(byString: string.replace("-", withString: ""), cleaned: true)
         }
         return nil
     }
@@ -481,17 +563,15 @@ class HealthKitUtil {
         return [:]
     }
 
-    // MARK: - Save items
+    // MARK: - Save items (QuantitySampleService)
 
-    /// Add item into HK
+    /// Add new sample
     ///
     /// - Parameters:
-    ///   - labValue: the labValue
-    ///   - amount: the amount
-    ///   - unit: the unit
-    func addItem(labValue: LabValue, amount: Double, unit: String, callback: @escaping ()->()) {
-        let unit = HKUnit(from: unit)
-        addItem(id: HKQuantityTypeIdentifier(rawValue: labValue.id!), amount: amount, unit: unit, callback: callback)
+    ///   - sample: the sample
+    ///   - callback: the callback to invoke when completed: true - successfully saved, false - else
+    func addSample(_ sample: QuantitySample, callback: @escaping ((Bool)->())) {
+        addSample(id: sample.type.toHKType(), amount: sample.amount, unit: sample.getHKUnit(), date: sample.createdAt, callback: callback)
     }
 
     /// Add item into HK
@@ -500,32 +580,50 @@ class HealthKitUtil {
     ///   - id: the ID
     ///   - amount: the amount
     ///   - unit: the unit
-    func addItem(id: HKQuantityTypeIdentifier, amount: Double, unit: HKUnit, callback: @escaping ()->()) {
+    ///   - date: the date
+    func addSample(id: HKQuantityTypeIdentifier, amount: Double, unit: HKUnit, date: Date, callback: @escaping (Bool)->()) {
         if let type = HKQuantityType.quantityType(forIdentifier: id) {
-            var quantity = HKQuantity(unit: unit, doubleValue: amount)
             var amount = amount
             var unit = unit
             if id == HKQuantityTypeIdentifier.dietaryWater {
-                unit = HKUnit.liter()
-                amount = amount / 1000 // 1000g in 1 liter
-                quantity = HKQuantity(unit: unit, doubleValue: amount)
+                if unit.unitString != HKUnit.liter().unitString {
+                    unit = HKUnit.liter()
+                    amount = amount / 1000 // 1000g in 1 liter
+                }
             }
-            let date = Date()
+            /// If not `water` and `unit==L` (liter), then convert to gramms
+            else if unit.unitString == HKUnit.liter().unitString {
+                unit = HKUnit.gram()
+                amount = amount * 1000
+            }
+            else if unit.unitString == HKUnit.literUnit(with: HKMetricPrefix.milli).unitString {
+                unit = HKUnit.gram()
+            }
+            else if unit.unitString == HKUnit.literUnit(with: HKMetricPrefix.deci).unitString {
+                unit = HKUnit.gram()
+                amount = amount * 100
+            }
+            let quantity = HKQuantity(unit: unit, doubleValue: amount)
             let sample = HKQuantitySample.init(type: type, quantity: quantity, start: date, end: date, metadata: nil)
             healthStore.save(sample) { (success, error) in
                 if let error = error {
-                    print("addItem: ERROR: \(error.localizedDescription)")
+                    print("addSample: ERROR: \(error.localizedDescription)")
                 }
                 if success {
-                    print("addItem: Saved \(sample) of \(id.rawValue)")
+                    print("addSample: Saved in HK \(sample) of \(id.rawValue)")
                     DispatchQueue.main.async {
-                        callback()
+                        callback(true)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        callback(false)
                     }
                 }
             }
         }
         else {
-            print("ERROR: HealthKit does not support type \(id)")
+            callback(false)
         }
     }
 

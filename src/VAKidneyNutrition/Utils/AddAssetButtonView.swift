@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/25/17.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
@@ -40,7 +41,11 @@ public protocol AddAssetButtonViewDelegate {
  * View that contains a button that allows to add a photo
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - Bug fixed: authorization was requested after user selected a very first photo
  */
 open class AddAssetButtonView: CustomView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AddAssetButtonViewDelegate {
 
@@ -212,7 +217,11 @@ open class AddAssetButtonView: CustomView, UIImagePickerControllerDelegate, UINa
      Show photo picker
      */
     func showPhotoLibraryPicker() {
-        showPickerWithSourceType(UIImagePickerControllerSourceType.photoLibrary)
+        PHPhotoLibrary.requestAuthorization { (status) in
+            if status == PHAuthorizationStatus.authorized {
+                self.showPickerWithSourceType(UIImagePickerControllerSourceType.photoLibrary)
+            }
+        }
     }
 
     /**

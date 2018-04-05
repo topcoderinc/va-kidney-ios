@@ -3,28 +3,32 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/4/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
 import SwiftyJSON
 
-/// Type alias for (title, amount, unit) of one nutrient in NDB response.
-/// Percent of the nutrient in the related product.
-typealias NDBNutrient = (String, Double, String)
-
 /**
  * NDB API
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - FoodDetailsServiceApi support
  */
-class NDBServiceApi: RESTApi {
+class NDBServiceApi: RESTApi, FoodDetailsServiceApi {
 
     /// The number of items to request. Currently we need only one item because logic on how to select one item from multiple results is simple - the most relevant
     let MAX_ITEMS_IN_RESULTS = 1
 
+    /// the number of nutrients to request
+    static let MAX_ITEMS_IN_NUTRIENT_RESULTS = 10
+
     /// singleton
-    static let shared = NDBServiceApi(baseUrl: Configuration.shared.ndbApiBaseUrl)
+    static let shared: FoodDetailsServiceApi = NDBServiceApi(baseUrl: Configuration.shared.ndbApiBaseUrl)
 
     /// the API key
     private let key = Configuration.shared.ndbApiKey
@@ -62,7 +66,28 @@ class NDBServiceApi: RESTApi {
         self.get(endpoint, success: callback, failure: failure)
     }
 
-    /// Search food (sorted by relevance)
+    /// Search nutrients ordered by its content in food
+    ///
+    /// - Parameters:
+    ///   - nutrientIds: the IDs
+    ///   - offset: the offset
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the callback to invoke when an error occurred
+    func searchNutrients(nutrientIds: [String], offset: Int? = nil, callback: @escaping (JSON)->(), failure: @escaping FailureCallback) {
+        var strs = [String]()
+        for id in nutrientIds {
+            strs.append("nutrients=\(id)")
+        }
+        let ids = strs.joined(separator: "&")
+        let limit = NDBServiceApi.MAX_ITEMS_IN_NUTRIENT_RESULTS
+        var endpoint = "nutrients/?format=json&api_key=\(key)&\(ids)&max=\(limit)&sort=c"
+        if let offset = offset {
+            endpoint += "&offset=\(offset)"
+        }
+        self.get(endpoint, success: callback, failure: failure)
+    }
+
+    /// Search food details
     ///
     /// - Parameters:
     ///   - id: the ID
@@ -95,7 +120,8 @@ class NDBServiceApi: RESTApi {
             default:
                 continue
             }
-            list.append((item["name"].stringValue, percent, foodItem.units))
+            let nutrient = NDBNutrient(id: item["nutrient_id"].stringValue, title: item["name"].stringValue, percent: percent, unit: foodItem.units)
+            list.append(nutrient)
         }
         return list
     }

@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/22/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -40,7 +41,7 @@ enum GoalFrequency: String {
  * Goal model object
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -48,13 +49,13 @@ enum GoalFrequency: String {
  *
  * 1.2:
  * - Integration changes
+ * 1.3:
+ * - changes in fields
  */
 public class Goal: CacheableObject {
 
     /// fields
     var title = ""
-    var categoryId = ""
-    var category: GoalCategory!
     var frequency: GoalFrequency = .daily
     var dateStart = Date()
     var points: Int = 0
@@ -66,6 +67,7 @@ public class Goal: CacheableObject {
     ///   .orderedAscending - user has X value initially and positive `target` < X. He decrements value to reach <= `target`, e.g. "Weight Loss" goal (make sence for `frequency == .month`)
     ///   .orderedSame - user has any X value initially and target is defined by two thresholds: `min` and `max`. User tries to be in between the thresholds. `target` value is not taken into account. Example: "Blood Sugar".
     var goalType: ComparisonResult = .orderedDescending
+    var relatedQuantityId: String?
 
     // MARK: - Style
 
@@ -78,6 +80,7 @@ public class Goal: CacheableObject {
     var color: UIColor = .red
     // the index used to sort
     var sOrder = 0
+    var oneUnitValue: Double = 0
 
     // true - the data can be taken from external devices/sensors, false - else
     var hasExternalData = false
@@ -115,6 +118,8 @@ public class Goal: CacheableObject {
         return 0
     }
 
+    // MARK: -
+
     /// Parse JSON to model object
     ///
     /// - Parameter json: JSON
@@ -123,7 +128,6 @@ public class Goal: CacheableObject {
         let goal = Goal(id: json["id"].stringValue)
         goal.title = json["title"].stringValue
         goal.iconName = json["iconName"].stringValue
-        goal.categoryId = json["categoryId"].stringValue
         goal.points = json["points"].intValue
         goal.initialValue = json["initialValue"].floatValue
         goal.value = json["value"].floatValue
@@ -132,6 +136,8 @@ public class Goal: CacheableObject {
         goal.valueText = json["valueText"].stringValue
         goal.valueTextMultiple = json["valueTextMultiple"].stringValue
         goal.hasExternalData = json["hasExternalData"].boolValue
+        goal.relatedQuantityId = json["relatedQuantityId"].string
+        goal.oneUnitValue = json["oneUnitValue"].doubleValue
         goal.overrideFieldsFrom(json)
         return goal
     }
@@ -143,7 +149,6 @@ public class Goal: CacheableObject {
     class func fromJson(_ json: JSON, withStyles styles: [Goal]) -> Goal {
         let goal = Goal.fromJson(json)
         if let style = styles.filter({$0.title == json["style"].stringValue}).first {
-            goal.category = style.category
             goal.iconName = style.iconName
             goal.valueText1 = style.valueText1
             goal.valueTextMultiple = style.valueTextMultiple
@@ -153,6 +158,7 @@ public class Goal: CacheableObject {
             goal.goalType = style.goalType
             goal.min = style.min
             goal.max = style.max
+            goal.oneUnitValue = style.oneUnitValue
             goal.overrideFieldsFrom(json)
         }
         return goal
@@ -193,6 +199,9 @@ public class Goal: CacheableObject {
         if let value = json["valueTextMultiple"].string {
             self.valueTextMultiple = value
         }
+        if let value = json["oneUnitValue"].double {
+            self.oneUnitValue = value
+        }
     }
 
     /// Get icon for the goal
@@ -219,9 +228,9 @@ public class Goal: CacheableObject {
     /// Get nutrition name
     ///
     /// - Returns: the name
-    func getRelatedNutrition() -> String? {
-        if title.contains("Intake") {
-            return title.replace("Intake", withString: "").trim()
+    func getRelatedNutrition() -> QuantityType? {
+        if let id = relatedQuantityId {
+            return QuantityType.fromId(id)
         }
         return nil
     }

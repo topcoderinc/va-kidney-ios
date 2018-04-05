@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/2/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -16,11 +17,14 @@ let OPTION_USE_SINGULAR_FOR_TOP_GOALS = false
  * First Home screen
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - integration changes
+ *
+ * 1.2:
+ * - API change
  */
 class HomeDashboardViewController: UIViewController {
 
@@ -61,7 +65,7 @@ class HomeDashboardViewController: UIViewController {
         self.view.layoutIfNeeded()
         do {
             let loadingView = LoadingView(parentView: goalsView, dimming: false).show()
-            api.getGoals(profile: nil, callback: { (goals, _) in
+            api.getGoals(profile: nil, callback: { (goals) in
                 loadingView.terminate()
                 self.goals = goals
                 self.updateUI()

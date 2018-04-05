@@ -1,8 +1,9 @@
 //
-//  MedicationResource.swift
+//  Recommendation.swift
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/4/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -10,7 +11,7 @@ import SwiftyJSON
 import UIComponents
 
 /// Possible types for MedicationResource
-enum MedicationResourceType: String {
+enum RecommendationType: String {
     case foodSuggestion = "Food Suggestion", unsafeFood = "Unsafe Food",
     drugConsumption = "Drug Consumption",
     drugInteractionWarnings = "Drug Interaction Warnings"
@@ -27,24 +28,28 @@ enum MedicationResourceType: String {
  * Model object for resource in medication tab
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - MedicationResource renamed to Recommendation
  */
-public class MedicationResource: CacheableObject {
+public class Recommendation: CacheableObject {
 
     /// the fields
     var title = ""
     var text = ""
     var imageUrl: String = ""
     var tintColor: UIColor?
-    var type: MedicationResourceType = .foodSuggestion
+    var type: RecommendationType = .foodSuggestion
     var relatedFoodInfo = ""
 
     /// Parse JSON to model object
     ///
     /// - Parameter json: JSON
     /// - Returns: the object
-    class func fromJson(_ json: JSON) -> MedicationResource {
-        let object = MedicationResource(id: json["id"].stringValue)
+    class func fromJson(_ json: JSON) -> Recommendation {
+        let object = Recommendation(id: json["id"].stringValue)
         object.title = json["title"].stringValue
         object.text = json["text"].stringValue
         object.imageUrl = json["imageUrl"].stringValue
@@ -57,8 +62,8 @@ public class MedicationResource: CacheableObject {
     ///   - json: the JSON
     ///   - drugs: the drugs
     /// - Returns: the report
-    class func drugInteractionReport(_ json: JSON, drugs: [FoodItem]) -> MedicationResource {
-        let object = MedicationResource(id: UUID().uuidString)
+    class func drugInteractionReport(_ json: JSON, drugs: [FoodItem]) -> Recommendation {
+        let object = Recommendation(id: UUID().uuidString)
         object.title = drugs.map({$0.title}).joined(separator: " + ").capitalized
         object.type = .drugInteractionWarnings
 

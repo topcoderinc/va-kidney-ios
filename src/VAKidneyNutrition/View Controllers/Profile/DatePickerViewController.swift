@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/3/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -47,7 +48,11 @@ var LastDatePickerViewController: DatePickerViewController?
  * View controller that contains header and datepicker.
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - maximum date parameter
  */
 class DatePickerViewController: UIViewController {
 
@@ -66,6 +71,9 @@ class DatePickerViewController: UIViewController {
     // the delegate
     var delegate: DatePickerViewControllerDelegate?
 
+    /// the maximum date
+    var maxDate: Date?
+
     /// Show the picker
     ///
     /// - Parameters:
@@ -80,7 +88,7 @@ class DatePickerViewController: UIViewController {
                     selectedDate: Date? = nil,
                     datePickerMode: UIDatePickerMode,
                     delegate: DatePickerViewControllerDelegate,
-                    disableOutsideButton: Bool = false) -> DatePickerViewController? {
+                    disableOutsideButton: Bool = false, maxDate: Date? = nil) -> DatePickerViewController? {
         LastDatePickerViewController?.closePicker()
         if let parent = UIViewController.getCurrentViewController() {
             if let vc = parent.create(DatePickerViewController.self, storyboardName: "Profile") {
@@ -89,6 +97,7 @@ class DatePickerViewController: UIViewController {
                 vc.selectedObject = selectedDate ?? Date()
                 vc.datePickerMode = datePickerMode
                 vc.delegate = delegate
+                vc.maxDate = maxDate
 
                 let height: CGFloat = 217
                 let bounds = disableOutsideButton ? CGRect(x: 0, y: 0, width: parent.view.bounds.width, height: height) : parent.view.bounds
@@ -111,6 +120,9 @@ class DatePickerViewController: UIViewController {
             height.constant = 0
         }
         picker.datePickerMode = datePickerMode
+        if let maxDate = maxDate {
+            picker.maximumDate = maxDate
+        }
         if datePickerMode == .dateAndTime {
             picker.minimumDate = Date()
         }

@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/4/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -71,7 +72,11 @@ let kAccessToken = "kAccessToken"
  * Basic class to implement Rest API
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - "Cache-Control" header added (not very usefull, but requested).
  */
 class RESTApi {
 
@@ -100,6 +105,9 @@ class RESTApi {
     internal init(baseUrl: String) {
         self.baseUrl = baseUrl
     }
+
+    /// the value used for "Cache-Control" header
+    internal var cachePeriod = 24*60*60 // 1 day
 
     /// the authorization header
     fileprivate let AUTH_HEADER = "Authorization"
@@ -207,6 +215,7 @@ class RESTApi {
         }
         request.httpBody = body
         request.addValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
+        request.addValue("max-age=\(cachePeriod)", forHTTPHeaderField: "Cache-Control")
         return request
     }
 

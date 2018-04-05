@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -255,10 +256,12 @@ extension UIImage {
  * Shortcut methods for Date
  *
  * - author:  TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
+ * - new method
+ * 1.2:
  * - new method
  */
 extension Date {
@@ -329,6 +332,20 @@ extension Date {
         return date
     }
 
+    /// Add months to the date
+    ///
+    /// - Parameter months: the number of months to add
+    /// - Returns: changed date
+    func addMonths(_ months: Int) -> Date {
+        let calendar = Calendar.current
+
+        var components = DateComponents()
+        components.month = months
+
+        let date = calendar.date(byAdding: components, to: self)!
+        return date
+    }
+
     /**
      Check if the date corresponds to the same day
 
@@ -350,13 +367,15 @@ extension Date {
  * Date and time formatters
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
  * - new formatters
  * 1.2:
  * - new formatter
+ * 1.3:
+ * - bug fixed
  */
 struct DateFormatters {
 
@@ -387,7 +406,7 @@ struct DateFormatters {
     /// time formatter
     static var time: DateFormatter = {
         let f = DateFormatter()
-        f.dateFormat = "HH:mm a"
+        f.dateFormat = "hh:mm a"
         f.timeZone = TimeZone.current
         return f
     }()

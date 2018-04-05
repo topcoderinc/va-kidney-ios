@@ -13,9 +13,7 @@
 		FD12604D20264A38009514D6 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD12604C20264A38009514D6 /* ChartViewController.swift */; };
 		FD12604F20265963009514D6 /* MedicationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD12604E20265963009514D6 /* MedicationHeader.xib */; };
 		FD12605120265A1F009514D6 /* MedicationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD12605020265A1F009514D6 /* MedicationsTableViewController.swift */; };
-		FD12605320265B76009514D6 /* MedicationResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD12605220265B76009514D6 /* MedicationResource.swift */; };
-		FD12605520265C01009514D6 /* medicationResources.json in Resources */ = {isa = PBXBuildFile; fileRef = FD12605420265C01009514D6 /* medicationResources.json */; };
-		FD1260572026620C009514D6 /* dragResources.json in Resources */ = {isa = PBXBuildFile; fileRef = FD1260562026620C009514D6 /* dragResources.json */; };
+		FD12605320265B76009514D6 /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD12605220265B76009514D6 /* Recommendation.swift */; };
 		FD12605920266BAF009514D6 /* ResourceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD12605820266BAF009514D6 /* ResourceDetailsViewController.swift */; };
 		FD1519552026090000CAD89B /* units.json in Resources */ = {isa = PBXBuildFile; fileRef = FD1519542026090000CAD89B /* units.json */; };
 		FD19E2CA2026712C008C46BF /* Resources.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD19E2C92026712C008C46BF /* Resources.storyboard */; };
@@ -32,6 +30,16 @@
 		FD3C1A6D1FF04B2B00B78908 /* MedicationsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3C1A6C1FF04B2B00B78908 /* MedicationsMainViewController.swift */; };
 		FD3C1A6F1FF050E800B78908 /* MedicationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3C1A6E1FF050E800B78908 /* MedicationRowView.swift */; };
 		FD3C1A711FF0530500B78908 /* MedicationsScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3C1A701FF0530500B78908 /* MedicationsScheduleViewController.swift */; };
+		FD3EA8C4206CBA08003BE636 /* QuantitySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8C3206CBA08003BE636 /* QuantitySample.swift */; };
+		FD3EA8C6206CBADB003BE636 /* QuantitySampleCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8C5206CBADB003BE636 /* QuantitySampleCache.swift */; };
+		FD3EA8CA206CC316003BE636 /* QuantitySampleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8C9206CC316003BE636 /* QuantitySampleService.swift */; };
+		FD3EA8CC206CCCB8003BE636 /* LocalQuantitySampleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8CB206CCCB8003BE636 /* LocalQuantitySampleService.swift */; };
+		FD3EA8CE206CCD8A003BE636 /* QuantitySampleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8CD206CCD8A003BE636 /* QuantitySampleStorage.swift */; };
+		FD3EA8D0206E19F3003BE636 /* CollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8CF206E19F3003BE636 /* CollectionDataSource.swift */; };
+		FD3EA8D2206E57E4003BE636 /* NDBNutrient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8D1206E57E4003BE636 /* NDBNutrient.swift */; };
+		FD3EA8D4206E5A4E003BE636 /* RecommendationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8D3206E5A4E003BE636 /* RecommendationGenerator.swift */; };
+		FD3EA8D6206E5C2A003BE636 /* NDBBasedRecommendationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EA8D5206E5C2A003BE636 /* NDBBasedRecommendationGenerator.swift */; };
+		FD3EB179206B90A000F9C890 /* ConfirmDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EB178206B90A000F9C890 /* ConfirmDialog.swift */; };
 		FD43685B1FF054E0003B22CE /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43685A1FF054E0003B22CE /* Medication.swift */; };
 		FD43685D1FF05561003B22CE /* MedicationTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD43685C1FF05561003B22CE /* MedicationTime.swift */; };
 		FD43685F1FF056BE003B22CE /* medications.json in Resources */ = {isa = PBXBuildFile; fileRef = FD43685E1FF056BE003B22CE /* medications.json */; };
@@ -72,7 +80,7 @@
 		FD64C15B204A2B30000C1501 /* HealthKitUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C15A204A2B30000C1501 /* HealthKitUtil.swift */; };
 		FD64C15D204A3E44000C1501 /* allGoals.json in Resources */ = {isa = PBXBuildFile; fileRef = FD64C15C204A3E44000C1501 /* allGoals.json */; };
 		FD64C15F204AECAD000C1501 /* ChartsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C15E204AECAD000C1501 /* ChartsTableViewController.swift */; };
-		FD64C161204AF028000C1501 /* LabValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C160204AF028000C1501 /* LabValue.swift */; };
+		FD64C161204AF028000C1501 /* QuantityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C160204AF028000C1501 /* QuantityType.swift */; };
 		FD64C163204AF61E000C1501 /* labValues.json in Resources */ = {isa = PBXBuildFile; fileRef = FD64C162204AF61E000C1501 /* labValues.json */; };
 		FD64C167204B48FE000C1501 /* ChartAddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C166204B48FE000C1501 /* ChartAddItemViewController.swift */; };
 		FD64C169204B51D2000C1501 /* FoodUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C168204B51D2000C1501 /* FoodUtils.swift */; };
@@ -84,7 +92,7 @@
 		FD64C177204B64AB000C1501 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C176204B64AB000C1501 /* Configuration.swift */; };
 		FD64C179204B665C000C1501 /* configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD64C178204B665C000C1501 /* configuration.plist */; };
 		FD64C17B204B6678000C1501 /* NDBServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C17A204B6678000C1501 /* NDBServiceApi.swift */; };
-		FD64C17D204B79AB000C1501 /* MedicationResourceServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C17C204B79AB000C1501 /* MedicationResourceServiceCache.swift */; };
+		FD64C17D204B79AB000C1501 /* RecommendationServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD64C17C204B79AB000C1501 /* RecommendationServiceCache.swift */; };
 		FD70AC751FEBF523003854A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC741FEBF523003854A1 /* SignInViewController.swift */; };
 		FD70AC791FEBFC62003854A1 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC781FEBFC62003854A1 /* CustomTextField.swift */; };
 		FD70AC7C1FEC049E003854A1 /* ServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */; };
@@ -103,16 +111,21 @@
 		FD70AC9A1FEC0AC6003854A1 /* UserInfoServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC991FEC0AC6003854A1 /* UserInfoServiceCache.swift */; };
 		FD70AC9C1FEC1655003854A1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD70AC9B1FEC1655003854A1 /* SignUpViewController.swift */; };
 		FD7B524F204C1E340099A57E /* SectionInfiniteTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B524E204C1E340099A57E /* SectionInfiniteTableViewModel.swift */; };
+		FD7F1E8B206FC12700F4299B /* RecommendationServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E8A206FC12700F4299B /* RecommendationServiceApi.swift */; };
+		FD7F1E8D206FC51B00F4299B /* CachingServiceApi+RecommendationServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E8C206FC51B00F4299B /* CachingServiceApi+RecommendationServiceApi.swift */; };
+		FD7F1E90206FDBB500F4299B /* FoodDetailsServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E8F206FDBB500F4299B /* FoodDetailsServiceApi.swift */; };
+		FD7F1E92206FDD3B00F4299B /* DrugDetailsServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E91206FDD3B00F4299B /* DrugDetailsServiceApi.swift */; };
+		FD7F1E94206FE91100F4299B /* ServiceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E93206FE91100F4299B /* ServiceResponse.swift */; };
+		FD7F1E96206FE97F00F4299B /* ServiceResponseCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E95206FE97F00F4299B /* ServiceResponseCache.swift */; };
+		FD7F1E98206FEA6B00F4299B /* CachingNDBServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E97206FEA6B00F4299B /* CachingNDBServiceApi.swift */; };
+		FD7F1E9A206FF2E100F4299B /* CachingFDAServiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F1E99206FF2E100F4299B /* CachingFDAServiceApi.swift */; };
 		FD81F4AA20247561009EF447 /* WelcomePageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4A920247561009EF447 /* WelcomePageContainerViewController.swift */; };
 		FD81F4AC20247578009EF447 /* WelcomePage1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4AB20247578009EF447 /* WelcomePage1ViewController.swift */; };
 		FD81F4AE20247587009EF447 /* WelcomePage2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4AD20247587009EF447 /* WelcomePage2ViewController.swift */; };
 		FD81F4B020247594009EF447 /* WelcomePage3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4AF20247594009EF447 /* WelcomePage3ViewController.swift */; };
 		FD81F4B220249754009EF447 /* sampleAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = FD81F4B120249754009EF447 /* sampleAccount.json */; };
 		FD81F4B420249CB8009EF447 /* HomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81F4B320249CB8009EF447 /* HomeContainerViewController.swift */; };
-		FD8F991C1FEFCBBF00B4A6B5 /* goalCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = FD8F991B1FEFCBBF00B4A6B5 /* goalCategories.json */; };
-		FD8F991E1FEFCC1700B4A6B5 /* GoalCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F991D1FEFCC1700B4A6B5 /* GoalCategory.swift */; };
 		FD8F99201FEFD9DB00B4A6B5 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8F991F1FEFD9DB00B4A6B5 /* CustomProgressView.swift */; };
-		FD94C67E1FF00B960039D233 /* tasks.json in Resources */ = {isa = PBXBuildFile; fileRef = FD94C67D1FF00B960039D233 /* tasks.json */; };
 		FD94C6831FF034460039D233 /* GoalServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD94C6821FF034460039D233 /* GoalServiceCache.swift */; };
 		FD96C3D0202693A40063A2BE /* AddGoalFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD96C3CF202693A40063A2BE /* AddGoalFormViewController.swift */; };
 		FD96C3D220270EEE0063A2BE /* goalTips.json in Resources */ = {isa = PBXBuildFile; fileRef = FD96C3D120270EEE0063A2BE /* goalTips.json */; };
@@ -132,7 +145,6 @@
 		FDE5D1171FEEF2D8006C7097 /* reports.json in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D1161FEEF2D8006C7097 /* reports.json */; };
 		FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */; };
 		FDE5D11D1FEF1EDD006C7097 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */; };
-		FDE5D1201FEF21D0006C7097 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5D11F1FEF21D0006C7097 /* ChartsViewController.swift */; };
 		FDF397DA1FEBD0C100DEED65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF397D91FEBD0C100DEED65 /* AppDelegate.swift */; };
 		FDF397DF1FEBD0C100DEED65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDF397DD1FEBD0C100DEED65 /* Main.storyboard */; };
 		FDF397E11FEBD0C100DEED65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDF397E01FEBD0C100DEED65 /* Assets.xcassets */; };
@@ -149,7 +161,6 @@
 		FDF748AB1FEFEAC200FB1037 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF748AA1FEFEAC200FB1037 /* Reward.swift */; };
 		FDF748AD1FEFED6100FB1037 /* rewards.json in Resources */ = {isa = PBXBuildFile; fileRef = FDF748AC1FEFED6100FB1037 /* rewards.json */; };
 		FDF7BBFE1FED41640078970A /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF7BBFD1FED41640078970A /* Goal.swift */; };
-		FDF7BC011FED452D0078970A /* goals.json in Resources */ = {isa = PBXBuildFile; fileRef = FDF7BC001FED452D0078970A /* goals.json */; };
 		FDF7BC031FED4B4B0078970A /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF7BC021FED4B4B0078970A /* Suggestion.swift */; };
 		FDF7BC051FED4BCB0078970A /* suggestions.json in Resources */ = {isa = PBXBuildFile; fileRef = FDF7BC041FED4BCB0078970A /* suggestions.json */; };
 		FDF7BC071FED60EC0078970A /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF7BC061FED60EC0078970A /* Report.swift */; };
@@ -188,9 +199,7 @@
 		FD12604C20264A38009514D6 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		FD12604E20265963009514D6 /* MedicationHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MedicationHeader.xib; sourceTree = "<group>"; };
 		FD12605020265A1F009514D6 /* MedicationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsTableViewController.swift; sourceTree = "<group>"; };
-		FD12605220265B76009514D6 /* MedicationResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationResource.swift; sourceTree = "<group>"; };
-		FD12605420265C01009514D6 /* medicationResources.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = medicationResources.json; sourceTree = "<group>"; };
-		FD1260562026620C009514D6 /* dragResources.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dragResources.json; sourceTree = "<group>"; };
+		FD12605220265B76009514D6 /* Recommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
 		FD12605820266BAF009514D6 /* ResourceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetailsViewController.swift; sourceTree = "<group>"; };
 		FD1519542026090000CAD89B /* units.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = units.json; sourceTree = "<group>"; };
 		FD19E2C92026712C008C46BF /* Resources.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Resources.storyboard; sourceTree = "<group>"; };
@@ -207,6 +216,16 @@
 		FD3C1A6C1FF04B2B00B78908 /* MedicationsMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsMainViewController.swift; sourceTree = "<group>"; };
 		FD3C1A6E1FF050E800B78908 /* MedicationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationRowView.swift; sourceTree = "<group>"; };
 		FD3C1A701FF0530500B78908 /* MedicationsScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationsScheduleViewController.swift; sourceTree = "<group>"; };
+		FD3EA8C3206CBA08003BE636 /* QuantitySample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySample.swift; sourceTree = "<group>"; };
+		FD3EA8C5206CBADB003BE636 /* QuantitySampleCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySampleCache.swift; sourceTree = "<group>"; };
+		FD3EA8C9206CC316003BE636 /* QuantitySampleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySampleService.swift; sourceTree = "<group>"; };
+		FD3EA8CB206CCCB8003BE636 /* LocalQuantitySampleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalQuantitySampleService.swift; sourceTree = "<group>"; };
+		FD3EA8CD206CCD8A003BE636 /* QuantitySampleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitySampleStorage.swift; sourceTree = "<group>"; };
+		FD3EA8CF206E19F3003BE636 /* CollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDataSource.swift; sourceTree = "<group>"; };
+		FD3EA8D1206E57E4003BE636 /* NDBNutrient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDBNutrient.swift; sourceTree = "<group>"; };
+		FD3EA8D3206E5A4E003BE636 /* RecommendationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationGenerator.swift; sourceTree = "<group>"; };
+		FD3EA8D5206E5C2A003BE636 /* NDBBasedRecommendationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDBBasedRecommendationGenerator.swift; sourceTree = "<group>"; };
+		FD3EB178206B90A000F9C890 /* ConfirmDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDialog.swift; sourceTree = "<group>"; };
 		FD43685A1FF054E0003B22CE /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
 		FD43685C1FF05561003B22CE /* MedicationTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTime.swift; sourceTree = "<group>"; };
 		FD43685E1FF056BE003B22CE /* medications.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = medications.json; sourceTree = "<group>"; };
@@ -247,7 +266,7 @@
 		FD64C15A204A2B30000C1501 /* HealthKitUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitUtil.swift; sourceTree = "<group>"; };
 		FD64C15C204A3E44000C1501 /* allGoals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allGoals.json; sourceTree = "<group>"; };
 		FD64C15E204AECAD000C1501 /* ChartsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsTableViewController.swift; sourceTree = "<group>"; };
-		FD64C160204AF028000C1501 /* LabValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabValue.swift; sourceTree = "<group>"; };
+		FD64C160204AF028000C1501 /* QuantityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityType.swift; sourceTree = "<group>"; };
 		FD64C162204AF61E000C1501 /* labValues.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = labValues.json; sourceTree = "<group>"; };
 		FD64C166204B48FE000C1501 /* ChartAddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartAddItemViewController.swift; sourceTree = "<group>"; };
 		FD64C168204B51D2000C1501 /* FoodUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodUtils.swift; sourceTree = "<group>"; };
@@ -259,7 +278,7 @@
 		FD64C176204B64AB000C1501 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FD64C178204B665C000C1501 /* configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = configuration.plist; sourceTree = "<group>"; };
 		FD64C17A204B6678000C1501 /* NDBServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NDBServiceApi.swift; sourceTree = "<group>"; };
-		FD64C17C204B79AB000C1501 /* MedicationResourceServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationResourceServiceCache.swift; sourceTree = "<group>"; };
+		FD64C17C204B79AB000C1501 /* RecommendationServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationServiceCache.swift; sourceTree = "<group>"; };
 		FD70AC741FEBF523003854A1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		FD70AC781FEBFC62003854A1 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceApi.swift; sourceTree = "<group>"; };
@@ -278,16 +297,21 @@
 		FD70AC991FEC0AC6003854A1 /* UserInfoServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoServiceCache.swift; sourceTree = "<group>"; };
 		FD70AC9B1FEC1655003854A1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FD7B524E204C1E340099A57E /* SectionInfiniteTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionInfiniteTableViewModel.swift; sourceTree = "<group>"; };
+		FD7F1E8A206FC12700F4299B /* RecommendationServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationServiceApi.swift; sourceTree = "<group>"; };
+		FD7F1E8C206FC51B00F4299B /* CachingServiceApi+RecommendationServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CachingServiceApi+RecommendationServiceApi.swift"; sourceTree = "<group>"; };
+		FD7F1E8F206FDBB500F4299B /* FoodDetailsServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailsServiceApi.swift; sourceTree = "<group>"; };
+		FD7F1E91206FDD3B00F4299B /* DrugDetailsServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugDetailsServiceApi.swift; sourceTree = "<group>"; };
+		FD7F1E93206FE91100F4299B /* ServiceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResponse.swift; sourceTree = "<group>"; };
+		FD7F1E95206FE97F00F4299B /* ServiceResponseCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResponseCache.swift; sourceTree = "<group>"; };
+		FD7F1E97206FEA6B00F4299B /* CachingNDBServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingNDBServiceApi.swift; sourceTree = "<group>"; };
+		FD7F1E99206FF2E100F4299B /* CachingFDAServiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingFDAServiceApi.swift; sourceTree = "<group>"; };
 		FD81F4A920247561009EF447 /* WelcomePageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageContainerViewController.swift; sourceTree = "<group>"; };
 		FD81F4AB20247578009EF447 /* WelcomePage1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage1ViewController.swift; sourceTree = "<group>"; };
 		FD81F4AD20247587009EF447 /* WelcomePage2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage2ViewController.swift; sourceTree = "<group>"; };
 		FD81F4AF20247594009EF447 /* WelcomePage3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage3ViewController.swift; sourceTree = "<group>"; };
 		FD81F4B120249754009EF447 /* sampleAccount.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleAccount.json; sourceTree = "<group>"; };
 		FD81F4B320249CB8009EF447 /* HomeContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContainerViewController.swift; sourceTree = "<group>"; };
-		FD8F991B1FEFCBBF00B4A6B5 /* goalCategories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = goalCategories.json; sourceTree = "<group>"; };
-		FD8F991D1FEFCC1700B4A6B5 /* GoalCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategory.swift; sourceTree = "<group>"; };
 		FD8F991F1FEFD9DB00B4A6B5 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
-		FD94C67D1FF00B960039D233 /* tasks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tasks.json; sourceTree = "<group>"; };
 		FD94C67F1FF00E860039D233 /* VAKidneyNutrition.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VAKidneyNutrition.entitlements; sourceTree = "<group>"; };
 		FD94C6821FF034460039D233 /* GoalServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalServiceCache.swift; sourceTree = "<group>"; };
 		FD96C3CF202693A40063A2BE /* AddGoalFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalFormViewController.swift; sourceTree = "<group>"; };
@@ -308,7 +332,6 @@
 		FDE5D1161FEEF2D8006C7097 /* reports.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = reports.json; sourceTree = "<group>"; };
 		FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuViewController.swift; sourceTree = "<group>"; };
 		FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
-		FDE5D11F1FEF21D0006C7097 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		FDF397D61FEBD0C100DEED65 /* VAKidneyNutrition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VAKidneyNutrition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF397D91FEBD0C100DEED65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDF397DE1FEBD0C100DEED65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -327,7 +350,6 @@
 		FDF748AA1FEFEAC200FB1037 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		FDF748AC1FEFED6100FB1037 /* rewards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rewards.json; sourceTree = "<group>"; };
 		FDF7BBFD1FED41640078970A /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
-		FDF7BC001FED452D0078970A /* goals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = goals.json; sourceTree = "<group>"; };
 		FDF7BC021FED4B4B0078970A /* Suggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		FDF7BC041FED4BCB0078970A /* suggestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = suggestions.json; sourceTree = "<group>"; };
 		FDF7BC061FED60EC0078970A /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
@@ -417,6 +439,26 @@
 			path = Medications;
 			sourceTree = "<group>";
 		};
+		FD3EA8C7206CC2F4003BE636 /* Quantity Samples */ = {
+			isa = PBXGroup;
+			children = (
+				FD3EA8C8206CC307003BE636 /* Model */,
+				FD3EA8C9206CC316003BE636 /* QuantitySampleService.swift */,
+				FD3EA8CB206CCCB8003BE636 /* LocalQuantitySampleService.swift */,
+				FD3EA8CD206CCD8A003BE636 /* QuantitySampleStorage.swift */,
+			);
+			path = "Quantity Samples";
+			sourceTree = "<group>";
+		};
+		FD3EA8C8206CC307003BE636 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FD64C160204AF028000C1501 /* QuantityType.swift */,
+				FD3EA8C3206CBA08003BE636 /* QuantitySample.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		FD4368681FF0EEF9003B22CE /* Food */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +514,8 @@
 				FD64C16B204B5E15000C1501 /* RecommendationSolver.swift */,
 				FD64C16F204B5F2A000C1501 /* RecommendationSolution.swift */,
 				FD64C16D204B5EA9000C1501 /* SimpleRecommendationSolver.swift */,
+				FD3EA8D3206E5A4E003BE636 /* RecommendationGenerator.swift */,
+				FD3EA8D5206E5C2A003BE636 /* NDBBasedRecommendationGenerator.swift */,
 			);
 			path = Food;
 			sourceTree = "<group>";
@@ -488,13 +532,14 @@
 		FD70AC7A1FEC048F003854A1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				FD7F1E89206FC11700F4299B /* Recommendations */,
+				FD3EA8C7206CC2F4003BE636 /* Quantity Samples */,
 				FD64C171204B6414000C1501 /* Rest */,
 				FD70AC801FEC05C2003854A1 /* Caching */,
+				FD7F1E8E206FDB9400F4299B /* Food Details */,
 				FD70AC7B1FEC049E003854A1 /* ServiceApi.swift */,
 				FD70AC911FEC0946003854A1 /* MockServiceApi.swift */,
 				FD70AC8F1FEC0772003854A1 /* CachingServiceApi.swift */,
-				FD64C17A204B6678000C1501 /* NDBServiceApi.swift */,
-				FDF4AA32204B889F00F6738A /* FDAServiceApi.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -508,16 +553,16 @@
 				FDF7BBFD1FED41640078970A /* Goal.swift */,
 				FDF7BC021FED4B4B0078970A /* Suggestion.swift */,
 				FDF7BC061FED60EC0078970A /* Report.swift */,
-				FD8F991D1FEFCC1700B4A6B5 /* GoalCategory.swift */,
 				FDF748AA1FEFEAC200FB1037 /* Reward.swift */,
 				FD43685A1FF054E0003B22CE /* Medication.swift */,
 				FD43685C1FF05561003B22CE /* MedicationTime.swift */,
 				FD43686B1FF0F1A1003B22CE /* Food.swift */,
 				FD53C5E9204058F200AB7FDB /* FoodItem.swift */,
 				FD43687A1FF11792003B22CE /* Workout.swift */,
-				FD12605220265B76009514D6 /* MedicationResource.swift */,
+				FD12605220265B76009514D6 /* Recommendation.swift */,
 				FD19E2CE20267301008C46BF /* Resource.swift */,
-				FD64C160204AF028000C1501 /* LabValue.swift */,
+				FD3EA8D1206E57E4003BE636 /* NDBNutrient.swift */,
+				FD7F1E93206FE91100F4299B /* ServiceResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,7 +576,9 @@
 				FD94C6821FF034460039D233 /* GoalServiceCache.swift */,
 				FD4368731FF10D44003B22CE /* FoodServiceCache.swift */,
 				FD53C5ED20405DB800AB7FDB /* FoodItemServiceCache.swift */,
-				FD64C17C204B79AB000C1501 /* MedicationResourceServiceCache.swift */,
+				FD64C17C204B79AB000C1501 /* RecommendationServiceCache.swift */,
+				FD3EA8C5206CBADB003BE636 /* QuantitySampleCache.swift */,
+				FD7F1E95206FE97F00F4299B /* ServiceResponseCache.swift */,
 			);
 			path = Caching;
 			sourceTree = "<group>";
@@ -546,6 +593,28 @@
 				FD70AC8A1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld */,
 			);
 			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		FD7F1E89206FC11700F4299B /* Recommendations */ = {
+			isa = PBXGroup;
+			children = (
+				FD7F1E8A206FC12700F4299B /* RecommendationServiceApi.swift */,
+				FD7F1E8C206FC51B00F4299B /* CachingServiceApi+RecommendationServiceApi.swift */,
+			);
+			path = Recommendations;
+			sourceTree = "<group>";
+		};
+		FD7F1E8E206FDB9400F4299B /* Food Details */ = {
+			isa = PBXGroup;
+			children = (
+				FD7F1E8F206FDBB500F4299B /* FoodDetailsServiceApi.swift */,
+				FD7F1E91206FDD3B00F4299B /* DrugDetailsServiceApi.swift */,
+				FD64C17A204B6678000C1501 /* NDBServiceApi.swift */,
+				FDF4AA32204B889F00F6738A /* FDAServiceApi.swift */,
+				FD7F1E97206FEA6B00F4299B /* CachingNDBServiceApi.swift */,
+				FD7F1E99206FF2E100F4299B /* CachingFDAServiceApi.swift */,
+			);
+			path = "Food Details";
 			sourceTree = "<group>";
 		};
 		FD9F959D1FEC41DE000FECAD /* Login */ = {
@@ -582,7 +651,6 @@
 			children = (
 				FD64C15E204AECAD000C1501 /* ChartsTableViewController.swift */,
 				FD12604C20264A38009514D6 /* ChartViewController.swift */,
-				FDE5D11F1FEF21D0006C7097 /* ChartsViewController.swift */,
 				FD43687E1FF1228F003B22CE /* ReminderViewController.swift */,
 				FD64C166204B48FE000C1501 /* ChartAddItemViewController.swift */,
 			);
@@ -713,6 +781,8 @@
 				FD64C15A204A2B30000C1501 /* HealthKitUtil.swift */,
 				FD64C176204B64AB000C1501 /* Configuration.swift */,
 				FD7B524E204C1E340099A57E /* SectionInfiniteTableViewModel.swift */,
+				FD3EB178206B90A000F9C890 /* ConfirmDialog.swift */,
+				FD3EA8CF206E19F3003BE636 /* CollectionDataSource.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -720,19 +790,14 @@
 		FDF7BBFF1FED45150078970A /* Sample Data */ = {
 			isa = PBXGroup;
 			children = (
-				FDF7BC001FED452D0078970A /* goals.json */,
 				FDF7BC041FED4BCB0078970A /* suggestions.json */,
 				FDE5D1161FEEF2D8006C7097 /* reports.json */,
-				FD8F991B1FEFCBBF00B4A6B5 /* goalCategories.json */,
 				FDF748AC1FEFED6100FB1037 /* rewards.json */,
-				FD94C67D1FF00B960039D233 /* tasks.json */,
 				FD43685E1FF056BE003B22CE /* medications.json */,
 				FD43686D1FF0F239003B22CE /* food.json */,
 				FD43687C1FF11941003B22CE /* workouts.json */,
 				FD81F4B120249754009EF447 /* sampleAccount.json */,
 				FD1519542026090000CAD89B /* units.json */,
-				FD12605420265C01009514D6 /* medicationResources.json */,
-				FD1260562026620C009514D6 /* dragResources.json */,
 				FD19E2D0202674DD008C46BF /* resources.json */,
 				FD96C3D120270EEE0063A2BE /* goalTips.json */,
 				FD2F095E202737530015376B /* welcome1.json */,
@@ -855,14 +920,12 @@
 				FD2F0961202738F00015376B /* welcome2.json in Resources */,
 				FDF7BC051FED4BCB0078970A /* suggestions.json in Resources */,
 				FD64C179204B665C000C1501 /* configuration.plist in Resources */,
-				FD94C67E1FF00B960039D233 /* tasks.json in Resources */,
 				FD2F095F202737530015376B /* welcome1.json in Resources */,
 				FD19E2CA2026712C008C46BF /* Resources.storyboard in Resources */,
 				FD5EF4692023AFE900E6BD23 /* MyriadPro-Regular.otf in Resources */,
 				FD4368761FF11377003B22CE /* Workout.storyboard in Resources */,
 				FD19E2D1202674DD008C46BF /* resources.json in Resources */,
 				FD96C3D220270EEE0063A2BE /* goalTips.json in Resources */,
-				FD8F991C1FEFCBBF00B4A6B5 /* goalCategories.json in Resources */,
 				FD1519552026090000CAD89B /* units.json in Resources */,
 				FD3C1A6A1FF049C700B78908 /* Medications.storyboard in Resources */,
 				FD12604F20265963009514D6 /* MedicationHeader.xib in Resources */,
@@ -874,18 +937,15 @@
 				FD81F4B220249754009EF447 /* sampleAccount.json in Resources */,
 				FD64C163204AF61E000C1501 /* labValues.json in Resources */,
 				FD5EF4642023AFE900E6BD23 /* MyriadPro-BoldCondIt.otf in Resources */,
-				FD1260572026620C009514D6 /* dragResources.json in Resources */,
 				FD5EF46A2023AFE900E6BD23 /* MyriadPro-Semibold.otf in Resources */,
 				FDC95EAE1FEFB1B000C04281 /* Goals.storyboard in Resources */,
 				FDF397E11FEBD0C100DEED65 /* Assets.xcassets in Resources */,
 				FD5EF4672023AFE900E6BD23 /* MyriadPro-CondIt.otf in Resources */,
 				FD5EF4662023AFE900E6BD23 /* MyriadPro-Cond.otf in Resources */,
 				FD9F959A1FEC3B3E000FECAD /* Profile.storyboard in Resources */,
-				FD12605520265C01009514D6 /* medicationResources.json in Resources */,
 				FD43687D1FF11941003B22CE /* workouts.json in Resources */,
 				FD43686E1FF0F239003B22CE /* food.json in Resources */,
 				FD5EF4682023AFE900E6BD23 /* MyriadPro-It.otf in Resources */,
-				FDF7BC011FED452D0078970A /* goals.json in Resources */,
 				FD5EF46B2023AFE900E6BD23 /* MyriadPro-SemiboldIt.otf in Resources */,
 				FD4368671FF0ECF2003B22CE /* Food.storyboard in Resources */,
 				FDF397DF1FEBD0C100DEED65 /* Main.storyboard in Resources */,
@@ -956,24 +1016,37 @@
 			files = (
 				FD81F4B020247594009EF447 /* WelcomePage3ViewController.swift in Sources */,
 				FD37CD191FF12A9A00E2530E /* ResourcesViewController.swift in Sources */,
+				FD7F1E96206FE97F00F4299B /* ServiceResponseCache.swift in Sources */,
 				FD64C15F204AECAD000C1501 /* ChartsTableViewController.swift in Sources */,
 				FD70AC9A1FEC0AC6003854A1 /* UserInfoServiceCache.swift in Sources */,
 				FD5EF46E2023B0C300E6BD23 /* WelcomeLaunchViewController.swift in Sources */,
 				FD12605920266BAF009514D6 /* ResourceDetailsViewController.swift in Sources */,
 				FD64C167204B48FE000C1501 /* ChartAddItemViewController.swift in Sources */,
-				FD12605320265B76009514D6 /* MedicationResource.swift in Sources */,
+				FD12605320265B76009514D6 /* Recommendation.swift in Sources */,
+				FD3EA8D2206E57E4003BE636 /* NDBNutrient.swift in Sources */,
+				FD3EA8D0206E19F3003BE636 /* CollectionDataSource.swift in Sources */,
 				FD03F6ED1FED012800E19304 /* MainViewController.swift in Sources */,
 				FDF7BC071FED60EC0078970A /* Report.swift in Sources */,
 				FD64C16C204B5E15000C1501 /* RecommendationSolver.swift in Sources */,
 				FD53C5E82040571D00AB7FDB /* FoodIntakeAddMealViewController.swift in Sources */,
+				FD3EB179206B90A000F9C890 /* ConfirmDialog.swift in Sources */,
 				FD4368791FF1160C003B22CE /* DailyWorkoutViewController.swift in Sources */,
+				FD7F1E98206FEA6B00F4299B /* CachingNDBServiceApi.swift in Sources */,
+				FD7F1E8D206FC51B00F4299B /* CachingServiceApi+RecommendationServiceApi.swift in Sources */,
+				FD3EA8CE206CCD8A003BE636 /* QuantitySampleStorage.swift in Sources */,
+				FD3EA8C4206CBA08003BE636 /* QuantitySample.swift in Sources */,
+				FD7F1E90206FDBB500F4299B /* FoodDetailsServiceApi.swift in Sources */,
 				FD64C15B204A2B30000C1501 /* HealthKitUtil.swift in Sources */,
 				FD64C175204B647E000C1501 /* Reachability.swift in Sources */,
 				FD19E2CD2026717F008C46BF /* ResourcesTableViewController.swift in Sources */,
 				FD4368631FF075D7003B22CE /* EditMedicationViewController.swift in Sources */,
 				FDAA0B602024E1250094515D /* HomeSuggestionsViewController.swift in Sources */,
+				FD3EA8CA206CC316003BE636 /* QuantitySampleService.swift in Sources */,
+				FD7F1E8B206FC12700F4299B /* RecommendationServiceApi.swift in Sources */,
 				FD9F95A61FEC6DFD000FECAD /* Profile.swift in Sources */,
 				FD64C173204B641C000C1501 /* RESTApi.swift in Sources */,
+				FD3EA8D6206E5C2A003BE636 /* NDBBasedRecommendationGenerator.swift in Sources */,
+				FD7F1E94206FE91100F4299B /* ServiceResponse.swift in Sources */,
 				FD96C3D0202693A40063A2BE /* AddGoalFormViewController.swift in Sources */,
 				FDF7BC031FED4B4B0078970A /* Suggestion.swift in Sources */,
 				FD70AC961FEC09D3003854A1 /* FileUtil.swift in Sources */,
@@ -991,12 +1064,12 @@
 				FD81F4AC20247578009EF447 /* WelcomePage1ViewController.swift in Sources */,
 				FD70AC7C1FEC049E003854A1 /* ServiceApi.swift in Sources */,
 				FDF4AA33204B889F00F6738A /* FDAServiceApi.swift in Sources */,
+				FD3EA8C6206CBADB003BE636 /* QuantitySampleCache.swift in Sources */,
 				FDAA0B5C2024B24F0094515D /* HomeDashboardViewController.swift in Sources */,
 				FD2D96042025D8EE006C8E0A /* DatePickerViewController.swift in Sources */,
 				FDF3980B1FEBE82200DEED65 /* HelpfulFunctions.swift in Sources */,
 				FD81F4AE20247587009EF447 /* WelcomePage2ViewController.swift in Sources */,
 				FD70AC8C1FEC0650003854A1 /* VAKidneyNutrition.xcdatamodeld in Sources */,
-				FDE5D1201FEF21D0006C7097 /* ChartsViewController.swift in Sources */,
 				FDF7BBFE1FED41640078970A /* Goal.swift in Sources */,
 				FD64C170204B5F2A000C1501 /* RecommendationSolution.swift in Sources */,
 				FD43685D1FF05561003B22CE /* MedicationTime.swift in Sources */,
@@ -1005,16 +1078,19 @@
 				FD70AC7F1FEC059B003854A1 /* UserInfo.swift in Sources */,
 				FD19E2D320267D7B008C46BF /* GoalsCollectionViewController.swift in Sources */,
 				FD53C5EA204058F200AB7FDB /* FoodItem.swift in Sources */,
+				FD7F1E9A206FF2E100F4299B /* CachingFDAServiceApi.swift in Sources */,
 				FD70AC891FEC0632003854A1 /* CacheableObjectMOExtension.swift in Sources */,
 				FDF397DA1FEBD0C100DEED65 /* AppDelegate.swift in Sources */,
 				FD43685B1FF054E0003B22CE /* Medication.swift in Sources */,
+				FD3EA8CC206CCCB8003BE636 /* LocalQuantitySampleService.swift in Sources */,
+				FD7F1E92206FDD3B00F4299B /* DrugDetailsServiceApi.swift in Sources */,
 				FD53C5EC20405CA700AB7FDB /* InfiniteTableViewModel.swift in Sources */,
 				FD43686A1FF0EF09003B22CE /* FoodIntakeViewController.swift in Sources */,
 				FD64C16E204B5EA9000C1501 /* SimpleRecommendationSolver.swift in Sources */,
 				FD19E2CF20267301008C46BF /* Resource.swift in Sources */,
 				FD81F4AA20247561009EF447 /* WelcomePageContainerViewController.swift in Sources */,
 				FD94C6831FF034460039D233 /* GoalServiceCache.swift in Sources */,
-				FD64C17D204B79AB000C1501 /* MedicationResourceServiceCache.swift in Sources */,
+				FD64C17D204B79AB000C1501 /* RecommendationServiceCache.swift in Sources */,
 				FD4368741FF10D44003B22CE /* FoodServiceCache.swift in Sources */,
 				FD43686C1FF0F1A1003B22CE /* Food.swift in Sources */,
 				FD70AC831FEC05E1003854A1 /* CoreDataStack.swift in Sources */,
@@ -1027,11 +1103,11 @@
 				FD64C17B204B6678000C1501 /* NDBServiceApi.swift in Sources */,
 				FD4368611FF06911003B22CE /* MedicationsCollectionViewController.swift in Sources */,
 				FDAA0B622024F52C0094515D /* HomeReportsViewController.swift in Sources */,
-				FD8F991E1FEFCC1700B4A6B5 /* GoalCategory.swift in Sources */,
 				FD70AC941FEC0965003854A1 /* ValidationUtils.swift in Sources */,
 				FD70AC901FEC0772003854A1 /* CachingServiceApi.swift in Sources */,
 				FDB63C031FED096A00015308 /* RootViewController.swift in Sources */,
 				FD64C169204B51D2000C1501 /* FoodUtils.swift in Sources */,
+				FD3EA8D4206E5A4E003BE636 /* RecommendationGenerator.swift in Sources */,
 				FD70AC921FEC0946003854A1 /* MockServiceApi.swift in Sources */,
 				FD9F95A81FEC7018000FECAD /* ProfileServiceCache.swift in Sources */,
 				FD9F95A01FEC4258000FECAD /* PickerViewController.swift in Sources */,
@@ -1039,7 +1115,7 @@
 				FD70AC8E1FEC0696003854A1 /* CacheableObject.swift in Sources */,
 				FD3C1A711FF0530500B78908 /* MedicationsScheduleViewController.swift in Sources */,
 				FD5EF4712023D3DB00E6BD23 /* WelcomeContainerViewController.swift in Sources */,
-				FD64C161204AF028000C1501 /* LabValue.swift in Sources */,
+				FD64C161204AF028000C1501 /* QuantityType.swift in Sources */,
 				FD70AC981FEC0A31003854A1 /* AuthenticationUtil.swift in Sources */,
 				FD4368721FF104EE003B22CE /* AddAssetButtonView.swift in Sources */,
 				FD12604D20264A38009514D6 /* ChartViewController.swift in Sources */,

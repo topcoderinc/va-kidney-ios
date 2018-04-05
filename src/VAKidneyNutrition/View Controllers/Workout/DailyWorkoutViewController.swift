@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -14,6 +15,15 @@ import UIKit
 enum WorkoutType: String {
     case steps = "Steps", distance = "Distance", flights = "Flights Climbed"
 }
+
+/// the constant for last synced date
+let kLastWorkoutSyncDate = "kLastWorkoutSyncDate"
+let kLastWorkoutSyncType = "kLastWorkoutSyncType"
+
+/// option: true - will save "last sync date" even if one particular activit is synchronized, false - else
+let OPTION_SAVE_SYNC_DATE_WHEN_PARTICULAR_ACTIVITY_SYNCED = true
+/// option: true - will use correct words for synchronization date label, false - will use "Auto synched" as in design.
+let OPTION_CORRECT_SYNC_DATE_LABEL = true
 
 /**
  * Daily Workout screen
@@ -27,6 +37,9 @@ enum WorkoutType: String {
  *
  * 1.2:
  * - integration changes
+ *
+ * 1.3:
+ * - synchronization date updated
  */
 class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -46,6 +59,9 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
     /// the reference to API
     private let api: ServiceApi = CachingServiceApi.shared
 
+    /// the timer to update UI
+    private var timer: Timer?
+
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +69,35 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
         shadowView.addShadow(size: 3, shift: 1.5, opacity: 1)
         setupNavigation()
         loadData()
+        lastSyncInfoLabel.text = ""
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
+            self.updateUI()
+        })
+    }
+
+    /// Stop timer
+    ///
+    /// - Parameter animated: the animation flag
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        timer?.invalidate()
+    }
+
+    /// Update UI
+    private func updateUI() {
+        lastSyncInfoLabel.text = ""
+        let date: Date? = AuthenticationUtil.sharedInstance.getValueByKey(kLastWorkoutSyncDate)
+        let syncType: Bool = AuthenticationUtil.sharedInstance.getValueByKey(kLastWorkoutSyncType) ?? false
+        if let date = date {
+            var perfix = syncType ? NSLocalizedString("Auto synched %@", comment: "Auto synched %@") : NSLocalizedString("Manually synched %@", comment: "Manually synched %@")
+            if OPTION_CORRECT_SYNC_DATE_LABEL {
+                perfix = syncType ? NSLocalizedString("Automatically synchronized\n%@", comment: "Automatically synchronized\n%@") : NSLocalizedString("Manually synchronized\n%@", comment: "Manually synchronized\n%@")
+            }
+            lastSyncInfoLabel.text = String(format: perfix, date.timeAgo(useFullText: true))
+        }
+        else {
+            lastSyncInfoLabel.text = NSLocalizedString("Not synchronized", comment: "Not synchronized")
+        }
     }
 
     /// Load data
@@ -63,25 +108,32 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
             self.collectionView.isScrollEnabled = false
             self.collectionViewHeight.constant = self.collectionView.getCollectionHeight(items: self.items.count, cellHeight: self.CELL_SIZE.height)
 
-            self.syncFromHK()
+            self.syncFromHK(automatically: true)
         }, failure: createGeneralFailureCallback())
     }
 
     /// Synchronize
-    private func syncFromHK() {
+    private func syncFromHK(automatically: Bool) {
+        let g = DispatchGroup()
+        g.enter()
         HealthKitUtil.shared.getDistance(callback: { (distance) in
             self.items.filter({$0.title == WorkoutType.distance.rawValue}).first?.value = Float(distance)
-
-            HealthKitUtil.shared.getSteps(callback: { (steps) in
-                self.items.filter({$0.title == WorkoutType.steps.rawValue}).first?.value = Float(steps)
-
-                HealthKitUtil.shared.getFlights(callback: { (flgihts) in
-                    self.items.filter({$0.title == WorkoutType.flights.rawValue}).first?.value = Float(flgihts)
-
-                    self.collectionView.reloadData()
-                })
-            })
+            g.leave()
         })
+        g.enter()
+        HealthKitUtil.shared.getSteps(callback: { (steps) in
+            self.items.filter({$0.title == WorkoutType.steps.rawValue}).first?.value = Float(steps)
+            g.leave()
+        })
+        g.enter()
+        HealthKitUtil.shared.getFlights(callback: { (flights) in
+            self.items.filter({$0.title == WorkoutType.flights.rawValue}).first?.value = Float(flights)
+            g.leave()
+        })
+        g.notify(queue: DispatchQueue.main) {
+            self.collectionView.reloadData()
+            self.saveLastSyncDate(automaticalSync: automatically)
+        }
     }
 
     /// Sync data
@@ -94,26 +146,42 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
                 HealthKitUtil.shared.getDistance(callback: { (distance) in
                     self.items.filter({$0.title == WorkoutType.distance.rawValue}).first?.value = Float(distance)
                     self.collectionView.reloadData()
+                    if OPTION_SAVE_SYNC_DATE_WHEN_PARTICULAR_ACTIVITY_SYNCED {
+                        self.saveLastSyncDate(automaticalSync: false)
+                    }
                 })
             case .steps:
                 HealthKitUtil.shared.getSteps(callback: { (steps) in
                     self.items.filter({$0.title == WorkoutType.steps.rawValue}).first?.value = Float(steps)
                     self.collectionView.reloadData()
+                    if OPTION_SAVE_SYNC_DATE_WHEN_PARTICULAR_ACTIVITY_SYNCED {
+                        self.saveLastSyncDate(automaticalSync: false)
+                    }
                 })
             case .flights:
                 HealthKitUtil.shared.getFlights(callback: { (flgihts) in
                     self.items.filter({$0.title == WorkoutType.flights.rawValue}).first?.value = Float(flgihts)
                     self.collectionView.reloadData()
+                    if OPTION_SAVE_SYNC_DATE_WHEN_PARTICULAR_ACTIVITY_SYNCED {
+                        self.saveLastSyncDate(automaticalSync: false)
+                    }
                 })
             }
         }
+    }
+
+    /// Update last sync date
+    private func saveLastSyncDate(automaticalSync: Bool) {
+        AuthenticationUtil.sharedInstance.saveValueForKey(Date(), key: kLastWorkoutSyncDate)
+        AuthenticationUtil.sharedInstance.saveValueForKey(automaticalSync, key: kLastWorkoutSyncType)
+        updateUI()
     }
 
     /// "Sync Data" button action handler
     ///
     /// - parameter sender: the button
     @IBAction func syncAllAction(_ sender: Any) {
-        syncFromHK()
+        syncFromHK(automatically: false)
     }
 
     /// "Manage Devices" button action handler

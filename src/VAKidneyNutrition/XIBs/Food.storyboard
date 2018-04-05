@@ -715,7 +715,7 @@
                                                             <outlet property="delegate" destination="cK2-kk-UF9" id="uo5-GM-j8m"/>
                                                         </connections>
                                                     </collectionView>
-                                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9i-fX-OJt" customClass="CustomButton" customModule="UIComponents">
+                                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9i-fX-OJt" customClass="CustomButton" customModule="UIComponents">
                                                         <rect key="frame" x="0.0" y="362" width="345" height="36"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="36" id="dvQ-aR-MU2"/>
@@ -723,6 +723,11 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="14"/>
                                                         <state key="normal" title="ADD NEW MEAL"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="saveButtonAction:" destination="cK2-kk-UF9" eventType="touchUpInside" id="141-Ba-cRz"/>
                                                         </connections>
@@ -1171,6 +1176,7 @@
                         <outlet property="mealBottomMargin" destination="ILW-qU-bxQ" id="oa1-g9-w7f"/>
                         <outlet property="mealErrorLabel" destination="Bg5-bD-CSO" id="ZJy-Jk-lwS"/>
                         <outlet property="saveButton" destination="e35-I9-5j1" id="Kqn-b0-Rqj"/>
+                        <outlet property="titleLabel" destination="vSW-lz-aWU" id="LaG-uY-GjX"/>
                         <outlet property="unitErrorLabel" destination="YPV-Kl-TBc" id="Ay7-1e-nm9"/>
                         <outlet property="unitsField" destination="fQy-1h-fqI" id="OjW-J1-n2o"/>
                     </connections>

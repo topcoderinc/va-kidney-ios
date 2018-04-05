@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/4/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -12,12 +13,16 @@ import SwiftyJSON
  * NDB API
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - DrugDetailsServiceApi support
  */
-class FDAServiceApi: RESTApi {
+class FDAServiceApi: RESTApi, DrugDetailsServiceApi {
 
     /// singleton
-    static let shared = FDAServiceApi(baseUrl: Configuration.shared.fdaApiBaseUrl)
+    static let shared: DrugDetailsServiceApi = FDAServiceApi(baseUrl: Configuration.shared.fdaApiBaseUrl)
 
     /// the API key
     private let key = Configuration.shared.fdaApiKey

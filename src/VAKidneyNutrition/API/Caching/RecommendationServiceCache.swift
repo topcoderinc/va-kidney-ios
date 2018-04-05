@@ -1,8 +1,9 @@
 //
-//  MedicationResourceServiceCache.swift
+//  RecommendationServiceCache.swift
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/4/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,23 +14,27 @@ import CoreData
  * Model object for Core Data related to MedicationResource
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - renamed from MedicationResourceMO
  */
-extension MedicationResourceMO: CoreDataEntity {
+extension RecommendationMO: CoreDataEntity {
 
-    public typealias Entity = MedicationResource
+    public typealias Entity = Recommendation
 
     /// Convert to enity
     ///
     /// - Returns: the entity
-    public func toEntity() -> MedicationResource {
-        let object = MedicationResource(id: self.id ?? "")
+    public func toEntity() -> Recommendation {
+        let object = Recommendation(id: self.id ?? "")
         updateEntity(object: object)
 
         object.title = title ?? ""
         object.text = text ?? ""
         object.imageUrl = imageUrl ?? ""
-        object.type = MedicationResourceType(rawValue: type ?? "") ?? MedicationResourceType.unsafeFood
+        object.type = RecommendationType(rawValue: type ?? "") ?? RecommendationType.unsafeFood
         object.tintColor = UIColor.fromString(tintColor ?? "")
         object.relatedFoodInfo = relatedFoodInfo ?? ""
         return object
@@ -40,7 +45,7 @@ extension MedicationResourceMO: CoreDataEntity {
     /// - Parameters:
     ///   - object: the object
     ///   - relatedObjects: the related objects
-    public func fillDataFrom(_ object: MedicationResource, relatedObjects: Any?) {
+    public func fillDataFrom(_ object: Recommendation, relatedObjects: Any?) {
         super.fillDataFromCacheableObject(object, relatedObjects: relatedObjects)
 
         title = object.title
@@ -56,22 +61,26 @@ extension MedicationResourceMO: CoreDataEntity {
  * Service caching Medication Resources
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - renamed from MedicationResourceServiceCache
  */
-class MedicationResourceServiceCache: DataService<MedicationResourceMO, MedicationResource> {
+class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> {
 
     /// Get all food resources
     ///
     /// - Parameters:
     ///   - callback: the callback used to return data
     ///   - failure: the failure callback used to return an error
-    func getAllFoodResources(callback: @escaping ([MedicationResource])->(), failure: @escaping GeneralFailureBlock) {
-        let fetchRequest = NSFetchRequest<MedicationResourceMO>(entityName: MedicationResourceMO.entityName)
+    func getAllFoodResources(callback: @escaping ([Recommendation])->(), failure: @escaping GeneralFailureBlock) {
+        let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            self.createStringPredicate("type", value: MedicationResourceType.foodSuggestion.rawValue),
-            self.createStringPredicate("type", value: MedicationResourceType.unsafeFood.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.foodSuggestion.rawValue),
+            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue)
             ])
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
@@ -81,13 +90,13 @@ class MedicationResourceServiceCache: DataService<MedicationResourceMO, Medicati
     /// - Parameters:
     ///   - callback: the callback used to return data
     ///   - failure: the failure callback used to return an error
-    func getAllDrugResources(callback: @escaping ([MedicationResource])->(), failure: @escaping GeneralFailureBlock) {
-        let fetchRequest = NSFetchRequest<MedicationResourceMO>(entityName: MedicationResourceMO.entityName)
+    func getAllDrugResources(callback: @escaping ([Recommendation])->(), failure: @escaping GeneralFailureBlock) {
+        let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            self.createStringPredicate("type", value: MedicationResourceType.drugConsumption.rawValue),
-            self.createStringPredicate("type", value: MedicationResourceType.drugInteractionWarnings.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.drugConsumption.rawValue),
+            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue)
             ])
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
@@ -98,12 +107,12 @@ class MedicationResourceServiceCache: DataService<MedicationResourceMO, Medicati
     ///   - callback: the callback to invoke when complete
     ///   - failure: the failure callback used to return an error
     func removeAllFoodResources(callback: @escaping ()->(), failure: @escaping GeneralFailureBlock) {
-        let fetchRequest = NSFetchRequest<MedicationResourceMO>(entityName: MedicationResourceMO.entityName)
+        let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            self.createStringPredicate("type", value: MedicationResourceType.foodSuggestion.rawValue),
-            self.createStringPredicate("type", value: MedicationResourceType.unsafeFood.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.foodSuggestion.rawValue),
+            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue)
             ])
         removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }
@@ -114,12 +123,12 @@ class MedicationResourceServiceCache: DataService<MedicationResourceMO, Medicati
     ///   - callback: the callback to invoke when complete
     ///   - failure: the failure callback used to return an error
     func removeAllDrugResources(callback: @escaping ()->(), failure: @escaping GeneralFailureBlock) {
-        let fetchRequest = NSFetchRequest<MedicationResourceMO>(entityName: MedicationResourceMO.entityName)
+        let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            self.createStringPredicate("type", value: MedicationResourceType.drugConsumption.rawValue),
-            self.createStringPredicate("type", value: MedicationResourceType.drugInteractionWarnings.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.drugConsumption.rawValue),
+            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue)
             ])
         removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }

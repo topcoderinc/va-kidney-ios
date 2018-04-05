@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 4/1/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import Foundation
@@ -14,7 +15,11 @@ import CoreData
  * Abstract object for all cacheable model objects
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+* changes:
+ * 1.1:
+ * - `createdAt` added
  */
 public class CacheableObject: NSObject, CoreDataEntityBridge {
 
@@ -28,6 +33,8 @@ public class CacheableObject: NSObject, CoreDataEntityBridge {
     open var managedObjectID: NSManagedObjectID?
     /// the date of data retrieval
     open var retrievalDate: Date = Date()
+    /// the creation date
+    open var createdAt: Date = Date()
 
     /// Initializer
     ///

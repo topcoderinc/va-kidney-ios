@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/4/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,11 +14,14 @@ import UIKit
  * Resource details
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - integration changes
+ *
+ * 1.2:
+ * - refactoring
  */
 class ResourceDetailsViewController: UIViewController {
 
@@ -31,7 +35,7 @@ class ResourceDetailsViewController: UIViewController {
     @IBOutlet weak var relatedInfoLabel: UILabel!
 
     /// the
-    var medicationResource: MedicationResource?
+    var medicationResource: Recommendation?
 
     /// Setup UI
     override func viewDidLoad() {
@@ -69,7 +73,7 @@ class ResourceDetailsViewController: UIViewController {
                 self.iconView.tintColor = color
             }
             if !item.relatedFoodInfo.isEmpty {
-                relatedInfoLabel.text = NSLocalizedString("Related meal: ", comment: "Related meal: ") + item.relatedFoodInfo
+                relatedInfoLabel.text = ((item.type == .foodSuggestion || item.type == .unsafeFood) ? NSLocalizedString("Related nutrients: ", comment: "Related nutrients: ") : NSLocalizedString("Related drugs: ", comment: "Related drugs: ")) + item.relatedFoodInfo
             }
         }
     }

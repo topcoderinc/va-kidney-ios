@@ -1,0 +1,305 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red42\green41\blue46;\red255\green255\blue255;\red27\green31\blue34;
+\red21\green23\blue26;\red0\green0\blue0;\red255\green255\blue255;\red63\green110\blue116;\red170\green13\blue145;
+}
+{\*\expandedcolortbl;;\cssrgb\c21569\c21569\c23529;\cssrgb\c100000\c100000\c100000;\cssrgb\c14118\c16078\c18039;
+\cssrgb\c10588\c12157\c13725\c4706;\csgenericrgb\c0\c0\c0;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c24700\c43100\c45600;\csgenericrgb\c66500\c5200\c56900;
+}
+\margl1440\margr1440\vieww12940\viewh14800\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+The list of fixed issues:\
+\
+\pard\pardeftab720\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/14"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/14}}\
+It\'92s related to {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/26"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/26}}\
+Food Suggestions are implemented.\
+\
+\pard\pardeftab720\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/15"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/15}}\
+This was already implemented. For some drug sets there are no information in FDA database, so to verify you need to use the drugs that have interaction info (see an example in previous challenge video https://youtu.be/rUsXsVh8r7Y?t=43s )\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/16"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/16}}\
+>1. 
+\f1\fs28 \cf4 \cb3 Adding a new meal or drug and then go back and come again won't show the second meal/drug added\
+>2. If the user added multiple meal and drug and go back to the Food intake screen will display the first item added below the image\
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 \cb3 = Now fixed. When user tapped \'93Back\'94 button the data was not saved. It\'92s OK, but the app should ask user to confirm that. Now the app asks to confirm and warns that it will not be saved. The data is saved only when user tap \'93Save \'85\'94 button.\
+\
+>3. 
+\f1\fs28 \cf4 \cb3 After taking a photo from the camera and tap on 'Add New meal' button will display validation message ending with 
+\f2\fs23\fsmilli11900 \cf4 \cb5 \\\
+= Now the message is correct - \'93
+\f1\fs28 \cf4 \cb3 Please add at least one meal/drug
+\f2\fs23\fsmilli11900 \cf4 \cb5 \'94\
+\
+>4. 
+\f1\fs28 \cf4 \cb3 'Add New Meal' button text hides when user tap on it without filling data\
+= Fixed\
+\
+>5. App crash when user select unit as 'L' and save the data\
+= In existing app a few conditions should be met to catch the crash. It was due to items that estimated using \'93gram\'94 unit were saved with \'93liter\'94 units. To verify the fix, first try to reproduce it with the initial code:\
+1) Launch the app and edit profile by changing \'93Disease Category\'94 (it\'92s required to setup goals automatically; initial set of goals is incorrect - this is another issue and is also fixed);\
+2) Add Food with Food Item named \'93water\'94. Save.\
+If all conditions are met, then NDB service will return items for \'93water\'94 and the app will identify them as related to \'93Fluid Intake\'94 goal. The taken items are saved in HK only if they are identified to be related to one of the goals. When they are saved, the app crashes.\
+Now try the same in the updated app.
+\f2\fs23\fsmilli11900 \cf4 \cb5 \
+
+\f0\fs29\fsmilli14667 \cf2 \cb3 \
+6. If `water` is saved as food item, then the items defined by NDB service include 
+\f2\fs24 \cf6 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 Vitamin B6. There was issue that Vitamin B6 was not saved. Now it\'92s. Try to save some `water` (make sure you have Water Intake goal defined by the disease) and verify the last messages in Xcode console after a few seconds. They should be as follows: \
+\pard\tx642\pardeftab642\pardirnatural\partightenfactor0
+\cf6 addItem: Saved 0.25 g  (2018-03-28 12:30:36 +0300 - 2018-03-28 12:30:36 +0300) of HKQuantityTypeIdentifierDietaryNiacin\
+addItem: Saved 0.03333 g  (2018-03-28 12:30:38 +0300 - 2018-03-28 12:30:38 +0300) of HKQuantityTypeIdentifierDietary
+\f3\b VitaminB6
+\f2\b0 \
+addItem: Saved 1 L  (2018-03-28 12:30:41 +0300 - 2018-03-28 12:30:41 +0300) of HKQuantityTypeIdentifierDietaryWater\
+7. 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 In relation to previous issue. Water food item was not saved as `
+\f2\fs24 \cf6 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 DietaryWater
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ` in HealthKit (the only item presented in HealthKit that represents water). Now it\'92s saved along with its ingredients  (Vitamin B6, Niacin) defined by NDB service.\
+\
+8. There was one more issue - 
+\f2\fs24 \cf6 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 Per-month data was requested incorrectly - the data was requested for the reference date that represents a middle of the month (current day). After the fix the periods start at 12:00AM in current timezone (21:00:00 +0000 in my timezone). Compare the two outputs of the requested data (before and after the fix in `
+\fs26 \cf6 \cb7 \CocoaLigature1 HealthKitUtil.getPerMonthStatistics` method
+\fs24 \cf6 \cb1 \CocoaLigature0 ):\
+// Before\
+statistics: <<HKStatistics: 0x6080002e2b80> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2018-01-29 08:17:59 +0000 - 2018-02-28 08:17:59 +0000) over sources ((null))>\
+statistics: <<HKStatistics: 0x6080002e2b80> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2018-02-28 08:17:59 +0000 - 2018-03-29 08:17:59 +0000) over sources ((null))>\
+statistics: <<HKStatistics: 0x6000000f7980> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2018-03-29 08:17:59 +0000 - 2018-04-29 08:17:59 +0000) over sources ((null))>\
+\
+// After\
+statistics: <<HKStatistics: 0x6040002e0900> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2017-12-31 21:00:00 +0000 - 2018-01-31 21:00:00 +0000) over sources ((null))>\
+statistics: <<HKStatistics: 0x6040002e0900> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2018-01-31 21:00:00 +0000 - 2018-02-28 21:00:00 +0000) over sources ((null))>\
+statistics: <<HKStatistics: 0x60c0000ff400> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2018-02-28 21:00:00 +0000 - 2018-03-31 21:00:00 +0000) over sources (<HKSource:0x60c000274940 "VAKidneyNutrition" (com.topcoder.VAKidneyNutrition)>)>\
+\
+In some cases (at a specific timezones and time) the issue resulted in missing just added data.\
+To verify this try the following with initial code base and then in the updated app:\
+1. Remove the app and relaunch\
+2. Open any chart with item that is supported by HK, e.g. \'93Water\'94 chart.\
+3. Add value and check if chart appear with a single value. \
+Expected: The chart appear and shows one point (not line) that represents a single added value.\
+Actual (in initial code): No chart is shown. It was in GMT-3 timezone at 8:18AM. If you cannot reproduce it with initial code in you timezone, then try the given timezone and local time settings (GMT-3 timezone; time: 8:18AM).
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/18"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/18}}\
+>
+\f1\fs28 \cf4 \cb3 'Alchohol' Lab values is not working, can't add a record using the '+' option\
+\'93alcohol\'94, \'93meat\'94 and \'93vegetables\'94 are custom items that are NOT supported by HealthKit (Health app). That is why they were not saved.\
+Now it\'92s fixed. Try to save all three custom times. They are defined in new `enum 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 QuantityTypeCustom
+\f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
+`.\
+\
+>Can't see any data related to 'Goal' only entered values are displayed on the chart. For example, if we set a Goal for Water intake and Add an actual value from (+) add button won't render the chart\
+
+\f0\fs29\fsmilli14667 \cf2 \cb3 \
+No goal lines are shown in charts for items that are related to existing goals. Now fixed. Three conditions should be met to show goal lines in charts:\
+1) There should be some data for the item (lab value).\
+2) Related goal should have exactly the same related quantity ID (new field in Goal.swift `
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 relatedQuantityId`).\
+
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+3) Goal should have `min` or `max` or both values (see `allGoals.json`. Goals fields are nested from corresponding `style` and can be overridden). For example, all goals with `style==Pills` have min and max by default.\
+\
+There are issue here that only goals of `goalType==.orderedSame` had goal lines (this was because only such type of goals have two goal lines - min and max). Now this condition is removed and all goals with the conditions mentioned above have one or two goal lines.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/20"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/20}}\
+- Goal lines are shown.\
+- Custom types are now saved correctly, e.g. alcohol, meat, vegetables.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/23"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/23}}\
+According to the discussion we need to implement the following:\
+1) Save custom items (lab values) locally because HK does not support them.\
+2) If used denied write access for some HK items, then we also save them locally.\
+3) If HK service returns empty set for charts, then try read local data. This covers the case when user denied read access for the item type and we save data locally (see discussion - it\'92s not possible to check if user allowed/disabled read access - HK just either returns some data or not).\
+\
+All three are implemented as 
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 QuantitySampleService 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+protocol and classes that implements it. The logic for 1-3 are implemented in 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 QuantitySampleStorage.swift
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+. See docs/
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 QuantitySampleStorage.png 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+for class diagram. Local data storage for custom and 
+\i denied
+\i0  items is implemented in 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 LocalQuantitySampleService.swift
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/24"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/24}}\
+The requirements are:\
+- Show caption for goals. Caption - is red circle with \'93Goal\'94 label that is shown in legend if goal lines are shown (see video dodo).\
+- Always show start and end Oy values (even if goal lines are shown with their own values).\
+\
+Caption is shown as \'93Goal\'94 if one goal line is shown and \'93Goals\'94 if more. Oy values are always shown (the values are calculated by the Chart library automatically). Goal values are also shown and marked with either \'93minimum\'94 or \'93maximum\'94 label, e.g. \'93200 (minimum)\'94.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/25"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/25}}\
+The requirements is to provide a set of goals to add that correspond to currently selected Disease Category and Dialysis in profile.\
+The solution is to update \'93Add Goal\'94 form as follows:\
+- goal category tab bar on the top is replaced with goal selector (`category` field is an atavism from the first prototype; now only goal title is needed);\
+- use patterns of the goals from \'93allGoals.json\'94 to fulfill the top tab bar in \'93Add Goal\'94.\
+\
+Also another issue was found - when user login for the first time after the prototype is installed the list of goals is incorrect. Also those goals are not correctly setup and some of the do not correspond to items, e.g. if you will add `water` in Charts, then you will not see goal lines in the chart (in the app compiled from initial code). Now the issue is fixed. After login a set of goals correspond to the Disease Category specified by default and are correctly setup (In initial code you had to tweak the field in Profile to regenerate the correct goals). 
+\b dodo\
+
+\b0 `goalCategories.json` and `goals.json` are removed because now all goals are generated based on `allGoals.json` only.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/26"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/26}}\
+The requirements are to improve Food suggestions with the following:\
+- Generate Food suggestions with low content of given ingredient.\
+- Generate \'93Unsafe Food\'94 with high content of given ingredients.\
+\
+The solutions for both is to find the corresponding food by sending a request to NDB and ordering food by nutrition content per measure (like the following list {\field{\*\fldinst{HYPERLINK "https://ndb.nal.usda.gov/ndb/nutrients/report/nutrientsfrm?max=25&offset=0&totCount=0&nutrient1=203&nutrient2=&nutrient3=&subset=0&sort=c&measureby=g"}}{\fldrslt https://ndb.nal.usda.gov/ndb/nutrients/report/nutrientsfrm?max=25&offset=0&totCount=0&nutrient1=203&nutrient2=&nutrient3=&subset=0&sort=c&measureby=g}})\
+\
+The resulted report isn\'92t very attractive because the food titles are very formal. Although, it\'92s very accurate (in terms of what food is best and what is worse).\
+I would recommend to provide a pair of recommendations for each nutrient that can be added as static texts into the app and used instead of requesting NDB.\
+This can be done by implementing alternative 
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 RecommendationGenerator
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+.\
+\
+Also the implementation still needs improvements because it\'92s not very clear how the algorithms should work. The logic should be implemented after algorithms are clearly defined.\
+\
+- dodo check if goal exceeds the maximum per day (currently it just generates a report for first nutrient)\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/27"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/27}}\
+Fixed. However, the data is automatically synchronized every time the screen is opened. So, the label will always be \'93Synchronized just now\'94 first. Then it will be always up to date. You can verify that by waiting for a few seconds/minutes while this screen is opened.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/28"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/28}}\
+Fixed with gray color for highlighted state.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/29"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/29}}\
+The issue fixed. When \'93Add new meal\'94 tapped without filling the form it still rendered correctly.\
+However, another issue here - when user tap and hold the button the button title disappears. Now it\'92s fixed - the title become gray.\
+Try highlighted state for the button in all submissions.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/30"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/30}}\
+Fixed\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/31"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/31}}\
+Button title changed to "Add New Meal/Drug" for add form and "Save Meal/Drug" for edit form.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/32"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/32}}\
+The edit form title changed to "Edit Meal/Drug" and add form title to \'93Add New Meal/Drug" (the second was changed from \'93\'94Add New Meal\'94 - another issue; check it in all submissions).\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/33"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/33}}\
+Implemented - the items with data have bold font\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/34"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/34}}\
+Date field is added to the form.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/35"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/35}}\
+Fixed. Min 45lbs (20kg+), Max 800lbs.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/36"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/36}}\
+Fixed. Min value is 3ft.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/37"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/37}}\
+Fixed. Min age can be 16 years (defined in 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 ProfileViewController.MIN_AGE
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+)\
+Also the maximum date issue is fixed in \'93Add Meal\'94 form. User was allowed to select date in future. Now fixed. He cannot save meal eaten in future.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/38"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/38}}\
+Fixed.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/39"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/39}}\
+Fixed in \'93Add Meal/Drug\'94 (opened from \'93Add New Meal/Drug\'94) and \'93Add Item\'94 (opened from Charts) forms.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/40"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/40}}\
+Fixed in 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 DailyWorkoutViewController.syncFromHK(). 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+The callbacks in 
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 HealthKitUtil 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+are always invoked even if read access dined or any other error occurred.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/41"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/41}}\
+(note #1)Now ServiceApi protocol methods are used instead of direct access to 
+\f1\fs28 \cf4 \cb3 CachingServiceApi\
+A separate protocol is added to access Recommendations database - 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 RecommendationServiceApi
+\f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
+.
+\f0\fs29\fsmilli14667 \cf2 \cb3 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 `getProfile()`
+\f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
+ method was part of 
+\f0\fs29\fsmilli14667 \cf2 \cb3 ServiceApi protocol from very beginning.\
+You can verify that all services are now used through protocols by searching `
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingServiceApi\cf6 \cb7 .\cf8 \cb7 shared.
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+` (don\'92t forget to add dot at the end) - there are no usages. If you will search `
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingServiceApi\cf6 \cb7 .\cf8 \cb7 shared
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+` (without dot at the end), then you will see that all variables have protocol type (either ServiceApi or 
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 RecommendationServiceApi
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+).\
+(notes #2 and #3)Instead of creating new class I added `
+\f2\fs26 \cf9 \cb7 \kerning1\expnd0\expndtw0 extension \cf8 \cb7 CachingServiceApi
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+` as recommended in {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/42"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/42}}\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/42"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/42}}\
+\pard\tx642\pardeftab642\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - \cf8 \cb7 FoodDetailsServiceApi\cf6 \cb7  and \cf8 \cb7 DrugDetailsServiceApi 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+protocols added;\
+
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - 
+\f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
+FoodUtils uses all services through protocols (
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 ServiceApi, RecommendationServiceApi, FoodDetailsServiceApi, DrugDetailsServiceApi
+\f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
+).
+\f0\fs29\fsmilli14667 \cf2 \cb3 \
+
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \
+\pard\tx642\pardeftab642\pardirnatural\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/43"}}{\fldrslt 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+https://github.com/topcoderinc/va-kidney-ios/issues/43}}
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\
+Class renamed. Type alias removed.\
+\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/44"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/44}}\
+\pard\tx642\pardeftab642\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\'93Cache-Control\'94 HTTP header added in 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 RESTApi.swift;
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\
+
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - \cf8 \cb7 CachingNDBServiceApi 
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+and 
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingFDAServiceApi
+\f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
+ are implemented and used.\
+\
+A few more issues are fixed:\
+- The goals were updated incorrectly after saving food. The units used in goals (e.g. glass) do not match to units of the samples (e.g. liter). As a result after adding 1L of water the goal was increased by 1 glass. Now it fixed. In the mentioned example it will be updated with 5 glasses (`oneUnitValue` field for this goal is 0.2L).\
+- The goals were not updated after adding nutrients in Charts screen. Now fixed.\
+\
+}

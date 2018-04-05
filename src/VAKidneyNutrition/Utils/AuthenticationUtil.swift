@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
@@ -17,7 +18,11 @@ let kAuthenticatedUserInfo = "kAuthenticatedUserInfo"
  * Utility for storing and getting current user profile data
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - refactoring
  */
 final class AuthenticationUtil {
 
@@ -74,8 +79,8 @@ final class AuthenticationUtil {
 
      - returns: the value
      */
-    func getValueByKey(_ key: String) -> String? {
-        return UserDefaults.standard.string(forKey: key)
+    func getValueByKey<T>(_ key: String) -> T? {
+        return UserDefaults.standard.object(forKey: key) as? T
     }
 
     /**
@@ -84,9 +89,9 @@ final class AuthenticationUtil {
      - parameter value: the value to save
      - parameter key:   the key
      */
-    func saveValueForKey(_ value: String?, key: String) {
+    func saveValueForKey<T>(_ value: T?, key: String) {
         let defaults = UserDefaults.standard
-        defaults.setValue(value, forKey: key)
+        defaults.set(value, forKey: key)
         defaults.synchronize()
     }
 

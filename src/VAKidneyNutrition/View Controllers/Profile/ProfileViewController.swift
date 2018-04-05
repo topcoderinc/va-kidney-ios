@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -199,7 +200,7 @@ class WeightProfileDataItem: ProfileDataItem {
  * Profile screen
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -207,8 +208,15 @@ class WeightProfileDataItem: ProfileDataItem {
  *
  * 1.2:
  * - integration changes
+ *
+ * 1.3:
+ * - date birth limited
+ * - new limits for weight and height
  */
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PickerViewControllerDelegate, AddAssetButtonViewDelegate, DatePickerViewControllerDelegate {
+
+    /// the minimum age
+    let MIN_AGE = 16
 
     /// outlets
     @IBOutlet weak var profileImageView: AddAssetButtonView!
@@ -422,16 +430,17 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             lastSelectedPickerType = item.dataType
             switch item.dataType {
             case .date:
+                let maxDate = Calendar.current.date(byAdding: .year, value: -MIN_AGE, to: Date())
                 DatePickerViewController.show(title: NSLocalizedString("Select Date of Birth", comment: "Select Date of Birth"),
                                               selectedDate: self.profile?.birthday,
                                               datePickerMode: .date,
-                                              delegate: self)
+                                              delegate: self, maxDate: maxDate)
                 return
             case .height:
-                PickerViewController.show(title: item.title, selected: HeightPickerValue(item.value as? Double ?? 162), data: Array(12...100).map{HeightPickerValue(Double($0))}, delegate: self)
+                PickerViewController.show(title: item.title, selected: HeightPickerValue(item.value as? Double ?? 162), data: Array(36...100).map{HeightPickerValue(Double($0))}, delegate: self)
                 return
             case .currentWeight:
-                data = Array(20...200).map{"\($0)"}
+                data = Array(45...800).map{"\($0)"}
                 selected = "\(Int(item.value as? Double ?? 75))"
             case .dialysis, .setupGoals, .devices:
                 data = [YES, NO]

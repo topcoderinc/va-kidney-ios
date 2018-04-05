@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/3/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -15,17 +16,24 @@ import HealthKit
  * Charts screen
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - charts implementation
+ *
+ * 1.2:
+ * - goal legend
+ * - goal limit lines
  */
 class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate {
 
     /// outlets
     @IBOutlet weak var noDataLabel: UILabel!
     @IBOutlet weak var chart: LineChartView!
+    @IBOutlet weak var goalLegend: UIView!
+    @IBOutlet weak var goalLegendCircleView: UIView!
+    @IBOutlet weak var goalTitleLabel: UILabel!
 
     /// the items
     private var items = [Report]()
@@ -36,8 +44,8 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// the selected cell indexPath
     private var lastSelectedIndexPath: IndexPath?
 
-    /// the related lab value
-    var labValue: LabValue?
+    /// the related value type
+    var quantityType: QuantityType?
 
     /// the data for the chart view
     private var data: LineChartData!
@@ -45,17 +53,22 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// the animation interval
     private var animationInterval: TimeInterval = 0.3
 
+    /// the storage
+    private var storage: QuantitySampleService = QuantitySampleStorage.shared
+
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
+        goalLegendCircleView.makeRound()
+        goalLegend.isHidden = true
         initBackButtonFromChild()
 
-        if let _ = labValue {
+        if let _ = quantityType {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItems))
         }
 
         noDataLabel.isHidden = true
-        title = (labValue?.title ?? NSLocalizedString("Chart", comment: "Chart")).uppercased()
+        title = (quantityType?.title ?? NSLocalizedString("Chart", comment: "Chart")).uppercased()
         setupLineChartView(chartView: chart)
     }
 
@@ -69,13 +82,13 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
 
     /// Load data
     private func loadData() {
-        guard let labValue = labValue else { return }
-        HealthKitUtil.shared.getPerMonthStatistics(labValue: labValue, callback: { (data, units) in
+        guard let quantityType = quantityType else { return }
+        storage.getPerMonthStatistics(quantityType, callback: { (data, units) in
 
             self.setData(stats: data)
-            self.addLimitLines(units)
             self.chart.chartDescription?.text = units
             self.noDataLabel.isHidden = !data.isEmpty
+            self.addLimitLines(units)
         }) {
             self.noDataLabel.isHidden = false
         }
@@ -84,26 +97,37 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// Add limit lines
     private func addLimitLines(_ units: String) {
         findRelatedGoal { (goal) in
+            var goalsNumber = 0
             if var value = goal.min {
-                if units == "mg" {
+                if units == "mg" || units == HKUnit.literUnit(with: .milli).unitString {
                     value *= 1000
                 }
                 let leftAxis = self.chart.leftAxis
                 let limit = ChartLimitLine(limit: Double(value))
                 limit.lineColor = UIColor(hex: 0xc4262e)
                 leftAxis.addLimitLine(limit)
+                limit.label = "\(value.toStringClear()) (minimum)"
+                limit.labelPosition = .leftTop
+                limit.drawLabelEnabled = true
                 self.chart.leftAxis.axisMinimum = min(self.chart.leftAxis.axisMinimum, Double(value))
+                goalsNumber += 1
             }
             if var value = goal.max {
-                if units == "mg" {
+                if units == "mg" || units == HKUnit.literUnit(with: .milli).unitString {
                     value *= 1000
                 }
                 let leftAxis = self.chart.leftAxis
                 let maxLimit = ChartLimitLine(limit: Double(value))
+                maxLimit.label = "\(value.toStringClear()) (maximum)"
+                maxLimit.drawLabelEnabled = true
+                maxLimit.labelPosition = .leftBottom
                 maxLimit.lineColor = UIColor(hex: 0xc4262e)
                 leftAxis.addLimitLine(maxLimit)
                 self.chart.leftAxis.axisMaximum = max(self.chart.leftAxis.axisMaximum, Double(value))
+                goalsNumber += 1
             }
+            self.goalLegend.isHidden = goalsNumber == 0 || !self.noDataLabel.isHidden
+            self.goalTitleLabel.text = goalsNumber == 1 ? NSLocalizedString("Goal", comment: "Goal") : NSLocalizedString("Goals", comment: "Goals")
         }
     }
 
@@ -111,14 +135,14 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     ///
     /// - Parameter callback: the callback to return related goal
     private func findRelatedGoal(callback: @escaping (Goal)->()) {
-        guard let labValue = labValue else { return }
-        guard let id = HealthKitUtil.shared.getId(byString: labValue.id) else { return }
+        guard let quantityType = quantityType else { return }
 
         FoodUtils.shared.getNutritionGoals { (goals) in
             for goal in goals {
-                if let goalNurtitionId = HealthKitUtil.shared.getId(byString: goal.title) {
-                    if goalNurtitionId == id {
+                if let relatedQuantityId = goal.relatedQuantityId {
+                    if relatedQuantityId == quantityType.id {
                         callback(goal)
+                        return
                     }
                 }
             }
@@ -128,7 +152,7 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// Open add form
     @objc func addItems() {
         if let vc = create(ChartAddItemViewController.self), let parent = UIViewController.getCurrentViewController() {
-            vc.labValue = labValue
+            vc.quantityType = self.quantityType
             vc.delegate = self
             parent.showViewControllerFromSide(vc, inContainer: parent.view, bounds: parent.view.bounds, side: .bottom, nil)
         }
@@ -246,7 +270,7 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
         leftAxis.axisMinimum = 0
         leftAxis.labelFont = labelsFont
         leftAxis.labelTextColor = labelColor
-        leftAxis.labelCount = 2
+        leftAxis.setLabelCount(10, force: false)
         leftAxis.drawGridLinesEnabled = false
         leftAxis.axisLineWidth = 0.5
 
@@ -271,11 +295,18 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// - Parameters:
     ///   - amount: the amount
     ///   - unit: the units
-    func chartItemAdd(amount: Double, unit: String) {
-        if let labValue = labValue {
-            HealthKitUtil.shared.addItem(labValue: labValue, amount: amount, unit: unit) {
-                self.loadData()
-            }
+    ///   - date: the date
+    func chartItemAdd(amount: Double, unit: String, date: Date) {
+        if let quantityType = quantityType {
+            let sample = QuantitySample.create(type: quantityType, amount: amount, unit: unit)
+            sample.createdAt = date
+            storage.addSample(sample, callback: { (success) in
+                if success {
+                    self.loadData()
+                }
+
+                FoodUtils.shared.updateGoals {}
+            })
         }
     }
 }
