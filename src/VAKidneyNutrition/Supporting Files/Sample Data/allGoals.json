@@ -2,17 +2,19 @@
     "styles": [
                {
                "title": "Water Intake",
-               "categoryId": 1,
                "iconName": "iconWaserSmall",
                "valueText1": "glass",
                "valueTextMultiple": "glasses",
                "valueText": "glass",
                "hasExternalData": false,
-               "color": "bec292"
+               "color": "bec292",
+               "minUnits": 3,
+               "maxUnits": 20,
+               "unitInterval": 3,
+               "oneUnitValue": 0.2
                },
                {
                "title": "Pills",
-               "categoryId": 2,
                "iconName": "iconPillSmall",
                "valueText1": "pill",
                "valueTextMultiple": "pills",
@@ -20,28 +22,38 @@
                "hasExternalData": false,
                "color": "0083be",
                "goalType": "orderedSame",
-               "min": 100,
-               "max": 200,
+               "min": 1,
+               "max": 2,
+               "minUnits": 1,
+               "maxUnits": 20,
+               "oneUnitValue": 0.005
                },
                {
                "title": "Run",
-               "categoryId": 3,
                "iconName": "iconWorkoutSmall",
                "valueText1": "mile",
                "valueTextMultiple": "miles",
                "valueText": "Mile",
                "hasExternalData": true,
-               "color": "ff7f32"
+               "color": "ff7f32",
+               "minUnits": 1,
+               "maxUnits": 30,
+               "unitInterval": 0.2,
+               "oneUnitValue": 100
                },
                {
                "title": "Fruits/Veggies",
-               "categoryId": 2,
                "iconName": "iconEatSmall",
                "valueText1": "bowl",
                "valueTextMultiple": "bowls",
                "valueText": "Fruits Or Veggies",
                "hasExternalData": false,
-               "color": "557630"
+               "color": "557630",
+               "min": 100,
+               "max": 200,
+               "minUnits": 1,
+               "maxUnits": 10,
+               "oneUnitValue": 250
                }
     ],
   "allGoals":[
@@ -50,12 +62,13 @@
               "id": 2,
               "title": "Fluid Intake",
               "style": "Water Intake",
-              "iconName": "iconWaserSmall",
               "points": 520,
               "initialValue": 0,
               "value": 6,
               "targetValue": 8,
-              "min": 2000
+              "min": 2,
+              "max": 4,
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryWater"
               },
               {
               "comment": "Obtain optimal energy requirements",
@@ -65,7 +78,9 @@
               "points": 220,
               "initialValue": 0,
               "value": 4.5,
-              "targetValue": 6.2
+              "targetValue": 6.2,
+              "min": 200,
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryEnergyConsumed"
               },
               {
               "comment": "Adjust protein intake",
@@ -76,7 +91,8 @@
               "initialValue": 0,
               "value": 0,
               "targetValue": 3,
-              "color": "ffcc00"
+              "color": "ffcc00",
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryProtein"
               },
               {
               "comment": "Reduce your potassium intake",
@@ -87,7 +103,8 @@
               "initialValue": 0,
               "value": 0,
               "targetValue": 3,
-              "color": "fb6869"
+              "color": "fb6869",
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryPotassium"
               },
               {
               "comment": "Reduce your sodium intake",
@@ -97,7 +114,8 @@
               "points": 120,
               "initialValue": 0,
               "value": 0,
-              "targetValue": 3
+              "targetValue": 3,
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietarySodium"
               },
               {
               "comment": "Reduce your phosphorus intake",
@@ -108,19 +126,22 @@
               "initialValue": 0,
               "value": 0,
               "targetValue": 3,
-              "color": "7e2a36"
+              "color": "7e2a36",
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryPhosphorus"
               },
               {
               "comment": "Reduce your alcohol intake",
               "id": 201,
               "title": "Alcohol Intake",
               "style": "Water Intake",
-              "iconName": "iconWaserSmall",
               "points": 520,
               "initialValue": 0,
               "value": 0,
-              "targetValue": 8,
-              "color": "ff0000"
+              "targetValue": 1,
+              "color": "ff0000",
+              "relatedQuantityId": "alcohol",
+              "minUnits": 1,
+              "maxUnits": 10,
               },
               {
               "comment": "Adjust meat meals",
@@ -136,6 +157,7 @@
               "valueText1": "piece",
               "valueTextMultiple": "pieces",
               "valueText": "Piece",
+              "relatedQuantityId": "meat"
               },
               {
               "comment": "Increase your intake of fiber - rich foods",
@@ -145,7 +167,8 @@
               "points": 320,
               "initialValue": 0,
               "value": 2,
-              "targetValue": 3
+              "targetValue": 3,
+              "relatedQuantityId": "vegetables"
               },
 
               {
@@ -157,7 +180,8 @@
               "initialValue": 0,
               "value": 0,
               "targetValue": 3,
-              "color": "75a322"
+              "color": "75a322",
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryThiamin"
               },
               {
               "comment": "Ensure intake of Vitamin C",
@@ -168,7 +192,8 @@
               "initialValue": 0,
               "value": 0,
               "targetValue": 3,
-              "color": "ff9900"
+              "color": "ff9900",
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryVitaminC"
               },
 
               {
@@ -180,7 +205,8 @@
               "initialValue": 0,
               "value": 0,
               "targetValue": 3,
-              "color": "fcab70"
+              "color": "fcab70",
+              "relatedQuantityId": "HKQuantityTypeIdentifierDietaryCalcium"
               }
               ],
     "diseaseCategories": {

@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
@@ -12,7 +13,11 @@ import Foundation
  * Methods for using by concrete subclasses of CacheableObjectMO
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - `createdAt` support
  */
 extension CacheableObjectMO {
 
@@ -25,6 +30,7 @@ extension CacheableObjectMO {
 
         object.deletedLocally = deletedLocally
         object.retrievalDate = retrievalDate ?? Date()
+        object.createdAt = createdAt ?? Date()
 
         object.managedObjectID = self.objectID
     }
@@ -39,6 +45,7 @@ extension CacheableObjectMO {
 
         deletedLocally = object.deletedLocally
         retrievalDate = object.retrievalDate
+        createdAt = object.createdAt
     }
 }
 

@@ -3,10 +3,14 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/25/17.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
 import UIKit
+
+// constant for last opened report ID
+let kLastOpenedReportId = "kLastOpenedReportId"
 
 /**
  * Resources screen

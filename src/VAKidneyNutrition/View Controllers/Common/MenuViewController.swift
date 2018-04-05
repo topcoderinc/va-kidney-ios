@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/3/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -15,7 +16,11 @@ var CurrentMenuItem: Int = -1
  * Menu screen
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - ServiceApi is used
  */
 class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -25,6 +30,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     /// the items to show
     private var items = [ContextItem]()
+
+    /// the reference to API
+    private let api: ServiceApi = CachingServiceApi.shared
 
     /// Show menu
     ///
@@ -55,7 +63,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private func loadData() {
         items = [ContextItem(title: NSLocalizedString("My Health Profile", comment: "My Health Profile")) {
             if let vc = self.create(ProfileViewController.self, storyboardName: "Profile") {
-                CachingServiceApi.shared.getProfile(callback: { (profile) in
+                self.api.getProfile(callback: { (profile) in
                     vc.profile = profile
                     MainViewControllerReference?.showViewController(vc.wrapInNavigationController())
                 }, failure: self.createGeneralFailureCallback())

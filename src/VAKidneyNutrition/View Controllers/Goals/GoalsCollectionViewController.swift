@@ -3,7 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/4/18.
-//  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,11 +13,14 @@ import UIComponents
  * Goals screen
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - integration changes
+ *
+ * 1.2:
+ * - API changes
  */
 class GoalsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -59,7 +62,7 @@ class GoalsCollectionViewController: UIViewController, UICollectionViewDataSourc
         self.view.layoutIfNeeded()
         let loadingView = initialLoading ? showLoadingView() : nil
         initialLoading = false
-        api.getGoals(profile: nil, callback: { (goals, categories) in
+        api.getGoals(profile: nil, callback: { (goals) in
             loadingView?.terminate()
             self.items = goals
 
@@ -165,6 +168,9 @@ class GoalsCollectionViewController: UIViewController, UICollectionViewDataSourc
  *
  * 1.2:
  * - goal type support
+ *
+ * 1.3:
+ * - `oneUnitValue` support (fixes bug when goals are updated incorrectly)
  */
 class GoalCollectionViewCell: UICollectionViewCell {
 
@@ -199,7 +205,9 @@ class GoalCollectionViewCell: UICollectionViewCell {
         iconView.image = item.getIcon()
         titleLabel.text = item.title
 
-        valueLabel.text = "\(item.value.toStringClear())/\(item.targetValue.toStringClear())"
+        let value = item.value / Float(item.oneUnitValue != 0 ? item.oneUnitValue : 1)
+        let targetValue = item.targetValue
+        valueLabel.text = "\(value.toStringClear())/\(targetValue.toStringClear())"
         if OPTION_USE_SINGULAR_FOR_TOP_GOALS && item.value == 1 {
             goalValueLabel.text = item.valueText1
         }

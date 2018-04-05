@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -17,7 +18,7 @@ import HealthKit
  * Each method first tries to use cached data, but if it's expired, then requests API and cache it.
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -25,11 +26,15 @@ import HealthKit
  *
  * 1.2:
  * - integration related changes
+ *
+ * 1.3:
+ * - changes in API
+ * - bug fixes
  */
 class CachingServiceApi: ServiceApi {
 
     /// the singleton
-    static let shared = CachingServiceApi(service: MockServiceApi.shared)
+    static let shared: CachingServiceApi = CachingServiceApi(service: MockServiceApi.shared)
 
     /// the wrapped service
     private let service: ServiceApi
@@ -37,10 +42,10 @@ class CachingServiceApi: ServiceApi {
     /// Core Data services
     private let userInfoService = UserInfoServiceCache()
     private let profileService = ProfileServiceCache()
-    let goalServiceCache = GoalServiceCache()
+    private let goalServiceCache = GoalServiceCache()
     private let foodServiceCache = FoodServiceCache()
     private let foodItemServiceCache = FoodItemServiceCache()
-    let medicationResourceService = MedicationResourceServiceCache()
+    internal let medicationResourceService = RecommendationServiceCache()
 
     /// Initializer
     ///
@@ -73,7 +78,14 @@ class CachingServiceApi: ServiceApi {
                 }
             }
             /// Check demo account
-            self.service.authenticate(email: email, password: password, callback: callback, failure: failure)
+            self.service.authenticate(email: email, password: password, callback: { userInfo in
+                AuthenticationUtil.sharedInstance.userInfo = userInfo
+                self.getProfile(callback: { (profile) in
+                    self.updateProfile(profile, callback: {
+                        callback(userInfo)
+                    }, failure: { error in failure(error, error) })
+                }, failure: { error in failure(error, error) })
+            }, failure: failure)
         }, failure: wrapFailure({ (error) in
             failure(error, error)
         }))
@@ -208,43 +220,39 @@ class CachingServiceApi: ServiceApi {
     /// Get goals
     ///
     /// - Parameters:
-    ///   - profile: the profile (used to get category for goal setup)
+    ///   - profile: the profile
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getGoals(profile: Profile? = nil, callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback) {
+    func getGoals(profile: Profile? = nil, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback) {
         goalServiceCache.getAllGoals(callback: { (goals) in
-            self.service.getCategories(callback: { (categories) in
+            // Get sample data for the first time
+            if self.goalServiceCache.isExpired(goals, timeInterval: nil) {
 
-                // Get sample data for the first time
-                if self.goalServiceCache.isExpired(goals, timeInterval: nil) {
+                self.profileService.getMyProfiles(callback: { (profiles) in
+                    self.service.getGoals(profile: profile ?? profiles.first, callback: { (goals) in
 
-                    self.profileService.getMyProfiles(callback: { (profiles) in
-                        self.service.getGoals(profile: profile ?? profiles.first, callback: { (goals, categories) in
+                        // Cache data
+                        self.goalServiceCache.insert(goals, success: { (goals) in
 
-                            // Cache data
-                            self.goalServiceCache.insert(goals, success: { (goals) in
+                            callback(goals)
+                        }, failure: self.wrapFailure(failure))
 
-                                callback(goals, categories)
-                            }, failure: self.wrapFailure(failure))
-
-                        }, failure: failure)
-                    }, failure: self.wrapFailure(failure))
-                }
-                else {
-                    MockServiceApi.applyCategories(categories, toGoals: goals)
-                    callback(goals, categories)
-                }
-            }, failure: failure)
+                    }, failure: failure)
+                }, failure: self.wrapFailure(failure))
+            }
+            else {
+                callback(goals)
+            }
         }, failure: wrapFailure(failure))
     }
 
-    /// Get goal categories
+    /// Get goal patterns (for "Add Goal" screen)
     ///
     /// - Parameters:
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getCategories(callback: @escaping ([GoalCategory])->(), failure: @escaping FailureCallback) {
-        self.service.getCategories(callback: callback, failure: failure)
+    func getGoalPatterns(profile: Profile?, callback: @escaping ([Goal]) -> (), failure: @escaping FailureCallback) {
+        service.getGoalPatterns(profile: profile, callback: callback, failure: failure)
     }
 
     /// Save goal
@@ -265,6 +273,18 @@ class CachingServiceApi: ServiceApi {
                 callback(goal)
             }, failure: wrapFailure(failure))
         }
+    }
+
+    /// Save goal
+    ///
+    /// - Parameters:
+    ///   - goal: the goal
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func saveGoals(goals: [Goal], callback: @escaping ([Goal]) -> (), failure: @escaping FailureCallback) {
+        goalServiceCache.upsert(goals, success: { (goals) in
+            callback(goals)
+        }, failure: wrapFailure(failure))
     }
 
     /// Delete goal
@@ -322,24 +342,14 @@ class CachingServiceApi: ServiceApi {
         service.getRewards(callback: callback, failure: failure)
     }
 
-    /// Get tasks
+    /// Get goal units
     ///
     /// - Parameters:
-    ///   - category: the category
+    ///   - goal: the goal
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getTasks(category: GoalCategory, callback: @escaping ([Task])->(), failure: @escaping FailureCallback) {
-        service.getTasks(category: category, callback: callback, failure: failure)
-    }
-
-    /// Get tasks
-    ///
-    /// - Parameters:
-    ///   - task: the task
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getUnits(task: Task, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback) {
-        service.getUnits(task: task, callback: callback, failure: failure)
+    func getUnits(goal: Goal, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback) {
+        service.getUnits(goal: goal, callback: callback, failure: failure)
     }
 
     // MARK: - Medication
@@ -362,41 +372,13 @@ class CachingServiceApi: ServiceApi {
         service.getMedicationForToday(callback: callback, failure: failure)
     }
 
-    /// Get medication resources
-    ///
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getMedicationResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback) {
-        medicationResourceService.getAllFoodResources(callback: { (resources) in
-            let map = resources.hasharrayWithKey({$0.type})
-            var list = [(String,[MedicationResource])]()
-            list.append((MedicationResourceType.foodSuggestion.getTitle(), (map[MedicationResourceType.foodSuggestion] ?? []).sorted(by: {$0.retrievalDate < $1.retrievalDate})))
-            list.append((MedicationResourceType.unsafeFood.getTitle(), (map[MedicationResourceType.unsafeFood] ?? []).sorted(by: {$0.retrievalDate < $1.retrievalDate})))
-            callback(list)
-        }, failure: wrapFailure(failure))
-    }
-
-    /// Get drag resources
-    ///
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getDragResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback) {
-        medicationResourceService.getAllDrugResources(callback: { (resources) in
-            let map = resources.hasharrayWithKey({$0.type})
-            var list = [(String,[MedicationResource])]()
-            list.append((MedicationResourceType.drugConsumption.getTitle(), (map[MedicationResourceType.drugConsumption] ?? []).sorted(by: {$0.retrievalDate < $1.retrievalDate})))
-            list.append((MedicationResourceType.drugInteractionWarnings.getTitle(), (map[MedicationResourceType.drugInteractionWarnings] ?? []).sorted(by: {$0.retrievalDate < $1.retrievalDate})))
-            callback(list)
-        }, failure: wrapFailure(failure))
-    }
-
     /// Save medication resource
     ///
     /// - Parameters:
     ///   - item: the item
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func saveMedicationResource(_ item: MedicationResource, callback: @escaping (MedicationResource)->(), failure: @escaping FailureCallback) {
+    private func saveRecommendation(_ item: Recommendation, callback: @escaping (Recommendation)->(), failure: @escaping FailureCallback) {
         medicationResourceService.upsert([item], success: { (list) in
             callback(list.first!)
         }, failure: wrapFailure(failure))
@@ -443,7 +425,6 @@ class CachingServiceApi: ServiceApi {
         if food.id.isEmpty {
             food.id = UUID().uuidString
         }
-
         foodItemServiceCache.upsert(food.items, success: { (items) in
             food.items = items
             let predicate = self.foodItemServiceCache.createStringArrayPredicate("id", value: items.map { $0.id })
@@ -473,21 +454,20 @@ class CachingServiceApi: ServiceApi {
     /// - Parameters:
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getLabValues(callback: @escaping ([[LabValue]])->(), failure: @escaping FailureCallback) {
+    func getLabValues(callback: @escaping ([[QuantityType]])->(), failure: @escaping FailureCallback) {
         self.profileService.getMyProfiles(callback: { (profiles) in
             let allLabValues = HealthKitUtil.shared.getLabValues(profile: profiles.last)
             callback(allLabValues)
         }, failure: self.wrapFailure(failure))
     }
 
-    
     // MARK: - Private methods
 
     /// Wrap FailureCallback
     ///
     /// - Parameter failure: FailureCallback
     /// - Returns: GeneralFailureBlock
-    private func wrapFailure(_ failure: @escaping FailureCallback) -> GeneralFailureBlock {
+    internal func wrapFailure(_ failure: @escaping FailureCallback) -> GeneralFailureBlock {
         return { error in
             failure(error.localizedDescription)
         }

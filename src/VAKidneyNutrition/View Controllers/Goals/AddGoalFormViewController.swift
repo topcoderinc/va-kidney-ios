@@ -3,16 +3,26 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/4/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
 import UIComponents
 
+/// option: true - will substitute existing goal value if user tries to add new goal of the same type
+let OPTION_ADD_GOAL_USE_DEFAULT_VALUE_FROM_PREVIOUS_GOAL = true
+/// option: true - will replace existing goals if user will try to save a goal with the same type, false - will add new goal
+let OPTION_REPLACE_EXISTING_GOALS = true
+
 /**
  * Add Goal form
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - goal patterns added instead of categories to support limited set of goals that depend on profile data
  */
 class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate, UITextFieldDelegate {
 
@@ -22,11 +32,7 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
     @IBOutlet weak var unitsField: UITextField!
     @IBOutlet weak var frequencyField: UITextField!
 
-    @IBOutlet var switchButtons: [UIButton]!
     @IBOutlet weak var switchButtonsView: UIView!
-    @IBOutlet weak var switchSelectorView: UIView!
-    @IBOutlet weak var switchSelectorLeftMargin: NSLayoutConstraint!
-    @IBOutlet weak var switchSelectorWidth: NSLayoutConstraint!
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var freqLabel: UILabel!
     @IBOutlet weak var tipsContainer: UIView!
@@ -39,15 +45,13 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
     @IBOutlet weak var saveButtonLeftMargin: NSLayoutConstraint!
     @IBOutlet weak var deleteButton: CustomButton!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     /// the goal to edit
     var goal: Goal?
 
-    // the index of the button
-    private var selectedCategory: GoalCategory?
-
-    /// the selected task
-    var selectedTask: String?
+    // the selected goal pattern
+    private var selectedPattern: Goal?
 
     /// the selected units
     var selectedUnits: Float?
@@ -55,24 +59,24 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
     /// the selected frequency
     var selectedFrequency: GoalFrequency?
 
-    /// the values from last picker
-    var allCategories = [GoalCategory]()
-    var allTasks = [String]()
+    /// the patterns
+    var allPatterns = [Goal]()
 
     /// the previously selected units
-    var selectedUnitsForCategory = [String: Float]()
+    var selectedUnitsForGoal = [String: Float]()
 
     /// the reference to API
     private let api: ServiceApi = CachingServiceApi.shared
+
+    /// collection view data source
+    private var dataSource: CollectionDataSource<GoalPatternCell>!
 
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
         switchButtonsView.makeRound()
-        switchSelectorView.makeRound()
         initBackButtonFromChild()
-        switchSelectorView.backgroundColor = Colors.darkBlue
         tipsContainer.roundCorners()
 
         if let _ = goal {
@@ -86,48 +90,55 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
             deleteButton.isHidden = true
         }
         self.view.layoutIfNeeded()
+        self.dataSource = CollectionDataSource(collectionView, cellClass: GoalPatternCell.self) { (item, cell, indexPath) in
+            let goal = item as! Goal
+            cell.configure(goal, isSelected: self.selectedPattern?.title == goal.title, isFirst: indexPath.row == 0 ? true : (indexPath.row == self.dataSource.items.count - 1 ? false : nil))
+        }
+        dataSource.selected = { item in
+            self.selectedPattern = item as? Goal
+            self.view.endEditing(true)
+            self.updateUI()
+            self.collectionView.reloadData()
+        }
+        dataSource.calculateCellSize = { item, _ -> CGSize in
+            let goal = item as! Goal
+            let size = (goal.title as NSString).size(withAttributes: [.font: UIFont(name: Fonts.Regular, size: 14)!])
+            return CGSize(width: size.width + 35, height: self.collectionView.bounds.height) // 30 is summary padding for text in IB
+        }
         loadData()
     }
 
     /// Load data
     private func loadData() {
-        api.getCategories(callback: { (list) in
-            self.allCategories = list
-
-            for button in self.switchButtons {
-                if button.tag < list.count {
-                    button.setTitle(list[button.tag].title, for: .normal)
-                    button.setTitle(list[button.tag].title, for: .selected)
-                }
-                else {
-                    button.setTitle("", for: .normal)
-                }
-                if isIPhone5() {
-                    let title = button.title(for: .normal) ?? ""
-                    let fontSize: CGFloat = 12
-                    var string = NSMutableAttributedString(string: title, attributes: [
-                        .font: UIFont(name: Fonts.Regular, size: fontSize)!,
-                        .foregroundColor: (UIColor.fromString("666666") ?? Colors.black)
-                        ])
-                    button.setAttributedTitle(string, for: .normal)
-                    string = NSMutableAttributedString(string: title, attributes: [
-                        .font: UIFont(name: Fonts.Regular, size: fontSize)!,
-                        .foregroundColor: UIColor.white])
-                    button.setAttributedTitle(string, for: .selected)
-                }
-            }
-            self.view.layoutIfNeeded()
-            DispatchQueue.main.async {
-                self.selectedCategory = self.goal?.category
+        api.getProfile(callback: { (profile) in
+            self.api.getGoalPatterns(profile: profile, callback: { (patterns) in
+                self.allPatterns = patterns
+                self.selectedPattern = self.goal ?? patterns.first
                 self.selectedUnits = self.goal?.targetValue
-                if let units = self.selectedUnits, let cat = self.selectedCategory {
-                    self.selectedUnitsForCategory[cat.id] = units
+                if let units = self.selectedUnits, let goal = self.selectedPattern {
+                    self.selectedUnitsForGoal[goal.title] = units
                 }
                 if let value = self.goal?.isReminderOn {
                     self.reminderSwitch.isOn = value
                 }
+                self.dataSource.setItems(patterns)
+                if let goal = self.goal {
+                    // Scroll to current goal
+                    DispatchQueue.main.async {
+                        var indexPath: IndexPath?
+                        for i in 0..<self.allPatterns.count {
+                            if goal.title == self.allPatterns[i].title {
+                                indexPath = IndexPath(row: i, section: 0); break
+                            }
+                        }
+                        if let indexPath = indexPath {
+                            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+                        }
+                    }
+                }
                 self.updateUI()
-            }
+
+            }, failure: self.createGeneralFailureCallback())
         }, failure: createGeneralFailureCallback())
 
         tipsTextLabel.text = NSLocalizedString("Loading...", comment: "Loading...")
@@ -142,24 +153,21 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
         if let _ = goal {
             title = NSLocalizedString("Edit Goal", comment: "Edit Goal").uppercased()
         }
-        if let category = selectedCategory ?? goal?.category {
-            selectedTask = category.title
-            var i = 0
-            for cat in allCategories {
-                if cat.id == category.id {
-                    updateSwitchButtons(i)
-                    break
+        self.selectedUnits = nil
+        if let selectedPattern = selectedPattern, selectedUnitsForGoal[selectedPattern.title] == nil, OPTION_ADD_GOAL_USE_DEFAULT_VALUE_FROM_PREVIOUS_GOAL {
+            getExistingGoal(forPattern: selectedPattern, callback: { (currentGoal) in
+                if let currentGoal = currentGoal {
+                    self.selectedUnits = currentGoal.targetValue
                 }
-                i += 1
-            }
+                self.updateUnitsLabel(self.selectedUnits)
+            })
         }
         else {
-            selectedCategory = allCategories.first
-            selectedTask = selectedCategory?.title
-            self.selectedUnits = nil
-            updateSwitchButtons(0)
+            if let goal = selectedPattern, let lastUnits = selectedUnitsForGoal[goal.title] {
+                self.selectedUnits = lastUnits
+            }
+            updateUnitsLabel(selectedUnits)
         }
-        updateUnitsLabel(selectedUnits)
         if (selectedFrequency ?? goal?.frequency) == nil {
             selectedFrequency = GoalFrequency(rawValue: GoalFrequency.getAll().map({$0.rawValue.capitalized}).first?.lowercased() ?? "")
         }
@@ -178,13 +186,31 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
         }
     }
 
+    /// Get existing goal for pattern
+    ///
+    /// - Parameters:
+    ///   - pattern: the pattern
+    ///   - callback: the callback to return the result
+    private func getExistingGoal(forPattern pattern: Goal, callback: @escaping (Goal?)->()) {
+        api.getProfile(callback: { (profile) in
+            self.api.getGoals(profile: profile, callback: { (goals) in
+                if let currentGoal = goals.filter({$0.title == pattern.title}).first {
+                    callback(currentGoal)
+                }
+                else {
+                    callback(nil)
+                }
+            }, failure: self.createGeneralFailureCallback())
+        }, failure: createGeneralFailureCallback())
+    }
+
     /// Update units label
     ///
     /// - Parameter unitsValue: the value
     private func updateUnitsLabel(_ unitsValue: Float?) {
         if let value = unitsValue {
-            if let task = selectedTask ?? goal?.title {
-                api.getUnits(task: task, callback: { (limits, suffix, _) in
+            if let selectedPattern = selectedPattern {
+                api.getUnits(goal: selectedPattern, callback: { (limits, suffix, _) in
 
                     let units = "\(value.toString()) \((value == 1 ? suffix.0 : suffix.1))"
                     self.unitLabel.text = units
@@ -204,42 +230,42 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
     ///
     /// - parameter sender: the button
     @IBAction func saveGoalAction(_ sender: Any) {
-        if self.goal == nil && (selectedCategory == nil || selectedTask == nil || selectedUnits == nil || selectedFrequency == nil) {
+        guard let selectedPattern = selectedPattern, (self.goal == nil || !(self.goal == nil && (selectedUnits == nil || selectedFrequency == nil))) else {
             showError(errorMessage: NSLocalizedString("Please fill all fields", comment: "Please fill all fields"))
             return
         }
-        let goal = self.goal ?? Goal(id: "")
-        if let category = selectedCategory {
-            goal.category = category
-            goal.categoryId = category.id
-        }
-        if let task = selectedTask {
-            goal.title = task
-        }
-        if let units = selectedUnits {
-            goal.targetValue = units
-        }
-        if let frequency = selectedFrequency {
-            goal.frequency = frequency
-        }
-        goal.isReminderOn = reminderSwitch.isOn
-        let isEditing = !goal.id.isEmpty
-        api.getUnits(task: goal.title, callback: { (limits, suffix, extra) in
-            goal.valueText1 = suffix.0
-            goal.valueTextMultiple = suffix.1
-            goal.valueText = suffix.2
-            goal.iconName = extra.0
-            goal.color = extra.1
-            self.api.saveGoal(goal: goal, callback: { (goal) in
-                self.goal = goal
-                self.navigationController?.popViewController(animated: true)
-                if !isEditing {
-                    delay(0.3) {
-                        self.showAlert("Goal saved", "")
+        let callback: (Goal?)->() = { existingGoal in
+            let goal = existingGoal ?? selectedPattern
+            if let units = self.selectedUnits {
+                goal.targetValue = units
+            }
+            if let frequency = self.selectedFrequency {
+                goal.frequency = frequency
+            }
+            goal.isReminderOn = self.reminderSwitch.isOn
+            let isEditing = self.goal != nil
+            self.api.getUnits(goal: goal, callback: { (limits, suffix, extra) in
+                goal.valueText1 = suffix.0
+                goal.valueTextMultiple = suffix.1
+                goal.valueText = suffix.2
+                goal.iconName = extra.0
+                goal.color = extra.1
+                self.api.saveGoal(goal: goal, callback: { (goal) in
+                    self.navigationController?.popViewController(animated: true)
+                    if !isEditing || self.goal?.title != existingGoal?.title {
+                        delay(0.3) {
+                            self.showAlert("Goal saved", existingGoal == nil ? "" : "Existing goal updated")
+                        }
                     }
-                }
+                }, failure: self.createGeneralFailureCallback())
             }, failure: self.createGeneralFailureCallback())
-        }, failure: createGeneralFailureCallback())
+        }
+        if OPTION_REPLACE_EXISTING_GOALS {
+            getExistingGoal(forPattern: selectedPattern, callback: callback)
+        }
+        else {
+            callback(nil)
+        }
     }
 
     /// "Delete" button action handler
@@ -251,51 +277,6 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
                 self.navigationController?.popViewController(animated: true)
             }, failure: createGeneralFailureCallback())
         }
-    }
-
-    /// Switch button action handler
-    ///
-    /// - parameter sender: the button
-    @IBAction func switchAction(_ sender: UIButton) {
-        self.view.endEditing(true)
-        let index = sender.tag
-        if index < allCategories.count {
-            selectedCategory = allCategories[index]
-            selectedTask = selectedCategory?.title
-            self.selectedUnits = nil
-            if let cat = selectedCategory, let lastUnits = selectedUnitsForCategory[cat.id] {
-                self.selectedUnits = lastUnits
-            }
-        }
-        updateSwitchButtons(index)
-        updateUI()
-    }
-
-    /// Update switch buttons
-    ///
-    /// - Parameter index: the index
-    private func updateSwitchButtons(_ index: Int) {
-        if index < allCategories.count {
-            selectedCategory = allCategories[index]
-            selectedTask = selectedCategory?.title
-            for button in switchButtons {
-                button.isSelected = index == button.tag
-                if button.isSelected {
-                    updateswitchTimeIndicator(button)
-                }
-            }
-        }
-    }
-
-    /// Update switch time
-    ///
-    /// - Parameter button: the button
-    private func updateswitchTimeIndicator(_ button: UIButton) {
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [.beginFromCurrentState, .curveEaseOut], animations: {
-            self.switchSelectorWidth.constant = button.bounds.width + 10
-            self.switchSelectorLeftMargin.constant = button.frame.origin.x - 5
-            self.view.layoutIfNeeded()
-        }, completion: nil)
     }
 
     /// Dismiss keyboard
@@ -317,11 +298,11 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         switch textField {
         case unitsField:
-            if let task = selectedTask ?? goal?.title {
-                api.getUnits(task: task, callback: { (limits, suffix, _) in
+            if let goal = selectedPattern {
+                api.getUnits(goal: goal, callback: { (limits, suffix, _) in
                     var values = [String]()
                     for i in stride(from: limits.0.lowerBound, to: limits.0.upperBound + 1, by: limits.1) {
-                        values.append("\(i) \((i == 1 ? suffix.0 : suffix.1))")
+                        values.append("\(i.toString()) \((i == 1 ? suffix.0 : suffix.1))")
                     }
                     PickerViewController.show(title: "units", selected: PickerValue(self.unitLabel.text), data: values.map{PickerValue($0)}, delegate: self)
                 }, failure: createGeneralFailureCallback())
@@ -348,8 +329,8 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
         switch picker.title ?? "" {
         case "units":
             self.selectedUnits = Float(value.description.split(separator: " ").first ?? "") ?? 0
-            if let cat = selectedCategory, let units = self.selectedUnits {
-                self.selectedUnitsForCategory[cat.id] = units
+            if let goal = selectedPattern, let units = self.selectedUnits {
+                self.selectedUnitsForGoal[goal.title] = units
             }
         case "frequency":
             self.selectedFrequency = GoalFrequency(rawValue: value.description.lowercased())
@@ -357,6 +338,51 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
             return
         }
         self.updateUI()
+    }
+
+}
+
+/**
+ * Cell for goal patterns
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+class GoalPatternCell: UICollectionViewCell {
+
+    /// outlets
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var bgLeftPadding: NSLayoutConstraint!
+    @IBOutlet weak var bgRightPadding: NSLayoutConstraint!
+
+    /// Setup UI
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        bgView.makeRound()
+        if isIPhone5() {
+            titleLabel.font = UIFont(name: titleLabel.font.fontName, size: 12)
+        }
+    }
+
+    /// Update UI
+    ///
+    /// - Parameters:
+    ///   - item: the item to show
+    ///   - isSelected: true - if selected
+    ///   - isFirst: true - if first cell, false - if last, nil - if intermidiate
+    func configure(_ item: Goal, isSelected: Bool, isFirst: Bool?) {
+        titleLabel.text = item.title
+        if let isFirst = isFirst {
+            bgLeftPadding.constant = isFirst ? 30 : 0
+            bgRightPadding.constant = isFirst ? 0 : 30
+        }
+        else {
+            bgLeftPadding.constant = 0
+            bgRightPadding.constant = 0
+        }
+        bgView.backgroundColor = isSelected ? Colors.darkBlue : UIColor.white
+        titleLabel.textColor = isSelected ? UIColor.white : UIColor(hex: 0x666666)
     }
 
 }

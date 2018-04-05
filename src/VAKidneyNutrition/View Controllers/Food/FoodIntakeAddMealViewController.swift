@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/23/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -38,7 +39,7 @@ protocol FoodIntakeAddMealViewControllerDelegate {
  * Food Intake form
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -46,10 +47,14 @@ protocol FoodIntakeAddMealViewControllerDelegate {
  *
  * 1.2:
  * - integration changes
+ *
+ * 1.3:
+ * - bug fixes
  */
 class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, PickerViewControllerDelegate {
 
     /// outlets
+    @IBOutlet weak var titleLabel: UILabel?
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var itemsField: CustomTextField?
     @IBOutlet weak var amountField: CustomTextField!
@@ -63,6 +68,11 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     @IBOutlet weak var buttonLeftMargin: NSLayoutConstraint!
     @IBOutlet weak var saveButton: CustomButton!
     @IBOutlet weak var deleteButton: CustomButton!
+
+    /// the extra margin to add
+    internal var extraAmountBottomMargin: CGFloat {
+        return 0
+    }
 
     // the item to edit
     var item: FoodItem?
@@ -103,6 +113,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
         else if type == .drug {
             saveButton.setTitle("Add Drug".uppercased(), for: .normal)
         }
+        titleLabel?.text = (type == .food ? "Meal or Liquid Item" : "Drug Name")
         self.view.layoutIfNeeded()
         deleteButton.isHidden = item == nil
         let space: CGFloat = 13
@@ -202,7 +213,8 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     internal func showFieldError(_ error: String?, field: CustomTextField, bottomMargin: NSLayoutConstraint, errorLabel: UILabel, constant: CGFloat) {
         field.borderWidth = error == nil ? 0 : 1
         errorLabel.isHidden = error == nil
-        bottomMargin.constant = error == nil ? constant : (constant + 15)
+        let extraMargin = bottomMargin == amountBottomMargin ? extraAmountBottomMargin : 0
+        bottomMargin.constant = (error == nil ? constant : (constant + 15)) + extraMargin
         if let error = error {
             errorLabel.text = "*\(error)"
         }
@@ -247,6 +259,23 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
         return true
     }
 
+    /// Disable non decimal characters in amount field
+    ///
+    /// - Parameters:
+    ///   - textField: the textField
+    ///   - range: the range
+    ///   - string: the string
+    /// - Returns: true - if need to update the text, false - if updated manually
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let strTextField: NSString = NSString(string: textField.text!)
+
+        if textField == amountField {
+            let newString = strTextField.replacingCharacters(in: range as NSRange, with: string)
+            return newString ≈ "^\\d*(\\.\\d*)?$"
+        }
+        return true
+    }
+
     /// Open units picker
     internal func openUnitsPicker() {
         self.view.endEditing(true)
@@ -255,7 +284,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
             PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
         }
         else {
-            let items = HealthKitUtil.shared.getUnits(forLabValue: LabValue())
+            let items = HealthKitUtil.shared.getUnits(forType: QuantityType.fromId("")) // default units
             PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
         }
     }

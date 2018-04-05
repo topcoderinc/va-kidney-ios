@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -24,7 +25,7 @@ public typealias TaskUnitSuffix = (String, String, String)
 public typealias TaskExtraData = (String, UIColor)
 
 /// type alias for limits  for the units, e.g. ((2, 12), 2)
-public typealias TaskUnitLimits = (CountableClosedRange<Int>, Int)
+public typealias TaskUnitLimits = (ClosedRange<Float>, Float)
 
 /// type alias for one group of medications
 public typealias MedicationScheduleItem = (Int, [(Medication, MedicationTime)])
@@ -39,7 +40,7 @@ let ERROR_PASSWORDS_NOT_MATCH = NSLocalizedString("The passwords do not match to
  * Protocol for API implementaion
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -47,6 +48,9 @@ let ERROR_PASSWORDS_NOT_MATCH = NSLocalizedString("The passwords do not match to
  *
  * 1.2:
  * - integration related changes
+ *
+ * 1.3:
+ * - refactoring
  */
 protocol ServiceApi {
 
@@ -115,17 +119,17 @@ protocol ServiceApi {
     /// Get goals
     ///
     /// - Parameters:
-    ///   - profile: the profile (used to get category for goal setup)
+    ///   - profile: the profile (used to setup goals)
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getGoals(profile: Profile?, callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback)
+    func getGoals(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback)
 
-    /// Get goal categories
+    /// Get goal patterns (for "Add Goal" screen)
     ///
     /// - Parameters:
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getCategories(callback: @escaping ([GoalCategory])->(), failure: @escaping FailureCallback)
+    func getGoalPatterns(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback)
 
     /// Save goal
     ///
@@ -134,6 +138,14 @@ protocol ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func saveGoal(goal: Goal, callback: @escaping (Goal)->(), failure: @escaping FailureCallback)
+
+    /// Save goals
+    ///
+    /// - Parameters:
+    ///   - goals: the goals
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func saveGoals(goals: [Goal], callback: @escaping ([Goal])->(), failure: @escaping FailureCallback)
 
     /// Delete goal
     ///
@@ -178,21 +190,13 @@ protocol ServiceApi {
     ///   - failure: the failure callback to return an error
     func getRewards(callback: @escaping ([Reward])->(), failure: @escaping FailureCallback)
 
-    /// Get tasks
+    /// Get goal units
     ///
     /// - Parameters:
-    ///   - category: the category
+    ///   - goal: the goal
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getTasks(category: GoalCategory, callback: @escaping ([Task])->(), failure: @escaping FailureCallback)
-
-    /// Get tasks details
-    ///
-    /// - Parameters:
-    ///   - task: the task
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getUnits(task: Task, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback)
+    func getUnits(goal: Goal, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback)
 
     // MARK: - Medications
 
@@ -209,18 +213,6 @@ protocol ServiceApi {
     ///   - callback: the callback to invoke when success: (list of medications)
     ///   - failure: the failure callback to return an error
     func getMedicationForToday(callback: @escaping ([Medication])->(), failure: @escaping FailureCallback)
-
-    /// Get medication resources
-    ///
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getMedicationResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback)
-
-    /// Get drag resources
-    ///
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getDragResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback)
 
     /// Get resources
     ///
@@ -260,4 +252,13 @@ protocol ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func getWorkout(callback: @escaping ([Workout])->(), failure: @escaping FailureCallback)
+
+    // MARK: - Lab values
+
+    /// Get possible lab values
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getLabValues(callback: @escaping ([[QuantityType]])->(), failure: @escaping FailureCallback)
 }

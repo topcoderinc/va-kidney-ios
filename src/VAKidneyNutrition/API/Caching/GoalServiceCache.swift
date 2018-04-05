@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/24/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -15,7 +16,7 @@ import CoreData
  * Model object for Core Data related to Goal
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -23,6 +24,9 @@ import CoreData
  *
  * 1.2:
  * - goal type
+ *
+ * 1.3:
+ * - changes in fields
  */
 extension GoalMO: CoreDataEntity {
 
@@ -36,26 +40,30 @@ extension GoalMO: CoreDataEntity {
         updateEntity(object: object)
 
         object.title = title ?? ""
-        object.iconName = iconName ?? ""
-        object.categoryId = categoryId ?? ""
-        object.targetValue = targetValue
         object.frequency = GoalFrequency(rawValue: frequency ?? "") ?? .daily
         object.dateStart = dateStart ?? Date()
-
         object.points = Int(points)
-        object.initialValue = initialValue
         object.value = value
 
-        object.valueText1 = valueText1 ?? ""
-        object.valueText = valueText ?? ""
-        object.valueTextMultiple = valueTextMultiple ?? ""
-        object.hasExternalData = hasExternalData
         object.goalType = ComparisonResult(rawValue: Int(goalType)) ?? .orderedDescending
-        object.sOrder = Int(sOrder)
+        object.relatedQuantityId = relatedQuantityId
+
+        object.iconName = iconName ?? ""
+        object.valueText1 = valueText1 ?? ""
+        object.valueTextMultiple = valueTextMultiple ?? ""
+        object.valueText = valueText ?? ""
         object.color = UIColor.fromString(color ?? "") ?? .red
+        object.sOrder = Int(sOrder)
+
+        object.hasExternalData = hasExternalData
         object.isReminderOn = isReminderOn
+
+        object.targetValue = targetValue
+        object.initialValue = initialValue
+
         object.min = min > 0 ? min : nil
         object.max = max > 0 ? max : nil
+        object.oneUnitValue = oneUnitValue
         return object
     }
 
@@ -69,7 +77,6 @@ extension GoalMO: CoreDataEntity {
 
         title = object.title
         iconName = object.iconName
-        categoryId = object.categoryId
         targetValue = object.targetValue
         frequency = object.frequency.rawValue
         dateStart = object.dateStart
@@ -84,11 +91,13 @@ extension GoalMO: CoreDataEntity {
         valueTextMultiple = object.valueTextMultiple
         hasExternalData = object.hasExternalData
         goalType = Int32(object.goalType.rawValue)
+        relatedQuantityId = object.relatedQuantityId
         sOrder = Int32(object.sOrder)
         color = object.color.toString()
         isReminderOn = object.isReminderOn
         min = object.min ?? -1
         max = object.max ?? -1
+        oneUnitValue = object.oneUnitValue
     }
 }
 

@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -31,6 +32,9 @@ let DELAY_FOR_DEMONSTRATION: TimeInterval = 0.5
  *
  * 1.2:
  * - integration related changes
+ * 1.3:
+ * - changes in protocol
+ * - bug fixes
  */
 class MockServiceApi: ServiceApi {
 
@@ -177,39 +181,15 @@ class MockServiceApi: ServiceApi {
     /// Get goals
     ///
     /// - Parameters:
-    ///   - profile: the profile (used to get category for goal setup)
+    ///   - profile: the profile
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getGoals(profile: Profile?, callback: @escaping ([Goal], [GoalCategory])->(), failure: @escaping FailureCallback) {
-        if goalsDeleted {
-            callback([], [])
+    func getGoals(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback) {
+        if goalsDeleted || (profile != nil && !profile!.setupGoals) { // do not generate goals if user set "Setup Goals" to no or deleted all goals.
+            callback([])
             return
         }
-        getCategories(callback: { (categories) in
-            var goals = [Goal]()
-            if let profile = profile, let json = JSON.resource(named: "allGoals") {
-                let styles = json["styles"].arrayValue.map({Goal.fromJson($0)})
-                MockServiceApi.applyCategories(categories, toGoals: styles)
-                let allGoals = json["allGoals"].arrayValue.map({Goal.fromJson($0, withStyles: styles)})
-                let goalIds = (json["diseaseCategories"][profile.diseaseCategory].array ?? json["diseaseCategories"][profile.diseaseCategory + " \(profile.dialysis ? "yes" : "no")"].arrayValue).map({$0.stringValue})
-                goals = allGoals.filter({goalIds.contains($0.id)})
-            }
-            // Old version of goals (if no profile provided)
-            else if let json = JSON.resource(named: "goals") {
-                goals = json.arrayValue.map({Goal.fromJson($0)})
-            }
-
-            // Categories
-            MockServiceApi.applyCategories(categories, toGoals: goals)
-            var sOrder = 0
-            for goal in goals {
-                goal.sOrder = sOrder
-                sOrder += 1
-            }
-            goals = goals.filter({$0.category != nil})
-            callback(goals, categories)
-            return
-        }, failure: failure)
+        getGoalPatterns(profile: profile, callback: callback, failure: failure)
     }
 
     /// Save goal
@@ -219,6 +199,16 @@ class MockServiceApi: ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func saveGoal(goal: Goal, callback: @escaping (Goal)->(), failure: @escaping FailureCallback) {
+        failure("Not supported")
+    }
+
+    /// Save goals
+    ///
+    /// - Parameters:
+    ///   - goals: the goals
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func saveGoals(goals: [Goal], callback: @escaping ([Goal])->(), failure: @escaping FailureCallback) {
         failure("Not supported")
     }
 
@@ -233,25 +223,27 @@ class MockServiceApi: ServiceApi {
         callback()
     }
 
-    class func applyCategories(_ list: [GoalCategory], toGoals goals: [Goal]) {
-        let categoriesMap = list.hashmapWithKey({$0.id})
-        for goal in goals {
-            if let category = categoriesMap[goal.categoryId] {
-                goal.category = category
-                category.numberOfGoals += 1
-            }
-        }
-    }
-
-    /// Get goal categories
+    /// Get goal patterns (for "Add Goal" screen)
     ///
     /// - Parameters:
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getCategories(callback: @escaping ([GoalCategory])->(), failure: @escaping FailureCallback) {
-        if let json = JSON.resource(named: "goalCategories") {
-            let categories = json.arrayValue.map({GoalCategory.fromJson($0)})
-            callback(categories)
+    func getGoalPatterns(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback) {
+        if let json = JSON.resource(named: "allGoals") {
+            let styles = json["styles"].arrayValue.map({Goal.fromJson($0)})
+            let allGoals = json["allGoals"].arrayValue.map({Goal.fromJson($0, withStyles: styles)})
+            var goals = allGoals
+            if let profile = profile {
+                let goalIds = (json["diseaseCategories"][profile.diseaseCategory].array ?? json["diseaseCategories"][profile.diseaseCategory + " \(profile.dialysis ? "yes" : "no")"].arrayValue).map({$0.stringValue})
+                goals = allGoals.filter({goalIds.contains($0.id)})
+            }
+            // Order
+            var sOrder = 0
+            for goal in goals {
+                goal.sOrder = sOrder
+                sOrder += 1
+            }
+            callback(goals)
         }
     }
 
@@ -335,36 +327,47 @@ class MockServiceApi: ServiceApi {
         }
     }
 
-    /// Get tasks
+    /// Get goal units
     ///
     /// - Parameters:
-    ///   - category: the category
+    ///   - goal: the goal
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getTasks(category: GoalCategory, callback: @escaping ([Task])->(), failure: @escaping FailureCallback) {
-        if let json = JSON.resource(named: "tasks") {
-            let list = json.arrayValue.filter({$0["categoryId"].stringValue == category.id}).map({$0["title"].stringValue})
-            callback(list)
-            return
+    func getUnits(goal: Goal, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback) {
+        var interval: Float = 1
+        var minValue = goal.min ?? 0
+        var maxValue = goal.max ?? 0
+        if let json = JSON.resource(named: "allGoals") {
+            let styles = json["styles"].arrayValue
+            let patterns = json["allGoals"].arrayValue
+            for item in patterns {
+                if item["title"].stringValue == goal.title {
+                    if let minUnits = item["minUnits"].float,
+                        let maxUnits = item["maxUnits"].float {
+                        minValue = minUnits
+                        maxValue = maxUnits
+                    }
+                    else {
+                        let styleName = item["style"].stringValue
+                        for item in styles {
+                            if item["title"].stringValue == styleName {
+                                minValue = item["minUnits"].floatValue
+                                maxValue = item["maxUnits"].floatValue
+                                interval = item["unitInterval"].floatValue
+                                break
+                            }
+                        }
+                    }
+                    break
+                }
+            }
         }
-    }
-
-    /// Get tasks details
-    ///
-    /// - Parameters:
-    ///   - task: the task
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getUnits(task: Task, callback: @escaping (TaskUnitLimits, TaskUnitSuffix, TaskExtraData)->(), failure: @escaping FailureCallback) {
-        if let json = JSON.resource(named: "tasks"),
-            let task = json.arrayValue.filter({$0["title"].stringValue == task}).first {
-            let limits: TaskUnitLimits = (task["min"].intValue...task["max"].intValue, task["interval"].intValue)
-            let suffixes: TaskUnitSuffix = (task["unit1"].stringValue, task["unitMultiple"].stringValue, task["valueText"].stringValue)
-            let extra: TaskExtraData = (task["iconName"].stringValue, UIColor.fromString(task["color"].stringValue) ?? .red)
-            callback(limits, suffixes, extra)
-            return
-        }
-        failure("Not found")
+        maxValue = max(maxValue, minValue)
+        if interval == 0 { interval = 1 }
+        let limits: TaskUnitLimits = (minValue...maxValue, interval)
+        let suffixes: TaskUnitSuffix = (goal.valueText1, goal.valueTextMultiple, goal.valueText)
+        let extra: TaskExtraData = (goal.iconName, goal.color)
+        callback(limits, suffixes, extra)
     }
 
     /// Get schedule
@@ -427,32 +430,6 @@ class MockServiceApi: ServiceApi {
         }
     }
 
-    /// Get medication resources
-    ///
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getMedicationResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback) {
-        delay(DELAY_FOR_DEMONSTRATION) {
-            if let json = JSON.resource(named: "medicationResources") {
-                let items = json.arrayValue.map({($0["title"].stringValue, $0["items"].arrayValue.map({MedicationResource.fromJson($0)}))})
-                callback(items)
-            }
-        }
-    }
-
-    /// Get drag resources
-    ///
-    ///   - callback: the callback to invoke when success
-    ///   - failure: the failure callback to return an error
-    func getDragResources(callback: @escaping ([(String,[MedicationResource])])->(), failure: @escaping FailureCallback) {
-        delay(DELAY_FOR_DEMONSTRATION) {
-            if let json = JSON.resource(named: "dragResources") {
-                let items = json.arrayValue.map({($0["title"].stringValue, $0["items"].arrayValue.map({MedicationResource.fromJson($0)}))})
-                callback(items)
-            }
-        }
-    }
-
     /// Get resources.
     /// Uses the same sample JSON file for all `types`.
     ///
@@ -510,5 +487,14 @@ class MockServiceApi: ServiceApi {
             let list = json.arrayValue.map({Workout.fromJson($0)})
             callback(list)
         }
+    }
+
+    /// Get possible lab values
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getLabValues(callback: @escaping ([[QuantityType]])->(), failure: @escaping FailureCallback) {
+        failure("Not supported")
     }
 }

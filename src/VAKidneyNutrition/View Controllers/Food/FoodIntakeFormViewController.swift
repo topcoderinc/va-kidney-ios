@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -16,11 +17,14 @@ enum FoodIntakeTime: String {
     case breakfast = "breakfast", lunch = "lunch", dinner = "dinner", snacks = "snacks", casual = "casual"
 }
 
+/// option: true - add "drug" into title of the "Add New Meal" form
+let OPTION_SHOW_ADD_NEW_MEAL_DRUG_TITLE = true
+
 /**
  * Food Intake form
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -28,6 +32,9 @@ enum FoodIntakeTime: String {
  *
  * 1.2:
  * - integration changes
+ *
+ * 1.2:
+ * - bug fixes
  */
 class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DatePickerViewControllerDelegate, AddAssetButtonViewDelegate,
     UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, FoodIntakeAddMealViewControllerDelegate {
@@ -76,6 +83,12 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
     /// the table model
     private var table = InfiniteTableViewModel<FoodItem, FoodItemTableViewCell>()
 
+    /// flag: true - has changes in the form, false - else
+    private var hasChanges = false
+    
+    /// the reference to last opened ConfirmDialog
+    private var confirmDialog: ConfirmDialog?
+
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +107,20 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         images = food?.images ?? []
         meals = (food?.items ?? []).map{$0.clone()}
         if food != nil {
-            addButton.setTitle(NSLocalizedString("Save Meal", comment: "Save Meal").uppercased(), for: .normal)
+            addButton.setTitle(NSLocalizedString("Save Meal/Drug", comment: "Save Meal/Drug").uppercased(), for: .normal)
+            if OPTION_SHOW_ADD_NEW_MEAL_DRUG_TITLE {
+                self.title = NSLocalizedString("Edit Meal/Drug", comment: "Edit Meal/Drug").uppercased()
+            }
+            else {
+                self.title = NSLocalizedString("Edit Meal", comment: "Edit Meal").uppercased()
+            }
+        }
+        else {
+            let title = NSLocalizedString("Add New Meal/Drug", comment: "Add New Meal/Drug").uppercased()
+            addButton.setTitle(title, for: .normal)
+            if OPTION_SHOW_ADD_NEW_MEAL_DRUG_TITLE {
+                self.title = title
+            }
         }
 
         table.tableHeight = tableHeight
@@ -168,6 +194,18 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         openForm(type: .drug)
     }
 
+    /// Back button action
+    override func backButtonAction() {
+        if self.food != nil && hasChanges {
+            confirmDialog = ConfirmDialog(title: "Cancel changes", text: "Are you sure you want to cancel the changes?", action: {
+                super.backButtonAction()
+            })
+        }
+        else {
+            super.backButtonAction()
+        }
+    }
+
     /// Save action
     ///
     /// - Parameter sender: the button
@@ -177,14 +215,15 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
 
         var hasError = false
         if meals.isEmpty {
-            showError(errorMessage: "Please add at least one meal/")
+            showError(errorMessage: "Please add at least one meal/drug")
             hasError = true
         }
         if selectedMealTime == nil {
             showError(errorMessage: NSLocalizedString("Please fill all fields", comment: "Please fill all fields"))
-            return
+            hasError = true
         }
         if hasError {
+            sender.isEnabled = true
             return
         }
 
@@ -230,7 +269,10 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
             FoodUtils.shared.process(food: food)
 
             sender.isEnabled = true
-        }, failure: createGeneralFailureCallback())
+        }, failure: { error in
+            self.createGeneralFailureCallback()(error)
+            sender.isEnabled = true
+        })
     }
 
     /// "Change Date" button action handler
@@ -240,7 +282,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         self.view.endEditing(true)
         DatePickerViewController.show(title: NSLocalizedString("Select Date", comment: "Select Date"),
                                       selectedDate: date,
-                                      datePickerMode: .date, delegate: self)
+                                      datePickerMode: .date, delegate: self, maxDate: Date())
     }
 
     /// "Change Time" button action handler
@@ -250,7 +292,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         self.view.endEditing(true)
         DatePickerViewController.show(title: NSLocalizedString("Select Time", comment: "Select Time"),
                                       selectedDate: date,
-                                      datePickerMode: .time, delegate: self)
+                                      datePickerMode: .time, delegate: self, maxDate: Date())
     }
 
     /// Meal time button action handler
@@ -402,6 +444,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
     func foodItemAdd(_ item: FoodItem) {
         self.meals.append(item)
         self.table.loadData()
+        hasChanges = true
     }
 
     /// Update food item
@@ -409,6 +452,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
     /// - Parameter item: the item
     func foodItemUpdate(_ item: FoodItem) {
         self.table.loadData()
+        hasChanges = true
     }
 
     /// Delete food item
@@ -419,6 +463,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
             self.meals.remove(at: item)
         }
         table.loadData()
+        hasChanges = true
     }
 }
 

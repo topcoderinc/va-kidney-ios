@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/4/18.
+//  Modified by TCCODER on 4/1/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -16,4 +17,4 @@ import Foundation
  * - author: TCCODER
  * - version: 1.0
  */
-typealias Resource = MedicationResource
+typealias Resource = Recommendation
