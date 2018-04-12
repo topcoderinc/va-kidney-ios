@@ -68,7 +68,7 @@ class NDBBasedRecommendationGenerator: RecommendationGenerator {
     ///   - callback: the callback to return recommendation
     private func searchLowAndHighContentFood(nutrients: [NDBNutrient], callback: @escaping ([String], [String])->()) {
         let failure: FailureCallback = { error in
-            print("ERROR: \(error)")
+            print("ERROR:searchLowAndHighContentFood: \(error)")
             callback([], [])
         }
         var foodLowContent = [String]()
@@ -82,7 +82,7 @@ class NDBBasedRecommendationGenerator: RecommendationGenerator {
                 foodLowContent.append(contentsOf: responseCallback(jsonLow))
                 completion()
             }, failure: { error in
-                print("ERROR: \(error)")
+                print("ERROR:searchLowAndHighContentFood: \(error)")
                 completion()
             })
         }
@@ -102,7 +102,10 @@ class NDBBasedRecommendationGenerator: RecommendationGenerator {
                         processHighContentCallback([nutrient], json, {
                             g.leave()
                         })
-                    }, failure: failure)
+                    }, failure: { error in
+                        print("ERROR:searchLowAndHighContentFood:searchNutrients: \(error)")
+                        g.leave()
+                    })
                 }
                 g.notify(queue: DispatchQueue.main, execute: {
                     callback(foodLowContent, foodHighContent)

@@ -27,7 +27,7 @@ class FoodUtils {
     static let shared = FoodUtils()
 
     /// the solver used to generate recommendations
-    private var solver: RecommendationSolver = SimpleRecommendationSolver()
+    private var solver: RecommendationSolver = LimitBasedRecommendationSolver()
 
     /// the generator used to generate reports based on RecommendationSolutions
     private var reportGenerator: RecommendationGenerator = NDBBasedRecommendationGenerator()
@@ -95,19 +95,24 @@ class FoodUtils {
                     // For each Goal
                     for goal in goals {
 
+                        g.enter()
+
                         // Check if user eats bad food for this goal
-                        let solution = self.solver.checkGoal(goal: goal, info: info)
-                        switch solution {
-                        case .none:
-                            break
-                        default:
-                            print("checkRecommendations: solution: \(solution) for goal: \(goal.title)")
-                            g.enter()
-                            self.reportGenerator.genedateRecommendation(goal: goal, solution: solution, callback: { (list) in
-                                allRecommendations.append(contentsOf: list)
+                        self.solver.checkGoal(goal: goal, info: info, callback: { solution in
+                            switch solution {
+                            case .none:
                                 g.leave()
-                            })
-                        }
+                            default:
+                                print("checkRecommendations: solution: \(solution) for goal: \(goal.title)")
+                                self.reportGenerator.genedateRecommendation(goal: goal, solution: solution, callback: { (list) in
+                                    if list.isEmpty {
+                                        print("checkRecommendations: WARNING: No recommendation for solution: \(solution)")
+                                    }
+                                    allRecommendations.append(contentsOf: list)
+                                    g.leave()
+                                })
+                            }
+                        })
                     }
 
                     g.notify(queue: DispatchQueue.main, execute: {
@@ -115,7 +120,7 @@ class FoodUtils {
                         self.recommendationApi.replaceRecommendations(allRecommendations, ofType: .foodSuggestion, callback: {
                             print("checkRecommendations: reports saved: \(allRecommendations)")
                         }, failure: { (error) in
-                            print("ERROR: \(error)")
+                            print("ERROR: checkRecommendations:replaceRecommendations: \(error)")
                         })
                     })
 
@@ -135,7 +140,7 @@ class FoodUtils {
                             }
                             g.leave()
                         }, failure: { (error) in
-                            print("ERROR: \(error)")
+                            print("ERROR: checkRecommendations:drugs: \(error)")
                             g.leave()
                         })
                     }
@@ -145,7 +150,7 @@ class FoodUtils {
                     self.recommendationApi.replaceRecommendations(allDrugRecommendations, ofType: .drugInteractionWarnings, callback: {
                         print("checkRecommendations: reports saved: \(allDrugRecommendations)")
                     }, failure: { (error) in
-                        print("ERROR: \(error)")
+                        print("ERROR: checkRecommendations:replaceRecommendations: \(error)")
                     })
                 })
             }
@@ -237,7 +242,7 @@ class FoodUtils {
                 self.serviceApi.saveGoals(goals: goalsToSave, callback: { (_) in
                     print("updateGoals: goals updated")
                 }, failure: { (error) in
-                    print("ERROR: \(error)")
+                    print("ERROR:updateGoals: \(error)")
                 })
             })
         }
@@ -281,7 +286,7 @@ class FoodUtils {
                     g.leave()
                 }, failure: { (error) in
                     g.leave()
-                    print("ERROR: \(error)")
+                    print("ERROR:getNDBInfo: \(error)")
                 })
             }
         }

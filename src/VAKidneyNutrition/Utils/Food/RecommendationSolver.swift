@@ -27,5 +27,5 @@ protocol RecommendationSolver {
     ///   - goal: the goal
     ///   - info: the info
     /// - Returns: recommendation solution
-    func checkGoal(goal: Goal, info: [FoodItem: [NDBNutrient]]) -> RecommendationSolution
+    func checkGoal(goal: Goal, info: [FoodItem: [NDBNutrient]], callback: @escaping (RecommendationSolution)->())
 }

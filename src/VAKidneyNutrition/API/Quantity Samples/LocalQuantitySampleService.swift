@@ -36,7 +36,7 @@ class LocalQuantitySampleService: QuantitySampleService {
             callback(true)
             print("addSample: saved locally \(sample)")
         }) { (error) in
-            print("ERROR: \(error)")
+            print("ERROR:addSample: \(error)")
             callback(false)
         }
     }
@@ -59,7 +59,7 @@ class LocalQuantitySampleService: QuantitySampleService {
             }
             callback(converted, unit)
         }, failure: { (error) in
-            print("ERROR: \(error)")
+            print("ERROR:getPerMonthStatistics: \(error)")
             callback([], unit)
         })
     }
@@ -80,7 +80,7 @@ class LocalQuantitySampleService: QuantitySampleService {
             let quantity = HKQuantity(unit: HealthKitUtil.shared.getUnit(forType: quantityType), doubleValue: value)
             callback(quantity)
         }, failure: { (error) in
-            print("ERROR: \(error)")
+            print("ERROR:getTodayStatistics: \(error)")
             customTypeCallback()
         })
     }
@@ -98,7 +98,7 @@ class LocalQuantitySampleService: QuantitySampleService {
         quantitySampleService.getAll(from: lastYear, to: now, ofType: quantityType, callback: { (samples) in
             callback(!samples.isEmpty)
         }, failure: { (error) in
-            print("ERROR: \(error)")
+            print("ERROR:hasData: \(error)")
             callback(false)
         })
     }
