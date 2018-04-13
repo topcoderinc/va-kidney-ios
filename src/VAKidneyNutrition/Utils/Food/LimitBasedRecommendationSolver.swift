@@ -34,7 +34,7 @@ class LimitBasedRecommendationSolver: RecommendationSolver {
                             if let min = goal.min {
                                 if value < min {
                                     if !callbackInvoked {
-                                        callback(.increase)
+                                        callback(.increase(foodItem))
                                         callbackInvoked = true
                                     }
                                     g.leave()

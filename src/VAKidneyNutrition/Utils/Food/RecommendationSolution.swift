@@ -22,5 +22,5 @@ import Foundation
 enum RecommendationSolution {
 
     /// .reduce provides additional info
-    case reduce([NDBNutrient], [FoodItem]), increase, none
+    case reduce([NDBNutrient], [FoodItem]), increase(FoodItem), none
 }
