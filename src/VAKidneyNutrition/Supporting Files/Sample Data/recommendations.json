@@ -1,0 +1,25 @@
+{
+    "_comment": "`goalTitle` must have the same name as corresponding goal in allGoals.json. The file is used in StaticResourceBasedRecommendationGenerator",
+    "goalBased": [
+                  {
+                  "goalTitle": "Fluid Intake",
+                  "type": "reduce",
+                  "text": "You should drink less fluid. The normal amount of water per day is 1.5-2 liters."
+                  },
+                  {
+                  "goalTitle": "Fluid Intake",
+                  "type": "increase",
+                  "text": "You must drink more fluid. The normal amount of water per day is 1.5-2 liters."
+                  },
+                  {
+                  "goalTitle": "Protein Intake",
+                  "type": "increase",
+                  "text": "You should eat more cottage cheese, eggs, meat, chicken and drink more milk."
+                  },
+                  {
+                  "goalTitle": "Potassium Intake",
+                  "type": "increase",
+                  "text": "You should eat more tomatoes, garlic, potatoes, pumpkin, parsley, apricots, dried apricots, apricots, grapes, dried apricots, raisins, prunes, bananas, melons, apples, meat, nuts, cocoa, legumes, black tea."
+                  }
+    ]
+}

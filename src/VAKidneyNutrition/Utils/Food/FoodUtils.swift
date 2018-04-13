@@ -30,7 +30,7 @@ class FoodUtils {
     private var solver: RecommendationSolver = LimitBasedRecommendationSolver()
 
     /// the generator used to generate reports based on RecommendationSolutions
-    private var reportGenerator: RecommendationGenerator = NDBBasedRecommendationGenerator()
+    private var reportGenerator: RecommendationGenerator = ComplexRecommendationGenerator()
 
     /// the storage
     private var storage: QuantitySampleService = QuantitySampleStorage.shared

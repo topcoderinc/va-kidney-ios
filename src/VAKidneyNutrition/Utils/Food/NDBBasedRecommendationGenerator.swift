@@ -32,32 +32,55 @@ class NDBBasedRecommendationGenerator: RecommendationGenerator {
             let foodType = food.first?.type ?? FoodItemType.food
             self.searchLowAndHighContentFood(nutrients: nutrients, callback: { (suggestedLowFood, suggestedHighFood) in
                 var reports = [Recommendation]()
-                let foodString = food.map({$0.title}).joined(separator: ", ")
-                let nutrientsString = nutrients.map({$0.title}).joined(separator: ", ")
-                let title = NSLocalizedString("Reduce", comment: "Reduce") + " \(foodString)"
                 if !suggestedHighFood.isEmpty {
-                    let reportHigh = SimpleRecommendationSolver.createStubRecommendation(goal: goal, solution: solution)
-                    reportHigh.type = foodType == .food ? RecommendationType.unsafeFood : RecommendationType.drugConsumption
-                    reportHigh.title = title
-                    let foodList = suggestedHighFood.map({"- \($0)"}).joined(separator: ";\n")
-                    reportHigh.relatedFoodInfo = nutrientsString
-
-                    reportHigh.text = "\(foodList)\n\nThis food contains high amount of the nutrients you need to reduce."
-                    reports.append(reportHigh)
+                    if let reportHigh = NDBBasedRecommendationGenerator.generateStubReduceReport(goal: goal, solution: solution) {
+                        let foodList = suggestedHighFood.map({"- \($0)"}).joined(separator: ";\n")
+                        reportHigh.text = "\(foodList)\n\nThis food contains high amount of the nutrients you need to reduce."
+                        reports.append(reportHigh)
+                    }
                 }
                 if !suggestedLowFood.isEmpty {
-                    let reportLow = SimpleRecommendationSolver.createStubRecommendation(goal: goal, solution: solution)
-                    reportLow.type = foodType == .food ? RecommendationType.foodSuggestion : RecommendationType.drugConsumption
-                    reportLow.title = title
-                    let foodList = suggestedLowFood.map({"- \($0)"}).joined(separator: ";\n")
-                    reportLow.relatedFoodInfo = nutrientsString
-                    reportLow.text = "\(foodList)\n\nThis food contains low amount of the nutrient you need to reduce."
-                    reports.append(reportLow)
+                    if let reportLow = NDBBasedRecommendationGenerator.generateStubReduceReport(goal: goal, solution: solution) {
+                        reportLow.type = foodType == .food ? RecommendationType.foodSuggestion : RecommendationType.drugConsumption
+                        let foodList = suggestedLowFood.map({"- \($0)"}).joined(separator: ";\n")
+                        reportLow.text = "\(foodList)\n\nThis food contains low amount of the nutrient you need to reduce."
+                        reports.append(reportLow)
+                    }
                 }
                 callback(reports)
             })
         default:
             callback([])
+        }
+    }
+
+    /// Create almost ready Recommendation object. The only fields to tweak are `.text` and `.type` (optional)
+    ///
+    /// - Parameters:
+    ///   - goal: the goal
+    ///   - solution: the solution
+    /// - Returns: recommendation
+    class func generateStubReduceReport(goal: Goal, solution: RecommendationSolution) -> Recommendation? {
+        switch solution {
+        case .reduce(let nutrients, let food):
+            let foodType = food.first?.type ?? FoodItemType.food
+            let foodString = food.map({$0.title}).joined(separator: ", ")
+            let nutrientsString = nutrients.map({$0.title}).joined(separator: ", ")
+            let title = NSLocalizedString("Reduce", comment: "Reduce") + " \(foodString)"
+
+            let report = SimpleRecommendationSolver.createStubRecommendation(goal: goal, solution: solution)
+            report.type = foodType == .food ? RecommendationType.unsafeFood : RecommendationType.drugConsumption
+            report.title = title
+            report.relatedFoodInfo = nutrientsString
+            return report
+        case .increase(let food):
+            let title = NSLocalizedString("Increase \(goal.title)", comment: "Increase \(goal.title)") // TODO check if all goals has correct report title
+            let report = SimpleRecommendationSolver.createStubRecommendation(goal: goal, solution: solution)
+            report.type = food.type == .food ? RecommendationType.foodSuggestion : RecommendationType.drugConsumption
+            report.title = title
+            return report
+        default:
+            return nil
         }
     }
     

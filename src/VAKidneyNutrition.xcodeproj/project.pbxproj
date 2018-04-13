@@ -136,6 +136,9 @@
 		FD9F95A61FEC6DFD000FECAD /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A51FEC6DFC000FECAD /* Profile.swift */; };
 		FD9F95A81FEC7018000FECAD /* ProfileServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */; };
 		FDA7FB5C207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */; };
+		FDA7FB5E2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA7FB5D2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift */; };
+		FDA7FB602080A4470041BAA9 /* recommendations.json in Resources */ = {isa = PBXBuildFile; fileRef = FDA7FB5F2080A4470041BAA9 /* recommendations.json */; };
+		FDA7FB62208110E50041BAA9 /* ComplexRecommendationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA7FB61208110E50041BAA9 /* ComplexRecommendationGenerator.swift */; };
 		FDAA0B5C2024B24F0094515D /* HomeDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA0B5B2024B24F0094515D /* HomeDashboardViewController.swift */; };
 		FDAA0B5E2024B63A0094515D /* CircleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA0B5D2024B63A0094515D /* CircleProgress.swift */; };
 		FDAA0B602024E1250094515D /* HomeSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA0B5F2024E1250094515D /* HomeSuggestionsViewController.swift */; };
@@ -324,6 +327,9 @@
 		FD9F95A51FEC6DFC000FECAD /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceCache.swift; sourceTree = "<group>"; };
 		FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitBasedRecommendationSolver.swift; sourceTree = "<group>"; };
+		FDA7FB5D2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResourceBasedRecommendationGenerator.swift; sourceTree = "<group>"; };
+		FDA7FB5F2080A4470041BAA9 /* recommendations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recommendations.json; sourceTree = "<group>"; };
+		FDA7FB61208110E50041BAA9 /* ComplexRecommendationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexRecommendationGenerator.swift; sourceTree = "<group>"; };
 		FDAA0B5B2024B24F0094515D /* HomeDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboardViewController.swift; sourceTree = "<group>"; };
 		FDAA0B5D2024B63A0094515D /* CircleProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgress.swift; sourceTree = "<group>"; };
 		FDAA0B5F2024E1250094515D /* HomeSuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSuggestionsViewController.swift; sourceTree = "<group>"; };
@@ -519,6 +525,8 @@
 				FD3EA8D3206E5A4E003BE636 /* RecommendationGenerator.swift */,
 				FD3EA8D5206E5C2A003BE636 /* NDBBasedRecommendationGenerator.swift */,
 				FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */,
+				FDA7FB5D2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift */,
+				FDA7FB61208110E50041BAA9 /* ComplexRecommendationGenerator.swift */,
 			);
 			path = Food;
 			sourceTree = "<group>";
@@ -807,6 +815,7 @@
 				FD2F0960202738F00015376B /* welcome2.json */,
 				FD64C15C204A3E44000C1501 /* allGoals.json */,
 				FD64C162204AF61E000C1501 /* labValues.json */,
+				FDA7FB5F2080A4470041BAA9 /* recommendations.json */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
@@ -949,6 +958,7 @@
 				FD43687D1FF11941003B22CE /* workouts.json in Resources */,
 				FD43686E1FF0F239003B22CE /* food.json in Resources */,
 				FD5EF4682023AFE900E6BD23 /* MyriadPro-It.otf in Resources */,
+				FDA7FB602080A4470041BAA9 /* recommendations.json in Resources */,
 				FD5EF46B2023AFE900E6BD23 /* MyriadPro-SemiboldIt.otf in Resources */,
 				FD4368671FF0ECF2003B22CE /* Food.storyboard in Resources */,
 				FDF397DF1FEBD0C100DEED65 /* Main.storyboard in Resources */,
@@ -1024,6 +1034,7 @@
 				FD70AC9A1FEC0AC6003854A1 /* UserInfoServiceCache.swift in Sources */,
 				FD5EF46E2023B0C300E6BD23 /* WelcomeLaunchViewController.swift in Sources */,
 				FD12605920266BAF009514D6 /* ResourceDetailsViewController.swift in Sources */,
+				FDA7FB62208110E50041BAA9 /* ComplexRecommendationGenerator.swift in Sources */,
 				FD64C167204B48FE000C1501 /* ChartAddItemViewController.swift in Sources */,
 				FD12605320265B76009514D6 /* Recommendation.swift in Sources */,
 				FD3EA8D2206E57E4003BE636 /* NDBNutrient.swift in Sources */,
@@ -1092,6 +1103,7 @@
 				FD43686A1FF0EF09003B22CE /* FoodIntakeViewController.swift in Sources */,
 				FD64C16E204B5EA9000C1501 /* SimpleRecommendationSolver.swift in Sources */,
 				FD19E2CF20267301008C46BF /* Resource.swift in Sources */,
+				FDA7FB5E2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift in Sources */,
 				FD81F4AA20247561009EF447 /* WelcomePageContainerViewController.swift in Sources */,
 				FD94C6831FF034460039D233 /* GoalServiceCache.swift in Sources */,
 				FD64C17D204B79AB000C1501 /* RecommendationServiceCache.swift in Sources */,
