@@ -135,6 +135,7 @@
 		FD9F95A41FEC6135000FECAD /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A31FEC6135000FECAD /* CustomView.swift */; };
 		FD9F95A61FEC6DFD000FECAD /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A51FEC6DFC000FECAD /* Profile.swift */; };
 		FD9F95A81FEC7018000FECAD /* ProfileServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */; };
+		FDA7FB5C207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */; };
 		FDAA0B5C2024B24F0094515D /* HomeDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA0B5B2024B24F0094515D /* HomeDashboardViewController.swift */; };
 		FDAA0B5E2024B63A0094515D /* CircleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA0B5D2024B63A0094515D /* CircleProgress.swift */; };
 		FDAA0B602024E1250094515D /* HomeSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA0B5F2024E1250094515D /* HomeSuggestionsViewController.swift */; };
@@ -322,6 +323,7 @@
 		FD9F95A31FEC6135000FECAD /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		FD9F95A51FEC6DFC000FECAD /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceCache.swift; sourceTree = "<group>"; };
+		FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitBasedRecommendationSolver.swift; sourceTree = "<group>"; };
 		FDAA0B5B2024B24F0094515D /* HomeDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboardViewController.swift; sourceTree = "<group>"; };
 		FDAA0B5D2024B63A0094515D /* CircleProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgress.swift; sourceTree = "<group>"; };
 		FDAA0B5F2024E1250094515D /* HomeSuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSuggestionsViewController.swift; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				FD64C16D204B5EA9000C1501 /* SimpleRecommendationSolver.swift */,
 				FD3EA8D3206E5A4E003BE636 /* RecommendationGenerator.swift */,
 				FD3EA8D5206E5C2A003BE636 /* NDBBasedRecommendationGenerator.swift */,
+				FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */,
 			);
 			path = Food;
 			sourceTree = "<group>";
@@ -1077,6 +1080,7 @@
 				FD70AC751FEBF523003854A1 /* SignInViewController.swift in Sources */,
 				FD70AC7F1FEC059B003854A1 /* UserInfo.swift in Sources */,
 				FD19E2D320267D7B008C46BF /* GoalsCollectionViewController.swift in Sources */,
+				FDA7FB5C207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift in Sources */,
 				FD53C5EA204058F200AB7FDB /* FoodItem.swift in Sources */,
 				FD7F1E9A206FF2E100F4299B /* CachingFDAServiceApi.swift in Sources */,
 				FD70AC891FEC0632003854A1 /* CacheableObjectMOExtension.swift in Sources */,

@@ -27,19 +27,20 @@ class SimpleRecommendationSolver: RecommendationSolver, RecommendationGenerator 
 
     // MARK: - RecommendationSolver
 
-    func checkGoal(goal: Goal, info: [FoodItem : [NDBNutrient]]) -> RecommendationSolution {
+    func checkGoal(goal: Goal, info: [FoodItem : [NDBNutrient]], callback: @escaping (RecommendationSolution)->()) {
         if let title = goal.getRelatedNutrition()?.title {
             for (foodItem,v) in info {
                 for item in v {
                     if item.title.lowercased().contains(title.lowercased()) {
 
                         // The food has related nutrition -> suggest to reduce
-                        return .reduce([item], [foodItem])
+                        callback(.reduce([item], [foodItem]))
+                        return
                     }
                 }
             }
         }
-        return .none
+        return callback(.none)
     }
 
     // MARK: - RecommendationGenerator
