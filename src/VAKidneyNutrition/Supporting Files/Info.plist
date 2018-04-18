@@ -22,6 +22,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>The app will use your camera to take a photo</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>The app will use HealthKit data to make recommendations and show graphs</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>The app will save your profile and food/drug intake data</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The app will use photos to attach to food intakes</string>
 	<key>UILaunchStoryboardName</key>
@@ -45,9 +49,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSHealthShareUsageDescription</key>
-	<string>The app will use HealthKit data to make recommendations and show graphs</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>The app will save your profile and food/drug intake data</string>
 </dict>
 </plist>

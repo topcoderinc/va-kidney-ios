@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
 {\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 Menlo-Regular;
 \f3\fnil\fcharset0 Menlo-Bold;}
 {\colortbl;\red255\green255\blue255;\red42\green41\blue46;\red255\green255\blue255;\red27\green31\blue34;
@@ -15,31 +15,32 @@
 The list of fixed issues:\
 \
 \pard\pardeftab720\partightenfactor0
-{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/14"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/14}}\
-It\'92s related to {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/26"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/26}}\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/14"}}{\fldrslt \cf2 https://github.com/topcoderinc/va-kidney-ios/issues/14}}\
+It\'92s related to {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/26"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/26}}\
 Food Suggestions are implemented.\
 \
 \pard\pardeftab720\partightenfactor0
-{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/15"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/15}}\
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/15"}}{\fldrslt \cf2 https://github.com/topcoderinc/va-kidney-ios/issues/15}}\
 This was already implemented. For some drug sets there are no information in FDA database, so to verify you need to use the drugs that have interaction info (see an example in previous challenge video https://youtu.be/rUsXsVh8r7Y?t=43s )\
 \
-{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/16"}}{\fldrslt \cf2 \cb3 https://github.com/topcoderinc/va-kidney-ios/issues/16}}\
+\pard\pardeftab720\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/16"}}{\fldrslt \cf2 https://github.com/topcoderinc/va-kidney-ios/issues/16}}\
 >1. 
-\f1\fs28 \cf4 \cb3 Adding a new meal or drug and then go back and come again won't show the second meal/drug added\
+\f1\fs28 \cf4 Adding a new meal or drug and then go back and come again won't show the second meal/drug added\
 >2. If the user added multiple meal and drug and go back to the Food intake screen will display the first item added below the image\
 \pard\pardeftab720\partightenfactor0
 
-\f0\fs29\fsmilli14667 \cf2 \cb3 = Now fixed. When user tapped \'93Back\'94 button the data was not saved. It\'92s OK, but the app should ask user to confirm that. Now the app asks to confirm and warns that it will not be saved. The data is saved only when user tap \'93Save \'85\'94 button.\
+\f0\fs29\fsmilli14667 \cf2 = Now fixed. When user tapped \'93Back\'94 button the data was not saved. It\'92s OK, but the app should ask user to confirm that. Now the app asks to confirm and warns that it will not be saved. The data is saved only when user tap \'93Save \'85\'94 button.\
 \
 >3. 
-\f1\fs28 \cf4 \cb3 After taking a photo from the camera and tap on 'Add New meal' button will display validation message ending with 
-\f2\fs23\fsmilli11900 \cf4 \cb5 \\\
+\f1\fs28 \cf4 After taking a photo from the camera and tap on 'Add New meal' button will display validation message ending with 
+\f2\fs23\fsmilli11900 \cb5 \\\
 = Now the message is correct - \'93
-\f1\fs28 \cf4 \cb3 Please add at least one meal/drug
-\f2\fs23\fsmilli11900 \cf4 \cb5 \'94\
+\f1\fs28 \cb3 Please add at least one meal/drug
+\f2\fs23\fsmilli11900 \cb5 \'94\
 \
 >4. 
-\f1\fs28 \cf4 \cb3 'Add New Meal' button text hides when user tap on it without filling data\
+\f1\fs28 \cb3 'Add New Meal' button text hides when user tap on it without filling data\
 = Fixed\
 \
 >5. App crash when user select unit as 'L' and save the data\
@@ -48,7 +49,7 @@ This was already implemented. For some drug sets there are no information in FDA
 2) Add Food with Food Item named \'93water\'94. Save.\
 If all conditions are met, then NDB service will return items for \'93water\'94 and the app will identify them as related to \'93Fluid Intake\'94 goal. The taken items are saved in HK only if they are identified to be related to one of the goals. When they are saved, the app crashes.\
 Now try the same in the updated app.
-\f2\fs23\fsmilli11900 \cf4 \cb5 \
+\f2\fs23\fsmilli11900 \cb5 \
 
 \f0\fs29\fsmilli14667 \cf2 \cb3 \
 6. If `water` is saved as food item, then the items defined by NDB service include 
@@ -68,8 +69,8 @@ addItem: Saved 1 L  (2018-03-28 12:30:41 +0300 - 2018-03-28 12:30:41 +0300) of H
 \
 8. There was one more issue - 
 \f2\fs24 \cf6 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 Per-month data was requested incorrectly - the data was requested for the reference date that represents a middle of the month (current day). After the fix the periods start at 12:00AM in current timezone (21:00:00 +0000 in my timezone). Compare the two outputs of the requested data (before and after the fix in `
-\fs26 \cf6 \cb7 \CocoaLigature1 HealthKitUtil.getPerMonthStatistics` method
-\fs24 \cf6 \cb1 \CocoaLigature0 ):\
+\fs26 \cb7 \CocoaLigature1 HealthKitUtil.getPerMonthStatistics` method
+\fs24 \cb1 \CocoaLigature0 ):\
 // Before\
 statistics: <<HKStatistics: 0x6080002e2b80> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2018-01-29 08:17:59 +0000 - 2018-02-28 08:17:59 +0000) over sources ((null))>\
 statistics: <<HKStatistics: 0x6080002e2b80> Statistics on HKQuantityTypeIdentifierDietaryBiotin (2018-02-28 08:17:59 +0000 - 2018-03-29 08:17:59 +0000) over sources ((null))>\
@@ -92,7 +93,7 @@ Actual (in initial code): No chart is shown. It was in GMT-3 timezone at 8:18AM.
 \
 {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/18"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/18}}\
 >
-\f1\fs28 \cf4 \cb3 'Alchohol' Lab values is not working, can't add a record using the '+' option\
+\f1\fs28 \cf4 'Alchohol' Lab values is not working, can't add a record using the '+' option\
 \'93alcohol\'94, \'93meat\'94 and \'93vegetables\'94 are custom items that are NOT supported by HealthKit (Health app). That is why they were not saved.\
 Now it\'92s fixed. Try to save all three custom times. They are defined in new `enum 
 \f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 QuantityTypeCustom
@@ -101,7 +102,7 @@ Now it\'92s fixed. Try to save all three custom times. They are defined in new `
 \
 >Can't see any data related to 'Goal' only entered values are displayed on the chart. For example, if we set a Goal for Water intake and Add an actual value from (+) add button won't render the chart\
 
-\f0\fs29\fsmilli14667 \cf2 \cb3 \
+\f0\fs29\fsmilli14667 \cf2 \
 No goal lines are shown in charts for items that are related to existing goals. Now fixed. Three conditions should be met to show goal lines in charts:\
 1) There should be some data for the item (lab value).\
 2) Related goal should have exactly the same related quantity ID (new field in Goal.swift `
@@ -230,37 +231,37 @@ are always invoked even if read access dined or any other error occurred.\
 \
 {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/41"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/41}}\
 (note #1)Now ServiceApi protocol methods are used instead of direct access to 
-\f1\fs28 \cf4 \cb3 CachingServiceApi\
+\f1\fs28 \cf4 CachingServiceApi\
 A separate protocol is added to access Recommendations database - 
 \f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 RecommendationServiceApi
 \f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
 .
-\f0\fs29\fsmilli14667 \cf2 \cb3 \
+\f0\fs29\fsmilli14667 \cf2 \
 \pard\pardeftab720\partightenfactor0
 
 \f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 `getProfile()`
 \f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
  method was part of 
-\f0\fs29\fsmilli14667 \cf2 \cb3 ServiceApi protocol from very beginning.\
+\f0\fs29\fsmilli14667 \cf2 ServiceApi protocol from very beginning.\
 You can verify that all services are now used through protocols by searching `
-\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingServiceApi\cf6 \cb7 .\cf8 \cb7 shared.
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingServiceApi\cf6 .\cf8 shared.
 \f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
 ` (don\'92t forget to add dot at the end) - there are no usages. If you will search `
-\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingServiceApi\cf6 \cb7 .\cf8 \cb7 shared
+\f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingServiceApi\cf6 .\cf8 shared
 \f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
 ` (without dot at the end), then you will see that all variables have protocol type (either ServiceApi or 
 \f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 RecommendationServiceApi
 \f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
 ).\
 (notes #2 and #3)Instead of creating new class I added `
-\f2\fs26 \cf9 \cb7 \kerning1\expnd0\expndtw0 extension \cf8 \cb7 CachingServiceApi
+\f2\fs26 \cf9 \cb7 \kerning1\expnd0\expndtw0 extension \cf8 CachingServiceApi
 \f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
 ` as recommended in {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/42"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/42}}\
 \
 {\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/42"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/42}}\
 \pard\tx642\pardeftab642\pardirnatural\partightenfactor0
 
-\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - \cf8 \cb7 FoodDetailsServiceApi\cf6 \cb7  and \cf8 \cb7 DrugDetailsServiceApi 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - \cf8 FoodDetailsServiceApi\cf6  and \cf8 DrugDetailsServiceApi 
 \f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
 protocols added;\
 
@@ -270,7 +271,7 @@ FoodUtils uses all services through protocols (
 \f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 ServiceApi, RecommendationServiceApi, FoodDetailsServiceApi, DrugDetailsServiceApi
 \f1\fs28 \cf4 \cb3 \expnd0\expndtw0\kerning0
 ).
-\f0\fs29\fsmilli14667 \cf2 \cb3 \
+\f0\fs29\fsmilli14667 \cf2 \
 
 \f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 \
 \pard\tx642\pardeftab642\pardirnatural\partightenfactor0
@@ -281,7 +282,8 @@ https://github.com/topcoderinc/va-kidney-ios/issues/43}}
 \
 Class renamed. Type alias removed.\
 \
-{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/44"}}{\fldrslt https://github.com/topcoderinc/va-kidney-ios/issues/44}}\
+\pard\tx642\pardeftab642\pardirnatural\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/topcoderinc/va-kidney-ios/issues/44"}}{\fldrslt \cf2 https://github.com/topcoderinc/va-kidney-ios/issues/44}}\
 \pard\tx642\pardeftab642\pardirnatural\partightenfactor0
 
 \f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - 
@@ -291,7 +293,7 @@ Class renamed. Type alias removed.\
 \f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
 \
 
-\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - \cf8 \cb7 CachingNDBServiceApi 
+\f2\fs26 \cf6 \cb7 \kerning1\expnd0\expndtw0 - \cf8 CachingNDBServiceApi 
 \f0\fs29\fsmilli14667 \cf2 \cb3 \expnd0\expndtw0\kerning0
 and 
 \f2\fs26 \cf8 \cb7 \kerning1\expnd0\expndtw0 CachingFDAServiceApi
