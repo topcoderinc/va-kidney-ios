@@ -26,6 +26,9 @@ class WelcomePage1ViewController: UIViewController {
     @IBOutlet weak var message3Label: UILabel!
     @IBOutlet weak var topHeight: NSLayoutConstraint!
     @IBOutlet weak var topMargin: NSLayoutConstraint!
+    @IBOutlet weak var title1Label: UILabel!
+    @IBOutlet weak var title2Label: UILabel!
+    @IBOutlet weak var title3Label: UILabel!
 
     /// Setup UI
     override func viewDidLoad() {
@@ -41,6 +44,9 @@ class WelcomePage1ViewController: UIViewController {
     /// Load data
     private func loadData() {
         if let json = JSON.resource(named: "welcome1") {
+            title1Label.text = json["title1"].stringValue.uppercased()
+            title2Label.text = json["title2"].stringValue.uppercased()
+            title3Label.text = json["title3"].stringValue.uppercased()
             message1Label.text = json["message1"].stringValue
             message2Label.text = json["message2"].stringValue
             message3Label.text = json["message3"].stringValue
