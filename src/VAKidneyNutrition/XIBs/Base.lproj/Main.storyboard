@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WHO-40-p9S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WHO-40-p9S">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -665,7 +665,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="470"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnW-Jp-PQ2">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMg-e0-XnS">
                                                 <rect key="frame" x="20" y="37" width="260" height="32"/>
@@ -678,24 +678,24 @@ AND HEALTHY LIFE</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="c7d-HG-20u"/>
+                                            <constraint firstAttribute="height" constant="70" id="c7d-HG-20u"/>
                                             <constraint firstItem="jMg-e0-XnS" firstAttribute="top" secondItem="bnW-Jp-PQ2" secondAttribute="top" constant="37" id="gNY-i6-0gb"/>
                                             <constraint firstAttribute="trailing" secondItem="jMg-e0-XnS" secondAttribute="trailing" constant="20" id="huT-Xe-uAf"/>
                                             <constraint firstItem="jMg-e0-XnS" firstAttribute="leading" secondItem="bnW-Jp-PQ2" secondAttribute="leading" constant="20" id="uDx-vy-GV9"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzX-c6-LzN">
-                                        <rect key="frame" x="21.5" y="80" width="259.5" height="130"/>
+                                        <rect key="frame" x="21.5" y="70" width="259.5" height="133.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70n-Un-Jh9" userLabel="line">
-                                                <rect key="frame" x="0.0" y="82.5" width="186.5" height="2"/>
+                                                <rect key="frame" x="0.0" y="86" width="186.5" height="2"/>
                                                 <color key="backgroundColor" red="0.0" green="0.51372549019607838" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1.5" id="bFX-cO-gDU"/>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconWaterLarge" translatesAutoresizingMaskIntoConstraints="NO" id="nLJ-D9-e2j">
-                                                <rect key="frame" x="0.0" y="-10.5" width="34" height="94"/>
+                                                <rect key="frame" x="0.0" y="-7.5" width="34" height="94"/>
                                                 <color key="tintColor" red="0.1803921568627451" green="0.4823529411764706" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="34" id="6OA-MI-gON"/>
@@ -703,13 +703,13 @@ AND HEALTHY LIFE</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXC-0x-Y5p">
-                                                <rect key="frame" x="51" y="34.5" width="208.5" height="26"/>
+                                                <rect key="frame" x="51" y="37.5" width="208.5" height="26"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DRINK WATER" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agA-Je-Z3T">
-                                                <rect key="frame" x="51" y="18.5" width="208.5" height="13"/>
+                                                <rect key="frame" x="51" y="21.5" width="208.5" height="13"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -718,29 +718,32 @@ AND HEALTHY LIFE</string>
                                         <constraints>
                                             <constraint firstItem="gXC-0x-Y5p" firstAttribute="leading" secondItem="nLJ-D9-e2j" secondAttribute="trailing" constant="17" id="1sh-RQ-voN"/>
                                             <constraint firstItem="gXC-0x-Y5p" firstAttribute="top" secondItem="agA-Je-Z3T" secondAttribute="bottom" constant="3" id="3Hq-1V-uCv"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="70n-Un-Jh9" secondAttribute="bottom" id="91e-xE-Gke"/>
                                             <constraint firstAttribute="trailing" secondItem="70n-Un-Jh9" secondAttribute="trailing" constant="73" id="Grg-BL-FuQ"/>
                                             <constraint firstItem="nLJ-D9-e2j" firstAttribute="leading" secondItem="zzX-c6-LzN" secondAttribute="leading" id="OLB-OR-3Gr"/>
+                                            <constraint firstItem="70n-Un-Jh9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gXC-0x-Y5p" secondAttribute="bottom" constant="5" id="Xne-Nv-HS4"/>
                                             <constraint firstItem="agA-Je-Z3T" firstAttribute="leading" secondItem="gXC-0x-Y5p" secondAttribute="leading" id="Z8I-QE-snD"/>
                                             <constraint firstItem="nLJ-D9-e2j" firstAttribute="top" secondItem="agA-Je-Z3T" secondAttribute="top" constant="-29" id="efq-Pb-p5a"/>
                                             <constraint firstItem="agA-Je-Z3T" firstAttribute="trailing" secondItem="gXC-0x-Y5p" secondAttribute="trailing" id="eug-qg-lS0"/>
-                                            <constraint firstAttribute="bottom" secondItem="70n-Un-Jh9" secondAttribute="bottom" constant="45.5" id="fth-3q-05x"/>
+                                            <constraint firstAttribute="bottom" secondItem="70n-Un-Jh9" secondAttribute="bottom" priority="500" constant="45.5" id="fth-3q-05x"/>
                                             <constraint firstItem="70n-Un-Jh9" firstAttribute="leading" secondItem="zzX-c6-LzN" secondAttribute="leading" id="jL0-jI-owy"/>
                                             <constraint firstAttribute="trailing" secondItem="gXC-0x-Y5p" secondAttribute="trailing" id="kqu-mQ-CJZ"/>
-                                            <constraint firstItem="70n-Un-Jh9" firstAttribute="top" secondItem="gXC-0x-Y5p" secondAttribute="bottom" constant="22.5" id="p5m-BW-6vw"/>
+                                            <constraint firstItem="70n-Un-Jh9" firstAttribute="top" secondItem="gXC-0x-Y5p" secondAttribute="bottom" priority="400" constant="22.5" id="p5m-BW-6vw"/>
+                                            <constraint firstItem="agA-Je-Z3T" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zzX-c6-LzN" secondAttribute="top" id="q1O-QW-hSj"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHj-g2-Tlv">
-                                        <rect key="frame" x="21" y="210" width="259.5" height="130"/>
+                                        <rect key="frame" x="21" y="203.5" width="259.5" height="133"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJF-sQ-XkK" userLabel="line">
-                                                <rect key="frame" x="73" y="82.5" width="186.5" height="2"/>
+                                                <rect key="frame" x="73" y="85.5" width="186.5" height="2"/>
                                                 <color key="backgroundColor" red="0.33333333333333331" green="0.46274509803921571" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1.5" id="aMI-Am-KbT"/>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconEatLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Uxp-mb-Bcd">
-                                                <rect key="frame" x="207.5" y="17" width="52" height="50"/>
+                                                <rect key="frame" x="207.5" y="20" width="52" height="50"/>
                                                 <color key="tintColor" red="0.37647058823529411" green="0.50588235294117645" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="UtT-h6-XsQ"/>
@@ -748,44 +751,47 @@ AND HEALTHY LIFE</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit conse" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vp9-EM-beA">
-                                                <rect key="frame" x="0.0" y="34" width="195" height="26"/>
+                                                <rect key="frame" x="0.0" y="37" width="195" height="26"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EAT VEGETABLES &amp; FRUITS" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4D-c7-9Pc">
-                                                <rect key="frame" x="0.0" y="18" width="195" height="13"/>
+                                                <rect key="frame" x="0.0" y="21" width="195" height="13"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GJF-sQ-XkK" secondAttribute="bottom" id="0Zr-SU-8Dj"/>
                                             <constraint firstItem="GJF-sQ-XkK" firstAttribute="leading" secondItem="FHj-g2-Tlv" secondAttribute="leading" constant="73" id="Afa-U9-yEn"/>
                                             <constraint firstItem="Uxp-mb-Bcd" firstAttribute="leading" secondItem="Vp9-EM-beA" secondAttribute="trailing" constant="12.5" id="Oft-i2-j9b"/>
                                             <constraint firstItem="Vp9-EM-beA" firstAttribute="leading" secondItem="FHj-g2-Tlv" secondAttribute="leading" id="Okt-vX-oe6"/>
+                                            <constraint firstItem="q4D-c7-9Pc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FHj-g2-Tlv" secondAttribute="top" constant="5" id="QNO-z5-vgv"/>
                                             <constraint firstItem="Vp9-EM-beA" firstAttribute="top" secondItem="q4D-c7-9Pc" secondAttribute="bottom" constant="3" id="TI4-5R-BVG"/>
-                                            <constraint firstAttribute="bottom" secondItem="GJF-sQ-XkK" secondAttribute="bottom" constant="45.5" id="UUh-1b-Fvc"/>
+                                            <constraint firstAttribute="bottom" secondItem="GJF-sQ-XkK" secondAttribute="bottom" priority="500" constant="45.5" id="UUh-1b-Fvc"/>
                                             <constraint firstItem="q4D-c7-9Pc" firstAttribute="leading" secondItem="Vp9-EM-beA" secondAttribute="leading" id="W0R-dy-6Md"/>
                                             <constraint firstAttribute="trailing" secondItem="Uxp-mb-Bcd" secondAttribute="trailing" id="ZSL-2o-KGw"/>
                                             <constraint firstItem="Uxp-mb-Bcd" firstAttribute="top" secondItem="q4D-c7-9Pc" secondAttribute="top" constant="-1" id="iVr-Lu-8xM"/>
                                             <constraint firstItem="q4D-c7-9Pc" firstAttribute="trailing" secondItem="Vp9-EM-beA" secondAttribute="trailing" id="lJW-6l-l6T"/>
-                                            <constraint firstItem="GJF-sQ-XkK" firstAttribute="top" secondItem="Vp9-EM-beA" secondAttribute="bottom" constant="22.5" id="q0Q-do-gTr"/>
+                                            <constraint firstItem="GJF-sQ-XkK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Vp9-EM-beA" secondAttribute="bottom" constant="10" id="lWD-yQ-LoE"/>
+                                            <constraint firstItem="GJF-sQ-XkK" firstAttribute="top" secondItem="Vp9-EM-beA" secondAttribute="bottom" priority="500" constant="22.5" id="q0Q-do-gTr"/>
                                             <constraint firstAttribute="trailing" secondItem="GJF-sQ-XkK" secondAttribute="trailing" id="wIp-a8-eRP"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-6b-my1">
-                                        <rect key="frame" x="21" y="340" width="259.5" height="130"/>
+                                        <rect key="frame" x="21" y="336.5" width="259.5" height="133.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cw0-38-Ylz" userLabel="line">
-                                                <rect key="frame" x="0.0" y="82.5" width="186.5" height="2"/>
+                                                <rect key="frame" x="0.0" y="86" width="186.5" height="2"/>
                                                 <color key="backgroundColor" red="1" green="0.49803921568627452" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1.5" id="V79-8p-0dD"/>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconWorkoutLarge" translatesAutoresizingMaskIntoConstraints="NO" id="DTz-UG-eaQ">
-                                                <rect key="frame" x="0.0" y="-11" width="54" height="94"/>
+                                                <rect key="frame" x="0.0" y="-7.5" width="54" height="94"/>
                                                 <color key="tintColor" red="1" green="0.49803921568627452" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="54" id="fCY-xZ-Xjl"/>
@@ -793,13 +799,13 @@ AND HEALTHY LIFE</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit conse" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Z9-x0-sNq">
-                                                <rect key="frame" x="67" y="34" width="192.5" height="26"/>
+                                                <rect key="frame" x="67" y="37.5" width="192.5" height="26"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WORKOUT" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvE-ZW-hcP">
-                                                <rect key="frame" x="67" y="18" width="192.5" height="13"/>
+                                                <rect key="frame" x="67" y="21.5" width="192.5" height="13"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -811,11 +817,14 @@ AND HEALTHY LIFE</string>
                                             <constraint firstItem="5Z9-x0-sNq" firstAttribute="top" secondItem="YvE-ZW-hcP" secondAttribute="bottom" constant="3" id="KlP-Vg-edP"/>
                                             <constraint firstItem="YvE-ZW-hcP" firstAttribute="trailing" secondItem="5Z9-x0-sNq" secondAttribute="trailing" id="Kxp-m1-b5V"/>
                                             <constraint firstItem="5Z9-x0-sNq" firstAttribute="leading" secondItem="DTz-UG-eaQ" secondAttribute="trailing" constant="13" id="LJQ-Kv-cKY"/>
+                                            <constraint firstItem="YvE-ZW-hcP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0Co-6b-my1" secondAttribute="top" constant="5" id="PrP-0Q-L6F"/>
                                             <constraint firstItem="YvE-ZW-hcP" firstAttribute="leading" secondItem="5Z9-x0-sNq" secondAttribute="leading" id="aM6-1H-Vjt"/>
                                             <constraint firstItem="DTz-UG-eaQ" firstAttribute="leading" secondItem="0Co-6b-my1" secondAttribute="leading" id="ah0-Yy-CTh"/>
-                                            <constraint firstItem="Cw0-38-Ylz" firstAttribute="top" secondItem="5Z9-x0-sNq" secondAttribute="bottom" constant="22.5" id="cVn-cz-CCx"/>
-                                            <constraint firstAttribute="bottom" secondItem="Cw0-38-Ylz" secondAttribute="bottom" constant="45.5" id="heV-RJ-jYN"/>
+                                            <constraint firstItem="Cw0-38-Ylz" firstAttribute="top" secondItem="5Z9-x0-sNq" secondAttribute="bottom" priority="500" constant="22.5" id="cVn-cz-CCx"/>
+                                            <constraint firstAttribute="bottom" secondItem="Cw0-38-Ylz" secondAttribute="bottom" priority="500" constant="45.5" id="heV-RJ-jYN"/>
                                             <constraint firstAttribute="trailing" secondItem="5Z9-x0-sNq" secondAttribute="trailing" id="npQ-mK-xRx"/>
+                                            <constraint firstItem="Cw0-38-Ylz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Z9-x0-sNq" secondAttribute="bottom" constant="5" id="osQ-x0-hxc"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Cw0-38-Ylz" secondAttribute="bottom" id="pRc-TC-ZU0"/>
                                             <constraint firstItem="DTz-UG-eaQ" firstAttribute="top" secondItem="YvE-ZW-hcP" secondAttribute="top" constant="-29" id="tIC-dT-dX9"/>
                                         </constraints>
                                     </view>
@@ -857,6 +866,9 @@ AND HEALTHY LIFE</string>
                         <outlet property="message1Label" destination="gXC-0x-Y5p" id="gIk-a3-9ug"/>
                         <outlet property="message2Label" destination="Vp9-EM-beA" id="UeX-Dn-cj0"/>
                         <outlet property="message3Label" destination="5Z9-x0-sNq" id="pln-bP-432"/>
+                        <outlet property="title1Label" destination="agA-Je-Z3T" id="VHs-Oo-GmV"/>
+                        <outlet property="title2Label" destination="q4D-c7-9Pc" id="RNA-Kn-doZ"/>
+                        <outlet property="title3Label" destination="YvE-ZW-hcP" id="fVv-Lt-1VK"/>
                         <outlet property="titleLabel" destination="jMg-e0-XnS" id="6pn-Kt-tLz"/>
                         <outlet property="topHeight" destination="c7d-HG-20u" id="t4o-kX-J1Y"/>
                         <outlet property="topMargin" destination="gNY-i6-0gb" id="RGl-Dg-2Xz"/>

@@ -33,6 +33,8 @@ class WelcomePage2ViewController: UIViewController {
         message2Label.setLineSpacing(lineSpacing: 3)
 
         if let json = JSON.resource(named: "welcome2") {
+            title1Label.text = json["title1"].stringValue.uppercased()
+            title2Label.text = json["title2"].stringValue.uppercased()
             message1Label.text = json["message1"].stringValue
             message2Label.text = json["message2"].stringValue
         }
