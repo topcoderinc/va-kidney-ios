@@ -138,11 +138,8 @@ class ResourcesTableViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = items[indexPath.row]
-        if let vc = create(ResourceDetailsViewController.self, storyboardName: "Medications") {
-            vc.title = NSLocalizedString("Resource Details", comment: "Resource Details").uppercased()
-
-            vc.medicationResource = item
-            self.navigationController?.pushViewController(vc, animated: true)
+        if let url = URL(string: item.url), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
 

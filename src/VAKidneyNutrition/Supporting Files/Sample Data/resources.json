@@ -1,26 +1,50 @@
  [
   {
-  "id": 1,
-  "title": "Food For Healthy Life",
-  "text": "Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.\n\nDuis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo.\n\nNullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.",
-  "imageUrl": "iconEatLarge"
+  "type": 0,
+  "items": [
+            {"title":"Mediterranean diet and CKD", "text": "From the European Renal Nutrition working Group", "url": "https://academic.oup.com/ndt/advance-article/doi/10.1093/ndt/gfx085/3917052"},
+            {"title":"DASH (Dietary Approaches to Stop Hypertension) and risk of CKD", "text": "Demonstrates how following the DASH diet can reduce risk of kidney disease", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5123940/"},
+            {"title":"How do you practically implement protein restriction in CKD?", "text": "A guide to some of the ways to safely restrict protein in your diet", "url": "https://academic.oup.com/ckj/article/8/1/61/435286"},
+            {"title":"Vegetarian diets in CKD", "text": "A review of what we know about vegetariandiets in CKD", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5409713/"},
+            {"title":"What should be on the plate in CKD?", "text": "General overall guidelines for nutition in moderate CKD", "url": "https://www.sciencedirect.com/science/article/pii/S0272638616305984?via%3Dihub"},
+            {"title":"Management of Acidosis with pills or diet", "text": "Guidance on managing blood acid levels with diet", "url": "https://www.sciencedirect.com/science/article/pii/S1548559517300940?via%3Dihub"},
+            {"title":"Eating Fruits and Vegetables ", "text": "A randomized study comparing fruits and vegetables to pills", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3586961/"},
+            {"title":"Restricting salt intake", "text": "A review of studies supporting how sodium restriction can help patients with CKD", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4189688/"},
+            {"title":"Dietary phosphate restriction", "text": "A 'phosphorus pyramid'  tool to help reduce phosphate intake", "url": "https://bmcnephrol.biomedcentral.com/articles/10.1186/1471-2369-16-9"},
+            {"title":"Sources of Dietary phosphorus", "text": "Understanding how phosphorus is in many foods", "url": "http://cjasn.asnjournals.org/content/5/3/519.long"},
+            {"title":"Dietary potassium restriction", "text": "Helpful hints to figure out how to reduce potassium intake", "url": "https://www.ncbi.nlm.nih.gov/pubmed/29495340"}
+            ]
   },
   {
-  "id": 2,
-  "title": "Try Reduce This Kind of Food",
-  "text": "Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.\n\nDuis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo.\n\nNullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.",
-  "imageUrl": "iconEatLarge"
+  "type": 1,
+  "items": [
+            {"title":"Healthy Teaching Kitchen", "text": "Watch these quick videos on basic food preparation so you can make your food, your way.", "url": "https://www.youtube.com/watch?v=jtjZOe0dvwA&list=PL3AQ_JVoBEywA0DxUr5WalEVr6iGcnjYf"}
+            ]
   },
   {
-  "id": 3,
-  "title": "Power For Better Life Is Here",
-  "text": "Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.\n\nDuis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo.\n\nNullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.",
-  "imageUrl": "iconEatLarge"
-  },
-  {
-  "id": 4,
-  "title": "Explore The Great Benefit of Apple",
-  "text": "Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.\n\nDuis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo.\n\nNullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris egestas quam, ut aliquam massa nisl quis neque. Suspendisse in orci enim.",
-  "imageUrl": "iconEatLarge"
+  "type": 2,
+  "items": [
+            {"title":"VA e-Kidney Clinic", "text": "Visit this virtual clinic to get connected with many resources on diet, care plans, and medications. ", "url": "https://www.va.gov/health/services/renal/"},
+            {"title":"NKDEP", "text": "Read these nutrition handouts and find out what's in what. ", "url": "https://www.niddk.nih.gov/health-information/communication-programs/nkdep"},
+            {"title":"Let's get cooking!", "text": "These healthy cookbooks are for beginners or people on the move with limited time and space. ", "url": "https://www.nutrition.va.gov/Recipes.asp "},
+            {"title":"Healthy Teaching Kitchen", "text": "Watch these quick videos on basic food preparation so you can make your food, your way.", "url": "https://www.youtube.com/watch?v=jtjZOe0dvwA&list=PL3AQ_JVoBEywA0DxUr5WalEVr6iGcnjYf "},
+            {"title":"What is Chronic Kidney Disease", "text": "Do you have diabetes and CKD? These handouts review care guidelines from the NIDDK.", "url": "https://www.niddk.nih.gov/health-information/kidney-disease/chronic-kidney-disease-ckd/what-is-chronic-kidney-disease"},
+            {"title":"Spice It Up!", "text": "Plan a zesty diet for CKD with these recipes!", "url": "http://www.myspiceitup.ca/"},
+            {"title":"Are there medications for kidney disease?", "text": " Watch this video - a doctor discusses medications for CKD.", "url": "https://www.youtube.com/watch?v=nppBNtDw5Pk"},
+            {"title":"Can CKD get better?", "text": "Watch this video - a doctor answers the question \"can CKD get better?\"", "url": "https://www.youtube.com/watch?v=JVN2adU4vmc"},
+            {"title":"Eating right for CKD", "text": "Read this handout on CKD nutrition during predialysis stages", "url": "https://www.niddk.nih.gov/health-information/professionals/-/media/Files/Health-Information/Communication-Programs/NKDEP/eating-right-508.pdf"},
+            {"title":"I feel fine why do I need to see a surgeon - approach #1", "text": "Watch part one of a two part video on why an AV fistula is placed before dialysis.", "url": "https://www.youtube.com/watch?v=5BFbSKMMtT4"},
+            {"title":"I feel fine why do I need to see a surgeon - approach #2", "text": "Watch part two of a two part video on why an AV fistula is placed before dialysis", "url": "https://www.youtube.com/watch?v=BzMNdm0nbDU"},
+            {"title":"Is kidney transplant an option?", "text": "Watch this video to learn about pro's and con's of transplant.", "url": "https://www.youtube.com/watch?v=Q_RkDeMY0Pg"},
+            {"title":"keeping kidneys safe - how medication effects the kidneys", "text": "Watch this video to learn medications effect the kidneys. ", "url": "https://www.youtube.com/watch?v=eWlx6C9Jv5g"},
+            {"title":"Phosphorus:tips for people with CKD", "text": "Read this to learn more about dietary phosphorus management", "url": "https://www.niddk.nih.gov/health-information/professionals/-/media/Files/Health-Information/Communication-Programs/NKDEP/nutrition-phosphorus-508.pdf"},
+            {"title":"Potassium: tips for people with CKD", "text": "Read this if you have been advised to reduce dietary potassium.", "url": "https://www.niddk.nih.gov/health-information/professionals/-/media/Files/Health-Information/Communication-Programs/NKDEP/nutrition-potassium-508.pdf"},
+            {"title":"Protein: tips for people with CKD", "text": "Read these tips on protein management if you have CKD but have not started dialysis.", "url": "https://www.niddk.nih.gov/health-information/professionals/-/media/Files/Health-Information/Communication-Programs/NKDEP/nutrition-protein-508.pdf"},
+            {"title":"Sodium: tips for people with CKD", "text": "Read these tips on low sodium diet for people with CKD", "url": "https://www.niddk.nih.gov/health-information/professionals/-/media/Files/Health-Information/Communication-Programs/NKDEP/nutrition-sodium-508.pdf"},
+            {"title":"What do the kidneys do? Version 1", "text": "Watch this video of a doctor explaining the role of kidneys in this silent disease", "url": "https://www.youtube.com/watch?v=c4kifUnssfs"},
+            {"title":"What do the kidneys do? Version 2", "text": "Watch this video of a doctor explaining the role of kidneys and when dialysis or transplant is needed.", "url": "https://www.youtube.com/watch?v=-BwNJKKTnOY"},
+            {"title":"Just enough:  Food portion or serving?", "text": "Read this to learn about the difference between a portion and a serving of food and other labeling details", "url": "https://www.niddk.nih.gov/health-information/weight-management/just-enough-food-portions"},
+            {"title":"Super Tracker", "text": "Links to the USDA Super Tracker site", "url": "https://www.supertracker.usda.gov/"}
+            ]
   }
-  ]
+]

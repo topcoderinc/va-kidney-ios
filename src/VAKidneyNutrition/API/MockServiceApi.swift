@@ -439,7 +439,7 @@ class MockServiceApi: ServiceApi {
     func getResources(type: ResourceType, callback: @escaping ([Resource])->(), failure: @escaping FailureCallback) {
         delay(DELAY_FOR_DEMONSTRATION) {
             if let json = JSON.resource(named: "resources") {
-                let items = json.arrayValue.map({Resource.fromJson($0)})
+                let items = json.arrayValue.filter({$0["type"].intValue == type.rawValue}).first?["items"].arrayValue.map({Resource.fromJson($0)}) ?? []
                 callback(items)
             }
         }
