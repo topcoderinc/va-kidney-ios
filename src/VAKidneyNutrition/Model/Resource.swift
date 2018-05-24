@@ -8,13 +8,30 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 /**
  * Resource model object.
- * For simplisity it's just typealias for now because used almost the same as MedicationResource.
- * It can be redefined in future when API will provide the object structure.
  *
  * - author: TCCODER
  * - version: 1.0
  */
-typealias Resource = Recommendation
+class Resource {
+
+    /// the fields
+    var title = ""
+    var text = ""
+    var url: String = ""
+
+    /// Parse JSON to model object
+    ///
+    /// - Parameter json: JSON
+    /// - Returns: the object
+    class func fromJson(_ json: JSON) -> Resource {
+        let object = Resource()
+        object.title = json["title"].stringValue.trim()
+        object.text = json["text"].stringValue.trim()
+        object.url = json["url"].stringValue.trim()
+        return object
+    }
+}
