@@ -5,19 +5,17 @@
 //  Created by TCCODER on 2/2/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
 import UIComponents
 
-// option: true - will use singular words for top goals, false - will always use plural
-let OPTION_USE_SINGULAR_FOR_TOP_GOALS = false
-
 /**
  * First Home screen
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -25,6 +23,9 @@ let OPTION_USE_SINGULAR_FOR_TOP_GOALS = false
  *
  * 1.2:
  * - API change
+ *
+ * 1.3:
+ * - Measurements info in Home page
  */
 class HomeDashboardViewController: UIViewController {
 
@@ -42,8 +43,8 @@ class HomeDashboardViewController: UIViewController {
     @IBOutlet weak var topMargin: NSLayoutConstraint!
     @IBOutlet weak var topHeight: NSLayoutConstraint!
 
-    /// the goals
-    private var goals = [Goal]()
+    /// the items to show
+    private var items = [HomeInfo]()
 
     /// the reference to API
     private let api: ServiceApi = CachingServiceApi.shared
@@ -53,6 +54,14 @@ class HomeDashboardViewController: UIViewController {
         super.viewDidLoad()
 
         bgColor.backgroundColor = Colors.darkBlue
+        updateUI()
+    }
+
+    /// Load data
+    ///
+    /// - Parameter animated: the animation flag
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         loadData()
     }
 
@@ -65,9 +74,9 @@ class HomeDashboardViewController: UIViewController {
         self.view.layoutIfNeeded()
         do {
             let loadingView = LoadingView(parentView: goalsView, dimming: false).show()
-            api.getGoals(profile: nil, callback: { (goals) in
+            api.getDashboardInfo(callback: { (list) in
                 loadingView.terminate()
-                self.goals = goals
+                self.items = list
                 self.updateUI()
             }, failure: createGeneralFailureCallback(loadingView))
         }
@@ -89,20 +98,15 @@ class HomeDashboardViewController: UIViewController {
         for i in 0..<n {
             goalViews[i].isHidden = true
         }
-        if !goals.isEmpty {
-            for i in 0..<min(goals.count, n) {
-                goalViews[i].isHidden = false
-                let item = goals[i]
+        if !items.isEmpty {
+            for i in 0..<min(items.count, n) {
+                goalViews.filter({$0.tag == i}).first?.isHidden = false
+                let item = items[i]
                 goalImages.filter({$0.tag == i}).first?.image = UIImage(named: item.iconName)
                 goalTitles.filter({$0.tag == i}).first?.text = item.title
-                goalValues.filter({$0.tag == i}).first?.text = "\(item.value.toString())/\(item.targetValue.toString())"
-                if OPTION_USE_SINGULAR_FOR_TOP_GOALS && item.value == 1 {
-                    goalValueLabels.filter({$0.tag == i}).first?.text = item.valueText1
-                }
-                else {
-                    goalValueLabels.filter({$0.tag == i}).first?.text = item.valueTextMultiple
-                }
-                let percent = min(1, item.value / max(1, item.targetValue))
+                goalValues.filter({$0.tag == i}).first?.text = item.value
+                goalValueLabels.filter({$0.tag == i}).first?.text = item.value.isEmpty ? "" : item.valueText
+                let percent = item.percent
                 if let view = goalProgresses.filter({$0.tag == i}).first {
                     view.processValue = percent
                     view.mainColor = item.color
@@ -111,4 +115,22 @@ class HomeDashboardViewController: UIViewController {
         }
     }
 
+    /// Button action handler
+    ///
+    /// - parameter sender: the button
+    @IBAction func infoButtonAction(_ sender: UIButton) {
+        if sender.tag < items.count {
+            let item = items[sender.tag]
+            if !item.relatedQuantityIds.isEmpty {
+                if let vc = create(ChartViewController.self, storyboardName: "Charts") {
+                    vc.quantityTypes = item.relatedQuantityIds.map({QuantityType.fromId($0)})
+                    vc.customTitle = item.title
+                    vc.customChartTitles = item.quantityTitles
+                    vc.type = .discreteValues
+                    vc.info = item.info
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+    }
 }

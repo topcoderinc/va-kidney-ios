@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/29/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,7 +14,11 @@ import HealthKit
  * QuantitySampleService implementation that read/save data from local storage (not from HealthKit)
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new API methods
  */
 class LocalQuantitySampleService: QuantitySampleService {
 
@@ -101,5 +106,38 @@ class LocalQuantitySampleService: QuantitySampleService {
             print("ERROR:hasData: \(error)")
             callback(false)
         })
+    }
+
+    /// Get data for today
+    ///
+    /// - Parameters:
+    ///   - quantityType: the quantityType
+    ///   - callback: the callback to return data
+    ///   - customTypeCallback: the callback to invoke if custom type is requested
+    func getTodayData(_ quantityType: QuantityType, callback: @escaping (HKQuantity?, HKUnit)->(), customTypeCallback: @escaping ()->()) {
+        let todayStart = Calendar.current.date(from: Calendar.current.dateComponents([.month, .year, .day], from: Date()))!
+        quantitySampleService.getAll(from: todayStart, to: Date(), ofType: quantityType, callback: { (samples) in
+            if let sample = samples.last {
+                let unit = HealthKitUtil.shared.getUnit(forType: quantityType)
+                let quantity = HKQuantity(unit: unit, doubleValue: sample.amount)
+                callback(quantity, unit)
+            }
+            else {
+                callback(nil, HKUnit.gram()) // any unit 
+            }
+        }, failure: { (error) in
+            print("ERROR: getTodayData: \(error)")
+            customTypeCallback()
+        })
+    }
+
+    /// Get discrete values
+    ///
+    /// - Parameters:
+    ///   - quantityType: the quantity type
+    ///   - callback: the callback to return data
+    ///   - customTypeCallback: the callback to invoke if custom type is requested
+    func getDiscreteValues(_ quantityType: QuantityType, callback: @escaping ([(Date, Double)], String)->(), customTypeCallback: @escaping ()->()) {
+        getPerMonthStatistics(quantityType, callback: callback, customTypeCallback: customTypeCallback)
     }
 }

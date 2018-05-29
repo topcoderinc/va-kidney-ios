@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 5/26/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
@@ -35,9 +36,22 @@ var LastPickerViewController: PickerViewController?
     @objc optional func pickerCancelled(_ picker: PickerViewController)
 }
 
+/**
+ * Picker Value model object
+ *
+ * - author: TCCODER
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - `value` added
+ */
 class PickerValue: NSObject {
 
+    /// the fields
     let string: String
+    var value: Any?
+
     init(_ string: String?) {
         self.string = string ?? ""
     }

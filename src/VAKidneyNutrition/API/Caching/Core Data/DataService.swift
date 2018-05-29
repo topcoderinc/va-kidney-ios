@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
@@ -101,7 +102,11 @@ struct DataServiceError: Error {
  * Represents the data service class. This is the base class for all core data related classes.
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - Swift 4 change
  */
 class DataService<ManagedEntity, Entity>  where
     ManagedEntity: NSManagedObject,
@@ -128,7 +133,7 @@ ManagedEntity: CoreDataEntity, ManagedEntity.Entity == Entity {
     /// - Returns: array of managed objects
     func toManaged(array: [Entity]) -> [ManagedEntity] {
         let context = self.context!
-        return array.flatMap { $0.managedObjectID }.map { context.object(with: $0) as! ManagedEntity }
+        return array.compactMap { $0.managedObjectID }.map { context.object(with: $0) as! ManagedEntity }
     }
 
     /**

@@ -6,6 +6,7 @@
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -262,6 +263,9 @@ class DailyWorkoutViewController: UIViewController, UICollectionViewDataSource, 
  * changes:
  * 1.2:
  * - partial data synchronization implementation
+ *
+ * 1.3:
+ * - refactoring
  */
 class WorkoutCollectionViewCell: GoalCollectionViewCell {
 
@@ -281,12 +285,7 @@ class WorkoutCollectionViewCell: GoalCollectionViewCell {
         achievedPointsLabel?.text = "+\(item.targetValue.toStringClear())"
 
         valueLabel.text = "\(item.value.toStringClear())/\(item.targetValue.toStringClear())"
-        if OPTION_USE_SINGULAR_FOR_TOP_GOALS && item.value == 1 {
-            goalValueLabel.text = item.valueText1
-        }
-        else {
-            goalValueLabel.text = item.valueTextMultiple
-        }
+        goalValueLabel.text = item.valueTextMultiple
 
         achievedView?.isHidden = !item.isGoalAchived
         progressCircle.processValue = item.progress

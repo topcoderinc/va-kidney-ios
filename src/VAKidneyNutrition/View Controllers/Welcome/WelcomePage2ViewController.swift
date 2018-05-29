@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/2/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,7 +14,11 @@ import SwiftyJSON
  * Welcome screen #2
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - font size changes
  */
 class WelcomePage2ViewController: UIViewController {
 
@@ -39,10 +44,10 @@ class WelcomePage2ViewController: UIViewController {
             message2Label.text = json["message2"].stringValue
         }
         if isIPhone5() {
-            title1Label.font = UIFont(name: title1Label.font.familyName, size: 12)
-            title2Label.font = UIFont(name: title2Label.font.familyName, size: 12)
-            message1Label.font = UIFont(name: message1Label.font.familyName, size: 10)
-            message2Label.font = UIFont(name: message2Label.font.familyName, size: 10)
+            title1Label.font = UIFont(name: title1Label.font.familyName, size: 14)
+            title2Label.font = UIFont(name: title2Label.font.familyName, size: 14)
+            message1Label.font = UIFont(name: message1Label.font.familyName, size: 12)
+            message2Label.font = UIFont(name: message2Label.font.familyName, size: 12)
             image1Height.constant = 50
             image2Height.constant = 50
             for c in topMargins {

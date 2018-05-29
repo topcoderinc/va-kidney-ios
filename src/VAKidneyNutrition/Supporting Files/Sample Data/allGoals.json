@@ -3,9 +3,9 @@
                {
                "title": "Water Intake",
                "iconName": "iconWaserSmall",
-               "valueText1": "glass",
-               "valueTextMultiple": "glasses",
-               "valueText": "glass",
+               "valueText1": "oz",
+               "valueTextMultiple": "oz",
+               "valueText": "Oz",
                "hasExternalData": false,
                "color": "bec292",
                "minUnits": 3,
@@ -29,11 +29,11 @@
                "oneUnitValue": 0.005
                },
                {
-               "title": "Run",
+               "title": "Workout",
                "iconName": "iconWorkoutSmall",
-               "valueText1": "mile",
-               "valueTextMultiple": "miles",
-               "valueText": "Mile",
+               "valueText1": "minute",
+               "valueTextMultiple": "minutes",
+               "valueText": "Minute",
                "hasExternalData": true,
                "color": "ff7f32",
                "minUnits": 1,
@@ -44,9 +44,9 @@
                {
                "title": "Fruits/Veggies",
                "iconName": "iconEatSmall",
-               "valueText1": "bowl",
-               "valueTextMultiple": "bowls",
-               "valueText": "Fruits Or Veggies",
+               "valueText1": "serving",
+               "valueTextMultiple": "servings",
+               "valueText": "Serving",
                "hasExternalData": false,
                "color": "557630",
                "min": 100,
@@ -73,12 +73,12 @@
               {
               "comment": "Obtain optimal energy requirements",
               "id": 4,
-              "title": "Run",
-              "style": "Run",
+              "title": "Workout",
+              "style": "Workout",
               "points": 220,
               "initialValue": 0,
-              "value": 4.5,
-              "targetValue": 6.2,
+              "value": 15,
+              "targetValue": 30,
               "min": 200,
               "relatedQuantityId": "HKQuantityTypeIdentifierDietaryEnergyConsumed"
               },
@@ -130,20 +130,6 @@
               "relatedQuantityId": "HKQuantityTypeIdentifierDietaryPhosphorus"
               },
               {
-              "comment": "Reduce your alcohol intake",
-              "id": 201,
-              "title": "Alcohol Intake",
-              "style": "Water Intake",
-              "points": 520,
-              "initialValue": 0,
-              "value": 0,
-              "targetValue": 1,
-              "color": "ff0000",
-              "relatedQuantityId": "alcohol",
-              "minUnits": 1,
-              "maxUnits": 10,
-              },
-              {
               "comment": "Adjust meat meals",
               "id": 302,
               "title": "Meat Intake",
@@ -154,9 +140,9 @@
               "targetValue": 3,
               "color": "b61f1f",
               "iconName": "iconMeatSmall",
-              "valueText1": "piece",
-              "valueTextMultiple": "pieces",
-              "valueText": "Piece",
+              "valueText1": "oz",
+              "valueTextMultiple": "oz",
+              "valueText": "Oz",
               "relatedQuantityId": "meat"
               },
               {
@@ -210,12 +196,12 @@
               }
               ],
     "diseaseCategories": {
-        "Stage 1": [2,4,1,101,102,103,201,302,301],
-        "Stage 2": [2,4,1,101,102,103,201,302,301],
-        "Stage 3a": [2,4,1,101,102,103,201,302,301,104,105],
-        "Stage 3b": [2,4,1,101,102,103,201,302,301,104,105],
-        "Stage 4": [2,4,1,101,102,103,201,302,301,104,105],
-        "Stage 5 no": [2,4,1,101,102,103,201,302,301,104,105],
-        "Stage 5 yes": [2,4,1,101,102,103,201,302,301,104,105, 106]
+        "Stage 1": [2,4,1,101,102,103,302,301],
+        "Stage 2": [2,4,1,101,102,103,302,301],
+        "Stage 3a": [2,4,1,101,102,103,302,301,104,105],
+        "Stage 3b": [2,4,1,101,102,103,302,301,104,105],
+        "Stage 4": [2,4,1,101,102,103,302,301,104,105],
+        "Stage 5 no": [2,4,1,101,102,103,302,301,104,105],
+        "Stage 5 yes": [2,4,1,101,102,103,302,301,104,105, 106]
     }
   }

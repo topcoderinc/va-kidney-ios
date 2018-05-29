@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/4/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -18,11 +19,13 @@ let OPTION_REPLACE_EXISTING_GOALS = true
  * Add Goal form
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - goal patterns added instead of categories to support limited set of goals that depend on profile data
+ * 1.2:
+ * - font size increased
  */
 class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate, UITextFieldDelegate {
 
@@ -102,7 +105,7 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
         }
         dataSource.calculateCellSize = { item, _ -> CGSize in
             let goal = item as! Goal
-            let size = (goal.title as NSString).size(withAttributes: [.font: UIFont(name: Fonts.Regular, size: 14)!])
+            let size = (goal.title as NSString).size(withAttributes: [.font: UIFont(name: Fonts.Regular, size: 16)!])
             return CGSize(width: size.width + 35, height: self.collectionView.bounds.height) // 30 is summary padding for text in IB
         }
         loadData()
@@ -346,7 +349,11 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
  * Cell for goal patterns
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - font size increased
  */
 class GoalPatternCell: UICollectionViewCell {
 
@@ -361,7 +368,7 @@ class GoalPatternCell: UICollectionViewCell {
         super.awakeFromNib()
         bgView.makeRound()
         if isIPhone5() {
-            titleLabel.font = UIFont(name: titleLabel.font.fontName, size: 12)
+            titleLabel.font = UIFont(name: titleLabel.font.fontName, size: 14)
         }
     }
 

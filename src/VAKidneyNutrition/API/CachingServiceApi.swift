@@ -6,6 +6,7 @@
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -13,12 +14,15 @@ import Foundation
 import SwiftyJSON
 import HealthKit
 
+/// option: true - will show weight measurement warning for patients who are not on dialysis only, false - will always show that warning.
+let OPTION_SHOW_CHART_INFO_FOR_NOT_IN_DIALYSIS_PATIENTS = false
+
 /**
  * Caching implementation of ServiceApi that wraps another (actual) service implementation.
  * Each method first tries to use cached data, but if it's expired, then requests API and cache it.
  *
  * - author: TCCODER
- * - version: 1.3
+ * - version: 1.4
  *
  * changes:
  * 1.1:
@@ -30,6 +34,8 @@ import HealthKit
  * 1.3:
  * - changes in API
  * - bug fixes
+ * 1.4:
+ * - new API methods
  */
 class CachingServiceApi: ServiceApi {
 
@@ -168,17 +174,9 @@ class CachingServiceApi: ServiceApi {
             HealthKitUtil.shared.saveHKProfile(profile: profile, callback: callback)
         }
         self.profileService.getMyProfiles(callback: { (list) in
-            if let existingProfile = list.last {
+            if let _ = list.last {
                 self.profileService.update([profile], success: {
-
-                    // Check if need to update goals
-                    if existingProfile.shouldChangeGoals(with: profile) {
-                        MockServiceApi.shared.goalsDeleted = !profile.setupGoals // reset flag to allow to generate new goals
-                        self.goalServiceCache.removeAllGoals(callback: callback, failure: self.wrapFailure(failure))
-                    }
-                    else {
-                        callback()
-                    }
+                    callback()
                 }, failure: self.wrapFailure(failure))
             }
             else {
@@ -299,6 +297,105 @@ class CachingServiceApi: ServiceApi {
         }, failure: failure)
     }
 
+    /// Generate goals
+    ///
+    /// - Parameters:
+    ///   - profile: the profile
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func generateGoals(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback) {
+        resetAllGoals(callback: {
+
+            self.profileService.getMyProfiles(callback: { (profiles) in
+                self.service.generateGoals(profile: profile ?? profiles.first, callback: { (goals) in
+
+                    // Cache data
+                    self.goalServiceCache.insert(goals, success: { (goals) in
+
+                        callback(goals)
+                    }, failure: self.wrapFailure(failure))
+
+                }, failure: failure)
+            }, failure: self.wrapFailure(failure))
+        }, failure: failure)
+    }
+
+    /// Reset all goals
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func resetAllGoals(callback: @escaping ()->(), failure: @escaping FailureCallback) {
+        service.resetAllGoals(callback: {
+            self.goalServiceCache.removeAllGoals(callback: callback, failure: self.wrapFailure(failure))
+        }, failure: failure)
+    }
+
+    /// Get dashboard info
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getDashboardInfo(callback: @escaping ([HomeInfo])->(), failure: @escaping FailureCallback) {
+        // Get measurements
+        self.getRequiredMeasurements(profile: nil, callback: { (measurements) in
+            var list = measurements.map({HomeInfo.fromMeasurement($0)})
+
+            // Get goals
+            self.getGoals(profile: nil, callback: { (goals) in
+                list.append(contentsOf: goals.map({HomeInfo.fromGoal($0)}))
+                callback(list)
+            }, failure: failure)
+        }, failure: failure)
+    }
+
+    /// Get required measurements
+    ///
+    /// - Parameters:
+    ///   - profile: the profile
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getRequiredMeasurements(profile: Profile?, callback: @escaping ([Measurement])->(), failure: @escaping FailureCallback) {
+        let callback: (Profile?)->() = { profile in
+            if let profile = profile, let json = JSON.resource(named: "measurements") {
+                let all = json.arrayValue.map({Measurement.fromJson($0)})
+                let list = all.filter({$0.comorbidCondition != nil && profile.comorbidities.contains($0.comorbidCondition!)})
+
+                let g = DispatchGroup()
+                for item in list {
+                    if OPTION_SHOW_CHART_INFO_FOR_NOT_IN_DIALYSIS_PATIENTS && profile.dialysis {
+                        item.info = nil
+                    }
+                    for id in item.relatedQuantityIds {
+                        g.enter()
+                        let type = QuantityType.fromId(id)
+                        QuantitySampleStorage.shared.getTodayData(type, callback: { (quantity, unit) in
+                            if let quantity = quantity {
+                                let value = quantity.doubleValue(for: unit)
+                                item.setQuantityValue(value)
+                            }
+                            g.leave()
+                        }, customTypeCallback: {
+                            g.leave()
+                        })
+                    }
+                }
+                g.notify(queue: .main, execute: {
+                    callback(list)
+                })
+            }
+            else {
+                callback([])
+            }
+        }
+        if let profile = profile { callback(profile) }
+        else {
+            self.profileService.getMyProfiles(callback: { (profiles) in
+                callback(profiles.first)
+            }, failure: self.wrapFailure(failure))
+        }
+    }
+
     /// Get reports
     ///
     ///   - callback: the callback to invoke when success
@@ -406,11 +503,11 @@ class CachingServiceApi: ServiceApi {
     /// Get food for "Food Intake" screen
     ///
     /// - Parameters:
+    ///   - date: the date
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getFood(callback: @escaping ([Food])->(), failure: @escaping FailureCallback) {
-        foodServiceCache.getAll(callback: { (items) in
-
+    func getFood(date: Date?, callback: @escaping ([Food])->(), failure: @escaping FailureCallback) {
+        foodServiceCache.getAll(date: date, callback: { (items) in
             callback(items)
         }, failure: wrapFailure(failure))
     }

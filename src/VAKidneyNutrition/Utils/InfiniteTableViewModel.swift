@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/23/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,11 +14,13 @@ import UIKit
  * Convenience viewmodel for table view controllers
  *
  * - author: TCCODER
- * - version: 1.1
- */
-/* changes:
+ * - version: 1.2
+ *
+ * changes:
  * 1.1:
  * - changes required for SectionInfiniteTableViewModel
+ * 1.2:
+ * - layout issue fixed
  */
 class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSource, UITableViewDelegate {
 
@@ -177,6 +180,7 @@ class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewDataSo
         let cell = tableView.getCell(indexPath, ofClass: C.self)
         let value = getItem(indexPath: indexPath)
         configureCell?(indexPath, value, items, cell)
+        cell.layoutIfNeeded()
         return cell
     }
 

@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/29/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,7 +14,11 @@ import HealthKit
  * QuantitySampleService implementation that tries to use HealthKit and if it fails, then uses LocalQuantitySampleService.
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new API methods
  */
 class QuantitySampleStorage: QuantitySampleService {
 
@@ -91,6 +96,44 @@ class QuantitySampleStorage: QuantitySampleService {
             }
         }, customTypeCallback: {
             LocalQuantitySampleService.shared.hasData(quantityType, callback: callback, customTypeCallback: customTypeCallback)
+        })
+    }
+
+    /// Get data for today
+    ///
+    /// - Parameters:
+    ///   - quantityType: the quantityType
+    ///   - callback: the callback to return data
+    ///   - customTypeCallback: the callback to invoke if custom type is requested
+    func getTodayData(_ quantityType: QuantityType, callback: @escaping (HKQuantity?, HKUnit)->(), customTypeCallback: @escaping ()->()) {
+        HealthKitUtil.shared.getTodayData(quantityType, callback: { quantity, unit in
+            if quantity == nil {
+                LocalQuantitySampleService.shared.getTodayData(quantityType, callback: callback, customTypeCallback: customTypeCallback)
+            }
+            else {
+                callback(quantity, unit)
+            }
+        }, customTypeCallback: {
+            LocalQuantitySampleService.shared.getTodayData(quantityType, callback: callback, customTypeCallback: customTypeCallback)
+        })
+    }
+
+    /// Get discrete values
+    ///
+    /// - Parameters:
+    ///   - quantityType: the quantity type
+    ///   - callback: the callback to return data
+    ///   - customTypeCallback: the callback to invoke if custom type is requested
+    func getDiscreteValues(_ quantityType: QuantityType, callback: @escaping ([(Date, Double)], String)->(), customTypeCallback: @escaping ()->()) {
+        HealthKitUtil.shared.getDiscreteValues(quantityType, callback: { data, unit in
+            if data.isEmpty {
+                LocalQuantitySampleService.shared.getDiscreteValues(quantityType, callback: callback, customTypeCallback: customTypeCallback)
+            }
+            else {
+                callback(data, unit)
+            }
+        }, customTypeCallback: {
+            LocalQuantitySampleService.shared.getDiscreteValues(quantityType, callback: callback, customTypeCallback: customTypeCallback)
         })
     }
 }

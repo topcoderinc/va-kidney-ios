@@ -4,10 +4,12 @@
 //
 //  Created by TCCODER on 2/23/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
 import SwiftyJSON
+import HealthKit
 
 /// Possible Food Item types
 enum FoodItemType: String {
@@ -18,11 +20,14 @@ enum FoodItemType: String {
  * Food Intake item model object
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - Integration changes
+ *
+ * 1.2:
+ * - `normalizeUnits()` added
  */
 public class FoodItem: CacheableObject {
 
@@ -58,6 +63,13 @@ public class FoodItem: CacheableObject {
         object.amount = amount
         object.type = type
         return object
+    }
+
+    /// Convert units to grams or L
+    func normalizeUnits() {
+        let (newUnits, newAmount, _) = HealthKitUtil.normalizeUnits(units: self.units, amount: Double(self.amount))
+        self.units = newUnits
+        self.amount = Float(newAmount)
     }
 }
 

@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 3/4/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,16 +14,21 @@ import SwiftyJSON
  * NDB API
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - FoodDetailsServiceApi support
+ * 1.2:
+ * - new API method
  */
 class NDBServiceApi: RESTApi, FoodDetailsServiceApi {
 
     /// The number of items to request. Currently we need only one item because logic on how to select one item from multiple results is simple - the most relevant
-    let MAX_ITEMS_IN_RESULTS = 1
+    static let MAX_ITEMS_IN_RESULTS = 1
+
+    /// The number of items to in search results
+    let MAX_ITEMS_IN_SEARCH_RESULTS = 20
 
     /// the number of nutrients to request
     static let MAX_ITEMS_IN_NUTRIENT_RESULTS = 10
@@ -40,7 +46,7 @@ class NDBServiceApi: RESTApi, FoodDetailsServiceApi {
     ///   - foodItem: the food item
     ///   - callback: the callback to invoke when success
     ///   - failure: the callback to invoke when an error occurred
-    func searchFoodItem(foodItem: FoodItem, callback: @escaping ([NDBNutrient]?)->(), failure: @escaping FailureCallback) {
+    func searchFoodItemNutrients(foodItem: FoodItem, callback: @escaping ([NDBNutrient]?)->(), failure: @escaping FailureCallback) {
         self.searchFood(title: foodItem.title, callback: { json in
             if let id = json["list"]["item"].arrayValue.first?["ndbno"].string {
 
@@ -59,11 +65,29 @@ class NDBServiceApi: RESTApi, FoodDetailsServiceApi {
     ///
     /// - Parameters:
     ///   - title: the title
+    ///   - limit: the limit
     ///   - callback: the callback to invoke when success
     ///   - failure: the callback to invoke when an error occurred
-    func searchFood(title: String, callback: @escaping (JSON)->(), failure: @escaping FailureCallback) {
-        let endpoint = "search/?format=json&q=\(title.urlEncodedString())&sort=r&max=\(MAX_ITEMS_IN_RESULTS)&offset=0&api_key=\(key)"
+    func searchFood(title: String, limit: Int = NDBServiceApi.MAX_ITEMS_IN_RESULTS, callback: @escaping (JSON)->(), failure: @escaping FailureCallback) {
+        let endpoint = "search/?format=json&q=\(title.urlEncodedString())&sort=r&max=\(limit)&offset=0&api_key=\(key)"
         self.get(endpoint, success: callback, failure: failure)
+    }
+
+    /// Search food in database and return FoodItem objects (`id` and `title`).
+    ///
+    /// - Parameters:
+    ///   - title: the title
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the callback to invoke when an error occurred
+    func searchFoodItems(string: String, callback: @escaping ([FoodItem])->(), failure: @escaping FailureCallback) {
+        self.searchFood(title: string, limit: MAX_ITEMS_IN_SEARCH_RESULTS, callback: { json in
+            let list = json["list"]["item"].arrayValue.map { jsonItem -> FoodItem in
+                let object = FoodItem(id: jsonItem["ndbno"].stringValue)
+                object.title = jsonItem["name"].stringValue
+                return object
+            }
+            callback(list)
+        }, failure: failure)
     }
 
     /// Search nutrients ordered by its content in food

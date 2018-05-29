@@ -5,11 +5,13 @@
 //  Created by TCCODER on 2/23/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
 import UIComponents
 import SwiftyJSON
+import HealthKit
 
 /**
  * FoodIntakeAddMealViewController delegate protocol
@@ -36,10 +38,24 @@ protocol FoodIntakeAddMealViewControllerDelegate {
 }
 
 /**
+ * Unit picker value
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+class UnitPickerValue: PickerValue {
+
+    /// Get human readable string
+    override var description: String {
+        return string.humanReadableUnit()
+    }
+}
+
+/**
  * Food Intake form
  *
  * - author: TCCODER
- * - version: 1.3
+ * - version: 1.4
  *
  * changes:
  * 1.1:
@@ -50,6 +66,9 @@ protocol FoodIntakeAddMealViewControllerDelegate {
  *
  * 1.3:
  * - bug fixes
+ *
+ * 1.4:
+ * - search inplace feature
  */
 class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, PickerViewControllerDelegate {
 
@@ -68,19 +87,33 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     @IBOutlet weak var buttonLeftMargin: NSLayoutConstraint!
     @IBOutlet weak var saveButton: CustomButton!
     @IBOutlet weak var deleteButton: CustomButton!
+    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var searchRresultsView: UIView?
+    @IBOutlet weak var searchResultsHeight: NSLayoutConstraint?
 
     /// the extra margin to add
     internal var extraAmountBottomMargin: CGFloat {
-        return 0
+        return 15
     }
 
     // the item to edit
     var item: FoodItem?
     /// the type of the item
     var type: FoodItemType = .food
+    /// the selected units
+    var selectedUnits: String?
 
     /// the delegate
     var delegate: NSObject?
+
+    /// the table model
+    private var table = InfiniteTableViewModel<FoodItem, FoodIntakeSearchResultsCell>()
+    /// the references to API
+    private let foodDetailsApi: FoodDetailsServiceApi = CachingNDBServiceApi.sharedWrapper
+    /// the results of the search
+    private var searchResults = [FoodItem]()
+    /// the last search results
+    private var lastSearchString: String?
 
     /// Setup UI
     override func viewDidLoad() {
@@ -91,6 +124,41 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
         mainView.roundCorners()
         mainView.addShadow()
         updateUI()
+        if let tableView = tableView {
+            table.tableHeight = searchResultsHeight
+            table.configureCell = { indexPath, item, _, cell in
+                cell.configure(item)
+            }
+            table.onSelect = { indexPath, item in
+                self.itemsField?.text = item.title
+                self.showSearchResults(false)
+            }
+            table.loadItems = { callback, failure in
+                callback(self.searchResults)
+            }
+            table.bindData(to: tableView)
+        }
+        searchRresultsView?.addShadow()
+        searchRresultsView?.roundCorners()
+    }
+
+    /// Show/hide search results
+    ///
+    /// - Parameters:
+    ///   - show: true - show, false - hide
+    ///   - items: the results to show
+    private func showSearchResults(_ show: Bool, items: [FoodItem]? = nil) {
+        if let items = items, show, !items.isEmpty {
+            self.searchResults = items
+            self.table.loadData()
+            searchRresultsView?.isHidden = false
+        }
+        else {
+            searchRresultsView?.isHidden = true
+        }
+        if !show {
+            lastSearchString = nil
+        }
     }
 
     /// Focus on the first field
@@ -105,8 +173,9 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     private func updateUI() {
         if let item = item {
             self.itemsField?.text = item.title
-            self.amountField.text = "\(item.amount)"
-            self.unitsField.text = item.units
+            self.amountField.text = item.amount.toItemValueString()
+            selectedUnits = item.units
+            self.unitsField.text = HKUnit(from: item.units).humanReadable()
             saveButton.setTitle((type == .food ? "Edit Meal" : "Edit Drug").uppercased(), for: .normal)
             deleteButton.setTitle((type == .food ? "Delete Meal" : "Delete Drug").uppercased(), for: .normal)
         }
@@ -163,7 +232,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
 
         let meal = (itemsField?.text ?? "").trim()
         let amount = Float(amountField.text ?? "") ?? 0
-        let units = (unitsField.text ?? "").trim()
+        let units = (selectedUnits ?? "").trim()
         var hasError = false
         if amount <= 0 {
             showFieldError(NSLocalizedString("Should be a positive number", comment: "Should be a positive number"),
@@ -227,6 +296,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     ///   - event: the event
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+        self.showSearchResults(false)
         super.touchesBegan(touches, with: event)
     }
 
@@ -269,23 +339,51 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let strTextField: NSString = NSString(string: textField.text!)
 
-        if textField == amountField {
-            let newString = strTextField.replacingCharacters(in: range as NSRange, with: string)
-            return newString ≈ "^\\d*(\\.\\d*)?$"
+        let newString = strTextField.replacingCharacters(in: range as NSRange, with: string)
+        if textField == itemsField {
+            trySearchFood(newString)
+        }
+        else if textField == amountField {
+            return (newString ≈ "^\\d*\\.?\\d*$") || (newString ≈ "^\\d*/$")
         }
         return true
+    }
+
+    /// Try to search food
+    ///
+    /// - Parameter string: the string
+    private func trySearchFood(_ string: String) {
+        lastSearchString = string
+        delay(0.5) {
+            if string == self.lastSearchString, !string.isEmpty {
+                print("Searching \"\(string)\")...")
+                self.foodDetailsApi.searchFoodItems(string: string, callback: { (list) in
+                    print("...found \(list.count) items")
+                    self.showSearchResults(true, items: list)
+                }, failure: self.createGeneralFailureCallback())
+            }
+        }
+    }
+
+    /// Hide search results
+    ///
+    /// - Parameter textField: the textField
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.showSearchResults(false)
     }
 
     /// Open units picker
     internal func openUnitsPicker() {
         self.view.endEditing(true)
         if type == .food {
-            let items = HealthKitUtil.shared.getFoodUnits().map({$0.unitString})
-            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
+            let items = HealthKitUtil.shared.getFoodUnits().map({$0.unitString}).map{UnitPickerValue($0)}
+            let selected = items.filter({$0.string == self.selectedUnits}).first
+            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), selected: selected, data: items, delegate: self)
         }
         else {
-            let items = HealthKitUtil.shared.getUnits(forType: QuantityType.fromId("")) // default units
-            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), data: items.map{PickerValue($0)}, delegate: self)
+            let items = HealthKitUtil.shared.getUnits(forType: QuantityType.fromId("")).map{UnitPickerValue($0)} // default units
+            let selected = items.filter({$0.string == self.selectedUnits}).first
+            PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), selected: selected, data: items, delegate: self)
         }
     }
 
@@ -297,6 +395,26 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     ///   - value: the value
     ///   - picker: the picker
     func pickerValueUpdated(_ value: PickerValue, picker: PickerViewController) {
+        selectedUnits = value.string
         unitsField.text = value.description
+    }
+}
+
+/**
+ * Cell for search results
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+class FoodIntakeSearchResultsCell: UITableViewCell {
+
+    /// outlets
+    @IBOutlet weak var titleLabel: UILabel!
+
+    /// Update UI
+    ///
+    /// - Parameter item: the item
+    func configure(_ item: FoodItem) {
+        titleLabel.text = item.title
     }
 }

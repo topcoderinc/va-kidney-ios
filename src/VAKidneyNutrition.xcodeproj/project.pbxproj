@@ -135,6 +135,9 @@
 		FD9F95A41FEC6135000FECAD /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A31FEC6135000FECAD /* CustomView.swift */; };
 		FD9F95A61FEC6DFD000FECAD /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A51FEC6DFC000FECAD /* Profile.swift */; };
 		FD9F95A81FEC7018000FECAD /* ProfileServiceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */; };
+		FDA2C90320B94C9F0070F384 /* measurements.json in Resources */ = {isa = PBXBuildFile; fileRef = FDA2C90220B94C9F0070F384 /* measurements.json */; };
+		FDA2C90520B95C5C0070F384 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA2C90420B95C5C0070F384 /* Measurement.swift */; };
+		FDA2C90720B95DE30070F384 /* HomeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA2C90620B95DE30070F384 /* HomeInfo.swift */; };
 		FDA7FB5C207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */; };
 		FDA7FB5E2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA7FB5D2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift */; };
 		FDA7FB602080A4470041BAA9 /* recommendations.json in Resources */ = {isa = PBXBuildFile; fileRef = FDA7FB5F2080A4470041BAA9 /* recommendations.json */; };
@@ -145,6 +148,7 @@
 		FDAA0B622024F52C0094515D /* HomeReportsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAA0B612024F52C0094515D /* HomeReportsViewController.swift */; };
 		FDB63C011FED03AF00015308 /* CustomTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB63C001FED03AF00015308 /* CustomTabButton.swift */; };
 		FDB63C031FED096A00015308 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB63C021FED096A00015308 /* RootViewController.swift */; };
+		FDB65F2C20B72B90000F5834 /* CheckboxPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB65F2B20B72B90000F5834 /* CheckboxPickerViewController.swift */; };
 		FDC95EAE1FEFB1B000C04281 /* Goals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDC95EAD1FEFB1B000C04281 /* Goals.storyboard */; };
 		FDE5D1171FEEF2D8006C7097 /* reports.json in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D1161FEEF2D8006C7097 /* reports.json */; };
 		FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */; };
@@ -326,6 +330,9 @@
 		FD9F95A31FEC6135000FECAD /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		FD9F95A51FEC6DFC000FECAD /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		FD9F95A71FEC7018000FECAD /* ProfileServiceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceCache.swift; sourceTree = "<group>"; };
+		FDA2C90220B94C9F0070F384 /* measurements.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = measurements.json; sourceTree = "<group>"; };
+		FDA2C90420B95C5C0070F384 /* Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
+		FDA2C90620B95DE30070F384 /* HomeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfo.swift; sourceTree = "<group>"; };
 		FDA7FB5B207FE6330041BAA9 /* LimitBasedRecommendationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitBasedRecommendationSolver.swift; sourceTree = "<group>"; };
 		FDA7FB5D2080A1EC0041BAA9 /* StaticResourceBasedRecommendationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResourceBasedRecommendationGenerator.swift; sourceTree = "<group>"; };
 		FDA7FB5F2080A4470041BAA9 /* recommendations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recommendations.json; sourceTree = "<group>"; };
@@ -336,6 +343,7 @@
 		FDAA0B612024F52C0094515D /* HomeReportsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeReportsViewController.swift; sourceTree = "<group>"; };
 		FDB63C001FED03AF00015308 /* CustomTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabButton.swift; sourceTree = "<group>"; };
 		FDB63C021FED096A00015308 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		FDB65F2B20B72B90000F5834 /* CheckboxPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxPickerViewController.swift; sourceTree = "<group>"; };
 		FDC95EAD1FEFB1B000C04281 /* Goals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Goals.storyboard; sourceTree = "<group>"; };
 		FDE5D1161FEEF2D8006C7097 /* reports.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = reports.json; sourceTree = "<group>"; };
 		FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuViewController.swift; sourceTree = "<group>"; };
@@ -574,6 +582,8 @@
 				FD19E2CE20267301008C46BF /* Resource.swift */,
 				FD3EA8D1206E57E4003BE636 /* NDBNutrient.swift */,
 				FD7F1E93206FE91100F4299B /* ServiceResponse.swift */,
+				FDA2C90420B95C5C0070F384 /* Measurement.swift */,
+				FDA2C90620B95DE30070F384 /* HomeInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -643,6 +653,7 @@
 				FD9F959B1FEC3C40000FECAD /* ProfileViewController.swift */,
 				FD9F959F1FEC4258000FECAD /* PickerViewController.swift */,
 				FD2D96032025D8EE006C8E0A /* DatePickerViewController.swift */,
+				FDB65F2B20B72B90000F5834 /* CheckboxPickerViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -816,6 +827,7 @@
 				FD64C15C204A3E44000C1501 /* allGoals.json */,
 				FD64C162204AF61E000C1501 /* labValues.json */,
 				FDA7FB5F2080A4470041BAA9 /* recommendations.json */,
+				FDA2C90220B94C9F0070F384 /* measurements.json */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
@@ -938,6 +950,7 @@
 				FD19E2D1202674DD008C46BF /* resources.json in Resources */,
 				FD96C3D220270EEE0063A2BE /* goalTips.json in Resources */,
 				FD1519552026090000CAD89B /* units.json in Resources */,
+				FDA2C90320B94C9F0070F384 /* measurements.json in Resources */,
 				FD3C1A6A1FF049C700B78908 /* Medications.storyboard in Resources */,
 				FD12604F20265963009514D6 /* MedicationHeader.xib in Resources */,
 				FD43685F1FF056BE003B22CE /* medications.json in Resources */,
@@ -1055,6 +1068,7 @@
 				FD7F1E94206FE91100F4299B /* ServiceResponse.swift in Sources */,
 				FD96C3D0202693A40063A2BE /* AddGoalFormViewController.swift in Sources */,
 				FDF7BC031FED4B4B0078970A /* Suggestion.swift in Sources */,
+				FDA2C90720B95DE30070F384 /* HomeInfo.swift in Sources */,
 				FD70AC961FEC09D3003854A1 /* FileUtil.swift in Sources */,
 				FD4368651FF07B4C003B22CE /* EditMedicationScheduleViewController.swift in Sources */,
 				FDF748AB1FEFEAC200FB1037 /* Reward.swift in Sources */,
@@ -1101,6 +1115,7 @@
 				FD64C17D204B79AB000C1501 /* RecommendationServiceCache.swift in Sources */,
 				FD4368741FF10D44003B22CE /* FoodServiceCache.swift in Sources */,
 				FD43686C1FF0F1A1003B22CE /* Food.swift in Sources */,
+				FDA2C90520B95C5C0070F384 /* Measurement.swift in Sources */,
 				FD70AC831FEC05E1003854A1 /* CoreDataStack.swift in Sources */,
 				FD64C177204B64AB000C1501 /* Configuration.swift in Sources */,
 				FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */,
@@ -1111,6 +1126,7 @@
 				FD64C17B204B6678000C1501 /* NDBServiceApi.swift in Sources */,
 				FD4368611FF06911003B22CE /* MedicationsCollectionViewController.swift in Sources */,
 				FDAA0B622024F52C0094515D /* HomeReportsViewController.swift in Sources */,
+				FDB65F2C20B72B90000F5834 /* CheckboxPickerViewController.swift in Sources */,
 				FD70AC941FEC0965003854A1 /* ValidationUtils.swift in Sources */,
 				FD70AC901FEC0772003854A1 /* CachingServiceApi.swift in Sources */,
 				FDB63C031FED096A00015308 /* RootViewController.swift in Sources */,
@@ -1293,13 +1309,13 @@
 				CODE_SIGN_ENTITLEMENTS = VAKidneyNutrition/VAKidneyNutrition.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Appirio, Inc.";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = C32246M7VY;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
 				INFOPLIST_FILE = "VAKidneyNutrition/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.mobile.kidneyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "771f476e-b2d8-46bd-ac26-1f5b3bcee22a";
-				PROVISIONING_PROFILE_SPECIFIER = "Topcoder Mobile";
+				PROVISIONING_PROFILE = "f15bc120-811b-42b9-824b-d0f3bcb42bc9";
+				PROVISIONING_PROFILE_SPECIFIER = "XC: *";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1314,13 +1330,13 @@
 				CODE_SIGN_ENTITLEMENTS = VAKidneyNutrition/VAKidneyNutrition.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Appirio, Inc.";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = C32246M7VY;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
 				INFOPLIST_FILE = "VAKidneyNutrition/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.mobile.kidneyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "771f476e-b2d8-46bd-ac26-1f5b3bcee22a";
-				PROVISIONING_PROFILE_SPECIFIER = "Topcoder Mobile";
+				PROVISIONING_PROFILE = "8d6ac67d-97c6-4bd3-9a68-503dab6ec2f7";
+				PROVISIONING_PROFILE_SPECIFIER = "Wildcat 08-2015";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

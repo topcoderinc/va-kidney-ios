@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/22/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -15,7 +16,7 @@ import CoreData
  * Model object for Core Data related to Profile
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -23,6 +24,9 @@ import CoreData
  *
  * 1.2:
  * - minor changes
+ *
+ * 1.3:
+ * - `comorbidities` added
  */
 extension ProfileMO: CoreDataEntity {
 
@@ -46,6 +50,7 @@ extension ProfileMO: CoreDataEntity {
         object.diseaseCategory = diseaseCategory ?? ""
         object.setupGoals = setupGoals
         object.addDevice = addDevice
+        object.comorbidities = (comorbidities ?? "").split(",").map({ComorbidCondition(rawValue: $0) ?? ComorbidCondition.hypertension})
         return object
     }
 
@@ -69,6 +74,7 @@ extension ProfileMO: CoreDataEntity {
         diseaseCategory = object.diseaseCategory
         setupGoals = object.setupGoals
         addDevice = object.addDevice
+        comorbidities = object.comorbidities.map({$0.rawValue}).joined(separator: ",")
 
     }
 }

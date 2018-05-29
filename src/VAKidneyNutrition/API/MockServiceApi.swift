@@ -6,6 +6,7 @@
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -24,7 +25,7 @@ let DELAY_FOR_DEMONSTRATION: TimeInterval = 0.5
  * Mock ServiceApi implementation. Provides static data.
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.4
  *
  * changes:
  * 1.1:
@@ -35,6 +36,8 @@ let DELAY_FOR_DEMONSTRATION: TimeInterval = 0.5
  * 1.3:
  * - changes in protocol
  * - bug fixes
+ * 1.4:
+ * - new API methods
  */
 class MockServiceApi: ServiceApi {
 
@@ -185,11 +188,7 @@ class MockServiceApi: ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func getGoals(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback) {
-        if goalsDeleted || (profile != nil && !profile!.setupGoals) { // do not generate goals if user set "Setup Goals" to no or deleted all goals.
-            callback([])
-            return
-        }
-        getGoalPatterns(profile: profile, callback: callback, failure: failure)
+        callback([])
     }
 
     /// Save goal
@@ -245,6 +244,35 @@ class MockServiceApi: ServiceApi {
             }
             callback(goals)
         }
+    }
+
+    /// Generate goals
+    ///
+    /// - Parameters:
+    ///   - profile: the profile
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func generateGoals(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback) {
+        getGoalPatterns(profile: profile, callback: callback, failure: failure)
+    }
+
+    /// Reset all goals
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func resetAllGoals(callback: @escaping ()->(), failure: @escaping FailureCallback) {
+        goalsDeleted = true
+        callback()
+    }
+
+    /// Get dashboard info
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getDashboardInfo(callback: @escaping ([HomeInfo])->(), failure: @escaping FailureCallback) {
+        failure("Not supported")
     }
 
     /// Get reports
@@ -458,9 +486,10 @@ class MockServiceApi: ServiceApi {
     /// Get food for "Food Intake" screen
     ///
     /// - Parameters:
+    ///   - date: the date
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getFood(callback: @escaping ([Food])->(), failure: @escaping FailureCallback) {
+    func getFood(date: Date?, callback: @escaping ([Food])->(), failure: @escaping FailureCallback) {
         if let json = JSON.resource(named: "food") {
             let list = json.arrayValue.map({Food.fromJson($0)})
             callback(list)

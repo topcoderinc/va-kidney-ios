@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/22/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -17,7 +18,7 @@ var MainViewControllerReference: MainViewController?
  * Main view controller containing tab buttons
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -25,6 +26,9 @@ var MainViewControllerReference: MainViewController?
  *
  * 1.2:
  * - new charts UI
+ *
+ * 1.3:
+ * - color changed for tab buttons
  */
 class MainViewController: UIViewController {
 
@@ -100,7 +104,7 @@ class MainViewController: UIViewController {
         activeTabMarkerView.isHidden = true
         for button in tabButtons {
             button.isSelected = index == button.tag
-            button.tintColor = (index == button.tag) ? UIColor.white : Colors.blue
+            button.tintColor = (index == button.tag) ? UIColor.white : Colors.lightBlue
             if button.isSelected {
                 CurrentMenuItem = -1
                 activeTabMarkerView.isHidden = false

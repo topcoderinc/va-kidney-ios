@@ -5,17 +5,40 @@
 //  Created by TCCODER on 12/22/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 
+/// Possible comorbid conditions
+enum ComorbidCondition: String {
+    case hypertension = "hypertension", diabetesMellitus = "diabetesMellitus", congestiveHeartFailure = "congestiveHeartFailure"
+
+    /// Get title
+    ///
+    /// - Returns: the title
+    func getTitle() -> String {
+        switch self {
+        case .hypertension:
+            return NSLocalizedString("Hypertension", comment: "Hypertension")
+        case .diabetesMellitus:
+            return NSLocalizedString("Diabetes mellitus", comment: "Diabetes mellitus")
+        case .congestiveHeartFailure:
+            return NSLocalizedString("Congestive heart failure", comment: "Congestive heart failure")
+        }
+    }
+
+    /// all possible values
+    static let all: [ComorbidCondition] = [.hypertension, .diabetesMellitus, .congestiveHeartFailure]
+}
+
 /**
  * Profile info
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -23,6 +46,9 @@ import SwiftyJSON
  *
  * 1.2:
  * - Integration changes
+ *
+ * 1.3:
+ * - ComorbidCondition added
  */
 public class Profile: CacheableObject {
 
@@ -52,6 +78,9 @@ public class Profile: CacheableObject {
 
     /// is device added
     var addDevice: Bool = false
+
+    /// the list of comorbidities
+    var comorbidities = [ComorbidCondition]()
 
     /// Parse JSON into object
     ///
@@ -84,16 +113,6 @@ public class Profile: CacheableObject {
         if profile.currentWeight > 0 {
             self.currentWeight = profile.currentWeight
         }
-    }
-
-    /// Check if new profile is changed so that we need to update goals
-    ///
-    /// - Parameter profile: the profile
-    /// - Returns: true - if need to update goals, false - else
-    func shouldChangeGoals(with profile: Profile) -> Bool {
-        return diseaseCategory != profile.diseaseCategory
-        || dialysis != profile.dialysis
-        || setupGoals != profile.setupGoals // if switched from "Yes" to "No", then delete, if switched from "No" to "Yes", then also delete (before creating new)
     }
 }
 

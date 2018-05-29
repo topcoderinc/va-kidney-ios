@@ -6,6 +6,7 @@
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -40,7 +41,7 @@ let ERROR_PASSWORDS_NOT_MATCH = NSLocalizedString("The passwords do not match to
  * Protocol for API implementaion
  *
  * - author: TCCODER
- * - version: 1.3
+ * - version: 1.4
  *
  * changes:
  * 1.1:
@@ -51,6 +52,9 @@ let ERROR_PASSWORDS_NOT_MATCH = NSLocalizedString("The passwords do not match to
  *
  * 1.3:
  * - refactoring
+ *
+ * 1.4:
+ * - new API methods
  */
 protocol ServiceApi {
 
@@ -155,6 +159,28 @@ protocol ServiceApi {
     ///   - failure: the failure callback to return an error
     func deleteGoal(goal: Goal, callback: @escaping ()->(), failure: @escaping FailureCallback)
 
+    /// Generate goals
+    ///
+    /// - Parameters:
+    ///   - profile: the profile
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func generateGoals(profile: Profile?, callback: @escaping ([Goal])->(), failure: @escaping FailureCallback)
+
+    /// Reset all goals
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func resetAllGoals(callback: @escaping ()->(), failure: @escaping FailureCallback)
+
+    /// Get dashboard info
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getDashboardInfo(callback: @escaping ([HomeInfo])->(), failure: @escaping FailureCallback)
+
     // MARK: - Reports
 
     /// Get reports
@@ -232,9 +258,10 @@ protocol ServiceApi {
     /// Get food for "Food Intake" screen
     ///
     /// - Parameters:
+    ///   - date: the date
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
-    func getFood(callback: @escaping ([Food])->(), failure: @escaping FailureCallback)
+    func getFood(date: Date?, callback: @escaping ([Food])->(), failure: @escaping FailureCallback)
 
     /// Save food intake
     ///
@@ -261,4 +288,5 @@ protocol ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func getLabValues(callback: @escaping ([[QuantityType]])->(), failure: @escaping FailureCallback)
+
 }
