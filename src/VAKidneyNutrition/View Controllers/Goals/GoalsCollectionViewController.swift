@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/4/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,7 +14,7 @@ import UIComponents
  * Goals screen
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -21,6 +22,9 @@ import UIComponents
  *
  * 1.2:
  * - API changes
+ *
+ * 1.3:
+ * - refactoring
  */
 class GoalsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -208,12 +212,7 @@ class GoalCollectionViewCell: UICollectionViewCell {
         let value = item.value / Float(item.oneUnitValue != 0 ? item.oneUnitValue : 1)
         let targetValue = item.targetValue
         valueLabel.text = "\(value.toStringClear())/\(targetValue.toStringClear())"
-        if OPTION_USE_SINGULAR_FOR_TOP_GOALS && item.value == 1 {
-            goalValueLabel.text = item.valueText1
-        }
-        else {
-            goalValueLabel.text = item.valueTextMultiple
-        }
+        goalValueLabel.text = item.valueTextMultiple
 
         progressCircle.processValue = item.progress
         progressCircle.mainColor = item.color

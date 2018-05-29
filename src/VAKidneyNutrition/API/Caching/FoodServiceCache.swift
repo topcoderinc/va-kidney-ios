@@ -5,6 +5,7 @@
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -70,33 +71,35 @@ extension FoodMO: CoreDataEntity {
  * Service caching Food
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - limit the request to current day
+ *
+ * 1.2:
+ * - date parameter added
  */
 class FoodServiceCache: DataService<FoodMO, Food> {
 
     /// Get all food for the current user FOR TODAY
     ///
     /// - Parameters:
+    ///   - date: filter by date
     ///   - callback: the callback used to return data
     ///   - failure: the failure callback used to return an error
-    func getAll(callback: @escaping ([Food])->(), failure: @escaping GeneralFailureBlock) {
+    func getAll(date: Date? = nil, callback: @escaping ([Food])->(), failure: @escaping GeneralFailureBlock) {
         let fetchRequest = NSFetchRequest<FoodMO>(entityName: FoodMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
-
-        let now = Date()
-        let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: now)
-        let startOfDay = Calendar.current.date(from: components)!
-        let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
-
-        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? ""),
-            self.createDateLessOrEqualToPredicate("date", date: endOfDay),
-            self.createDateGreaterOrEqualToPredicate("date", date: startOfDay)
-            ])
-        self.get(withRequest: fetchRequest, callback, failure: failure)
+        var list: [NSPredicate] = [self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")]
+        if let date = date {
+            let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: date)
+            let startOfDay = Calendar.current.date(from: components)!
+            let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)!
+            list.append(contentsOf: [self.createDateLessOrEqualToPredicate("date", date: endOfDay),
+                                     self.createDateGreaterOrEqualToPredicate("date", date: startOfDay)])
+        }
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: list)
+        DispatchQueue.main.async { self.get(withRequest: fetchRequest, callback, failure: failure) }
     }
 }

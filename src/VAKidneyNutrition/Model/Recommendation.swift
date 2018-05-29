@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/4/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,7 +14,7 @@ import UIComponents
 /// Possible types for MedicationResource
 enum RecommendationType: String {
     case foodSuggestion = "Food Suggestion", unsafeFood = "Unsafe Food",
-    drugConsumption = "Drug Consumption",
+    drugConsumption = "Medications",
     drugInteractionWarnings = "Drug Interaction Warnings"
 
     /// Get human readable string

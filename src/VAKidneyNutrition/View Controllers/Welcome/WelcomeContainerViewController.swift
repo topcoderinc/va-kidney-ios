@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/2/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -15,7 +16,11 @@ let OPTION_FIX_DESIGN_ISSUES = false
  * Welcome set of screens
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - iPhone 5 changes
  */
 class WelcomeContainerViewController: UIViewController {
 
@@ -25,6 +30,7 @@ class WelcomeContainerViewController: UIViewController {
     @IBOutlet weak var pageController: CustomUIPageControl!
     @IBOutlet weak var disagreeButton: CustomButton!
     @IBOutlet weak var agreeButton: CustomButton!
+    @IBOutlet weak var rightMargin: NSLayoutConstraint!
 
     /// the view controllers to show
     var pageControllers = [UIViewController]()
@@ -39,6 +45,9 @@ class WelcomeContainerViewController: UIViewController {
         pageController.isUserInteractionEnabled = false
         nextArrowButton.makeRound()
         loadData()
+        if isIPhone5() {
+            rightMargin.constant = 10
+        }
     }
 
     /// Load data

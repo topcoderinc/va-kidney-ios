@@ -6,6 +6,7 @@
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -25,6 +26,8 @@ enum DiseaseCategory: String {
 
 /// option: true - will add "Done" button and will save only after that, false - will save immidiately
 let OPTION_PROFILE_ADD_DONE_BUTTON = false
+let OPTION_LIMIT_WEIGHT_VALUES = false
+let OPTION_MOVE_TO_GOALS_AFTER_RESET = false
 
 /**
  * Possible types of profile data
@@ -37,7 +40,7 @@ let OPTION_PROFILE_ADD_DONE_BUTTON = false
  * - icons for types
  */
 enum ProfileDataType {
-    case name, date, height, currentWeight, dialysis, diseaseCategory, setupGoals, avatar, devices
+    case name, date, height, currentWeight, dialysis, diseaseCategory, setupGoals, avatar, devices, comorbidities
 
     /// Get icon
     ///
@@ -47,7 +50,7 @@ enum ProfileDataType {
         case .date: return #imageLiteral(resourceName: "iconBirth")
         case .height: return #imageLiteral(resourceName: "iconHeight")
         case .currentWeight: return #imageLiteral(resourceName: "iconWeight")
-        case .dialysis, .diseaseCategory: return #imageLiteral(resourceName: "iconQuestion")
+        case .dialysis, .diseaseCategory, .comorbidities: return #imageLiteral(resourceName: "iconQuestion")
         case .setupGoals: return #imageLiteral(resourceName: "iconSetupGoals")
         case .avatar: return #imageLiteral(resourceName: "iconAvatar")
         case .devices: return #imageLiteral(resourceName: "iconDevices")
@@ -101,6 +104,46 @@ class HeightPickerValue: PickerValue {
  - returns: true - if objects are equal, false - else
  */
 func ==<T: HeightPickerValue>(lhs: T, rhs: T) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+/**
+ * Model for Comorbid Condition picker value
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+class ComorbidConditionPickerValue: PickerValue {
+
+    /// the value
+    let comorbidCondition: ComorbidCondition
+
+    /// Initializer
+    init(_ comorbidCondition: ComorbidCondition) {
+        self.comorbidCondition = comorbidCondition
+        super.init(comorbidCondition.getTitle())
+    }
+
+    /// the description for UI
+    override var description: String {
+        return comorbidCondition.getTitle()
+    }
+
+    /// the hash value
+    override var hashValue: Int {
+        return comorbidCondition.rawValue.hashValue
+    }
+}
+
+/**
+ Equatable protocol implementation
+
+ - parameter lhs: the left object
+ - parameter rhs: the right object
+
+ - returns: true - if objects are equal, false - else
+ */
+func ==<T: ComorbidConditionPickerValue>(lhs: T, rhs: T) -> Bool {
     return lhs.hashValue == rhs.hashValue
 }
 
@@ -182,6 +225,24 @@ class HeightProfileDataItem: ProfileDataItem {
     }
 }
 
+/// Comorbid Condition data item
+class ComorbidConditionDataItem: ProfileDataItem {
+
+    /// Get value
+    ///
+    /// - Returns: the value
+    override func getValue() -> String {
+        if let value = value as? [ComorbidCondition] {
+            let str = value.map({$0.getTitle()}).joined(separator: ", ")
+            if str.isEmpty {
+                return NSLocalizedString("No", comment: "No")
+            }
+            return str
+        }
+        return super.getValue()
+    }
+}
+
 /// Weight data item
 class WeightProfileDataItem: ProfileDataItem {
 
@@ -200,7 +261,7 @@ class WeightProfileDataItem: ProfileDataItem {
  * Profile screen
  *
  * - author: TCCODER
- * - version: 1.3
+ * - version: 1.4
  *
  * changes:
  * 1.1:
@@ -212,11 +273,17 @@ class WeightProfileDataItem: ProfileDataItem {
  * 1.3:
  * - date birth limited
  * - new limits for weight and height
+ *
+ * 1.4:
+ * - label changes
+ * - new Profile options
  */
-class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PickerViewControllerDelegate, AddAssetButtonViewDelegate, DatePickerViewControllerDelegate {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PickerViewControllerDelegate, AddAssetButtonViewDelegate, DatePickerViewControllerDelegate, CheckboxPickerViewControllerDelegate, UITextFieldDelegate {
 
     /// the minimum age
     let MIN_AGE = 16
+    /// the weight limits
+    let WEIGHT_LIMIT: (Double, Double) = (45, 800)
 
     /// outlets
     @IBOutlet weak var profileImageView: AddAssetButtonView!
@@ -235,6 +302,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
     /// the profile to show
     var profile: Profile?
+
+    /// true - will skip changed in text fields, false - else
+    private var skipChanges = false
 
     /// Setup UI
     override func viewDidLoad() {
@@ -311,9 +381,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 AgeProfileDataItem(title: "Age", type: .picker, dataType: .date, value: profile.birthday),
                 HeightProfileDataItem(title: "Height", type: .picker, dataType: .height, value: profile.height),
                 WeightProfileDataItem(title: "Current Weight", type: .picker, dataType: .currentWeight, value: profile.currentWeight),
-                ProfileDataItem(title: "Are you on Dialysis?", type: .picker, dataType: .dialysis, value: profile.dialysis),
-                ProfileDataItem(title: "Disease Category", type: .picker, dataType: .diseaseCategory, value: profile.diseaseCategory),
-                ProfileDataItem(title: "Setup goals", type: .picker, dataType: .setupGoals, value: profile.setupGoals),
+                ProfileDataItem(title: "Are you Receiving Dialysis?", type: .picker, dataType: .dialysis, value: profile.dialysis),
+                ProfileDataItem(title: "Renal Disease Stage", type: .picker, dataType: .diseaseCategory, value: profile.diseaseCategory),
+                ProfileDataItem(title: "Goal Setup", type: .picker, dataType: .setupGoals, value: profile.setupGoals),
+                ComorbidConditionDataItem(title: "Comorbidities", type: .picker, dataType: .comorbidities, value: profile.comorbidities),
             ]
         }
         else {
@@ -322,10 +393,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 AgeProfileDataItem(title: "Date of Birth", type: .picker, dataType: .date),
                 HeightProfileDataItem(title: "Height", type: .picker, dataType: .height),
                 WeightProfileDataItem(title: "Current Weight", type: .picker, dataType: .currentWeight),
-                ProfileDataItem(title: "Are you on Dialysis?", type: .picker, dataType: .dialysis, value: false),
-                ProfileDataItem(title: "Disease Category", type: .picker, dataType: .diseaseCategory),
-                ProfileDataItem(title: "Setup goals", type: .picker, dataType: .setupGoals, value: false),
+                ProfileDataItem(title: "Are you Receiving Dialysis?", type: .picker, dataType: .dialysis, value: false),
+                ProfileDataItem(title: "Renal Disease Stage", type: .picker, dataType: .diseaseCategory),
+                ProfileDataItem(title: "Goal Setup", type: .picker, dataType: .setupGoals, value: false),
                 ProfileDataItem(title: "Avatar", type: .avatar, dataType: .avatar),
+                ComorbidConditionDataItem(title: "Comorbidities", type: .picker, dataType: .comorbidities),
             ]
         }
         tableView.reloadData()
@@ -351,6 +423,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         profile.setupGoals = items.filter({$0.dataType == .setupGoals}).first?.value as? Bool ?? false
         profile.image = profileImageView.image
         profile.addDevice = items.filter({$0.dataType == .devices}).first?.value as? Bool ?? false
+        profile.comorbidities = items.filter({$0.dataType == .comorbidities}).first?.value as? [ComorbidCondition] ?? []
 
         if profile.name.isEmpty
             || profile.birthday == nil
@@ -409,9 +482,16 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
-        let cell = tableView.getCell(indexPath, ofClass: ProfileItemCell.self)
-        cell.configureItem(item)
-        return cell
+        if item.dataType == .setupGoals {
+            let cell = tableView.getCell(indexPath, ofClass: ProfileItemGoalsCell.self)
+            cell.configureItem(item)
+            return cell
+        }
+        else {
+            let cell = tableView.getCell(indexPath, ofClass: ProfileItemCell.self)
+            cell.configureItem(item)
+            return cell
+        }
     }
 
     /**
@@ -422,6 +502,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.view.endEditing(true)
         let item = items[indexPath.row]
         var selected: String? = item.value as? String
         switch item.type {
@@ -440,13 +521,25 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 PickerViewController.show(title: item.title, selected: HeightPickerValue(item.value as? Double ?? 162), data: Array(36...100).map{HeightPickerValue(Double($0))}, delegate: self)
                 return
             case .currentWeight:
-                data = Array(45...800).map{"\($0)"}
-                selected = "\(Int(item.value as? Double ?? 75))"
-            case .dialysis, .setupGoals, .devices:
+                if let cell = tableView.cellForRow(at: indexPath) as? ProfileItemCell {
+                    cell.textField.text = Float(item.value as? Double ?? 75).toItemValueString()
+                    cell.textField.delegate = self
+                    cell.showTextInput(true)
+                    cell.textField.becomeFirstResponder()
+                }
+                return
+            case .dialysis, .devices:
                 data = [YES, NO]
                 selected = (item.value as? Bool ?? false) ? YES : NO
             case .diseaseCategory:
                 data = DiseaseCategory.getAll().map({$0.rawValue})
+            case .comorbidities:
+                let items = ComorbidCondition.all.map{ComorbidConditionPickerValue($0)}
+                let selected = (item.value as? [ComorbidCondition] ?? []).map{ComorbidConditionPickerValue($0)}
+                CheckboxPickerViewController.show(title: item.title, selected: selected, data: items, delegate: self)
+                return
+            case .setupGoals:
+                return
             default:
                 showStub()
                 return
@@ -458,7 +551,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case .text:
             break
         }
-            }
+    }
 
     // MARK: - PickerViewControllerDelegate
 
@@ -486,10 +579,15 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                     item.value = value.string
                 }
             }
-            tableView.reloadData()
-            if !OPTION_PROFILE_ADD_DONE_BUTTON {
-                saveProfile()
-            }
+            updateAfterChange()
+        }
+    }
+
+    /// Update UI and save profile if needed after something changed
+    private func updateAfterChange() {
+        tableView.reloadData()
+        if !OPTION_PROFILE_ADD_DONE_BUTTON {
+            saveProfile()
         }
     }
 
@@ -506,10 +604,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             if let item = items.filter({$0.dataType == .avatar}).first {
                 item.value = image
             }
-            tableView.reloadData()
-            if !OPTION_PROFILE_ADD_DONE_BUTTON {
-                self.saveProfile()
-            }
+            updateAfterChange()
         }
     }
 
@@ -528,10 +623,148 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func datePickerDateSelected(_ date: Date, picker: DatePickerViewController) {
         items.filter({$0.dataType == .date}).first?.value = date
         birthDateLabel.text = DateFormatters.shortDate.string(from: date)
-        tableView.reloadData()
-        if !OPTION_PROFILE_ADD_DONE_BUTTON {
-            saveProfile()
+        updateAfterChange()
+    }
+
+    // MARK: - CheckboxPickerViewControllerDelegate
+
+    /// Selection updated
+    ///
+    /// - Parameters:
+    ///   - values: the values
+    ///   - picker: the picker
+    func checkboxValueUpdated(_ values: [PickerValue], picker: CheckboxPickerViewController) {
+        items.filter({$0.dataType == .comorbidities}).first?.value = (values as? [ComorbidConditionPickerValue])?.map({$0.comorbidCondition})
+        updateAfterChange()
+    }
+
+    // MARK: - UITextFieldDelegate
+
+    /// Dismiss keyboard
+    ///
+    /// - Parameter sender: the button
+    override func menuAction(_ sender: UIButton) {
+        skipChanges = true
+        self.view.endEditing(true)
+        super.menuAction(sender)
+    }
+
+    /// Dismiss keyboard
+    ///
+    /// - Parameters:
+    ///   - touches: the touches
+    ///   - event: the event
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+
+    /// Update entered weight
+    ///
+    /// - Parameter textField: the textField
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let cell = textField.superview?.superview?.superview as? ProfileItemCell
+        cell?.showTextInput(false)
+        if let item = items.filter({$0.dataType == lastSelectedPickerType}).first {
+            if let value = Double(textField.text ?? "") {
+                if OPTION_LIMIT_WEIGHT_VALUES && (value < WEIGHT_LIMIT.0 || value > WEIGHT_LIMIT.1)  {
+
+                    // Skip changes if incorrect value is entered
+                    if skipChanges {
+                        skipChanges = false
+                        return
+                    }
+                    showAlert("Enter correct weight", "Please enter weight between \(Int(WEIGHT_LIMIT.0)) and \(Int(WEIGHT_LIMIT.1)) pounds.") {
+                        DispatchQueue.main.async {
+                            cell?.showTextInput(true)
+                            textField.becomeFirstResponder()
+                        }
+                    }
+                    return
+                }
+                else if value > 0 {
+                    item.value = value
+                }
+            }
+            updateAfterChange()
         }
+    }
+}
+
+/**
+ * Goals field cell
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+class ProfileItemGoalsCell: ZeroMarginsCell {
+
+    /// outlets
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var iconView: UIImageView!
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var generateButton: UIButton!
+    @IBOutlet weak var resetAllGoals: UIButton!
+
+    /// the confirmation dialog
+    private var confirmDialog: ConfirmDialog?
+
+    /// the reference to API
+    private let api: ServiceApi = CachingServiceApi.shared
+
+    /// Setup UI
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        mainView.roundCorners(3)
+        self.backgroundColor = UIColor.clear
+        self.contentView.backgroundColor = UIColor.clear
+        shadowView.addShadow(size: 3, shift: 2)
+        if isIPhone5() {
+            generateButton.setTitle(NSLocalizedString("Generate", comment: "Generate"), for: .normal)
+            resetAllGoals.setTitle(NSLocalizedString("Reset All", comment: "Reset All"), for: .normal)
+        }
+    }
+
+    /// Update UI
+    ///
+    /// - Parameter item: the item
+    func configureItem(_ item: ProfileDataItem) {
+        iconView.image = item.dataType.getIcon()
+        titleLabel.text = item.title
+        api.getGoals(profile: nil, callback: { list in
+            self.resetAllGoals.alpha = list.isEmpty ? 0.5 : 1
+            self.resetAllGoals.isUserInteractionEnabled = !list.isEmpty
+        }, failure: { (error) in showError(errorMessage: error) })
+    }
+
+    /// "Generate Goals" button action handler
+    ///
+    /// - parameter sender: the button
+    @IBAction func generateGoalsAction(_ sender: Any) {
+        self.api.generateGoals(profile: nil, callback: { (_) in
+
+            // Open goals screen
+            UIViewController.getCurrentViewController()?.openGoals()
+            CurrentMenuItem = -1
+        }, failure: { (error) in showError(errorMessage: error) })
+    }
+
+    /// "Reset All Goals" button action handler
+    ///
+    /// - parameter sender: the button
+    @IBAction func resetAllGoalAction(_ sender: Any) {
+        confirmDialog = ConfirmDialog(title: NSLocalizedString("Reset All Goals?", comment: "Reset All Goals?"), text: NSLocalizedString("Are you sure you want to remove all goals?", comment: "Are you sure you want to remove all goals?"), action: {
+            self.api.resetAllGoals(callback: {
+                self.resetAllGoals.alpha = 0.5
+                self.resetAllGoals.isUserInteractionEnabled = false
+                if OPTION_MOVE_TO_GOALS_AFTER_RESET {
+                    // Open goals screen
+                    UIViewController.getCurrentViewController()?.openGoals()
+                    CurrentMenuItem = -1
+                }
+            }, failure: { (error) in showError(errorMessage: error) })
+        })
     }
 }
 
@@ -539,11 +772,14 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
  * Name field cell
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - text input added
  */
 class ProfileItemCell: ZeroMarginsCell {
 
@@ -554,6 +790,7 @@ class ProfileItemCell: ZeroMarginsCell {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var textField: UITextField!
 
     /// Setup UI
     override func awakeFromNib() {
@@ -562,6 +799,13 @@ class ProfileItemCell: ZeroMarginsCell {
         self.backgroundColor = UIColor.clear
         self.contentView.backgroundColor = UIColor.clear
         shadowView.addShadow(size: 3, shift: 2)
+        showTextInput(false)
+    }
+
+    /// Hide text field
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        showTextInput(false)
     }
 
     /// Update UI
@@ -601,5 +845,14 @@ class ProfileItemCell: ZeroMarginsCell {
             }
         }
 
+    }
+
+    /// Show/hide text field
+    ///
+    /// - Parameter show: true - show, false - else
+    func showTextInput(_ show: Bool) {
+        textField.isHidden = !show
+        valueLabel.isHidden = show
+        valueEndingLabel.isHidden = show
     }
 }

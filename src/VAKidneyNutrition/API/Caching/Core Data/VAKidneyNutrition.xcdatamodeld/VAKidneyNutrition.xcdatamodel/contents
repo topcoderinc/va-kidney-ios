@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CacheableObjectMO" representedClassName="CacheableObjectMO" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="deletedLocally" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -49,6 +49,7 @@
     <entity name="ProfileMO" representedClassName="ProfileMO" parentEntity="CacheableObjectMO" syncable="YES" codeGenerationType="class">
         <attribute name="addDevice" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="birthday" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="comorbidities" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currentWeight" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dialysis" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="diseaseCategory" optional="YES" attributeType="String" syncable="YES"/>
@@ -86,7 +87,7 @@
         <element name="FoodItemMO" positionX="-54" positionY="135" width="128" height="120"/>
         <element name="FoodMO" positionX="-54" positionY="135" width="128" height="135"/>
         <element name="GoalMO" positionX="-54" positionY="63" width="128" height="360"/>
-        <element name="ProfileMO" positionX="-54" positionY="45" width="128" height="195"/>
+        <element name="ProfileMO" positionX="-54" positionY="45" width="128" height="210"/>
         <element name="QuantitySampleMO" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="RecommendationMO" positionX="-45" positionY="135" width="128" height="135"/>
         <element name="ServiceResponseMO" positionX="-45" positionY="135" width="128" height="75"/>

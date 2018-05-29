@@ -4,7 +4,8 @@
 //
 //  Created by TCCODER on 12/25/17.
 //  Modified by TCCODER on 4/1/18.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 5/26/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIComponents
@@ -41,11 +42,13 @@ public protocol AddAssetButtonViewDelegate {
  * View that contains a button that allows to add a photo
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - Bug fixed: authorization was requested after user selected a very first photo
+ * 1.2:
+ * - Bug fixed
  */
 open class AddAssetButtonView: CustomView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AddAssetButtonViewDelegate {
 
@@ -230,20 +233,22 @@ open class AddAssetButtonView: CustomView, UIImagePickerControllerDelegate, UINa
      - parameter sourceType: the type of the source
      */
     func showPickerWithSourceType(_ sourceType: UIImagePickerControllerSourceType) {
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.mediaTypes = self.mediaTypes
-            imagePicker.sourceType = sourceType
-            imagePicker.videoQuality = UIImagePickerControllerQualityType.typeMedium
-            UIViewController.getCurrentViewController()?.present(imagePicker, animated: true,
-                                                                 completion: nil)
-        }
-        else {
-            let alert = UIAlertController(title: "Error", message: "This feature is supported on real devices only",
-                                          preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            UIViewController.getCurrentViewController()?.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.mediaTypes = self.mediaTypes
+                imagePicker.sourceType = sourceType
+                imagePicker.videoQuality = UIImagePickerControllerQualityType.typeMedium
+                UIViewController.getCurrentViewController()?.present(imagePicker, animated: true,
+                                                                     completion: nil)
+            }
+            else {
+                let alert = UIAlertController(title: "Error", message: "This feature is supported on real devices only",
+                                              preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                UIViewController.getCurrentViewController()?.present(alert, animated: true, completion: nil)
+            }
         }
     }
 

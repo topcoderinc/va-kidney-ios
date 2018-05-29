@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 12/21/17.
 //  Modified by TCCODER on 02/04/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -19,11 +20,13 @@ let OPTION_WRAP_LOGIN_ERRORS = false
  * Sign In screen
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ * 1.2:
+ * - font size related changes
  */
 class SignInViewController: UIViewController, UITextFieldDelegate {
 
@@ -66,7 +69,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     private func showLoginError(_ error: String?) {
         self.emailField.borderWidth = error == nil ? 0 : 1
         self.loginErrorLabel.isHidden = error == nil
-        self.loginButtonMargin.constant = error == nil ? 16 : 28.5
+        self.loginButtonMargin.constant = error == nil ? 18 : 30.5
         if let error = error {
             self.loginErrorLabel.text = error
         }
@@ -78,7 +81,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     private func showPasswordError(_ error: String?) {
         self.passwordField.borderWidth = error == nil ? 0 : 1
         self.passwordErrorLabel.isHidden = error == nil
-        self.passwordBottomMargin.constant = error == nil ? 54.5 : 72
+        self.passwordBottomMargin.constant = error == nil ? 56.5 : 74
         if let error = error {
             self.passwordErrorLabel.text = error
         }

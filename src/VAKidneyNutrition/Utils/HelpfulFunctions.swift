@@ -6,6 +6,7 @@
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -256,13 +257,15 @@ extension UIImage {
  * Shortcut methods for Date
  *
  * - author:  TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
  * - new method
  * 1.2:
  * - new method
+ * 1.3:
+ * - new methods
  */
 extension Date {
 
@@ -361,13 +364,112 @@ extension Date {
 
         return (comps1.day == comps2.day) && (comps1.month == comps2.month) && (comps1.year == comps2.year)
     }
+
+    /// Convert date to month value for charts
+    ///
+    /// - Returns: the value
+    func toChartMonthValue() -> Double {
+        let year = Int(DateFormatters.year.string(from: self)) ?? 0
+        let month = Int(DateFormatters.month.string(from: self)) ?? 0
+        return Double(year * 12 + month)
+    }
+
+    /// Convert date to day value for charts
+    ///
+    /// - Returns: the value
+    func toChartDayValue() -> Double {
+        let calendar = Calendar.current
+        let date = Date(timeIntervalSince1970: 0)
+        let comp = calendar.dateComponents([.day], from: date, to: self)
+        return Double(comp.day ?? 0)
+    }
+
+    /// Convert chart value into date
+    ///
+    /// - Parameter value: the value
+    /// - Returns: the date
+    static func fromChartMonthValue(_ value: Double) -> Date {
+        let calendar = Calendar.current
+        let year = Int(floor(value/12))
+        let month = Int(value.truncatingRemainder(dividingBy: 12))
+        let comp = DateComponents(calendar: calendar, timeZone: TimeZone.current, year: year, month: month, day: 15)
+        return calendar.date(from: comp) ?? Date()
+    }
+
+    /// Convert chart value into date
+    ///
+    /// - Parameter value: the value
+    /// - Returns: the date
+    static func fromChartDayValue(_ value: Double) -> Date {
+        let calendar = Calendar.current
+        let date = Date(timeIntervalSince1970: 0)
+        return calendar.date(byAdding: .day, value: Int(value), to: date) ?? Date()
+    }
+
+    /// Check if current date is after the given date
+    ///
+    /// - Parameter date: the date to check
+    /// - Returns: true - if current date is after
+    func isAfter(_ date: Date) -> Bool {
+        return self.compare(date) == ComparisonResult.orderedDescending
+    }
+
+    /// Get date between the given two dates
+    ///
+    /// - Parameters:
+    ///   - date1: the first date
+    ///   - date2: the second date
+    /// - Returns: the date
+    static func getMeanDate(_ date1: Date, _ date2: Date) -> Date {
+        var start = date1
+        var end = date2
+        if start.isAfter(end) {
+            start = date2
+            end = date1
+        }
+        let timeInterval = end.timeIntervalSince(start)
+        return start.addingTimeInterval(timeInterval / 2)
+    }
+
+    /// Get Date that corresponds to the start of current day.
+    ///
+    /// - Returns: the date
+    func beginningOfDay() -> Date {
+        let calendar = Calendar.current
+
+        let components = calendar.dateComponents([.month, .year, .day], from: self)
+
+        return calendar.date(from: components)!
+    }
+
+    /// Get Date that corresponds to the end of current day
+    ///
+    /// - Returns: the date
+    func endOfDay() -> Date {
+        var date = nextDayStart()
+        date = date.addingTimeInterval(-1)
+        return date
+    }
+
+    /// Get the next day start
+    ///
+    /// - Returns: the date
+    func nextDayStart() -> Date {
+        let calendar = Calendar.current
+
+        var components = DateComponents()
+        components.day = 1
+
+        let date = calendar.date(byAdding: components, to: self.beginningOfDay())!
+        return date
+    }
 }
 
 /**
  * Date and time formatters
  *
  * - author: TCCODER
- * - version: 1.3
+ * - version: 1.4
  *
  * changes:
  * 1.1:
@@ -376,6 +478,8 @@ extension Date {
  * - new formatter
  * 1.3:
  * - bug fixed
+ * 1.4:
+ * - new formatters
  */
 struct DateFormatters {
 
@@ -432,6 +536,30 @@ struct DateFormatters {
         let f = DateFormatter()
         f.dateFormat = "yyyyMMdd"
         f.timeZone = TimeZone(abbreviation: "GMT")
+        return f
+    }()
+
+    /// year
+    static var year: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy"
+        f.timeZone = TimeZone.current
+        return f
+    }()
+
+    /// month
+    static var month: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "MM"
+        f.timeZone = TimeZone.current
+        return f
+    }()
+
+    /// day
+    static var day: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd"
+        f.timeZone = TimeZone.current
         return f
     }()
 
@@ -494,10 +622,12 @@ extension Array {
  * Extenstion adds helpful methods to Float
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
+ * - new method
+ * 1.2:
  * - new method
  */
 extension Float {
@@ -534,6 +664,19 @@ extension Float {
     /// - Returns: string representation of the rounded value
     func toStringClear() -> String {
         return toString().replace(",", withString: "")
+    }
+
+    /// Convert to string. E.g. 1 -> "1", 1.2 -> "1.2", 1.2345 -> "1.2345"
+    ///
+    /// - Returns: string representation of the rounded value
+    func toItemValueString() -> String {
+        let value = self
+        if value.isInteger() {
+            return (NSString.localizedStringWithFormat("%.f", value.rounded()) as String).replace(",", withString: "")
+        }
+        else  {
+            return "\(self)"
+        }
     }
 }
 

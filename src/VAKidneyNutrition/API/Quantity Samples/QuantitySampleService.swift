@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 3/29/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -15,7 +16,11 @@ import HealthKit
  * Also there is a decorator implementation QuantitySampleStorage
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - new API methods
  */
 protocol QuantitySampleService {
 
@@ -49,4 +54,20 @@ protocol QuantitySampleService {
     ///   - callback: the callback to return data
     ///   - customTypeCallback: the callback to invoke if custom type is requested
     func hasData(_ quantityType: QuantityType, callback: @escaping (Bool)->(), customTypeCallback: @escaping ()->())
+
+    /// Get data for today
+    ///
+    /// - Parameters:
+    ///   - quantityType: the quantityType
+    ///   - callback: the callback to return data
+    ///   - customTypeCallback: the callback to invoke if custom type is requested
+    func getTodayData(_ quantityType: QuantityType, callback: @escaping (HKQuantity?, HKUnit)->(), customTypeCallback: @escaping ()->())
+
+    /// Get discrete values
+    ///
+    /// - Parameters:
+    ///   - quantityType: the quantity type
+    ///   - callback: the callback to return data
+    ///   - customTypeCallback: the callback to invoke if custom type is requested
+    func getDiscreteValues(_ quantityType: QuantityType, callback: @escaping ([(Date, Double)], String)->(), customTypeCallback: @escaping ()->())
 }

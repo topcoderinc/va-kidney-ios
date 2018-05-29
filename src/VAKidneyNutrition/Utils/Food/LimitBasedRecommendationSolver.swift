@@ -2,7 +2,7 @@
 //  LimitBasedRecommendationSolver.swift
 //  VAKidneyNutrition
 //
-//  Created by Volkov Alexander on 4/12/18.
+//  Created by TCCODER on 4/12/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 

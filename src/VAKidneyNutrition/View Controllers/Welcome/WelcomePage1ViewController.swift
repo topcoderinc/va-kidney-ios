@@ -3,6 +3,7 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 2/2/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -13,7 +14,11 @@ import UIComponents
  * Welcome screen #1
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - font size changes
  */
 class WelcomePage1ViewController: UIViewController {
 
@@ -54,9 +59,9 @@ class WelcomePage1ViewController: UIViewController {
         if isIPhone5() {
             topHeight.constant = 120
             topMargin.constant = 20
-            message1Label.font = UIFont(name: message1Label.font.familyName, size: 10)
-            message2Label.font = UIFont(name: message2Label.font.familyName, size: 10)
-            message3Label.font = UIFont(name: message3Label.font.familyName, size: 10)
+            message1Label.font = UIFont(name: message1Label.font.familyName, size: 12)
+            message2Label.font = UIFont(name: message2Label.font.familyName, size: 12)
+            message3Label.font = UIFont(name: message3Label.font.familyName, size: 12)
         }
         message1Label.setLineSpacing(lineSpacing: 3)
         message2Label.setLineSpacing(lineSpacing: 3)

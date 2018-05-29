@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 2/3/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -48,11 +49,15 @@ var LastDatePickerViewController: DatePickerViewController?
  * View controller that contains header and datepicker.
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - maximum date parameter
+ *
+ * changes:
+ * 1.2:
+ * - custom "Cancel" button title
  */
 class DatePickerViewController: UIViewController {
 
@@ -61,6 +66,7 @@ class DatePickerViewController: UIViewController {
     @IBOutlet weak var picker: UIDatePicker!
     @IBOutlet weak var height: NSLayoutConstraint!
     @IBOutlet weak var outsideButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
 
     /// selected item in the picker (value)
     var selectedObject: Date?
@@ -73,6 +79,9 @@ class DatePickerViewController: UIViewController {
 
     /// the maximum date
     var maxDate: Date?
+
+    /// the title for "Cancel" button
+    var cancelButtonTitle: String!
 
     /// Show the picker
     ///
@@ -88,7 +97,7 @@ class DatePickerViewController: UIViewController {
                     selectedDate: Date? = nil,
                     datePickerMode: UIDatePickerMode,
                     delegate: DatePickerViewControllerDelegate,
-                    disableOutsideButton: Bool = false, maxDate: Date? = nil) -> DatePickerViewController? {
+                    disableOutsideButton: Bool = false, maxDate: Date? = nil, cancelButtonTitle: String = NSLocalizedString("Cancel", comment: "Cancel")) -> DatePickerViewController? {
         LastDatePickerViewController?.closePicker()
         if let parent = UIViewController.getCurrentViewController() {
             if let vc = parent.create(DatePickerViewController.self, storyboardName: "Profile") {
@@ -98,6 +107,7 @@ class DatePickerViewController: UIViewController {
                 vc.datePickerMode = datePickerMode
                 vc.delegate = delegate
                 vc.maxDate = maxDate
+                vc.cancelButtonTitle = cancelButtonTitle
 
                 let height: CGFloat = 217
                 let bounds = disableOutsideButton ? CGRect(x: 0, y: 0, width: parent.view.bounds.width, height: height) : parent.view.bounds
@@ -116,6 +126,7 @@ class DatePickerViewController: UIViewController {
         super.viewDidLoad()
 
         titleLabel.text = self.title
+        cancelButton.setTitle(cancelButtonTitle, for: .normal)
         if !hasControls() {
             height.constant = 0
         }

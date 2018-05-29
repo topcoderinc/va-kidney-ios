@@ -3,7 +3,8 @@
 //  VAKidneyNutrition
 //
 //  Created by TCCODER on 12/21/17.
-//  Copyright © 2017 Topcoder. All rights reserved.
+//  Modified by TCCODER on 5/26/18.
+//  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
 import UIComponents
@@ -12,11 +13,14 @@ import UIComponents
  * AppDelegate
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - UI changes
+ *
+ * 1.2:
+ * - font changes
  */
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = Colors.darkBlue
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().shadowImage = #imageLiteral(resourceName: "navBg")
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, .font: UIFont(name: Fonts.Regular, size: 16)!]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, .font: UIFont(name: Fonts.Regular, size: 18)!]
         return true
     }
 

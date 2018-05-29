@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +34,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQy-a4-XsS">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="18"/>
                                                 <state key="normal" title="Articles">
                                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -55,7 +55,7 @@
                                             </view>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfQ-9l-sOZ">
                                                 <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="18"/>
                                                 <state key="normal" title="Tutorials">
                                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -68,7 +68,7 @@
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmw-Im-uOD">
                                                 <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="18"/>
                                                 <state key="normal" title="Education">
                                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -125,15 +125,15 @@
                                                             <rect key="frame" x="15" y="8" width="345" height="118"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Best Food List  For You" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIX-x8-RCg">
-                                                                    <rect key="frame" x="20" y="16" width="305" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="17"/>
+                                                                    <rect key="frame" x="20" y="16" width="305" height="19"/>
+                                                                    <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="19"/>
                                                                     <color key="textColor" red="0.0" green="0.51372549020000002" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQz-y3-igc">
-                                                                    <rect key="frame" x="21" y="43" width="303" height="55"/>
+                                                                    <rect key="frame" x="21" y="45" width="303" height="53"/>
                                                                     <string key="text">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. </string>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
+                                                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
                                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>

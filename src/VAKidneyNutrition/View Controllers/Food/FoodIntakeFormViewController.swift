@@ -6,6 +6,7 @@
 //  Modified by TCCODER on 02/04/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2017-2018 Topcoder. All rights reserved.
 //
 
@@ -15,6 +16,16 @@ import SwiftyJSON
 /// possible time for the meal
 enum FoodIntakeTime: String {
     case breakfast = "breakfast", lunch = "lunch", dinner = "dinner", snacks = "snacks", casual = "casual"
+
+    /// all possible values
+    static let all: [FoodIntakeTime] = [.breakfast, .lunch, .dinner, .snacks, .casual]
+
+    /// Get title
+    ///
+    /// - Returns: the string
+    func getTitle() -> String {
+        return rawValue.capitalized
+    }
 }
 
 /// option: true - add "drug" into title of the "Add New Meal" form
@@ -24,7 +35,7 @@ let OPTION_SHOW_ADD_NEW_MEAL_DRUG_TITLE = true
  * Food Intake form
  *
  * - author: TCCODER
- * - version: 1.3
+ * - version: 1.4
  *
  * changes:
  * 1.1:
@@ -33,7 +44,9 @@ let OPTION_SHOW_ADD_NEW_MEAL_DRUG_TITLE = true
  * 1.2:
  * - integration changes
  *
- * 1.2:
+ * 1.3:
+ * - bug fixes
+ * 1.4:
  * - bug fixes
  */
 class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DatePickerViewControllerDelegate, AddAssetButtonViewDelegate,
@@ -127,8 +140,8 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         table.extraHeight = 7
         table.configureCell = { indexPath, item, _, cell in
             cell.titleLabel?.text = item.title
-            cell.amountLabel?.text = "\(item.amount)"
-            cell.unitsLabel?.text = item.units
+            cell.amountLabel?.text = item.amount.toItemValueString()
+            cell.unitsLabel?.text = item.units.humanReadableUnit()
         }
         table.onSelect = { _, item in
             self.openForm(item)
@@ -233,6 +246,7 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         if self.food != nil {
             var diff = [FoodItem: Double]()
             for item in self.meals {
+                item.normalizeUnits()
                 if let previousMeal = self.food?.items.filter({$0.id == item.id}).first {
                     let added = item.amount - previousMeal.amount
                     diff[item] = Double(added)

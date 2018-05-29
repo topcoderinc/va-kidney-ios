@@ -5,6 +5,7 @@
 //  Created by TCCODER on 2/3/18.
 //  Modified by TCCODER on 03/04/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -12,11 +13,16 @@ import UIComponents
 import Charts
 import HealthKit
 
+/// Possible types of the chart
+enum ChartType {
+    case monthStatistic, discreteValues
+}
+
 /**
  * Charts screen
  *
  * - author: TCCODER
- * - version: 1.2
+ * - version: 1.3
  *
  * changes:
  * 1.1:
@@ -25,6 +31,9 @@ import HealthKit
  * 1.2:
  * - goal legend
  * - goal limit lines
+ *
+ * 1.3:
+ * - bug fixes
  */
 class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate {
 
@@ -34,6 +43,8 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     @IBOutlet weak var goalLegend: UIView!
     @IBOutlet weak var goalLegendCircleView: UIView!
     @IBOutlet weak var goalTitleLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var topMargin: NSLayoutConstraint!
 
     /// the items
     private var items = [Report]()
@@ -44,8 +55,18 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// the selected cell indexPath
     private var lastSelectedIndexPath: IndexPath?
 
-    /// the related value type
-    var quantityType: QuantityType?
+    /// the type of the chart
+    var type: ChartType = .monthStatistic
+
+    /// the related value types
+    var quantityTypes = [QuantityType]()
+
+    /// the custom titles
+    var customTitle: String?
+    var customChartTitles = [String]()
+
+    /// the info to show
+    var info: String?
 
     /// the data for the chart view
     private var data: LineChartData!
@@ -56,6 +77,9 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// the storage
     private var storage: QuantitySampleService = QuantitySampleStorage.shared
 
+    /// the line colors
+    private var colors = [UIColor(hex: 0x003f72), UIColor(hex: 0x007220)]
+
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,13 +87,19 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
         goalLegend.isHidden = true
         initBackButtonFromChild()
 
-        if let _ = quantityType {
+        if !quantityTypes.isEmpty {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItems))
         }
 
         noDataLabel.isHidden = true
-        title = (quantityType?.title ?? NSLocalizedString("Chart", comment: "Chart")).uppercased()
+        title = (customTitle ?? quantityTypes.first?.title ?? NSLocalizedString("Chart", comment: "Chart")).uppercased()
         setupLineChartView(chartView: chart)
+
+        if let info = info {
+            infoLabel.text = info
+            topMargin.constant = 1000
+        }
+        infoLabel.isHidden = info == nil
     }
 
     /// Load data
@@ -82,15 +112,45 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
 
     /// Load data
     private func loadData() {
-        guard let quantityType = quantityType else { return }
-        storage.getPerMonthStatistics(quantityType, callback: { (data, units) in
+        guard !quantityTypes.isEmpty else { return }
 
-            self.setData(stats: data)
-            self.chart.chartDescription?.text = units
-            self.noDataLabel.isHidden = !data.isEmpty
-            self.addLimitLines(units)
-        }) {
-            self.noDataLabel.isHidden = false
+        let g = DispatchGroup()
+        var list = [[(Date, Double)]]()
+        var lastUnits = ""
+
+
+        for quantityType in quantityTypes {
+            g.enter()
+            switch type {
+            case .monthStatistic:
+                storage.getPerMonthStatistics(quantityType, callback: { (data, units) in
+                    list.append(data)
+                    lastUnits = units
+                    g.leave()
+                }) {
+                    g.leave()
+                }
+            case .discreteValues:
+                storage.getDiscreteValues(quantityType, callback: { (data, units) in
+                    list.append(data)
+                    lastUnits = units
+                    g.leave()
+                }) {
+                    g.leave()
+                }
+            }
+        }
+        g.notify(queue: .main) {
+            let sum = list.map({$0.count}).reduce(0, +)
+            if sum > 0 {
+                self.setData(data: list)
+                self.chart.chartDescription?.text = lastUnits
+                self.noDataLabel.isHidden = !list.isEmpty
+                self.addLimitLines(lastUnits)
+            }
+            else {
+                self.noDataLabel.isHidden = false
+            }
         }
     }
 
@@ -98,18 +158,28 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     private func addLimitLines(_ units: String) {
         findRelatedGoal { (goal) in
             var goalsNumber = 0
+            let font = UIFont(name: Fonts.Regular, size: 16)!
+            var goalMax: Float? = nil
+            if let value = goal.max {
+                goalMax = value
+                if units == "mg" || units == HKUnit.literUnit(with: .milli).unitString {
+                    goalMax = value * 1000
+                }
+            }
             if var value = goal.min {
                 if units == "mg" || units == HKUnit.literUnit(with: .milli).unitString {
                     value *= 1000
                 }
                 let leftAxis = self.chart.leftAxis
                 let limit = ChartLimitLine(limit: Double(value))
+                limit.valueFont = font
                 limit.lineColor = UIColor(hex: 0xc4262e)
                 leftAxis.addLimitLine(limit)
                 limit.label = "\(value.toStringClear()) (minimum)"
-                limit.labelPosition = .leftTop
+                limit.labelPosition = .leftBottom
                 limit.drawLabelEnabled = true
-                self.chart.leftAxis.axisMinimum = min(self.chart.leftAxis.axisMinimum, Double(value))
+                let (minValue, _) = self.getExtendedLimits(min: Double(value), max: goalMax != nil ? max(Double(goalMax!), self.chart.leftAxis.axisMaximum): self.chart.leftAxis.axisMaximum)
+                self.chart.leftAxis.axisMinimum = min(minValue, self.chart.leftAxis.axisMinimum)
                 goalsNumber += 1
             }
             if var value = goal.max {
@@ -118,12 +188,14 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
                 }
                 let leftAxis = self.chart.leftAxis
                 let maxLimit = ChartLimitLine(limit: Double(value))
+                maxLimit.valueFont = font
                 maxLimit.label = "\(value.toStringClear()) (maximum)"
                 maxLimit.drawLabelEnabled = true
-                maxLimit.labelPosition = .leftBottom
+                maxLimit.labelPosition = .leftTop
                 maxLimit.lineColor = UIColor(hex: 0xc4262e)
                 leftAxis.addLimitLine(maxLimit)
-                self.chart.leftAxis.axisMaximum = max(self.chart.leftAxis.axisMaximum, Double(value))
+                let (_, maxValue) = self.getExtendedLimits(min: self.chart.leftAxis.axisMinimum, max: Double(value))
+                self.chart.leftAxis.axisMaximum = max(maxValue, self.chart.leftAxis.axisMaximum)
                 goalsNumber += 1
             }
             self.goalLegend.isHidden = goalsNumber == 0 || !self.noDataLabel.isHidden
@@ -135,14 +207,17 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     ///
     /// - Parameter callback: the callback to return related goal
     private func findRelatedGoal(callback: @escaping (Goal)->()) {
-        guard let quantityType = quantityType else { return }
+        guard !quantityTypes.isEmpty else { return }
+
 
         FoodUtils.shared.getNutritionGoals { (goals) in
             for goal in goals {
                 if let relatedQuantityId = goal.relatedQuantityId {
-                    if relatedQuantityId == quantityType.id {
-                        callback(goal)
-                        return
+                    for quantityType in self.quantityTypes {
+                        if relatedQuantityId == quantityType.id {
+                            callback(goal)
+                            return
+                        }
                     }
                 }
             }
@@ -152,7 +227,8 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// Open add form
     @objc func addItems() {
         if let vc = create(ChartAddItemViewController.self), let parent = UIViewController.getCurrentViewController() {
-            vc.quantityType = self.quantityType
+            vc.quantityTypes = self.quantityTypes
+            vc.customChartTitles = self.customChartTitles
             vc.delegate = self
             parent.showViewControllerFromSide(vc, inContainer: parent.view, bounds: parent.view.bounds, side: .bottom, nil)
         }
@@ -167,41 +243,59 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// Updates data for the chart
     ///
     /// - Parameters:
-    ///   - stats: the statistics to display
-    public func setData(stats: [(Date, Double)]) {
-        if !stats.isEmpty {
+    ///   - data: the statistics to display
+    public func setData(data: [[(Date, Double)]]) {
+        let sum = data.map({$0.count}).reduce(0, +)
+        if sum > 0 {
 
-            var statistic = stats.sorted { $0.0.compare($1.0) == .orderedAscending }
+            var dataSets = [LineChartDataSet]()
+            var minValue: Double = Double.infinity
+            var maxValue: Double = 0
+            var i = 0
+            for stats in data {
+                var statistic = stats.sorted { $0.0.compare($1.0) == .orderedAscending }
 
-            var xVals = [Double]()
-            var values: [Double] = []
+                var xVals = [Double]()
+                var values: [Double] = []
 
-            for i in 0..<statistic.count {
-                values.append(statistic[i].1)
-                xVals.append(statistic[i].0.timeIntervalSinceReferenceDate)
+                for i in 0..<statistic.count {
+                    values.append(statistic[i].1)
+                    switch self.type {
+                    case .monthStatistic:
+                        xVals.append(statistic[i].0.toChartMonthValue())
+                    case .discreteValues:
+                        xVals.append(statistic[i].0.toChartDayValue())
+                    }
+                }
+
+                var yVals = [ChartDataEntry]()
+                for i in 0..<values.count {
+                    yVals.append(ChartDataEntry(x: xVals[i], y: values[i]))
+                }
+
+                let color = self.colors[i % self.colors.count]
+                var label = NSLocalizedString("Actual", comment: "Actual")
+                if i < customChartTitles.count { label = customChartTitles[i] }
+                let set1 = LineChartDataSet(values: yVals, label: label)
+                set1.mode = LineChartDataSet.Mode.horizontalBezier
+                set1.lineWidth = self.type == .discreteValues ? 0 : 2
+                set1.drawValuesEnabled = false
+                set1.circleColors = [color]
+                set1.drawCirclesEnabled = values.count == 1 || self.type == .discreteValues
+                set1.colors = [color]
+                set1.highlightEnabled = false
+                dataSets.append(set1)
+                minValue = min(minValue, values.min() ?? 0)
+                maxValue = max(maxValue, values.max() ?? 0)
+                i += 1
             }
-
-            var yVals = [ChartDataEntry]()
-            for i in 0..<values.count {
-                yVals.append(ChartDataEntry(x: xVals[i], y: values[i]))
-            }
-
-            let color = UIColor(hex: 0x003f72)
-            let set1 = LineChartDataSet(values: yVals, label: NSLocalizedString("Actual", comment: "Actual"))
-            set1.mode = .cubicBezier
-            set1.lineWidth = 2
-            set1.drawValuesEnabled = false
-            set1.circleColors = [color]
-            set1.drawCirclesEnabled = values.count == 1
-            set1.colors = [color]
-            set1.highlightEnabled = false
-            let dataSets = [set1]
 
             let data = LineChartData(dataSets: dataSets)
-            data.setValueFont(UIFont(name: Fonts.Regular, size: 14))
+            data.setValueFont(UIFont(name: Fonts.Regular, size: 16))
 
-            chart?.leftAxis.axisMaximum = (values.max() ?? 0) + 10
-            chart?.leftAxis.axisMinimum = max(Double(0), ((values.min() ?? 0) - 10))
+            let (correctedMinValue, correctedMaxValue) = getExtendedLimits(min: minValue, max: maxValue)
+            chart?.leftAxis.axisMaximum = correctedMaxValue
+            chart?.leftAxis.axisMinimum = max(Double(0), correctedMinValue)
 
             self.data = data
             updateChartWithData(data)
@@ -209,6 +303,23 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
         else {
             updateChartWithData(nil)
         }
+    }
+
+    /// Get extended limits
+    ///
+    /// - Parameters:
+    ///   - min: the minimum value
+    ///   - max: the maximum value
+    /// - Returns: the extended limits
+    private func getExtendedLimits(min: Double, max: Double) -> (Double, Double) {
+        let maxValue = max
+        let minValue = min
+        let delta = maxValue - minValue
+        var oYPaddingValue = delta * 0.1
+        if oYPaddingValue == 0 {
+            oYPaddingValue = 10
+        }
+        return (minValue - oYPaddingValue, maxValue + oYPaddingValue)
     }
 
     /**
@@ -236,7 +347,7 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
      */
     func setupLineChartView(chartView: LineChartView) {
         let labelColor = Colors.black
-        let labelsFont = UIFont(name: Fonts.Regular, size: 14)!
+        let labelsFont = UIFont(name: Fonts.Regular, size: 16)!
 
         let desc = Description()
         desc.text = ""
@@ -250,8 +361,11 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
         chartView.pinchZoomEnabled = false
 
         chartView.rightAxis.enabled = false
+        chartView.extraRightOffset = 20
+        chartView.extraLeftOffset = 20
 
         chartView.maxVisibleCount = 60
+        chartView.chartDescription?.font = labelsFont
 
         let xAxis = chartView.xAxis
         xAxis.labelPosition = .bottom
@@ -260,9 +374,9 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
         xAxis.labelFont = labelsFont
         xAxis.labelTextColor = labelColor
         xAxis.drawGridLinesEnabled = false
-        xAxis.centerAxisLabelsEnabled = true
-        xAxis.granularity = 24 * 60 * 60 * 30
-        xAxis.valueFormatter = DateValueFormatter()
+        xAxis.centerAxisLabelsEnabled = false
+        xAxis.granularity = 1
+        xAxis.valueFormatter = self.type == .monthStatistic ? DateValueFormatter() : DayValueFormatter()
 
         xAxis.axisLineColor = UIColor(white: 1, alpha: 0.5)
 
@@ -293,20 +407,33 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
     /// Add item
     ///
     /// - Parameters:
-    ///   - amount: the amount
+    ///   - amounts: the amounts
     ///   - unit: the units
     ///   - date: the date
-    func chartItemAdd(amount: Double, unit: String, date: Date) {
-        if let quantityType = quantityType {
-            let sample = QuantitySample.create(type: quantityType, amount: amount, unit: unit)
-            sample.createdAt = date
-            storage.addSample(sample, callback: { (success) in
+    func chartItemAdd(amounts: [Double], unit: String, date: Date) {
+        if amounts.count == quantityTypes.count {
+            let g = DispatchGroup()
+            var success = true
+            for i in 0..<quantityTypes.count {
+                g.enter()
+                let quantityType = quantityTypes[i]
+                let amount = amounts[i]
+                let sample = QuantitySample.create(type: quantityType, amount: amount, unit: unit)
+                sample.createdAt = date
+                storage.addSample(sample, callback: { (res) in
+                    g.leave()
+                    if !res { success = false }
+                })
+            }
+            g.notify(queue: .main) {
                 if success {
                     self.loadData()
                 }
-
                 FoodUtils.shared.updateGoals {}
-            })
+            }
+        }
+        else {
+            print("Inconsistency error")
         }
     }
 }
@@ -315,7 +442,11 @@ class ChartViewController: UIViewController, ChartAddItemViewControllerDelegate 
  * Date formatter for Ox axis
  *
  * - author: TCCODER
- * - version: 1.0
+ * - version: 1.1
+ *
+ * changes:
+ * 1.1:
+ * - month date rendering issue fixed
  */
 public class DateValueFormatter: NSObject, IAxisValueFormatter {
 
@@ -335,6 +466,36 @@ public class DateValueFormatter: NSObject, IAxisValueFormatter {
     ///   - axis: the axis
     /// - Returns: date
     public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        return dateFormatter.string(from: Date(timeIntervalSince1970: value))
+        let date = Date.fromChartMonthValue(value)
+        return dateFormatter.string(from: date)
+    }
+}
+
+/**
+ * Day formatter for Ox axis
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+public class DayValueFormatter: NSObject, IAxisValueFormatter {
+
+    /// the date formatter
+    private let dateFormatter = DateFormatter()
+
+    /// Initializer
+    override init() {
+        super.init()
+        dateFormatter.dateFormat = "EEE"
+    }
+
+    /// Get string value for axis
+    ///
+    /// - Parameters:
+    ///   - value: the value
+    ///   - axis: the axis
+    /// - Returns: date
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        let date = Date.fromChartDayValue(value)
+        return dateFormatter.string(from: date)
     }
 }

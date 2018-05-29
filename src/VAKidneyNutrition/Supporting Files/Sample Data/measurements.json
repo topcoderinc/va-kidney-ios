@@ -1,0 +1,34 @@
+[
+                        {
+                        "comment": "If hypertension, then add OBLIGATORY daily measurement of blood pressure on HOME + add chart to follow the daily variations of BP.",
+                        "id": 1,
+                        "title": "Blood Pressure",
+                        "relatedQuantityIds": ["HKQuantityTypeIdentifierBloodPressureSystolic", "HKQuantityTypeIdentifierBloodPressureDiastolic"],
+                        "quantityTitles": ["Systolic", "Diastolic"],
+                        "comorbidCondition": "hypertension",
+                        "iconName": "iconPresure",
+                        "valueText": "mmHg",
+                        "color": "f52900"
+                        },
+                        {
+                        "comment": "If diabetes mellitus, then add OBLIGATORY daily measurement of blood glucose on HOME + add chart to follow the variation.",
+                        "id": 2,
+                        "title": "Blood Glucose",
+                        "relatedQuantityId": "HKQuantityTypeIdentifierBloodGlucose",
+                        "comorbidCondition": "diabetesMellitus",
+                        "iconName": "iconBlood",
+                        "valueText": "mmol/L",
+                        "color": "f52900"
+                        },
+                        {
+                        "comment": "If congestive heart failure, then add OBLIGATORY daily body weight measurement. In patients who are not on dialysis, it must not be 3kg or higher than on previous day. Add a chart to follow the variation.",
+                        "id": 3,
+                        "title": "Body Weight",
+                        "relatedQuantityId": "HKQuantityTypeIdentifierBodyMass",
+                        "comorbidCondition": "congestiveHeartFailure",
+                        "info": "Always measure either before or after going to toilet in the morning. If your weight is 3kg or higher than usual, speak to your general practitioner to adjust diuretics.",
+                        "iconName": "iconWeightLossSmall",
+                        "valueText": "pounds",
+                        "color": "f000ff"
+                        }
+]

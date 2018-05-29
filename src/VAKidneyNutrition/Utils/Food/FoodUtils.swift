@@ -4,6 +4,7 @@
 //
 //  Created by TCCODER on 3/4/18.
 //  Modified by TCCODER on 4/1/18.
+//  Modified by TCCODER on 5/26/18.
 //  Copyright © 2018 Topcoder. All rights reserved.
 //
 
@@ -14,12 +15,15 @@ import HealthKit
  * The utility that isolates the logic for making recommendations
  *
  * - author: TCCODER
- * - version: 1.1
+ * - version: 1.2
  *
  * changes:
  * 1.1:
  * - API usage added
  * - Issue fixed: water was not added
+ *
+ * 1.2:
+ * - bug fixed: samples were saved with current date, not the selected in the form. Fixed.
  */
 class FoodUtils {
 
@@ -199,6 +203,7 @@ class FoodUtils {
                         if let unit = HealthKitUtil.shared.getUnit(byString: nutrition.unit),
                             let id = HealthKitUtil.shared.getId(byString: nutrition.title) {
                             let sample = QuantitySample.create(type: QuantityType.fromId(id.rawValue), amount: nutritionAmount, unit: unit.unitString)
+                            sample.createdAt = food.date
                             g.enter()
                             storage.addSample(sample, callback: { _ in g.leave() })
                         }
@@ -211,6 +216,7 @@ class FoodUtils {
                     let unit = HKUnit.liter()
                     let id = HKQuantityTypeIdentifier.dietaryWater
                     let sample = QuantitySample.create(type: QuantityType.fromId(id.rawValue), amount: amount, unit: unit.unitString)
+                    sample.createdAt = food.date
                     g.enter()
                     storage.addSample(sample, callback: { _ in g.leave()})
                 }
@@ -265,7 +271,7 @@ class FoodUtils {
     ///
     /// - Parameter callback: the callback to return data
     private func getFoods(callback: @escaping ([Food])->()) {
-        serviceApi.getFood(callback: callback, failure: createFailureCallback())
+        serviceApi.getFood(date: nil, callback: callback, failure: createFailureCallback())
     }
 
     /// Get info for all food
@@ -279,7 +285,7 @@ class FoodUtils {
             for item in food.items.filter({$0.type == .food}) {
                 g.enter()
                 // find information in NDB
-                self.foodDetailsApi.searchFoodItem(foodItem: item, callback: { (nutrients) in
+                self.foodDetailsApi.searchFoodItemNutrients(foodItem: item, callback: { (nutrients) in
                     if let nutrients = nutrients {
                         info[item] = nutrients
                     }
