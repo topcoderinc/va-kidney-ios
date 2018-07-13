@@ -72,7 +72,7 @@
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                                        <color key="value" red="0.0" green="0.4431372549" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="customPlaceholderColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,7 +111,7 @@
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                                        <color key="value" red="0.0" green="0.4431372549" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="customPlaceholderColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -159,12 +159,12 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itj-MM-PKI">
-                                                <rect key="frame" x="89" y="100" width="121" height="40"/>
+                                                <rect key="frame" x="90.5" y="100" width="118" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="izx-o8-hU7"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
-                                                <state key="normal" title="Forgot Password ?">
+                                                <state key="normal" title="Forgot Password?">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -177,7 +177,7 @@
                                                     <constraint firstAttribute="height" constant="36" id="cPj-h8-DNi"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
-                                                <state key="normal" title="New User ? Sign Up Now"/>
+                                                <state key="normal" title="New User? Sign Up Now"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -536,7 +536,7 @@ Ready. Set Go!</string>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102.5" id="O1a-Co-tNY"/>
                                             <constraint firstAttribute="height" constant="36" id="Ych-Q1-8Cj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
                                         <state key="normal" title="I AGREE"/>
                                         <connections>
                                             <action selector="agreeAction:" destination="dlo-dH-d34" eventType="touchUpInside" id="Ymd-2u-vsu"/>
@@ -547,7 +547,7 @@ Ready. Set Go!</string>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102.5" id="PMx-gw-vmm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
                                         <state key="normal" title="I DISAGREE"/>
                                         <connections>
                                             <action selector="disagreeAction:" destination="dlo-dH-d34" eventType="touchUpInside" id="2ZJ-gq-Uea"/>
@@ -677,10 +677,10 @@ Ready. Set Go!</string>
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMg-e0-XnS">
-                                                <rect key="frame" x="20" y="17" width="260" height="36"/>
+                                                <rect key="frame" x="20" y="20" width="260" height="32"/>
                                                 <string key="text">SET YOUR GOALS FOR BETTER 
 AND HEALTHY LIFE</string>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="16"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -688,7 +688,7 @@ AND HEALTHY LIFE</string>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="c7d-HG-20u"/>
-                                            <constraint firstItem="jMg-e0-XnS" firstAttribute="top" secondItem="bnW-Jp-PQ2" secondAttribute="top" constant="17" id="gNY-i6-0gb"/>
+                                            <constraint firstItem="jMg-e0-XnS" firstAttribute="top" secondItem="bnW-Jp-PQ2" secondAttribute="top" constant="20" id="gNY-i6-0gb"/>
                                             <constraint firstAttribute="trailing" secondItem="jMg-e0-XnS" secondAttribute="trailing" constant="20" id="huT-Xe-uAf"/>
                                             <constraint firstItem="jMg-e0-XnS" firstAttribute="leading" secondItem="bnW-Jp-PQ2" secondAttribute="leading" constant="20" id="uDx-vy-GV9"/>
                                         </constraints>
@@ -697,13 +697,13 @@ AND HEALTHY LIFE</string>
                                         <rect key="frame" x="0.0" y="60" width="300" height="410"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kse-7K-AqH">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="316"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="279"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzX-c6-LzN">
-                                                        <rect key="frame" x="20" y="0.0" width="260.5" height="102"/>
+                                                        <rect key="frame" x="20" y="0.0" width="260.5" height="99"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70n-Un-Jh9" userLabel="line">
-                                                                <rect key="frame" x="0.0" y="100" width="187.5" height="2"/>
+                                                                <rect key="frame" x="0.0" y="97" width="187.5" height="2"/>
                                                                 <color key="backgroundColor" red="0.0" green="0.51372549019607838" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="Wp9-xF-hKz"/>
@@ -718,8 +718,8 @@ AND HEALTHY LIFE</string>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXC-0x-Y5p">
-                                                                <rect key="frame" x="51" y="40" width="209.5" height="45"/>
-                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
+                                                                <rect key="frame" x="51" y="40" width="209.5" height="42"/>
+                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -746,10 +746,10 @@ AND HEALTHY LIFE</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHj-g2-Tlv">
-                                                        <rect key="frame" x="20" y="102" width="260" height="102"/>
+                                                        <rect key="frame" x="20" y="99" width="260" height="85"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJF-sQ-XkK" userLabel="line">
-                                                                <rect key="frame" x="73" y="100" width="186.5" height="2"/>
+                                                                <rect key="frame" x="73" y="83" width="186.5" height="2"/>
                                                                 <color key="backgroundColor" red="0.33333333333333331" green="0.46274509803921571" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="qDB-Mw-uJA"/>
@@ -764,8 +764,8 @@ AND HEALTHY LIFE</string>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit conse" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vp9-EM-beA">
-                                                                <rect key="frame" x="0.0" y="40" width="195" height="45"/>
-                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
+                                                                <rect key="frame" x="0.0" y="40" width="195" height="28"/>
+                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -792,10 +792,10 @@ AND HEALTHY LIFE</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-6b-my1">
-                                                        <rect key="frame" x="20" y="204" width="260.5" height="102"/>
+                                                        <rect key="frame" x="20" y="184" width="260.5" height="85"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cw0-38-Ylz" userLabel="line">
-                                                                <rect key="frame" x="0.0" y="100" width="187" height="2"/>
+                                                                <rect key="frame" x="0.0" y="83" width="187" height="2"/>
                                                                 <color key="backgroundColor" red="1" green="0.49803921568627452" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="QZH-WP-6im"/>
@@ -810,8 +810,8 @@ AND HEALTHY LIFE</string>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit conse" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Z9-x0-sNq">
-                                                                <rect key="frame" x="67" y="40" width="193" height="45"/>
-                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
+                                                                <rect key="frame" x="67" y="40" width="193" height="28"/>
+                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -915,26 +915,26 @@ AND HEALTHY LIFE</string>
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="470"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhq-nY-se4">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="378"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="345"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnn-Pu-oCK">
-                                                <rect key="frame" x="21.5" y="0.0" width="259.5" height="203"/>
+                                                <rect key="frame" x="21.5" y="0.0" width="259.5" height="178"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSr-yb-nwN">
-                                                        <rect key="frame" x="0.0" y="129" width="260" height="64"/>
+                                                        <rect key="frame" x="0.0" y="112" width="260" height="56"/>
                                                         <string key="text">Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. </string>
-                                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHECK AND MONITOR YOUR BODY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58y-NP-AoI">
-                                                        <rect key="frame" x="0.0" y="15" width="259.5" height="36"/>
-                                                        <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="18" width="259.5" height="16"/>
+                                                        <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="16"/>
                                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconSteth" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-FK-I83">
-                                                        <rect key="frame" x="83.5" y="51" width="93" height="78"/>
+                                                        <rect key="frame" x="83.5" y="34" width="93" height="78"/>
                                                         <color key="tintColor" red="0.37647058820000001" green="0.50588235290000005" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="93" id="QHs-0f-eam"/>
@@ -945,7 +945,7 @@ AND HEALTHY LIFE</string>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="fKA-FK-I83" firstAttribute="top" secondItem="58y-NP-AoI" secondAttribute="bottom" id="D3z-kB-3ey"/>
-                                                    <constraint firstItem="58y-NP-AoI" firstAttribute="top" secondItem="rnn-Pu-oCK" secondAttribute="top" constant="15" id="EKb-PI-f6T"/>
+                                                    <constraint firstItem="58y-NP-AoI" firstAttribute="top" secondItem="rnn-Pu-oCK" secondAttribute="top" constant="18" id="EKb-PI-f6T"/>
                                                     <constraint firstItem="WSr-yb-nwN" firstAttribute="leading" secondItem="rnn-Pu-oCK" secondAttribute="leading" id="HGX-2i-wI0"/>
                                                     <constraint firstAttribute="trailing" secondItem="58y-NP-AoI" secondAttribute="trailing" id="Wwg-je-i6q"/>
                                                     <constraint firstAttribute="bottom" secondItem="WSr-yb-nwN" secondAttribute="bottom" constant="10" id="cnI-kV-RuB"/>
@@ -956,13 +956,13 @@ AND HEALTHY LIFE</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7f9-Bs-TPC">
-                                                <rect key="frame" x="21.5" y="203" width="259.5" height="175"/>
+                                                <rect key="frame" x="21.5" y="178" width="259.5" height="167"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcD-Nl-LdX">
-                                                        <rect key="frame" x="0.0" y="101" width="259.5" height="64"/>
+                                                        <rect key="frame" x="0.0" y="101" width="259.5" height="56"/>
                                                         <string key="text">Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. </string>
-                                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONSISTENT MEDICATIONS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYx-LX-yzy">
@@ -1055,10 +1055,10 @@ AND HEALTHY LIFE</string>
                                         <rect key="frame" x="16.5" y="0.0" width="267" height="470"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyI-Ct-oSn">
-                                                <rect key="frame" x="0.0" y="104" width="267" height="36"/>
+                                                <rect key="frame" x="0.0" y="104" width="267" height="32"/>
                                                 <string key="text">TERMS OF SERVICE AND 
 LIABILITY RELEASE</string>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="16"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -1070,7 +1070,7 @@ LIABILITY RELEASE</string>
                                                 </constraints>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifU-F3-mqE">
-                                                <rect key="frame" x="0.0" y="152.5" width="267" height="317.5"/>
+                                                <rect key="frame" x="0.0" y="148.5" width="267" height="321.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <string key="text">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. 
 
@@ -1079,7 +1079,7 @@ Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti soci
 Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. 
 </string>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="NexaRegular" family="Nexa" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
@@ -1138,8 +1138,8 @@ Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti soci
         <image name="iconSteth" width="48" height="49"/>
         <image name="iconWaterLarge" width="28" height="54"/>
         <image name="iconWorkoutLarge" width="54" height="51"/>
-        <image name="logo" width="232" height="53"/>
-        <image name="logoBlue" width="152" height="35"/>
+        <image name="logo" width="149" height="53"/>
+        <image name="logoBlue" width="98" height="35"/>
         <image name="subImage" width="375" height="375"/>
     </resources>
 </document>

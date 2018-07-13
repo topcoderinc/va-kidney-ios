@@ -36,8 +36,8 @@ public struct Colors {
     /// blue color
     public static var blue: UIColor = UIColor(red: 0, green: 131/255, blue: 190/255, alpha: 1)
 
-    /// light blue color 0083BE
-    public static var lightBlue: UIColor = UIColor(red: 138/255, green: 219/255, blue: 1, alpha: 1)
+    /// light blue color 0083BE -> new light blue
+    public static var lightBlue: UIColor = UIColor(hex: 0x8adbfe)
 
     /// black color
     public static var black: UIColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)

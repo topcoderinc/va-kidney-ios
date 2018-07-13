@@ -63,8 +63,8 @@ class WelcomePage1ViewController: UIViewController {
             message2Label.font = UIFont(name: message2Label.font.familyName, size: 12)
             message3Label.font = UIFont(name: message3Label.font.familyName, size: 12)
         }
-        message1Label.setLineSpacing(lineSpacing: 3)
-        message2Label.setLineSpacing(lineSpacing: 3)
-        message3Label.setLineSpacing(lineSpacing: 3)
+        message1Label.setLineSpacing(lineSpacing: 4)
+        message2Label.setLineSpacing(lineSpacing: 4)
+        message3Label.setLineSpacing(lineSpacing: 4)
     }
 }

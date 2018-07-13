@@ -955,7 +955,7 @@ extension UILabel {
 /**
  * Applies default family fonts for UILabels from IB.
  *
- * - author TCASSEMBLER
+ * - author TCCODER
  * - version 1.0
  */
 extension UILabel {
@@ -981,28 +981,14 @@ extension UILabel {
      Applies default family fonts
      */
     func applyDefaultFontFamily() {
-        if font.fontName.contains("Semibold", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Semibold, size: self.font.pointSize)
-        }
-        else if font.fontName.contains("Bold", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Bold, size: self.font.pointSize)
-        }
-        else if font.fontName.contains("Regular", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Regular, size: self.font.pointSize)
-        }
-        else if font.fontName.contains("Light", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Light, size: font.pointSize)
-        }
-        else {
-            self.font = UIFont(name: Fonts.Regular, size: self.font.pointSize)
-        }
+        self.font = UIView.getCustomFont(self.font)
     }
 }
 
 /**
  * Applies default family fonts for UILabels from IB.
  *
- * - author TCASSEMBLER
+ * - author TCCODER
  * - version 1.0
  */
 extension UITextField {
@@ -1031,28 +1017,14 @@ extension UITextField {
         guard let font = font else {
             return
         }
-        if font.fontName.contains("Semibold", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Semibold, size: font.pointSize)
-        }
-        else if font.fontName.contains("Bold", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Bold, size: font.pointSize)
-        }
-        else if font.fontName.contains("Regular", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Regular, size: font.pointSize)
-        }
-        else if font.fontName.contains("Light", caseSensitive: false) {
-            self.font = UIFont(name: Fonts.Light, size: font.pointSize)
-        }
-        else {
-            self.font = UIFont(name: Fonts.Regular, size: font.pointSize)
-        }
+        self.font = UIView.getCustomFont(font)
     }
 }
 
 /**
  * Applies default family fonts for UILabels from IB.
  *
- * - author TCASSEMBLER
+ * - author TCCODER
  * - version 1.0
  */
 extension UIButton {
@@ -1061,6 +1033,9 @@ extension UIButton {
     open override func awakeFromNib() {
         super.awakeFromNib()
         applyDefaultFontFamily()
+        if contentEdgeInsets.top == 0 {
+            contentEdgeInsets.top = 3
+        }
     }
 
     /// Applies default family fonts
@@ -1073,7 +1048,6 @@ extension UIButton {
         return label
     }
 
-
     /**
      Applies default family fonts
      */
@@ -1085,27 +1059,10 @@ extension UIButton {
         var attributes = title.attributes(at: 0, effectiveRange: nil)
         guard let font = attributes[.font] as? UIFont else { return }
 
-        var newFont: UIFont?
-        if font.fontName.contains("Semibold", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Semibold, size: font.pointSize)
-        }
-        else if font.fontName.contains("Bold", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Bold, size: font.pointSize)
-        }
-        else if font.fontName.contains("Regular", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Regular, size: font.pointSize)
-        }
-        else if font.fontName.contains("Light", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Light, size: font.pointSize)
-        }
-        else {
-            newFont = UIFont(name: Fonts.Regular, size: font.pointSize)
-        }
-        if let newFont = newFont {
-            attributes[.font] = newFont
-            title.setAttributes(attributes, range: NSMakeRange(0, title.string.length))
-            self.setAttributedTitle(title, for: .normal)
-        }
+        let newFont = UIView.getCustomFont(font)
+        attributes[.font] = newFont
+        title.setAttributes(attributes, range: NSMakeRange(0, title.string.length))
+        self.setAttributedTitle(title, for: .normal)
     }
 }
 
@@ -1143,31 +1100,15 @@ extension UIBarButtonItem {
         }
         guard let font = attributes[NSAttributedStringKey.font.rawValue] as? UIFont else { return }
 
-        var newFont: UIFont?
-        if font.fontName.contains("Semibold", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Semibold, size: font.pointSize)
+        let newFont = UIView.getCustomFont(font)
+
+        var newAttributes = [NSAttributedStringKey:Any]()
+        for (k,v) in attributes {
+            let key = NSAttributedStringKey(rawValue: k)
+            newAttributes[key] = v
         }
-        else if font.fontName.contains("Bold", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Bold, size: font.pointSize)
-        }
-        else if font.fontName.contains("Regular", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Regular, size: font.pointSize)
-        }
-        else if font.fontName.contains("Light", caseSensitive: false) {
-            newFont = UIFont(name: Fonts.Light, size: font.pointSize)
-        }
-        else {
-            newFont = UIFont(name: Fonts.Regular, size: font.pointSize)
-        }
-        if let newFont = newFont {
-            var newAttributes = [NSAttributedStringKey:Any]()
-            for (k,v) in attributes {
-                let key = NSAttributedStringKey(rawValue: k)
-                newAttributes[key] = v
-            }
-            newAttributes[NSAttributedStringKey.font] = newFont
-            self.setTitleTextAttributes(newAttributes, for: .normal)
-        }
+        newAttributes[NSAttributedStringKey.font] = newFont
+        self.setTitleTextAttributes(newAttributes, for: .normal)
     }
 }
 
@@ -1208,6 +1149,24 @@ extension UIView {
             else {
                 label.font = font
             }
+        }
+    }
+
+    class func getCustomFont(_ font: UIFont) -> UIFont {
+        if font.fontName.contains("Semibold", caseSensitive: false) {
+            return UIFont(name: Fonts.Semibold, size: font.pointSize)!
+        }
+        else if font.fontName.contains("Bold", caseSensitive: false) {
+            return UIFont(name: Fonts.Bold, size: font.pointSize)!
+        }
+        else if font.fontName.contains("Regular", caseSensitive: false) {
+            return UIFont(name: Fonts.Regular, size: font.pointSize)!
+        }
+        else if font.fontName.contains("Light", caseSensitive: false) {
+            return UIFont(name: Fonts.Light, size: font.pointSize)!
+        }
+        else {
+            return UIFont(name: Fonts.Regular, size: font.pointSize)!
         }
     }
 }

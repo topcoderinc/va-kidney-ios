@@ -115,7 +115,7 @@ class MainViewController: UIViewController {
             }
         }
         for label in tabTitles {
-            label.textColor = (index == label.tag) ? UIColor.white : Colors.blue
+            label.textColor = (index == label.tag) ? UIColor.white : Colors.lightBlue
         }
     }
 
