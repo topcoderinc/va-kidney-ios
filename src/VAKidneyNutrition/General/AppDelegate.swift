@@ -35,6 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = Colors.darkBlue
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().shadowImage = #imageLiteral(resourceName: "navBg")
+        for i in UIFont.familyNames {        // dodo
+            print("family: \(i)")
+            if let name = i as? String {
+                for j in UIFont.fontNames(forFamilyName: name) {
+                    print("\tname: \(j)")
+                }
+            }
+        }
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, .font: UIFont(name: Fonts.Regular, size: 18)!]
         return true
     }

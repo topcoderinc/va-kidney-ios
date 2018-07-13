@@ -149,7 +149,7 @@ extension UIColor {
 }
 
 // the main font prefix
-public let FONT_PREFIX = "MyriadPro"
+public let FONT_PREFIX = "Nexa"
 
 /**
  * Common fonts used in the app
@@ -159,9 +159,10 @@ public let FONT_PREFIX = "MyriadPro"
  */
 public struct Fonts {
 
-    public static var Regular = "\(FONT_PREFIX)-Regular"
-    public static var Bold = "\(FONT_PREFIX)-Bold"
-    public static var Semibold = "\(FONT_PREFIX)-Semibold"
+    public static var Light = "\(FONT_PREFIX)Light"
+    public static var Regular = "\(FONT_PREFIX)Regular"
+    public static var Bold = "\(FONT_PREFIX)Bold"
+    public static var Semibold = "\(FONT_PREFIX)Regular"
 
 }
 
