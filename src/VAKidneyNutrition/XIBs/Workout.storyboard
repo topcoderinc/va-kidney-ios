@@ -47,28 +47,17 @@
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9I-rm-x1w" customClass="CustomView" customModule="UIComponents">
                                                         <rect key="frame" x="0.0" y="81" width="173" height="42"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showRightLine" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                <real key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6u-Te-CsD" customClass="CustomView" customModule="UIComponents">
                                                         <rect key="frame" x="0.0" y="82" width="345" height="41.5"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                <real key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="showTopLine" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ae-PJ-fCd" customClass="HighlightView" customModule="UIComponents">
+                                                        <rect key="frame" x="10" y="81" width="325" height="2"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="2" id="Awe-pp-Ov8"/>
+                                                        </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7qN-vN-8fM">
                                                         <rect key="frame" x="0.0" y="81.5" width="172.5" height="42"/>
@@ -80,7 +69,7 @@
                                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <state key="selected">
-                                                            <color key="titleColor" red="0.0" green="0.51372549020000002" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="syncAllAction:" destination="Qko-bo-krs" eventType="touchUpInside" id="KWH-UO-wXQ"/>
@@ -97,7 +86,7 @@
                                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <state key="selected">
-                                                            <color key="titleColor" red="0.0" green="0.51372549020000002" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="mangeDevicesAction:" destination="Qko-bo-krs" eventType="touchUpInside" id="j7l-FT-c1Y"/>
@@ -130,11 +119,13 @@
                                                     <constraint firstItem="k9I-rm-x1w" firstAttribute="bottom" secondItem="7qN-vN-8fM" secondAttribute="bottom" id="8d9-we-9b1"/>
                                                     <constraint firstItem="GV8-T5-BB9" firstAttribute="centerX" secondItem="WvR-xk-00X" secondAttribute="centerX" constant="-4" id="8t5-3t-uq5"/>
                                                     <constraint firstAttribute="bottom" secondItem="v6u-Te-CsD" secondAttribute="bottom" id="95n-yJ-BOw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0ae-PJ-fCd" secondAttribute="trailing" constant="10" id="CLC-4m-hmL"/>
                                                     <constraint firstAttribute="trailing" secondItem="tIR-Dq-WDP" secondAttribute="trailing" constant="20" id="HHW-iG-qef"/>
                                                     <constraint firstItem="k9I-rm-x1w" firstAttribute="trailing" secondItem="7qN-vN-8fM" secondAttribute="trailing" constant="0.5" id="NuO-Sg-j00"/>
                                                     <constraint firstAttribute="bottom" secondItem="mNw-pO-cA9" secondAttribute="bottom" id="Pko-Ap-4zD"/>
                                                     <constraint firstItem="k9I-rm-x1w" firstAttribute="top" secondItem="7qN-vN-8fM" secondAttribute="top" id="Sq0-Lc-YrM"/>
                                                     <constraint firstAttribute="trailing" secondItem="v6u-Te-CsD" secondAttribute="trailing" id="Ta6-KL-Gjp"/>
+                                                    <constraint firstItem="0ae-PJ-fCd" firstAttribute="leading" secondItem="WvR-xk-00X" secondAttribute="leading" constant="10" id="VSL-8O-GTH"/>
                                                     <constraint firstItem="Ak0-HE-4ld" firstAttribute="centerY" secondItem="GV8-T5-BB9" secondAttribute="centerY" constant="7" id="WBI-4S-bsG"/>
                                                     <constraint firstAttribute="bottom" secondItem="mNw-pO-cA9" secondAttribute="bottom" id="byW-Zh-Sle"/>
                                                     <constraint firstItem="v6u-Te-CsD" firstAttribute="top" secondItem="7qN-vN-8fM" secondAttribute="top" id="cie-Gt-nAk"/>
@@ -142,6 +133,7 @@
                                                     <constraint firstItem="mNw-pO-cA9" firstAttribute="leading" secondItem="7qN-vN-8fM" secondAttribute="trailing" id="lhA-bi-PTf"/>
                                                     <constraint firstItem="tIR-Dq-WDP" firstAttribute="top" secondItem="GV8-T5-BB9" secondAttribute="bottom" constant="3" id="nj0-D3-xlq"/>
                                                     <constraint firstItem="7qN-vN-8fM" firstAttribute="leading" secondItem="WvR-xk-00X" secondAttribute="leading" id="pbc-Fy-ahR"/>
+                                                    <constraint firstItem="0ae-PJ-fCd" firstAttribute="top" secondItem="k9I-rm-x1w" secondAttribute="top" id="qZl-fY-UYd"/>
                                                     <constraint firstItem="GV8-T5-BB9" firstAttribute="centerY" secondItem="WvR-xk-00X" secondAttribute="centerY" constant="-28" id="rTa-UN-pmA"/>
                                                     <constraint firstItem="k9I-rm-x1w" firstAttribute="leading" secondItem="7qN-vN-8fM" secondAttribute="leading" id="tCU-L6-Hlg"/>
                                                     <constraint firstAttribute="height" constant="123.5" id="uwQ-nb-ELz"/>
@@ -187,7 +179,7 @@
                                                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </state>
                                                                             <state key="selected">
-                                                                                <color key="titleColor" red="0.0" green="0.51372549020000002" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="syncAction:" destination="zpq-mi-a4Y" eventType="touchUpInside" id="oRo-EF-dh2"/>
@@ -196,15 +188,13 @@
                                                                         <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQT-Py-h0I" customClass="CustomView" customModule="UIComponents">
                                                                             <rect key="frame" x="0.0" y="158" width="176" height="42"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
-                                                                                    <real key="value" value="1"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                    <color key="value" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="showTopLine" value="YES"/>
-                                                                            </userDefinedRuntimeAttributes>
+                                                                        </view>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBv-hd-c8s" customClass="HighlightView" customModule="UIComponents">
+                                                                            <rect key="frame" x="5" y="158" width="166" height="2"/>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="2" id="2Td-LT-cdx"/>
+                                                                            </constraints>
                                                                         </view>
                                                                         <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N1e-0l-2z0" userLabel="center">
                                                                             <rect key="frame" x="51.5" y="28.5" width="73" height="135"/>
@@ -326,7 +316,10 @@
                                                                         <constraint firstItem="5BG-ks-Gx1" firstAttribute="leading" secondItem="3np-TT-C3q" secondAttribute="leading" id="CgV-vi-gt9"/>
                                                                         <constraint firstAttribute="trailing" secondItem="5BG-ks-Gx1" secondAttribute="trailing" id="GZu-Av-iKk"/>
                                                                         <constraint firstItem="RQT-Py-h0I" firstAttribute="trailing" secondItem="cTC-fk-qOM" secondAttribute="trailing" id="Keh-UD-zy2"/>
+                                                                        <constraint firstItem="GBv-hd-c8s" firstAttribute="top" secondItem="RQT-Py-h0I" secondAttribute="top" id="OGn-td-gKz"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="GBv-hd-c8s" secondAttribute="trailing" constant="5" id="cLt-d9-0gA"/>
                                                                         <constraint firstItem="N1e-0l-2z0" firstAttribute="centerY" secondItem="3np-TT-C3q" secondAttribute="centerY" constant="-4" id="dmF-ol-L3G"/>
+                                                                        <constraint firstItem="GBv-hd-c8s" firstAttribute="leading" secondItem="3np-TT-C3q" secondAttribute="leading" constant="5" id="gDb-SY-6Ha"/>
                                                                         <constraint firstAttribute="bottom" secondItem="cTC-fk-qOM" secondAttribute="bottom" id="hGL-jw-gMx"/>
                                                                         <constraint firstItem="RQT-Py-h0I" firstAttribute="top" secondItem="cTC-fk-qOM" secondAttribute="top" id="iUk-B3-ufP"/>
                                                                         <constraint firstItem="cTC-fk-qOM" firstAttribute="leading" secondItem="3np-TT-C3q" secondAttribute="leading" id="oe1-vy-c3e"/>
