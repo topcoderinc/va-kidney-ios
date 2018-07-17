@@ -632,7 +632,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.87450980389999999" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NT1-ci-ggl" firstAttribute="leading" secondItem="Xov-aI-7od" secondAttribute="leading" id="JCQ-Sg-ELP"/>
                             <constraint firstItem="NT1-ci-ggl" firstAttribute="trailing" secondItem="Xov-aI-7od" secondAttribute="trailing" id="My7-UV-Wyb"/>

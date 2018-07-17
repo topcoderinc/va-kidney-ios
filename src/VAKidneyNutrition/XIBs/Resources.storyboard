@@ -16,6 +16,9 @@
         <array key="MyriadPro-Semibold.otf">
             <string>MyriadPro-Semibold</string>
         </array>
+        <array key="NexaLight.otf">
+            <string>NexaLight</string>
+        </array>
     </customFonts>
     <scenes>
         <!--RESOURCES-->
@@ -34,12 +37,12 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQy-a4-XsS">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="18"/>
                                                 <state key="normal" title="Articles">
                                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="selected">
-                                                    <color key="titleColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.0" green="0.41960784309999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="tabButtonAction:" destination="lmL-pi-nAS" eventType="touchUpInside" id="txY-DB-vcS"/>
@@ -47,7 +50,7 @@
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QH2-bG-h8u">
                                                 <rect key="frame" x="0.0" y="48" width="200" height="2"/>
-                                                <color key="backgroundColor" red="0.4392156862745098" green="0.72941176470588232" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.0" green="0.41960784309999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="0BC-sj-HkV"/>
                                                     <constraint firstAttribute="width" constant="200" id="vBU-q5-j82"/>
@@ -55,12 +58,12 @@
                                             </view>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LfQ-9l-sOZ">
                                                 <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="18"/>
                                                 <state key="normal" title="Tutorials">
                                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="selected">
-                                                    <color key="titleColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.0" green="0.41960784309999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="tabButtonAction:" destination="lmL-pi-nAS" eventType="touchUpInside" id="YCz-fM-zyg"/>
@@ -68,12 +71,12 @@
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmw-Im-uOD">
                                                 <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="18"/>
                                                 <state key="normal" title="Education">
                                                     <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="selected">
-                                                    <color key="titleColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="0.0" green="0.41960784309999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="tabButtonAction:" destination="lmL-pi-nAS" eventType="touchUpInside" id="bvR-KR-d42"/>
@@ -127,13 +130,13 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Best Food List  For You" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIX-x8-RCg">
                                                                     <rect key="frame" x="20" y="16" width="305" height="19"/>
                                                                     <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="19"/>
-                                                                    <color key="textColor" red="0.0" green="0.51372549020000002" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQz-y3-igc">
                                                                     <rect key="frame" x="21" y="45" width="303" height="53"/>
                                                                     <string key="text">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. </string>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
+                                                                    <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="15"/>
                                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>

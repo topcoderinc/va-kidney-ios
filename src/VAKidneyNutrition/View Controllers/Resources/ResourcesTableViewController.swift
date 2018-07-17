@@ -175,7 +175,7 @@ class ResourceTableCell: ZeroMarginsCell {
     ///   - isLast: true - if last row
     func configure(_ item: Resource) {
         titleLabel.text = item.title
-        titleLabel.textColor = Colors.blue
+        titleLabel.textColor = Colors.green
         detailsLabel.text = item.text
         detailsLabel.setLineSpacing(lineSpacing: 3)
     }

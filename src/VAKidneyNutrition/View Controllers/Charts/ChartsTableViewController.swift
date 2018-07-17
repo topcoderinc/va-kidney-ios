@@ -285,9 +285,8 @@ class LabValueTableViewCell: ZeroMarginsCell {
     ///   - isSelected: nil - view mode, not nil - editing mode (value means selection state)
     func configure(item: QuantityType, hasData: Bool, isSelected: Bool?) {
         self.item = item
-        let font = UIFont(name: hasData ? Fonts.Bold : Fonts.Regular, size: titleLabel.font.pointSize)!
-        let color: UIColor = titleLabel.textColor
-        let string = NSMutableAttributedString(string: item.title, attributes: [.font : font, .foregroundColor: color])
+        let font = UIFont(name: hasData ? Fonts.Bold : Fonts.Light, size: titleLabel.font.pointSize)!
+        let string = NSMutableAttributedString(string: item.title, attributes: [.font : font, .foregroundColor: hasData ? Colors.green : Colors.black])
         titleLabel.attributedText = string
 
         applySelection(isSelected: isSelected)

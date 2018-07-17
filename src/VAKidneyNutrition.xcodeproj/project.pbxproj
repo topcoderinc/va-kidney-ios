@@ -153,6 +153,8 @@
 		FDCFE41120F8918D0051961B /* NexaBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDCFE41020F88EE00051961B /* NexaBold.otf */; };
 		FDCFE41220F8918F0051961B /* NexaLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDCFE40E20F88EE00051961B /* NexaLight.otf */; };
 		FDCFE41320F891910051961B /* NexaRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDCFE40F20F88EE00051961B /* NexaRegular.otf */; };
+		FDDED62720FE34ED00F23CCE /* WelcomeBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDED62620FE34ED00F23CCE /* WelcomeBackgroundView.swift */; };
+		FDDED62920FE391A00F23CCE /* HighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDED62820FE391A00F23CCE /* HighlightView.swift */; };
 		FDE5D1171FEEF2D8006C7097 /* reports.json in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D1161FEEF2D8006C7097 /* reports.json */; };
 		FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */; };
 		FDE5D11D1FEF1EDD006C7097 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */; };
@@ -351,6 +353,8 @@
 		FDCFE40E20F88EE00051961B /* NexaLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaLight.otf; sourceTree = "<group>"; };
 		FDCFE40F20F88EE00051961B /* NexaRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaRegular.otf; sourceTree = "<group>"; };
 		FDCFE41020F88EE00051961B /* NexaBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBold.otf; sourceTree = "<group>"; };
+		FDDED62620FE34ED00F23CCE /* WelcomeBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackgroundView.swift; sourceTree = "<group>"; };
+		FDDED62820FE391A00F23CCE /* HighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightView.swift; sourceTree = "<group>"; };
 		FDE5D1161FEEF2D8006C7097 /* reports.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = reports.json; sourceTree = "<group>"; };
 		FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuViewController.swift; sourceTree = "<group>"; };
 		FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
@@ -777,6 +781,8 @@
 				FD5EF4552023AE5200E6BD23 /* UIExtensions.swift */,
 				FD5EF4722023D74000E6BD23 /* CustomUIPageControl.swift */,
 				FDAA0B5D2024B63A0094515D /* CircleProgress.swift */,
+				FDDED62620FE34ED00F23CCE /* WelcomeBackgroundView.swift */,
+				FDDED62820FE391A00F23CCE /* HighlightView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -1171,7 +1177,9 @@
 				FDB63C011FED03AF00015308 /* CustomTabButton.swift in Sources */,
 				FDF398031FEBD42700DEED65 /* Colors.swift in Sources */,
 				FD5EF4732023D74000E6BD23 /* CustomUIPageControl.swift in Sources */,
+				FDDED62920FE391A00F23CCE /* HighlightView.swift in Sources */,
 				FD8F99201FEFD9DB00B4A6B5 /* CustomProgressView.swift in Sources */,
+				FDDED62720FE34ED00F23CCE /* WelcomeBackgroundView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

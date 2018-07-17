@@ -41,4 +41,7 @@ public struct Colors {
 
     /// black color
     public static var black: UIColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+
+    /// green color
+    public static var green: UIColor = UIColor(hex: 0x70ba22)
 }

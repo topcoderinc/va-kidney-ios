@@ -160,9 +160,9 @@ public let FONT_PREFIX = "Nexa"
 public struct Fonts {
 
     public static var Light = "\(FONT_PREFIX)Light"
-    public static var Regular = "\(FONT_PREFIX)Regular"
+    public static var Regular = "\(FONT_PREFIX)"
     public static var Bold = "\(FONT_PREFIX)Bold"
-    public static var Semibold = "\(FONT_PREFIX)Regular"
+    public static var Semibold = "\(FONT_PREFIX)Bold"
 
 }
 

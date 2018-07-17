@@ -55,12 +55,10 @@ import UIKit
         setTitleColor(disabledColor.alpha(alpha: 0.5), for: .disabled)
         self.backgroundColor = UIColor.clear
         if !isSelected {
-            addShadowView(opacity: 0)
             self.layer.borderColor = borderColor.cgColor
             self.layer.borderWidth = borderWidth
         }
         else {
-            addShadowView()
             self.layer.borderWidth = 0
         }
     }

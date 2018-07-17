@@ -10,14 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="MyriadPro-Bold.otf">
-            <string>MyriadPro-Bold</string>
-        </array>
         <array key="MyriadPro-Regular.otf">
             <string>MyriadPro-Regular</string>
         </array>
         <array key="MyriadPro-Semibold.otf">
             <string>MyriadPro-Semibold</string>
+        </array>
+        <array key="NexaLight.otf">
+            <string>NexaLight</string>
         </array>
     </customFonts>
     <scenes>
@@ -62,7 +62,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="47" height="77.5"/>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="backgroundColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstItem="c5P-lW-Jyh" firstAttribute="top" secondItem="6VV-iE-Aid" secondAttribute="top" id="GyQ-c5-soU"/>
                                                                         <constraint firstAttribute="trailing" secondItem="c5P-lW-Jyh" secondAttribute="trailing" id="PnN-DS-FHq"/>
@@ -78,14 +78,14 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" text="110?" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7a-sE-Eq3">
-                                                                    <rect key="frame" x="68.5" y="25.5" width="38" height="43.5"/>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Bold" family="Myriad Pro" pointSize="18"/>
+                                                                    <rect key="frame" x="68.5" y="25.5" width="31.5" height="43.5"/>
+                                                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="mL/min" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ujw-Gc-Vuj">
-                                                                    <rect key="frame" x="111" y="53" width="198" height="14"/>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="14"/>
+                                                                    <rect key="frame" x="104.5" y="53" width="204.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -101,7 +101,7 @@
                                                                         <constraint firstAttribute="height" constant="44" id="de7-un-A5v"/>
                                                                     </constraints>
                                                                     <color key="textColor" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Bold" family="Myriad Pro" pointSize="18"/>
+                                                                    <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
                                                                 </textField>
                                                             </subviews>
@@ -114,7 +114,7 @@
                                                                 <constraint firstItem="nyw-gb-5jq" firstAttribute="centerY" secondItem="Q7a-sE-Eq3" secondAttribute="centerY" id="EPv-V3-OjI"/>
                                                                 <constraint firstItem="nFg-gw-DxT" firstAttribute="top" secondItem="ERs-yN-obU" secondAttribute="top" constant="9.5" id="GTJ-qr-h2Y"/>
                                                                 <constraint firstItem="Q7a-sE-Eq3" firstAttribute="leading" secondItem="nFg-gw-DxT" secondAttribute="leading" id="KaH-UJ-laM"/>
-                                                                <constraint firstItem="Ujw-Gc-Vuj" firstAttribute="bottom" secondItem="Q7a-sE-Eq3" secondAttribute="bottom" constant="-2" id="LRV-EI-EDU"/>
+                                                                <constraint firstItem="Ujw-Gc-Vuj" firstAttribute="bottom" secondItem="Q7a-sE-Eq3" secondAttribute="bottom" id="LRV-EI-EDU"/>
                                                                 <constraint firstItem="Q7a-sE-Eq3" firstAttribute="top" secondItem="nFg-gw-DxT" secondAttribute="bottom" constant="2.5" id="Rth-X0-M43"/>
                                                                 <constraint firstItem="nyw-gb-5jq" firstAttribute="leading" secondItem="Q7a-sE-Eq3" secondAttribute="leading" id="TDL-qq-eQg"/>
                                                                 <constraint firstAttribute="bottom" secondItem="6VV-iE-Aid" secondAttribute="bottom" id="VHG-B7-Yoh"/>
@@ -171,7 +171,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="47" height="77.5"/>
                                                                         </imageView>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="backgroundColor" red="0.43921568630000002" green="0.72941176470000002" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstItem="pXK-1z-d43" firstAttribute="leading" secondItem="8Eu-fj-Ni5" secondAttribute="leading" id="OQ0-V1-BXB"/>
                                                                         <constraint firstAttribute="width" constant="47.5" id="UFX-wV-ZxH"/>
@@ -191,16 +191,21 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="36" id="URz-Op-QJT"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                                     <state key="normal" title="Generate Goals"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedBgColor">
+                                                                            <color key="value" red="0.43921568630000002" green="0.72941176470000002" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <action selector="generateGoalsAction:" destination="dsy-yp-huK" eventType="touchUpInside" id="ovl-Tl-YfB"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5m-sr-uYQ" customClass="CustomButton" customModule="UIComponents">
+                                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5m-sr-uYQ" customClass="CustomButton" customModule="UIComponents">
                                                                     <rect key="frame" x="197" y="31.5" width="118" height="36"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                                     <state key="normal" title="Reset All Goals">
                                                                         <color key="titleColor" red="0.76862745099999996" green="0.14901960780000001" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
@@ -209,6 +214,9 @@
                                                                             <color key="value" red="0.76862745099999996" green="0.14901960780000001" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                                            <color key="value" red="0.76862745099999996" green="0.14901960780000001" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedBgColor">
                                                                             <color key="value" red="0.76862745099999996" green="0.14901960780000001" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>

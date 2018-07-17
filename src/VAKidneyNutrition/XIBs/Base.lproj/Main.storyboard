@@ -17,6 +17,9 @@
         <array key="MyriadPro-Semibold.otf">
             <string>MyriadPro-Semibold</string>
         </array>
+        <array key="NexaLight.otf">
+            <string>NexaLight</string>
+        </array>
         <array key="NexaRegular.otf">
             <string>NexaRegular</string>
         </array>
@@ -48,13 +51,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihH-yg-ygP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="qxp-Rc-53b">
+                                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="qxp-Rc-53b">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gqY-ZY-NCz">
-                                        <rect key="frame" x="0.0" y="154.5" width="375" height="53"/>
+                                        <rect key="frame" x="0.0" y="102.5" width="375" height="105"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="53" id="t5X-gV-f70"/>
+                                            <constraint firstAttribute="height" constant="105" id="t5X-gV-f70"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SIt-xJ-150">
@@ -68,11 +71,11 @@
                                                     <constraint firstAttribute="height" constant="36" id="BPQ-Hl-EMh"/>
                                                 </constraints>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                                        <color key="value" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.0" green="0.43529411764705883" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="customPlaceholderColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -107,11 +110,11 @@
                                                     <constraint firstAttribute="height" constant="36" id="wjE-EP-v91"/>
                                                 </constraints>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                                        <color key="value" red="0.0" green="0.59215686270000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.0" green="0.43529411764705883" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="customPlaceholderColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -147,11 +150,14 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="Udo-EW-e9Y"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
                                                 <state key="normal" title="LOGIN"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
                                                         <color key="value" white="1" alpha="0.50117973993288589" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedBgColor">
+                                                        <color key="value" red="0.0" green="0.43529411759999997" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -159,11 +165,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Itj-MM-PKI">
-                                                <rect key="frame" x="90.5" y="100" width="118" height="40"/>
+                                                <rect key="frame" x="80.5" y="100" width="138" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="izx-o8-hU7"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
                                                 <state key="normal" title="Forgot Password?">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -176,14 +182,14 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="cPj-h8-DNi"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
                                                 <state key="normal" title="New User? Sign Up Now"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.0" green="0.51372549019607838" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="value" red="0.0" green="0.43529411759999997" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -229,7 +235,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.2470588235" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.45490196078431372" green="0.7803921568627451" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="qxp-Rc-53b" secondAttribute="bottom" id="7eE-wz-ngJ"/>
                                     <constraint firstItem="qxp-Rc-53b" firstAttribute="leading" secondItem="ihH-yg-ygP" secondAttribute="leading" id="94x-wH-ecf"/>
@@ -464,15 +470,15 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dV-uK-NZV">
-                                        <rect key="frame" x="20" y="314.5" width="335" height="32"/>
+                                        <rect key="frame" x="20" y="306.5" width="335" height="48"/>
                                         <string key="text">Are you ready to take charge of your health?
 Ready. Set Go!</string>
-                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="LCf-yy-mO9">
-                                        <rect key="frame" x="20" y="231.5" width="335" height="53"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="LCf-yy-mO9">
+                                        <rect key="frame" x="20" y="223.5" width="335" height="53"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="53" id="ZOW-kU-XLH"/>
                                         </constraints>
@@ -536,7 +542,7 @@ Ready. Set Go!</string>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102.5" id="O1a-Co-tNY"/>
                                             <constraint firstAttribute="height" constant="36" id="Ych-Q1-8Cj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                         <state key="normal" title="I AGREE"/>
                                         <connections>
                                             <action selector="agreeAction:" destination="dlo-dH-d34" eventType="touchUpInside" id="Ymd-2u-vsu"/>
@@ -547,7 +553,7 @@ Ready. Set Go!</string>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102.5" id="PMx-gw-vmm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                         <state key="normal" title="I DISAGREE"/>
                                         <connections>
                                             <action selector="disagreeAction:" destination="dlo-dH-d34" eventType="touchUpInside" id="2ZJ-gq-Uea"/>
@@ -697,7 +703,7 @@ AND HEALTHY LIFE</string>
                                         <rect key="frame" x="0.0" y="60" width="300" height="410"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kse-7K-AqH">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="279"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="307"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzX-c6-LzN">
                                                         <rect key="frame" x="20" y="0.0" width="260.5" height="99"/>
@@ -719,7 +725,7 @@ AND HEALTHY LIFE</string>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXC-0x-Y5p">
                                                                 <rect key="frame" x="51" y="40" width="209.5" height="42"/>
-                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -746,10 +752,10 @@ AND HEALTHY LIFE</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHj-g2-Tlv">
-                                                        <rect key="frame" x="20" y="99" width="260" height="85"/>
+                                                        <rect key="frame" x="20" y="99" width="260" height="99"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJF-sQ-XkK" userLabel="line">
-                                                                <rect key="frame" x="73" y="83" width="186.5" height="2"/>
+                                                                <rect key="frame" x="73" y="97" width="186.5" height="2"/>
                                                                 <color key="backgroundColor" red="0.33333333333333331" green="0.46274509803921571" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="qDB-Mw-uJA"/>
@@ -764,8 +770,8 @@ AND HEALTHY LIFE</string>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit conse" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vp9-EM-beA">
-                                                                <rect key="frame" x="0.0" y="40" width="195" height="28"/>
-                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                                <rect key="frame" x="0.0" y="40" width="195" height="42"/>
+                                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -792,10 +798,10 @@ AND HEALTHY LIFE</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Co-6b-my1">
-                                                        <rect key="frame" x="20" y="184" width="260.5" height="85"/>
+                                                        <rect key="frame" x="20" y="198" width="260.5" height="99"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cw0-38-Ylz" userLabel="line">
-                                                                <rect key="frame" x="0.0" y="83" width="187" height="2"/>
+                                                                <rect key="frame" x="0.0" y="97" width="187" height="2"/>
                                                                 <color key="backgroundColor" red="1" green="0.49803921568627452" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="QZH-WP-6im"/>
@@ -810,8 +816,8 @@ AND HEALTHY LIFE</string>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aenean sollicitudin, lorem quis bibendum auctor, nisi elit conse" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Z9-x0-sNq">
-                                                                <rect key="frame" x="67" y="40" width="193" height="28"/>
-                                                                <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                                <rect key="frame" x="67" y="40" width="193" height="42"/>
+                                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -923,7 +929,7 @@ AND HEALTHY LIFE</string>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSr-yb-nwN">
                                                         <rect key="frame" x="0.0" y="112" width="260" height="56"/>
                                                         <string key="text">Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. </string>
-                                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -961,7 +967,7 @@ AND HEALTHY LIFE</string>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcD-Nl-LdX">
                                                         <rect key="frame" x="0.0" y="101" width="259.5" height="56"/>
                                                         <string key="text">Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. </string>
-                                                        <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -1079,7 +1085,7 @@ Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti soci
 Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. 
 </string>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="NexaRegular" family="Nexa" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
@@ -1138,8 +1144,8 @@ Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti soci
         <image name="iconSteth" width="48" height="49"/>
         <image name="iconWaterLarge" width="28" height="54"/>
         <image name="iconWorkoutLarge" width="54" height="51"/>
-        <image name="logo" width="149" height="53"/>
-        <image name="logoBlue" width="98" height="35"/>
+        <image name="logo" width="293" height="105"/>
+        <image name="logoBlue" width="206" height="74"/>
         <image name="subImage" width="375" height="375"/>
     </resources>
 </document>

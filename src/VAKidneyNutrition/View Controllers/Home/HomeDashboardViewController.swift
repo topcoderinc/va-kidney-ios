@@ -38,8 +38,8 @@ class HomeDashboardViewController: UIViewController {
     @IBOutlet var goalValueLabels: [UILabel]!
     @IBOutlet var goalViews: [UIView]!
     @IBOutlet var goalProgresses: [CircleProgress]!
-    @IBOutlet weak var pointsLabel: CustomButton!
-    @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var pointsLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var topMargin: NSLayoutConstraint!
     @IBOutlet weak var topHeight: NSLayoutConstraint!
 
@@ -81,14 +81,14 @@ class HomeDashboardViewController: UIViewController {
             }, failure: createGeneralFailureCallback(loadingView))
         }
         // load profile and number of points
-        pointsLabel.setTitle("-", for: .normal)
+        pointsLabel.text = "-"
         api.getRewards(callback: { (items) in
             let sum = items.map({$0.points}).reduce(0, +)
-            self.pointsLabel.setTitle(sum.toPointsText(), for: .normal)
+            self.pointsLabel.text = sum.toPointsText()
         }, failure: createGeneralFailureCallback())
 
         if let userInfo = AuthenticationUtil.sharedInstance.userInfo {
-            self.welcomeLabel.text = "\(NSLocalizedString("Welcome", comment: "Welcome")) \(userInfo.firstName),"
+            self.nameLabel.text = userInfo.firstName
         }
     }
 
