@@ -150,6 +150,11 @@
 		FDB63C031FED096A00015308 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB63C021FED096A00015308 /* RootViewController.swift */; };
 		FDB65F2C20B72B90000F5834 /* CheckboxPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB65F2B20B72B90000F5834 /* CheckboxPickerViewController.swift */; };
 		FDC95EAE1FEFB1B000C04281 /* Goals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDC95EAD1FEFB1B000C04281 /* Goals.storyboard */; };
+		FDCFE41120F8918D0051961B /* NexaBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDCFE41020F88EE00051961B /* NexaBold.otf */; };
+		FDCFE41220F8918F0051961B /* NexaLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDCFE40E20F88EE00051961B /* NexaLight.otf */; };
+		FDCFE41320F891910051961B /* NexaRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDCFE40F20F88EE00051961B /* NexaRegular.otf */; };
+		FDDED62720FE34ED00F23CCE /* WelcomeBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDED62620FE34ED00F23CCE /* WelcomeBackgroundView.swift */; };
+		FDDED62920FE391A00F23CCE /* HighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDED62820FE391A00F23CCE /* HighlightView.swift */; };
 		FDE5D1171FEEF2D8006C7097 /* reports.json in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D1161FEEF2D8006C7097 /* reports.json */; };
 		FDE5D1191FEF0C0B006C7097 /* ContextMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */; };
 		FDE5D11D1FEF1EDD006C7097 /* Charts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */; };
@@ -345,6 +350,11 @@
 		FDB63C021FED096A00015308 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		FDB65F2B20B72B90000F5834 /* CheckboxPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxPickerViewController.swift; sourceTree = "<group>"; };
 		FDC95EAD1FEFB1B000C04281 /* Goals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Goals.storyboard; sourceTree = "<group>"; };
+		FDCFE40E20F88EE00051961B /* NexaLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaLight.otf; sourceTree = "<group>"; };
+		FDCFE40F20F88EE00051961B /* NexaRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaRegular.otf; sourceTree = "<group>"; };
+		FDCFE41020F88EE00051961B /* NexaBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBold.otf; sourceTree = "<group>"; };
+		FDDED62620FE34ED00F23CCE /* WelcomeBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackgroundView.swift; sourceTree = "<group>"; };
+		FDDED62820FE391A00F23CCE /* HighlightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightView.swift; sourceTree = "<group>"; };
 		FDE5D1161FEEF2D8006C7097 /* reports.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = reports.json; sourceTree = "<group>"; };
 		FDE5D1181FEF0C0B006C7097 /* ContextMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuViewController.swift; sourceTree = "<group>"; };
 		FDE5D11C1FEF1EDD006C7097 /* Charts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Charts.storyboard; sourceTree = "<group>"; };
@@ -496,6 +506,9 @@
 		FD5EF4572023AFE900E6BD23 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				FDCFE41020F88EE00051961B /* NexaBold.otf */,
+				FDCFE40E20F88EE00051961B /* NexaLight.otf */,
+				FDCFE40F20F88EE00051961B /* NexaRegular.otf */,
 				FD5EF4582023AFE900E6BD23 /* MyriadPro-Bold.otf */,
 				FD5EF4592023AFE900E6BD23 /* MyriadPro-BoldCond.otf */,
 				FD5EF45A2023AFE900E6BD23 /* MyriadPro-BoldCondIt.otf */,
@@ -768,6 +781,8 @@
 				FD5EF4552023AE5200E6BD23 /* UIExtensions.swift */,
 				FD5EF4722023D74000E6BD23 /* CustomUIPageControl.swift */,
 				FDAA0B5D2024B63A0094515D /* CircleProgress.swift */,
+				FDDED62620FE34ED00F23CCE /* WelcomeBackgroundView.swift */,
+				FDDED62820FE391A00F23CCE /* HighlightView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -935,6 +950,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDCFE41220F8918F0051961B /* NexaLight.otf in Resources */,
+				FDCFE41120F8918D0051961B /* NexaBold.otf in Resources */,
 				FDF748AD1FEFED6100FB1037 /* rewards.json in Resources */,
 				FD5EF4652023AFE900E6BD23 /* MyriadPro-BoldIt.otf in Resources */,
 				FDF397E41FEBD0C100DEED65 /* LaunchScreen.storyboard in Resources */,
@@ -953,6 +970,7 @@
 				FDA2C90320B94C9F0070F384 /* measurements.json in Resources */,
 				FD3C1A6A1FF049C700B78908 /* Medications.storyboard in Resources */,
 				FD12604F20265963009514D6 /* MedicationHeader.xib in Resources */,
+				FDCFE41320F891910051961B /* NexaRegular.otf in Resources */,
 				FD43685F1FF056BE003B22CE /* medications.json in Resources */,
 				FD03F6EA1FECFEE300E19304 /* Home.storyboard in Resources */,
 				FD5EF4632023AFE900E6BD23 /* MyriadPro-BoldCond.otf in Resources */,
@@ -1159,7 +1177,9 @@
 				FDB63C011FED03AF00015308 /* CustomTabButton.swift in Sources */,
 				FDF398031FEBD42700DEED65 /* Colors.swift in Sources */,
 				FD5EF4732023D74000E6BD23 /* CustomUIPageControl.swift in Sources */,
+				FDDED62920FE391A00F23CCE /* HighlightView.swift in Sources */,
 				FD8F99201FEFD9DB00B4A6B5 /* CustomProgressView.swift in Sources */,
+				FDDED62720FE34ED00F23CCE /* WelcomeBackgroundView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

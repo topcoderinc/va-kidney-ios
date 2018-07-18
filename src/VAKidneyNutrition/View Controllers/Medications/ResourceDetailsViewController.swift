@@ -61,7 +61,7 @@ class ResourceDetailsViewController: UIViewController {
     private func loadData() {
         if let item = medicationResource {
             self.textView.text = item.text
-            self.titleLabel.text = item.title
+            self.titleLabel.text = item.title.uppercased()
             self.iconView.image = nil
             self.view.layoutIfNeeded()
             self.textView.contentOffset.y = 0

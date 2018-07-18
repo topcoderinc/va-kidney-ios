@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = Colors.darkBlue
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().shadowImage = #imageLiteral(resourceName: "navBg")
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, .font: UIFont(name: Fonts.Regular, size: 18)!]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, .font: UIFont(name: Fonts.Bold, size: 16)!]
         return true
     }
 

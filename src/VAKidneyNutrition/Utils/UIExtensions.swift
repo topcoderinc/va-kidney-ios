@@ -951,3 +951,222 @@ extension UILabel {
         self.attributedText = attributedString
     }
 }
+
+/**
+ * Applies default family fonts for UILabels from IB.
+ *
+ * - author TCCODER
+ * - version 1.0
+ */
+extension UILabel {
+
+    /// Applies default family fonts
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        applyDefaultFontFamily()
+    }
+
+    /// Applies default family fonts
+    ///
+    /// - Parameter aDecoder: the decoder
+    /// - Returns: UILabel instance
+    open override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        let label = super.awakeAfter(using: aDecoder)
+        self.applyDefaultFontFamily()
+        return label
+    }
+
+
+    /**
+     Applies default family fonts
+     */
+    func applyDefaultFontFamily() {
+        self.font = UIView.getCustomFont(self.font)
+    }
+}
+
+/**
+ * Applies default family fonts for UILabels from IB.
+ *
+ * - author TCCODER
+ * - version 1.0
+ */
+extension UITextField {
+
+    /// Applies default family fonts
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        applyDefaultFontFamily()
+    }
+
+    /// Applies default family fonts
+    ///
+    /// - Parameter aDecoder: the decoder
+    /// - Returns: UILabel instance
+    open override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        let label = super.awakeAfter(using: aDecoder)
+        self.applyDefaultFontFamily()
+        return label
+    }
+
+
+    /**
+     Applies default family fonts
+     */
+    func applyDefaultFontFamily() {
+        guard let font = font else {
+            return
+        }
+        self.font = UIView.getCustomFont(font)
+    }
+}
+
+/**
+ * Applies default family fonts for UILabels from IB.
+ *
+ * - author TCCODER
+ * - version 1.0
+ */
+extension UIButton {
+
+    /// Applies default family fonts
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        applyDefaultFontFamily()
+        if contentEdgeInsets.top == 0 {
+            contentEdgeInsets.top = 3
+        }
+    }
+
+    /// Applies default family fonts
+    ///
+    /// - Parameter aDecoder: the decoder
+    /// - Returns: UILabel instance
+    open override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        let label = super.awakeAfter(using: aDecoder)
+        self.applyDefaultFontFamily()
+        return label
+    }
+
+    /**
+     Applies default family fonts
+     */
+    func applyDefaultFontFamily() {
+        guard let title = self.attributedTitle(for: .normal) as? NSMutableAttributedString, !title.string.isEmpty else {
+            self.titleLabel?.applyDefaultFontFamily()
+            return
+        }
+        var attributes = title.attributes(at: 0, effectiveRange: nil)
+        guard let font = attributes[.font] as? UIFont else { return }
+
+        let newFont = UIView.getCustomFont(font)
+        attributes[.font] = newFont
+        title.setAttributes(attributes, range: NSMakeRange(0, title.string.length))
+        self.setAttributedTitle(title, for: .normal)
+    }
+}
+
+/**
+ * Applies default family fonts for UILabels from IB.
+ *
+ * - author TCASSEMBLER
+ * - version 1.0
+ */
+extension UIBarButtonItem {
+
+    /// Applies default family fonts
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        applyDefaultFontFamily()
+    }
+
+    /// Applies default family fonts
+    ///
+    /// - Parameter aDecoder: the decoder
+    /// - Returns: UILabel instance
+    open override func awakeAfter(using aDecoder: NSCoder) -> Any? {
+        let label = super.awakeAfter(using: aDecoder)
+        self.applyDefaultFontFamily()
+        return label
+    }
+
+
+    /**
+     Applies default family fonts
+     */
+    func applyDefaultFontFamily() {
+        guard var attributes = self.titleTextAttributes(for: .normal), !(self.title ?? "").isEmpty else {
+            return
+        }
+        guard let font = attributes[NSAttributedStringKey.font.rawValue] as? UIFont else { return }
+
+        let newFont = UIView.getCustomFont(font)
+
+        var newAttributes = [NSAttributedStringKey:Any]()
+        for (k,v) in attributes {
+            let key = NSAttributedStringKey(rawValue: k)
+            newAttributes[key] = v
+        }
+        newAttributes[NSAttributedStringKey.font] = newFont
+        self.setTitleTextAttributes(newAttributes, for: .normal)
+    }
+}
+
+/**
+ * Helpful methods in UIView
+ *
+ * - author: TCCODER
+ * - version: 1.0
+ */
+extension UIView {
+
+    /// Find labels in the view
+    ///
+    /// - Returns: the list of labels
+    func findLabels() -> [UILabel] {
+        var labels = [UILabel]()
+        for view in subviews {
+            if let label = view as? UILabel {
+                labels.append(label)
+            }
+            labels.append(contentsOf: view.findLabels())
+        }
+        return labels
+    }
+
+    /// Apply given font to all labels or to labels with given text
+    ///
+    /// - Parameters:
+    ///   - font: the font
+    ///   - text: the text of the target labels
+    func applyFontToLabels(font: UIFont, forText text: String? = nil) {
+        for label in findLabels() {
+            if let text = text {
+                if label.text == text {
+                    label.font = font
+                }
+            }
+            else {
+                label.font = font
+            }
+        }
+    }
+
+    class func getCustomFont(_ font: UIFont) -> UIFont {
+        if font.fontName.contains("Semibold", caseSensitive: false) {
+            return UIFont(name: Fonts.Semibold, size: font.pointSize)!
+        }
+        else if font.fontName.contains("Bold", caseSensitive: false) {
+            return UIFont(name: Fonts.Bold, size: font.pointSize)!
+        }
+        else if font.fontName.contains("Regular", caseSensitive: false) {
+            return UIFont(name: Fonts.Regular, size: font.pointSize)!
+        }
+        else if font.fontName.contains("Light", caseSensitive: false) {
+            return UIFont(name: Fonts.Light, size: font.pointSize)!
+        }
+        else {
+            return UIFont(name: Fonts.Regular, size: font.pointSize)!
+        }
+    }
+}

@@ -24,7 +24,7 @@ class WelcomeLaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = Colors.darkBlue
+        self.view.backgroundColor = Colors.lightGray
         messageLabel.setLineSpacing(lineSpacing: 3.5)
         self.navigationController?.isNavigationBarHidden = true
     }

@@ -90,7 +90,7 @@ import UIKit
 
     /// Layout subviews
     public override func layoutSubviews() {
-        let colors = [bgColor, mainColor]
+        let colors = [bgColor, Colors.green]
 
         // calculate start angle
         startAngle = -(360 - missingAngle)/2 * (CGFloat.pi / 180) - CGFloat.pi / 2

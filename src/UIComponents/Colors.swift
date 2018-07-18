@@ -30,15 +30,18 @@ public struct Colors {
     /// border color
     public static var border: UIColor = UIColor(red: 121/255, green: 121/255, blue: 121/255, alpha: 1)
 
-    /// dark blue color
-    public static var darkBlue: UIColor = UIColor(red: 0, green: 63/255, blue: 114/255, alpha: 1)
+    /// dark blue color -> new blue
+    public static var darkBlue: UIColor = UIColor(red: 0, green: 151/255, blue: 218/255, alpha: 1)
 
     /// blue color
     public static var blue: UIColor = UIColor(red: 0, green: 131/255, blue: 190/255, alpha: 1)
 
-    /// light blue color 0083BE
-    public static var lightBlue: UIColor = UIColor(red: 138/255, green: 219/255, blue: 1, alpha: 1)
+    /// light blue color 0083BE -> new light blue
+    public static var lightBlue: UIColor = UIColor(hex: 0x8adbfe)
 
     /// black color
     public static var black: UIColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+
+    /// green color
+    public static var green: UIColor = UIColor(hex: 0x70ba22)
 }

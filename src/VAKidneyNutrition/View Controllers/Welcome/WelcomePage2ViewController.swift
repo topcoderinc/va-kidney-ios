@@ -34,8 +34,6 @@ class WelcomePage2ViewController: UIViewController {
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-        message1Label.setLineSpacing(lineSpacing: 3)
-        message2Label.setLineSpacing(lineSpacing: 3)
 
         if let json = JSON.resource(named: "welcome2") {
             title1Label.text = json["title1"].stringValue.uppercased()
@@ -53,9 +51,9 @@ class WelcomePage2ViewController: UIViewController {
             for c in topMargins {
                 c.constant = 10
             }
-            message1Label.setLineSpacing(lineSpacing: 2)
-            message2Label.setLineSpacing(lineSpacing: 2)
         }
+        message1Label.setLineSpacing(lineSpacing: 4)
+        message2Label.setLineSpacing(lineSpacing: 4)
     }
 }
 
