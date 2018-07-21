@@ -9,7 +9,7 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Charts
     - SwiftyJSON
 
@@ -19,4 +19,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b96e8205c11abc5ecae751c7a47e56e036fe1142
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

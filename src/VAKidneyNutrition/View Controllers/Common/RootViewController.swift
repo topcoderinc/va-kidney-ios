@@ -24,6 +24,9 @@ let kTermsAccepted = "kTermsAccepted"
  */
 class RootViewController: UIViewController {
 
+    /// the loaded view controller
+    private var signInViewController: SignInViewController?
+    
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,9 @@ class RootViewController: UIViewController {
                     else { // Not completed sign up
                         self.openProfileScreen(animated: false, completion: nil)
                     }
+                }
+                else {
+                    self.signInViewController?.tryLoginWithTouchID()
                 }
             }
             else {
@@ -58,6 +64,7 @@ class RootViewController: UIViewController {
     /// - Parameter animated: the animated
     func showSignIn(animated: Bool) {
         if let vc = create(SignInViewController.self) {
+            self.signInViewController = vc
             loadViewController(vc, self.view)
         }
     }

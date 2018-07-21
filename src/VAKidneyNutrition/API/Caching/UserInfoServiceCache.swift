@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 /**
  * Model object for Core Data related to UserInfo
@@ -57,5 +58,19 @@ extension UserInfoMO: CoreDataEntity {
  * - version: 1.0
  */
 class UserInfoServiceCache: DataService<UserInfoMO, UserInfo> {
+    
+    /// Get last used account
+    ///
+    /// - Parameters:
+    ///   - callback: the callback used to return data
+    ///   - failure: the failure callback used to return an error
+    func getLastProfile(callback: @escaping (UserInfo?)->(), failure: @escaping GeneralFailureBlock) {
+        let fetchRequest = NSFetchRequest<UserInfoMO>(entityName: UserInfoMO.entityName)
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "retrievalDate", ascending: false)]
+        self.get(withRequest: fetchRequest, { list in
+            callback(list.first)
+        }, failure: failure)
+    }
 }
 

@@ -41,6 +41,8 @@ extension QuantitySampleMO: CoreDataEntity {
 
         type = object.type.id
         amount = object.amount
+        
+        userId = AuthenticationUtil.sharedInstance.userInfo?.id ?? ""
     }
 }
 
@@ -68,7 +70,8 @@ class QuantitySampleCache: DataService<QuantitySampleMO, QuantitySample> {
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: type.id),
             self.createDateGreaterOrEqualToPredicate("createdAt", date: start),
-            self.createDateLessOrEqualToPredicate("createdAt", date: end)
+            self.createDateLessOrEqualToPredicate("createdAt", date: end),
+            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
             ])
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }

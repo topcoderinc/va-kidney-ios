@@ -79,6 +79,13 @@ class CachingServiceApi: ServiceApi {
             for userInfo in list {
                 if userInfo.email == email && userInfo.password == password {
                     AuthenticationUtil.sharedInstance.userInfo = userInfo
+                    
+                    // update `retrievalDate`
+                    userInfo.retrievalDate = Date()
+                    self.userInfoService.update([userInfo], success: {}, failure: { error in
+                        print("ERROR: \(error.localizedDescription)")
+                    })
+                    
                     callback(userInfo)
                     return
                 }
@@ -132,6 +139,7 @@ class CachingServiceApi: ServiceApi {
         self.service.register(userInfo: userInfo, profile: profile, callback: { userInfo in
 
             // Save userInfo
+            userInfo.firstName = profile.name
             self.userInfoService.insert([userInfo], success: { userInfoMO in
                 AuthenticationUtil.sharedInstance.userInfo = userInfo
 
@@ -163,6 +171,15 @@ class CachingServiceApi: ServiceApi {
             }
         }, failure: wrapFailure(failure))
     }
+    
+    /// Get last used profile
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getLastAccount(callback: @escaping (UserInfo?) -> (), failure: @escaping FailureCallback) {
+        self.userInfoService.getLastProfile(callback: callback, failure: wrapFailure(failure))
+    }
 
     /// Update profile. R->C
     ///
@@ -175,6 +192,7 @@ class CachingServiceApi: ServiceApi {
         }
         self.profileService.getMyProfiles(callback: { (list) in
             if let _ = list.last {
+                profile.retrievalDate = Date()
                 self.profileService.update([profile], success: {
                     callback()
                 }, failure: self.wrapFailure(failure))
