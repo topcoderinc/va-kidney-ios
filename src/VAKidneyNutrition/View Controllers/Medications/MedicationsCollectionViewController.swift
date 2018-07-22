@@ -6,7 +6,7 @@
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
-import UIKit
+import UIComponents
 
 /**
  * Medication collection
@@ -16,14 +16,8 @@ import UIKit
  */
 class MedicationsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    /// the space between cells
-    let CELL_SPACING: CGFloat = 10
-
-    /// the margins
-    let COLLETION_VIEW_MARGINS: CGFloat = 5
-
     /// the cell size
-    let CELL_SIZE: CGSize = CGSize(width: 170, height: 110)
+    let CELL_SIZE: CGSize = CGSize(width: 170, height: 160)
 
     /// outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -93,7 +87,12 @@ class MedicationsCollectionViewController: UIViewController, UICollectionViewDat
     /// - Returns: cell size
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         self.view.layoutIfNeeded()
-        let width = (self.collectionView.bounds.width -  CELL_SPACING - COLLETION_VIEW_MARGINS * 2) / 2
+        let layout = (collectionView.collectionViewLayout as! UICollectionViewFlowLayout)
+        let margins = layout.sectionInset
+        let spacing = CGSize(width: layout.minimumInteritemSpacing, height: layout.minimumLineSpacing)
+        
+        let n: CGFloat = 2
+        let width = (collectionView.bounds.width - margins.left - margins.right - (n - 1) * spacing.width) / n
         return CGSize(width: width, height: CELL_SIZE.height)
     }
 
@@ -120,7 +119,8 @@ class MedicationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
-
+    @IBOutlet weak var mainView: CustomView!
+    
     /// the references to parent and shown item
     var parent: MedicationsCollectionViewController!
     var item: Medication!
@@ -135,6 +135,11 @@ class MedicationCollectionViewCell: UICollectionViewCell {
         valueLabel.text = item.times.map({"\($0.getHourText())  \($0.getUnitsText())"}).joined(separator: "\n")
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        mainView.roundCorners()
+    }
+    
     /// "More" button action handler
     ///
     /// - parameter sender: the button
