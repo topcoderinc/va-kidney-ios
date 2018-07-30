@@ -98,5 +98,6 @@ class ProfileServiceCache: DataService<ProfileMO, Profile> {
         fetchRequest.predicate = self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
+
 }
 

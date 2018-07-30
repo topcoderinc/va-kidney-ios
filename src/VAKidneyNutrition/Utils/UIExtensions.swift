@@ -620,7 +620,7 @@ extension UIViewController {
     ///   - completion: the completion callback
     func openProfileScreen(animated: Bool = true, completion: (()->())? = nil) {
         if let vc = self.createInitialViewController(fromStoryboard: "Profile") {
-            self.present(vc, animated: animated, completion: completion)
+            UIViewController.getCurrentViewController()?.present(vc, animated: animated, completion: completion)
         }
     }
 

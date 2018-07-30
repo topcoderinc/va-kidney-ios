@@ -9,6 +9,7 @@
 //
 
 import UIComponents
+import LocalAuthentication
 
 /// option: true - disable "Login" button if fiels are empty, false - else
 let OPTION_DISABLE_LOGIN_IF_EMPTY_FIELDS = true
@@ -54,7 +55,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         showLoginError(nil)
         showPasswordError(nil)
     }
-
+    
     /// View did appear
     ///
     /// - Parameter animated: the animation flag
@@ -154,7 +155,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     ///
     /// - parameter sender: the button
     @IBAction func signUpAction(_ sender: Any) {
-        showStub()
+        if let vc = create(SignUpViewController.self) {
+            self.present(vc, animated: true, completion: nil)
+        }
     }
 
     /// Show popup with text field to enter email
@@ -229,6 +232,121 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         if OPTION_DISABLE_LOGIN_IF_EMPTY_FIELDS {
             loginButton.isEnabled = !email.trim().isEmpty && !password.isEmpty
         }
+    }
+    
+    // MARK: - LocalAuthentication
+    
+    func tryLoginWithTouchID() {
+        api.getLastAccount(callback: { (account) in
+            if let account = account {
+                self.authenticationWithTouchID() {
+                    self.emailField.text = account.email
+                    self.passwordField.text = account.password
+                    self.loginAction(self)
+                }
+            }
+        }, failure: createGeneralFailureCallback())
+    }
+    
+    func authenticationWithTouchID(callback: @escaping ()->()) {
+        let localAuthenticationContext = LAContext()
+        localAuthenticationContext.localizedFallbackTitle = "Use Passcode"
+        
+        var authError: NSError?
+        let reasonString = "To access the secure data"
+        
+        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &authError) {
+            
+            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString) { success, evaluateError in
+                if success {
+                    callback()
+                } else {
+                    //TODO: User did not authenticate successfully, look at error and take appropriate action
+                    guard let error = evaluateError else {
+                        return
+                    }
+                    print(self.evaluateAuthenticationPolicyMessageForLA(errorCode: error._code))
+                    //TODO: If you have choosen the 'Fallback authentication mechanism selected' (LAError.userFallback). Handle gracefully
+                }
+            }
+        } else {
+            guard let error = authError else {
+                return
+            }
+            print(self.evaluateAuthenticationPolicyMessageForLA(errorCode: error.code))
+        }
+    }
+    
+    func evaluatePolicyFailErrorMessageForLA(errorCode: Int) -> String {
+        var message = ""
+        if #available(iOS 11.0, macOS 10.13, *) {
+            switch errorCode {
+            case LAError.biometryNotAvailable.rawValue:
+                message = "Authentication could not start because the device does not support biometric authentication."
+                
+            case LAError.biometryLockout.rawValue:
+                message = "Authentication could not continue because the user has been locked out of biometric authentication, due to failing authentication too many times."
+                
+            case LAError.biometryNotEnrolled.rawValue:
+                message = "Authentication could not start because the user has not enrolled in biometric authentication."
+                
+            default:
+                message = "Did not find error code on LAError object"
+            }
+        } else {
+            switch errorCode {
+            case LAError.touchIDLockout.rawValue:
+                message = "Too many failed attempts."
+                
+            case LAError.touchIDNotAvailable.rawValue:
+                message = "TouchID is not available on the device"
+                
+            case LAError.touchIDNotEnrolled.rawValue:
+                message = "TouchID is not enrolled on the device"
+                
+            default:
+                message = "Did not find error code on LAError object"
+            }
+        }
+        
+        return message;
+    }
+    
+    func evaluateAuthenticationPolicyMessageForLA(errorCode: Int) -> String {
+        
+        var message = ""
+        
+        switch errorCode {
+            
+        case LAError.authenticationFailed.rawValue:
+            message = "The user failed to provide valid credentials"
+            
+        case LAError.appCancel.rawValue:
+            message = "Authentication was cancelled by application"
+            
+        case LAError.invalidContext.rawValue:
+            message = "The context is invalid"
+            
+        case LAError.notInteractive.rawValue:
+            message = "Not interactive"
+            
+        case LAError.passcodeNotSet.rawValue:
+            message = "Passcode is not set on the device"
+            
+        case LAError.systemCancel.rawValue:
+            message = "Authentication was cancelled by the system"
+            
+        case LAError.userCancel.rawValue:
+            message = "The user did cancel"
+            
+        case LAError.userFallback.rawValue:
+            message = "The user chose to use the fallback"
+            
+        default:
+            message = evaluatePolicyFailErrorMessageForLA(errorCode: errorCode)
+        }
+        
+        return message
     }
 }
 

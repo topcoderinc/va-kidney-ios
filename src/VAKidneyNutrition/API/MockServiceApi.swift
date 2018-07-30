@@ -147,6 +147,15 @@ class MockServiceApi: ServiceApi {
             }
         }
     }
+    
+    /// Get last used profile
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getLastAccount(callback: @escaping (UserInfo?) -> (), failure: @escaping FailureCallback) {
+        failure("Not supported")
+    }
 
     /// Update profile. R->C
     ///

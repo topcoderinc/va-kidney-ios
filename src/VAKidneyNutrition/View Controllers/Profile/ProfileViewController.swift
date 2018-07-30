@@ -24,8 +24,6 @@ enum DiseaseCategory: String {
     }
 }
 
-/// option: true - will add "Done" button and will save only after that, false - will save immidiately
-let OPTION_PROFILE_ADD_DONE_BUTTON = false
 let OPTION_LIMIT_WEIGHT_VALUES = false
 let OPTION_MOVE_TO_GOALS_AFTER_RESET = false
 
@@ -299,6 +297,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
     /// last picker type
     private var lastSelectedPickerType: ProfileDataType?
+    private var lastSelectedItem: ProfileDataItem?
 
     /// the profile to show
     var profile: Profile?
@@ -321,16 +320,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         profileImageView.delegate = self
         if profile == nil {
             navigationItem.leftBarButtonItem = nil
+            let item = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
+            self.navigationItem.rightBarButtonItem = item
         }
         else {
             setupNavigation()
-            if OPTION_PROFILE_ADD_DONE_BUTTON {
-                let item = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
-                self.navigationItem.rightBarButtonItem = item
-            }
-            else {
-                self.navigationItem.rightBarButtonItem = nil
-            }
+            self.navigationItem.rightBarButtonItem = nil
         }
         loadData()
 
@@ -390,13 +385,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         else {
             items = [
                 ProfileDataItem(title: "Name", type: .text, dataType: .name),
-                AgeProfileDataItem(title: "Date of Birth", type: .picker, dataType: .date),
+                AgeProfileDataItem(title: "Age", type: .picker, dataType: .date),
                 HeightProfileDataItem(title: "Height", type: .picker, dataType: .height),
                 WeightProfileDataItem(title: "Current Weight", type: .picker, dataType: .currentWeight),
                 ProfileDataItem(title: "Are you Receiving Dialysis?", type: .picker, dataType: .dialysis, value: false),
                 ProfileDataItem(title: "Renal Disease Stage", type: .picker, dataType: .diseaseCategory),
                 ProfileDataItem(title: "Goal Setup", type: .picker, dataType: .setupGoals, value: false),
-                ProfileDataItem(title: "Avatar", type: .avatar, dataType: .avatar),
                 ComorbidConditionDataItem(title: "Comorbidities", type: .picker, dataType: .comorbidities),
             ]
         }
@@ -424,6 +418,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         profile.image = profileImageView.image
         profile.addDevice = items.filter({$0.dataType == .devices}).first?.value as? Bool ?? false
         profile.comorbidities = items.filter({$0.dataType == .comorbidities}).first?.value as? [ComorbidCondition] ?? []
+        if self.profile == nil {
+            profile.name = items.filter({$0.dataType == .name}).first?.value as? String ?? ""
+        }
 
         if profile.name.isEmpty
             || profile.birthday == nil
@@ -437,23 +434,18 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             return
         }
 
-        let loadingView = OPTION_PROFILE_ADD_DONE_BUTTON ? showLoadingView() : nil
+        let loadingView = self.profile == nil ? showLoadingView() : nil
         if self.profile == nil {
             self.api.register(userInfo: userInfo, profile: profile, callback: { (_) in
                 loadingView?.terminate()
-                if OPTION_PROFILE_ADD_DONE_BUTTON {
-                    self.dismiss(animated: true, completion: {
-                        self.openHomeScreen()
-                    })
-                }
+                self.dismiss(animated: true, completion: {
+                    self.openHomeScreen()
+                })
             }, failure: createGeneralFailureCallback(loadingView))
         }
         else {
             api.updateProfile(profile, callback: {
                 loadingView?.terminate()
-                if OPTION_PROFILE_ADD_DONE_BUTTON {
-                    MainViewControllerReference?.openHomeTab()
-                }
             }, failure: createGeneralFailureCallback(loadingView))
         }
     }
@@ -504,6 +496,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.deselectRow(at: indexPath, animated: true)
         self.view.endEditing(true)
         let item = items[indexPath.row]
+        lastSelectedItem = item
         var selected: String? = item.value as? String
         switch item.type {
         case .picker:
@@ -549,7 +542,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case .avatar:
             break
         case .text:
-            break
+            if let cell = tableView.cellForRow(at: indexPath) as? ProfileItemCell {
+                cell.textField.text = item.value as? String ?? ""
+                cell.textField.delegate = self
+                cell.showTextInput(true)
+                cell.textField.becomeFirstResponder()
+            }
         }
     }
 
@@ -586,7 +584,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     /// Update UI and save profile if needed after something changed
     private func updateAfterChange() {
         tableView.reloadData()
-        if !OPTION_PROFILE_ADD_DONE_BUTTON {
+        if profile != nil {
             saveProfile()
         }
     }
@@ -665,7 +663,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func textFieldDidEndEditing(_ textField: UITextField) {
         let cell = textField.superview?.superview?.superview as? ProfileItemCell
         cell?.showTextInput(false)
-        if let item = items.filter({$0.dataType == lastSelectedPickerType}).first {
+        if let item = lastSelectedItem {
             if let value = Double(textField.text ?? "") {
                 if OPTION_LIMIT_WEIGHT_VALUES && (value < WEIGHT_LIMIT.0 || value > WEIGHT_LIMIT.1)  {
 
@@ -685,6 +683,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 else if value > 0 {
                     item.value = value
                 }
+            }
+            else {
+                item.value = textField.text ?? ""
             }
             updateAfterChange()
         }

@@ -54,6 +54,8 @@ extension RecommendationMO: CoreDataEntity {
         type = object.type.rawValue
         tintColor = object.tintColor?.toString()
         relatedFoodInfo = object.relatedFoodInfo
+        
+        userId = AuthenticationUtil.sharedInstance.userInfo?.id ?? ""
     }
 }
 
@@ -80,7 +82,8 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: RecommendationType.foodSuggestion.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue),
+            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
             ])
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
@@ -96,7 +99,8 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: RecommendationType.drugConsumption.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue),
+            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
             ])
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
@@ -112,7 +116,8 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: RecommendationType.foodSuggestion.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue),
+            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
             ])
         removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }
@@ -128,7 +133,8 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
 
         fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: RecommendationType.drugConsumption.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue)
+            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue),
+            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
             ])
         removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }

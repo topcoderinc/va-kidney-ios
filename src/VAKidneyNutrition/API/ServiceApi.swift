@@ -95,6 +95,13 @@ protocol ServiceApi {
     ///   - callback: the callback to invoke when success
     ///   - failure: the failure callback to return an error
     func getProfile(callback: @escaping (Profile) -> (), failure: @escaping FailureCallback)
+    
+    /// Get last used profile
+    ///
+    /// - Parameters:
+    ///   - callback: the callback to invoke when success
+    ///   - failure: the failure callback to return an error
+    func getLastAccount(callback: @escaping (UserInfo?) -> (), failure: @escaping FailureCallback)
 
     /// Update profile
     ///

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Topcoder. All rights reserved.
 //
 
-import UIKit
+import UIComponents
 
 /**
  * Sign Up screen
@@ -18,18 +18,24 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     /// outlets
     @IBOutlet weak var topImage: UIImageView!
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var confirmPasswordField: UITextField!
+    @IBOutlet weak var emailField: CustomTextField!
+    @IBOutlet weak var passwordField: CustomTextField!
+    @IBOutlet weak var confirmPasswordField: CustomTextField!
     @IBOutlet weak var signUpButton: UIButton!
 
+    @IBOutlet weak var loginErrorLabel: UILabel!
+    @IBOutlet weak var loginButtonMargin: NSLayoutConstraint!
+    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet weak var passwordBottomMargin: NSLayoutConstraint!
+    
     /// the reference to API
     private let api: ServiceApi = CachingServiceApi.shared
 
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        showLoginError(nil)
+        showPasswordError(nil)
         self.view.backgroundColor = UIColor.clear
     }
 
@@ -75,7 +81,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     ///
     /// - parameter sender: the sender
     @IBAction func signInLinkAction(_ sender: Any) {
-        pushViewController(SignInViewController.self)
+        self.dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Button actions
@@ -85,6 +91,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     /// - parameter sender: the button
     @IBAction func signUpAction(_ sender: Any) {
         self.view.endEditing(true)
+        showLoginError(nil)
+        showPasswordError(nil)
         let loadingView = showLoadingView()
 
         // Validate the entered data
@@ -94,12 +102,44 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                         AuthenticationUtil.sharedInstance.userInfo = userInfo
 
                                         loadingView?.terminate()
-                                        self.openProfileScreen(completion: {
-                                            self.emailField.text = ""
-                                            self.passwordField.text = ""
-                                            self.confirmPasswordField.text = ""
+                                        self.dismiss(animated: false, completion: {
+                                            self.openProfileScreen(animated: false, completion: {
+                                                self.emailField.text = ""
+                                                self.passwordField.text = ""
+                                                self.confirmPasswordField.text = ""
+                                            })
                                         })
-        }, failure: createGeneralFailureCallback(loadingView))
+                                        
+        }, failure: { error in
+            loadingView?.terminate()
+            UIView.animate(withDuration: 0.3) {
+                self.showLoginError(error)
+                self.view.layoutIfNeeded()
+            }
+        })
     }
 
+    /// Show login error
+    ///
+    /// - Parameter error: the error
+    private func showLoginError(_ error: String?) {
+        self.emailField.borderWidth = error == nil ? 0 : 1
+        self.loginErrorLabel.isHidden = error == nil
+        self.loginButtonMargin.constant = error == nil ? 18 : 30.5
+        if let error = error {
+            self.loginErrorLabel.text = error
+        }
+    }
+    
+    /// Show password error
+    ///
+    /// - Parameter error: the error
+    private func showPasswordError(_ error: String?) {
+        self.passwordField.borderWidth = error == nil ? 0 : 1
+        self.passwordErrorLabel.isHidden = error == nil
+        self.passwordBottomMargin.constant = error == nil ? 18 : 30.5
+        if let error = error {
+            self.passwordErrorLabel.text = error
+        }
+    }
 }
