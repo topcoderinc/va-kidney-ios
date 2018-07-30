@@ -28,19 +28,16 @@ import UIKit
 
     /// the subviews
     public override func layoutSubviews() {
-        self.showTopLine = true
-        self.showBottomLine = true
-        self.showLeftLine = true
-        self.showRightLine = true
         super.layoutSubviews()
         if titleLabel == nil {
             titleLabel = UILabel(frame: self.bounds)
-            titleLabel.font = UIFont.systemFont(ofSize: 14)
+            titleLabel.numberOfLines = 2
+            titleLabel.font = UIFont.systemFont(ofSize: 16)
             addSubview(titleLabel)
         }
         if unitsLabel == nil {
             unitsLabel = UILabel(frame: self.bounds)
-            unitsLabel.font = UIFont.systemFont(ofSize: 10)
+            unitsLabel.font = UIFont.systemFont(ofSize: 12)
             addSubview(unitsLabel)
         }
         if checkboxButton == nil {
@@ -52,8 +49,9 @@ import UIKit
         }
 
         let padding: CGFloat = 10
-        titleLabel.frame = CGRect(x: padding, y: 0, width: self.bounds.width / 2 - padding, height: self.bounds.height)
-        unitsLabel.frame = CGRect(x: self.bounds.width / 2 + padding, y: 0, width: self.bounds.width / 2, height: self.bounds.height)
+        let x = 2 * self.bounds.width / 3
+        titleLabel.frame = CGRect(x: padding, y: 0, width: x - padding, height: self.bounds.height)
+        unitsLabel.frame = CGRect(x: x + padding, y: 0, width: self.bounds.width / 3, height: self.bounds.height)
         checkboxButton.frame = CGRect(x: self.bounds.width - self.bounds.height, y: 0, width: self.bounds.height, height: self.bounds.height)
 
         titleLabel.text = title

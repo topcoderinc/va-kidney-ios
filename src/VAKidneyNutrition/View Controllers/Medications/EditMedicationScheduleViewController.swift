@@ -49,7 +49,8 @@ class EditMedicationScheduleViewController: UIViewController, UICollectionViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupNavigation()
+        initBackButtonFromChild()
+        navigationItem.rightBarButtonItem = nil
         updateUI()
     }
 

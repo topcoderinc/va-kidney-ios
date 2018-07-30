@@ -679,7 +679,7 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUe-Rp-rHp">
-                                <rect key="frame" x="15" y="113" width="345" height="242"/>
+                                <rect key="frame" x="15" y="112.5" width="345" height="242"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Oi-Um-eXu">
                                         <rect key="frame" x="10" y="0.0" width="325" height="242"/>
