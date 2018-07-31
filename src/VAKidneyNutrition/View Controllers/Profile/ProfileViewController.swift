@@ -545,6 +545,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             if let cell = tableView.cellForRow(at: indexPath) as? ProfileItemCell {
                 cell.textField.text = item.value as? String ?? ""
                 cell.textField.delegate = self
+                cell.textField.keyboardType = item.dataType == .name ? .default : .numberPad
                 cell.showTextInput(true)
                 cell.textField.becomeFirstResponder()
             }
