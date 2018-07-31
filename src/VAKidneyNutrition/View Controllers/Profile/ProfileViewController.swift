@@ -425,8 +425,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         if profile.name.isEmpty
             || profile.birthday == nil
             || profile.height < 0
-            || profile.currentWeight < 0
-            || profile.diseaseCategory.isEmpty {
+            || profile.currentWeight < 0 {
             DispatchQueue.main.async {
                 self.showAlert(NSLocalizedString("Fill the form", comment: "Fill the form"),
                                NSLocalizedString("Please fill all required fields", comment: "Please fill all required fields"))
