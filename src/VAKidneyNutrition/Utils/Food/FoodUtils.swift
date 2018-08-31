@@ -90,12 +90,18 @@ class FoodUtils {
         getNutritionGoals { goals in
             guard !goals.isEmpty else { return callback(nil) }
             self.getFoods() { foods in
-
+                
+                let gTotal = DispatchGroup()
+                var resultInfo: [FoodItem: [NDBNutrient]]?
+                gTotal.enter()
                 // Get details about Food
                 self.getNDBInfo(foods: foods, callback: { (info) in
-                    callback(info)
-                    guard !goals.isEmpty else { return }
-
+                    
+                    guard !goals.isEmpty else {
+                        gTotal.leave()
+                        return callback(nil)
+                    }
+                    resultInfo = info
                     var allRecommendations = [Recommendation]()
 
                     let g = DispatchGroup()
@@ -123,6 +129,7 @@ class FoodUtils {
                     }
 
                     g.notify(queue: DispatchQueue.main, execute: {
+                        gTotal.leave()
                         // Replace all previous food recommendations
                         self.recommendationApi.replaceRecommendations(allRecommendations, ofType: .foodSuggestion, callback: {
                             print("checkRecommendations: reports saved: \(allRecommendations)")
@@ -132,8 +139,8 @@ class FoodUtils {
                     })
 
                 })
-
-                guard !goals.isEmpty else { return }
+                
+                gTotal.enter()
                 // Get drug interactions
                 var allDrugRecommendations = [Recommendation]()
                 let g = DispatchGroup()
@@ -153,6 +160,7 @@ class FoodUtils {
                     }
                 }
                 g.notify(queue: DispatchQueue.main, execute: {
+                    gTotal.leave()
                     // Replace all previous drug recommendations
                     self.recommendationApi.replaceRecommendations(allDrugRecommendations, ofType: .drugInteractionWarnings, callback: {
                         print("checkRecommendations: reports saved: \(allDrugRecommendations)")
@@ -160,6 +168,12 @@ class FoodUtils {
                         print("ERROR: checkRecommendations:replaceRecommendations: \(error)")
                     })
                 })
+                
+                gTotal.notify(queue: DispatchQueue.main, execute: {
+                    callback(resultInfo)
+                })
+                
+                
             }
         }
     }
