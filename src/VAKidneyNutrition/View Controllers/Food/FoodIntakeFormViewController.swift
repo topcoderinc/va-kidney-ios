@@ -26,6 +26,23 @@ enum FoodIntakeTime: String {
     func getTitle() -> String {
         return rawValue.capitalized
     }
+    
+    func getSelectedMealTime() -> Int {
+        switch self {
+        case .breakfast:
+            return 0
+        case .lunch:
+            return 1
+        case .dinner:
+            return 2
+        case .snacks:
+            return 3
+        case .casual:
+            return 4
+        default:
+            break
+        }
+    }
 }
 
 /// option: true - add "drug" into title of the "Add New Meal" form
@@ -112,10 +129,11 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         mealActiveSelectorView.makeRound()
         initBackButtonFromChild()
         mealActiveSelectorView.backgroundColor = Colors.darkBlue
+        selectedMealTime = food?.time.getSelectedMealTime() ?? 0
 
         self.view.layoutIfNeeded()
-        self.mealTimeAction(self.mealTimeButtons.filter({$0.tag == 0}).first!)
-
+        self.mealTimeAction(self.mealTimeButtons.filter({$0.tag == selectedMealTime}).first!)
+        
         date = food?.date ?? Date()
         images = food?.images ?? []
         meals = (food?.items ?? []).map{$0.clone()}
