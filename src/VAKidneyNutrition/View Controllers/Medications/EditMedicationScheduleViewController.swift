@@ -36,7 +36,7 @@ class EditMedicationScheduleViewController: UIViewController, UICollectionViewDa
     
     /// outlets
     @IBOutlet weak var titleField: CustomTextField!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: CustomUICollectionView!
 
     /// the medication to show
     var medication: Medication!
@@ -170,6 +170,7 @@ class EditMedicationScheduleViewController: UIViewController, UICollectionViewDa
             selectedTimeForDays[weekday] = selectedTime
         }
         self.collectionView.reloadData()
+        self.view.endEditing(true)
     }
 
     /// Get cell size
@@ -231,6 +232,16 @@ class EditMedicationScheduleViewController: UIViewController, UICollectionViewDa
     @IBAction func saveAction(_ sender: Any) {
         showStub()
     }
+
+    /// Dismiss keyboard
+    ///
+    /// - Parameters:
+    ///   - touches: the touches
+    ///   - event: the event
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+    }
 }
 
 /**
@@ -281,4 +292,17 @@ class EditMedicationScheduleSection: UICollectionReusableView {
         showStub()
     }
 
+}
+
+class CustomUICollectionView: UICollectionView {
+
+    /// Dismiss keyboard
+    ///
+    /// - Parameters:
+    ///   - touches: the touches
+    ///   - event: the event
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.superview?.endEditing(true)
+    }
 }
