@@ -285,8 +285,8 @@ class CachingServiceApi: ServiceApi {
             }, failure: wrapFailure(failure))
         }
         else {
-            goalServiceCache.update([goal], success: {
-                callback(goal)
+            goalServiceCache.upsert([goal], success: { (goals) in
+                callback(goals.first!)
             }, failure: wrapFailure(failure))
         }
     }
