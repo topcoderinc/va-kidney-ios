@@ -21,7 +21,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Medications-->
+        <!--MEDICATIONS-->
         <scene sceneID="QaF-ET-JIA">
             <objects>
                 <viewController storyboardIdentifier="MedicationsMainViewController" id="5mM-Kr-W85" customClass="MedicationsMainViewController" customModule="VAKidneyNutrition" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,8 +35,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X3T-SV-kl8" customClass="CustomView" customModule="UIComponents">
                                         <rect key="frame" x="5" y="5" width="365" height="40"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Add  A New Medication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awo-oL-A0C">
-                                                <rect key="frame" x="45" y="11.5" width="150.5" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Add a New Medication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Awo-oL-A0C">
+                                                <rect key="frame" x="45" y="11.5" width="145" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -163,7 +163,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fwL-zb-x30"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Medications" id="QG6-Og-q14">
+                    <navigationItem key="navigationItem" title="MEDICATIONS" id="QG6-Og-q14">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="yKA-ip-5UO">
                             <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
@@ -460,7 +460,7 @@
             </objects>
             <point key="canvasLocation" x="1599" y="-34"/>
         </scene>
-        <!--Edit A Medication-->
+        <!--Edit a Medication-->
         <scene sceneID="fdx-Cr-v8b">
             <objects>
                 <viewController storyboardIdentifier="EditMedicationViewController" id="Wex-5j-8pd" customClass="EditMedicationViewController" customModule="VAKidneyNutrition" customModuleProvider="target" sceneMemberID="viewController">
@@ -609,7 +609,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="saT-GT-c0h"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit A Medication" id="vjC-1L-tpH">
+                    <navigationItem key="navigationItem" title="Edit a Medication" id="vjC-1L-tpH">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="hLv-s2-2tg">
                             <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
@@ -627,7 +627,7 @@
             </objects>
             <point key="canvasLocation" x="2253.5999999999999" y="-35.532233883058474"/>
         </scene>
-        <!--Edit A Medication Schedule-->
+        <!--Edit a Medication Schedule-->
         <scene sceneID="Xst-Ak-bGq">
             <objects>
                 <viewController storyboardIdentifier="EditMedicationScheduleViewController" id="wrg-lu-E91" customClass="EditMedicationScheduleViewController" customModule="VAKidneyNutrition" customModuleProvider="target" sceneMemberID="viewController">
@@ -806,7 +806,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xdB-Ls-Ye7"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit A Medication Schedule" id="aMs-G9-eO9">
+                    <navigationItem key="navigationItem" title="Edit a Medication Schedule" id="aMs-G9-eO9">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="1vW-ht-8aI">
                             <color key="tintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
