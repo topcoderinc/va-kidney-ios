@@ -349,7 +349,7 @@ class FoodAddIntakeCollectionViewCell: UICollectionViewCell {
         mainView.roundCorners()
         shadowView.addShadow()
         if isIPhone5() {
-            buttonTitle.text = NSLocalizedString("Add Meal/Drug", comment: "Add Meal/Drug")
+//            buttonTitle.text = NSLocalizedString("Add Meal/Drug", comment: "Add Meal/Drug")
         }
     }
 }

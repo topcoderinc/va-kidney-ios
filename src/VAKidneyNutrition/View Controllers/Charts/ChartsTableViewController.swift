@@ -71,7 +71,7 @@ class ChartsTableViewController: UIViewController {
         bottomPanelHeight.constant = 0
 
         noDataLabel.isHidden = true
-
+        tableView.estimatedRowHeight = 60
         table.noDataLabel = noDataLabel
         table.configureCell = { indexPath, item, _, cell in
             let isSelected: Bool? = self.isEditingMode ? !self.unselectedValues.contains(item.id): nil

@@ -470,7 +470,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dV-uK-NZV">
-                                        <rect key="frame" x="20" y="306.5" width="335" height="48"/>
+                                        <rect key="frame" x="20" y="306" width="335" height="48"/>
                                         <string key="text">Are you ready to take charge of your health?
 Ready. Set Go!</string>
                                         <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
@@ -478,7 +478,7 @@ Ready. Set Go!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="LCf-yy-mO9">
-                                        <rect key="frame" x="20" y="223.5" width="335" height="53"/>
+                                        <rect key="frame" x="20" y="223" width="335" height="53"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="53" id="ZOW-kU-XLH"/>
                                         </constraints>

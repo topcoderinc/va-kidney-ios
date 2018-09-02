@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,7 +25,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food Suggestion_" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAY-NU-oBX">
-                            <rect key="frame" x="33.5" y="15" width="148.5" height="19"/>
+                            <rect key="frame" x="33.5" y="0.0" width="148.5" height="44"/>
                             <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="19"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -34,7 +34,8 @@
                     <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="VAY-NU-oBX" firstAttribute="leading" secondItem="8a2-hU-QqF" secondAttribute="leading" constant="33.5" id="8zW-KQ-zMY"/>
-                        <constraint firstAttribute="bottom" secondItem="VAY-NU-oBX" secondAttribute="bottom" constant="10" id="CfO-s1-ttJ"/>
+                        <constraint firstAttribute="bottom" secondItem="VAY-NU-oBX" secondAttribute="bottom" id="CfO-s1-ttJ"/>
+                        <constraint firstItem="VAY-NU-oBX" firstAttribute="top" secondItem="8a2-hU-QqF" secondAttribute="top" id="PTd-wR-zjc"/>
                     </constraints>
                 </view>
             </subviews>
@@ -50,6 +51,7 @@
             <connections>
                 <outlet property="titleLabel" destination="VAY-NU-oBX" id="aNv-Og-5Ti"/>
             </connections>
+            <point key="canvasLocation" x="25.5" y="87"/>
         </view>
     </objects>
 </document>

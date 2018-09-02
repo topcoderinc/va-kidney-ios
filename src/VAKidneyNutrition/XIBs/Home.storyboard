@@ -243,7 +243,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2JV-He-YAO">
+                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2JV-He-YAO">
                                                     <rect key="frame" x="54" y="0.0" width="181" height="45.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45.5" id="EgD-cY-EGF"/>
@@ -319,7 +319,7 @@
                                     <constraint firstItem="brZ-5B-vZC" firstAttribute="leading" secondItem="1XP-Ra-niH" secondAttribute="leading" constant="15" id="h69-1z-h5w"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmo-8K-cub">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmo-8K-cub">
                                 <rect key="frame" x="0.0" y="610" width="200" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="YtI-oS-ekM"/>

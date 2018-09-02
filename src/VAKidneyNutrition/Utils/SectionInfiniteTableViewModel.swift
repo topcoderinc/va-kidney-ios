@@ -106,6 +106,10 @@ class SectionInfiniteTableViewModel<T, C: UITableViewCell>: InfiniteTableViewMod
         return sectionTitles[section]
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
