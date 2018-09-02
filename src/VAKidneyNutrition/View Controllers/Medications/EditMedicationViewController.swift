@@ -42,7 +42,7 @@ class EditMedicationViewController: UIViewController {
         }
         titleLabel.text = editableMedication?.title ?? ""
         scheduleDetailsLabel.text = editableMedication?.times.map({"\($0.getHourText())   |   \($0.getUnitsText())   |   \($0.getWeekdayText())"}).joined(separator: "\n") ?? ""
-        title = self.medication == nil ? NSLocalizedString("Add A Medication", comment: "Add A Medication") : NSLocalizedString("Edit A Medication", comment: "Edit A Medication")
+        title = self.medication == nil ? NSLocalizedString("Add a Medication", comment: "Add a Medication") : NSLocalizedString("Edit a Medication", comment: "Edit a Medication")
     }
 
     /// "Edit title" button action handler
