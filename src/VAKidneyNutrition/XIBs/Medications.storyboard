@@ -550,7 +550,7 @@
                                             <constraint firstAttribute="height" constant="36" id="k40-zj-HiP"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
-                                        <state key="normal" title="Delete"/>
+                                        <state key="normal" title="DELETE"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" red="0.76862745099999996" green="0.14901960780000001" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -569,7 +569,7 @@
                                             <constraint firstAttribute="height" constant="36" id="chu-fB-J57"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
-                                        <state key="normal" title="Re-enter details"/>
+                                        <state key="normal" title="RE-ENTER DETAILS"/>
                                         <connections>
                                             <action selector="reEnterDetailsAction:" destination="Wex-5j-8pd" eventType="touchUpInside" id="RfW-YD-qha"/>
                                         </connections>
@@ -678,7 +678,7 @@
                                             <constraint firstAttribute="height" constant="36" id="DxT-Wd-Qk0"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
-                                        <state key="normal" title="Save this schedule"/>
+                                        <state key="normal" title="SAVE THIS SCHEDULE"/>
                                         <connections>
                                             <action selector="saveAction:" destination="wrg-lu-E91" eventType="touchUpInside" id="Gsg-FG-Vhg"/>
                                         </connections>
