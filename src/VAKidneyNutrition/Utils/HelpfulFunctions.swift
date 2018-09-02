@@ -692,7 +692,7 @@ extension Int {
     ///
     /// - Returns: the text
     func toPointsText() -> String {
-        return "\(self) \(self == 1 ? "point" : "points")"
+        return "\(self) \(self == 1 ? "Point" : "Points")"
     }
 
     /// Get hour as text
