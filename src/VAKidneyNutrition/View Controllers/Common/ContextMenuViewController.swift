@@ -29,7 +29,7 @@ struct ContextItem {
 class ContextMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     /// the size of the cell
-    static let CELL_SIZE: CGSize = CGSize(width: 100, height: 30)
+    static let CELL_SIZE: CGSize = CGSize(width: 170, height: 30)
 
     /// the shift use to compensate wider buttons
     static let SHIFT: CGSize = CGSize(width: 9, height: 8)
