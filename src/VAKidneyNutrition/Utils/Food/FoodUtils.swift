@@ -48,18 +48,21 @@ class FoodUtils {
     /// Shortcut method for making all updates in the app after taking food
     ///
     /// - Parameter food: the food
-    func process(food: Food) {
+    func process(food: Food?, callback: @escaping (Bool)->()) {
         // Update recommendations if needed
         DispatchQueue.global(qos: .background).async {
             FoodUtils.shared.checkRecommendations(food: food, callback: { (info) in
-
+                guard let info = info,
+                let food = food else {
+                    return callback(false)
+                }
                 // Update nutritions
                 DispatchQueue.global(qos: .background).async {
                     FoodUtils.shared.updateNutritions(food: food, info: info) {
-
                         // Update goals
                         // Delay added because HealthKit does not provide updated statistic immidiately after new samples are added
                         delay(1) {
+                            callback(true)
                             FoodUtils.shared.updateGoals {
                                 print("FoodUtils.process: DONE")
                             }
@@ -75,7 +78,7 @@ class FoodUtils {
     /// - Parameters:
     ///   - food: the food
     ///   - callback: the callback used to return NDB info (will be used to update goals
-    func checkRecommendations(food: Food, callback: @escaping ([FoodItem: [NDBNutrient]])->()) {
+    func checkRecommendations(food: Food?, callback: @escaping ([FoodItem: [NDBNutrient]]?)->()) {
         // currently check all, but can be optimized in future
         checkRecommendationsForAll(callback: callback)
     }
@@ -83,16 +86,22 @@ class FoodUtils {
     /// Top most method for validating taken food and generating/removing recommendations
     ///
     /// - Parameter callback: the callback used to return NDB info (will be used to update goals
-    func checkRecommendationsForAll(callback: @escaping ([FoodItem: [NDBNutrient]])->()) {
+    func checkRecommendationsForAll(callback: @escaping ([FoodItem: [NDBNutrient]]?)->()) {
         getNutritionGoals { goals in
-            guard !goals.isEmpty else { return }
+            guard !goals.isEmpty else { return callback(nil) }
             self.getFoods() { foods in
-
+                
+                let gTotal = DispatchGroup()
+                var resultInfo: [FoodItem: [NDBNutrient]]?
+                gTotal.enter()
                 // Get details about Food
                 self.getNDBInfo(foods: foods, callback: { (info) in
-                    callback(info)
-                    guard !goals.isEmpty else { return }
-
+                    
+                    guard !goals.isEmpty else {
+                        gTotal.leave()
+                        return callback(nil)
+                    }
+                    resultInfo = info
                     var allRecommendations = [Recommendation]()
 
                     let g = DispatchGroup()
@@ -120,6 +129,7 @@ class FoodUtils {
                     }
 
                     g.notify(queue: DispatchQueue.main, execute: {
+                        gTotal.leave()
                         // Replace all previous food recommendations
                         self.recommendationApi.replaceRecommendations(allRecommendations, ofType: .foodSuggestion, callback: {
                             print("checkRecommendations: reports saved: \(allRecommendations)")
@@ -129,8 +139,8 @@ class FoodUtils {
                     })
 
                 })
-
-                guard !goals.isEmpty else { return }
+                
+                gTotal.enter()
                 // Get drug interactions
                 var allDrugRecommendations = [Recommendation]()
                 let g = DispatchGroup()
@@ -150,6 +160,7 @@ class FoodUtils {
                     }
                 }
                 g.notify(queue: DispatchQueue.main, execute: {
+                    gTotal.leave()
                     // Replace all previous drug recommendations
                     self.recommendationApi.replaceRecommendations(allDrugRecommendations, ofType: .drugInteractionWarnings, callback: {
                         print("checkRecommendations: reports saved: \(allDrugRecommendations)")
@@ -157,6 +168,12 @@ class FoodUtils {
                         print("ERROR: checkRecommendations:replaceRecommendations: \(error)")
                     })
                 })
+                
+                gTotal.notify(queue: DispatchQueue.main, execute: {
+                    callback(resultInfo)
+                })
+                
+                
             }
         }
     }

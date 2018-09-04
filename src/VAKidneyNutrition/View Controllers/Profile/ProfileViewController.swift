@@ -744,10 +744,17 @@ class ProfileItemGoalsCell: ZeroMarginsCell {
     /// - parameter sender: the button
     @IBAction func generateGoalsAction(_ sender: Any) {
         self.api.generateGoals(profile: nil, callback: { (_) in
-
-            // Open goals screen
-            UIViewController.getCurrentViewController()?.openGoals()
-            CurrentMenuItem = -1
+            
+            let loadingView = LoadingView(parentView: UIApplication.shared.keyWindow, dimming: true).show()
+            // check food recommendations
+            FoodUtils.shared.process(food: nil, callback: {
+                _ in
+                loadingView.terminate()
+                // Open goals screen
+                UIViewController.getCurrentViewController()?.openGoals()
+                CurrentMenuItem = -1
+            })
+            
         }, failure: { (error) in showError(errorMessage: error) })
     }
 

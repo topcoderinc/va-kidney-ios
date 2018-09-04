@@ -294,14 +294,19 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
         food.date = date
         food.images = images
 
+        let loadingView = LoadingView(parentView: UIApplication.shared.keyWindow, dimming: true).show()
         api.saveFood(food: food, callback: { (_) in
-            self.navigationController?.popViewController(animated: true)
 
-            // Update related data
-            FoodUtils.shared.process(food: food)
+            // Update related data and check food recommendations
+            FoodUtils.shared.process(food: food, callback: {
+                _ in
+                loadingView.terminate()
+                self.navigationController?.popViewController(animated: true)
+                sender.isEnabled = true
+            })
 
-            sender.isEnabled = true
         }, failure: { error in
+            loadingView.terminate()
             self.createGeneralFailureCallback()(error)
             sender.isEnabled = true
         })

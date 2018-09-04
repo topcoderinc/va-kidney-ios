@@ -254,12 +254,20 @@ class AddGoalFormViewController: UIViewController, PickerViewControllerDelegate,
                 goal.iconName = extra.0
                 goal.color = extra.1
                 self.api.saveGoal(goal: goal, callback: { (goal) in
-                    self.navigationController?.popViewController(animated: true)
-                    if !isEditing || self.goal?.title != existingGoal?.title {
-                        delay(0.3) {
-                            self.showAlert("Goal saved", existingGoal == nil ? "" : "Existing goal updated")
+                    
+                    
+                    let loadingView = LoadingView(parentView: UIApplication.shared.keyWindow, dimming: true).show()
+                    // check food recommendations
+                    FoodUtils.shared.process(food: nil, callback: {
+                        _ in
+                        loadingView.terminate()
+                        self.navigationController?.popViewController(animated: true)
+                        if !isEditing || self.goal?.title != existingGoal?.title {
+                            delay(0.3) {
+                                self.showAlert("Goal saved", existingGoal == nil ? "" : "Existing goal updated")
+                            }
                         }
-                    }
+                    })
                 }, failure: self.createGeneralFailureCallback())
             }, failure: self.createGeneralFailureCallback())
         }
