@@ -31,6 +31,7 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        showSignIn(animated: false)
         DispatchQueue.main.async {
             if UserDefaults.standard.value(forKey: kTermsAccepted) as? Bool == true {
                 if let userInfo = AuthenticationUtil.sharedInstance.userInfo {
@@ -42,7 +43,7 @@ class RootViewController: UIViewController {
                     }
                 }
                 else {
-                    showSignIn(animated: false)
+                    
                     self.signInViewController?.tryLoginWithTouchID()
                 }
             }
