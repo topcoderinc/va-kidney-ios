@@ -161,6 +161,7 @@ class MedicationsTableViewController: UIViewController, UITableViewDataSource, U
             else {
                 vc.title = NSLocalizedString("Resource Details", comment: "Resource Details").uppercased()
             }
+            vc.title = items[indexPath.section].0.uppercased()
 
             vc.medicationResource = item
             self.navigationController?.pushViewController(vc, animated: true)
