@@ -361,7 +361,7 @@
                                     <constraint firstAttribute="height" constant="40" id="fsw-G2-HbU"/>
                                     <constraint firstAttribute="width" constant="200" id="svc-I1-nWf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="NexaLight" family="Nexa Light" pointSize="17"/>
                                 <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Settings">
                                     <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
