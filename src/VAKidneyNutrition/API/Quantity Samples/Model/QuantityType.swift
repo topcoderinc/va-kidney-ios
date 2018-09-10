@@ -12,11 +12,11 @@ import HealthKit
 
 /// All custom quanity types
 enum QuantityTypeCustom: String {
-    case alcohol = "alcohol", meat = "meat", vegetables = "vegetables"
+    case alcohol = "alcohol", meat = "meat", vegetables = "vegetables", bloodCholesterol = "bloodCholesterol"
 
     /// All custom types as strings. It must be ready to use [String] because used very intensively.
     /// It should not be calculated from existing types.
-    static let allAsStrings = ["alcohol", "meat", "vegetables"]
+    static let allAsStrings = ["alcohol", "meat", "vegetables", "bloodCholesterol"]
 }
 
 /**

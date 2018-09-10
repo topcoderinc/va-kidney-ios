@@ -285,7 +285,8 @@ class HealthKitUtil: QuantitySampleService {
         allIds.append(contentsOf: [
             QuantityTypeCustom.alcohol.rawValue,
             QuantityTypeCustom.meat.rawValue,
-            QuantityTypeCustom.vegetables.rawValue
+            QuantityTypeCustom.vegetables.rawValue,
+            QuantityTypeCustom.bloodCholesterol.rawValue
             ])
         if let json = JSON.resource(named: "labValues") {
             let titlesToOverride = json["labValues"].arrayValue.hashmapWithKey({$0["id"].stringValue})

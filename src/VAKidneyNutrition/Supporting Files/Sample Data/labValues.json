@@ -3,6 +3,7 @@
                   {"id": "alcohol", "title": "Alcohol"},
                   {"id": "meat", "title": "Meat"},
                   {"id": "vegetables", "title": "Vegetables"},
+                  {"id": "bloodCholesterol", "title": "Blood Cholesterol"},
                   {"id": "HKQuantityTypeIdentifierDietaryEnergyConsumed", "title": "Energy Consumed"},
                   {"id": "HKQuantityTypeIdentifierDietaryFatTotal", "title": "Fat Total"},
                   {"id": "HKQuantityTypeIdentifierDietaryFatPolyunsaturated", "title": "Fat Polyunsaturated"},
