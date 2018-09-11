@@ -160,6 +160,9 @@ class ChartsTableViewController: UIViewController {
     private func openChart(_ item: QuantityType) {
         if let vc = create(ChartViewController.self) {
             vc.quantityTypes = [item]
+            if item.id == QuantityTypeCustom.bloodCholesterol.rawValue {
+                vc.type = .discreteValues
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

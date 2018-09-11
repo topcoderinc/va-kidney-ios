@@ -540,6 +540,9 @@ class HealthKitUtil: QuantitySampleService {
                 }
             }
         }
+        else {
+            customTypeCallback()
+        }
     }
 
     /// Create predicate for HK
