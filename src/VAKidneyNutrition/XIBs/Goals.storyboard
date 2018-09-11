@@ -293,16 +293,16 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSe-9B-QGV">
-                                                                            <rect key="frame" x="15" y="93" width="44" height="18"/>
+                                                                            <rect key="frame" x="-42" y="93" width="157" height="18"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lbs" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldK-dF-uJG">
-                                                                                    <rect key="frame" x="28" y="3.5" width="16" height="13"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" verticalHuggingPriority="251" text="lbs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldK-dF-uJG">
+                                                                                    <rect key="frame" x="157" y="3.5" width="0.0" height="13"/>
                                                                                     <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="13"/>
                                                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6/8" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULh-FC-vRQ">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="26" height="18"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="10000000/2000000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ULh-FC-vRQ">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="155" height="18"/>
                                                                                     <fontDescription key="fontDescription" name="MyriadPro-Bold" family="Myriad Pro" pointSize="18"/>
                                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
@@ -326,7 +326,7 @@
                                                                         <constraint firstAttribute="trailing" secondItem="hOi-n3-9T0" secondAttribute="trailing" id="e0e-IH-q0c"/>
                                                                         <constraint firstItem="hOi-n3-9T0" firstAttribute="top" secondItem="LkH-3m-6aP" secondAttribute="bottom" constant="-10" id="kDb-Vz-mMr"/>
                                                                         <constraint firstItem="LkH-3m-6aP" firstAttribute="top" secondItem="CJa-eh-Q08" secondAttribute="top" id="rzC-dW-upT"/>
-                                                                        <constraint firstItem="xSe-9B-QGV" firstAttribute="centerX" secondItem="CJa-eh-Q08" secondAttribute="centerX" id="sQz-VF-uat"/>
+                                                                        <constraint firstItem="xSe-9B-QGV" firstAttribute="centerX" secondItem="CJa-eh-Q08" secondAttribute="centerX" priority="900" id="sQz-VF-uat"/>
                                                                         <constraint firstAttribute="height" constant="135" id="wgz-5E-qWU"/>
                                                                         <constraint firstItem="LkH-3m-6aP" firstAttribute="centerX" secondItem="CJa-eh-Q08" secondAttribute="centerX" id="xn4-m9-A0M"/>
                                                                     </constraints>
@@ -337,6 +337,7 @@
                                                                 <constraint firstItem="YPT-6q-htM" firstAttribute="bottom" secondItem="Zv6-s4-UAm" secondAttribute="bottom" id="6g9-Vb-CuA"/>
                                                                 <constraint firstItem="Zv6-s4-UAm" firstAttribute="leading" secondItem="hmg-tn-ROW" secondAttribute="leading" id="9hV-aH-gmO"/>
                                                                 <constraint firstItem="YPT-6q-htM" firstAttribute="leading" secondItem="Zv6-s4-UAm" secondAttribute="leading" id="HLI-ab-vd2"/>
+                                                                <constraint firstItem="xSe-9B-QGV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hmg-tn-ROW" secondAttribute="leading" constant="10" id="M28-7t-VUh"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Zv6-s4-UAm" secondAttribute="bottom" id="apb-aY-3RL"/>
                                                                 <constraint firstItem="YPT-6q-htM" firstAttribute="trailing" secondItem="Zv6-s4-UAm" secondAttribute="trailing" id="drs-2c-ybu"/>
                                                                 <constraint firstItem="CJa-eh-Q08" firstAttribute="centerX" secondItem="hmg-tn-ROW" secondAttribute="centerX" id="rT5-g6-wBG"/>
