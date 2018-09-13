@@ -288,7 +288,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var birthDateLabel: UILabel!
-
+    @IBOutlet weak var userNameField: UITextField!
+    
     /// the items to show
     private var items = [ProfileDataItem]()
 
@@ -656,11 +657,27 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         self.view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == userNameField {
+            textField.text = userNameLabel.text
+            userNameLabel.isHidden = true
+        }
+    }
 
     /// Update entered weight
     ///
     /// - Parameter textField: the textField
     func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == userNameField && profile != nil {
+            let name = textField.text ?? ""
+            userNameLabel.text = name
+            profile?.name = name
+            textField.text = ""
+            userNameLabel.isHidden = false
+            updateAfterChange()
+            return
+        }
         let cell = textField.superview?.superview?.superview as? ProfileItemCell
         cell?.showTextInput(false)
         if let item = lastSelectedItem {
@@ -689,6 +706,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             updateAfterChange()
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
