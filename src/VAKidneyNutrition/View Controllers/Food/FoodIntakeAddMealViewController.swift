@@ -344,7 +344,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
             trySearchFood(newString)
         }
         else if textField == amountField {
-            return (newString ≈ "^\\d*\\.?\\d*$") || (newString ≈ "^\\d*/$")
+            return newString.length <= 6 && ((newString ≈ "^\\d*\\.?\\d*$") || (newString ≈ "^\\d*/$"))
         }
         return true
     }
