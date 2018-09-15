@@ -48,21 +48,18 @@ class FoodUtils {
     /// Shortcut method for making all updates in the app after taking food
     ///
     /// - Parameter food: the food
-    func process(food: Food?, callback: @escaping (Bool)->()) {
+    func process(food: Food?, callback: @escaping ()->()) {
         // Update recommendations if needed
         DispatchQueue.global(qos: .background).async {
             FoodUtils.shared.checkRecommendations(food: food, callback: { (info) in
-                guard let info = info,
-                let food = food else {
-                    return callback(false)
-                }
+                guard let info = info, let food = food else { callback(); return }
                 // Update nutritions
                 DispatchQueue.global(qos: .background).async {
                     FoodUtils.shared.updateNutritions(food: food, info: info) {
                         // Update goals
                         // Delay added because HealthKit does not provide updated statistic immidiately after new samples are added
                         delay(1) {
-                            callback(true)
+                            callback()
                             FoodUtils.shared.updateGoals {
                                 print("FoodUtils.process: DONE")
                             }
@@ -88,26 +85,22 @@ class FoodUtils {
     /// - Parameter callback: the callback used to return NDB info (will be used to update goals
     func checkRecommendationsForAll(callback: @escaping ([FoodItem: [NDBNutrient]]?)->()) {
         getNutritionGoals { goals in
-            guard !goals.isEmpty else { return callback(nil) }
+            guard !goals.isEmpty else { callback(nil); return }
             self.getFoods() { foods in
                 
                 let gTotal = DispatchGroup()
                 var resultInfo: [FoodItem: [NDBNutrient]]?
-                gTotal.enter()
+
                 // Get details about Food
+                gTotal.enter()
                 self.getNDBInfo(foods: foods, callback: { (info) in
-                    
-                    guard !goals.isEmpty else {
-                        gTotal.leave()
-                        return callback(nil)
-                    }
+
                     resultInfo = info
                     var allRecommendations = [Recommendation]()
 
                     let g = DispatchGroup()
                     // For each Goal
                     for goal in goals {
-
                         g.enter()
 
                         // Check if user eats bad food for this goal
@@ -129,12 +122,13 @@ class FoodUtils {
                     }
 
                     g.notify(queue: DispatchQueue.main, execute: {
-                        gTotal.leave()
                         // Replace all previous food recommendations
                         self.recommendationApi.replaceRecommendations(allRecommendations, ofType: .foodSuggestion, callback: {
                             print("checkRecommendations: reports saved: \(allRecommendations)")
+                            gTotal.leave()
                         }, failure: { (error) in
                             print("ERROR: checkRecommendations:replaceRecommendations: \(error)")
+                            gTotal.leave()
                         })
                     })
 
@@ -160,20 +154,19 @@ class FoodUtils {
                     }
                 }
                 g.notify(queue: DispatchQueue.main, execute: {
-                    gTotal.leave()
                     // Replace all previous drug recommendations
                     self.recommendationApi.replaceRecommendations(allDrugRecommendations, ofType: .drugInteractionWarnings, callback: {
                         print("checkRecommendations: reports saved: \(allDrugRecommendations)")
+                        gTotal.leave()
                     }, failure: { (error) in
                         print("ERROR: checkRecommendations:replaceRecommendations: \(error)")
+                        gTotal.leave()
                     })
                 })
                 
                 gTotal.notify(queue: DispatchQueue.main, execute: {
                     callback(resultInfo)
                 })
-                
-                
             }
         }
     }
@@ -281,7 +274,10 @@ class FoodUtils {
             callback(goals.filter({
                 $0.getRelatedNutrition() != nil // is related to nutrition
             })) // include only goals with specific level of required nutritions (most of "Pills" styled goals)
-        }, failure: createFailureCallback())
+        }, failure: { error in
+            showError(errorMessage: error)
+            callback([])
+        })
     }
 
     /// Get all iten food to validate.
