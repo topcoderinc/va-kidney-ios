@@ -276,13 +276,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="153"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOHN SMITH?" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rF-se-Npk">
-                                                <rect key="frame" x="190" y="103" width="106" height="18"/>
+                                                <rect key="frame" x="190" y="103" width="175" height="18"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Semibold" family="Myriad Pro" pointSize="18"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01 Jan 1960?" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUJ-rJ-Fec">
-                                                <rect key="frame" x="190" y="123" width="106" height="16"/>
+                                                <rect key="frame" x="190" y="123" width="175" height="16"/>
                                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -309,6 +309,7 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.2470588235" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="6rF-se-Npk" secondAttribute="trailing" constant="10" id="Hmm-K1-fUI"/>
                                             <constraint firstItem="JS6-IA-eB3" firstAttribute="leading" secondItem="cIu-i9-E36" secondAttribute="leading" constant="81" id="M6C-xx-55i"/>
                                             <constraint firstAttribute="trailing" secondItem="l2F-lS-rOm" secondAttribute="trailing" id="N8s-GC-wdc"/>
                                             <constraint firstItem="l2F-lS-rOm" firstAttribute="top" secondItem="cIu-i9-E36" secondAttribute="top" id="R2C-ha-pRZ"/>
