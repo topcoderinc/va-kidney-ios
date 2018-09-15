@@ -66,7 +66,8 @@ class ChartsTableViewController: UIViewController {
         super.viewDidLoad()
 
         setupNavigation()
-        setupRightBarButtonsNavigation()
+//        setupRightBarButtonsNavigation()
+        self.navigationItem.rightBarButtonItem = nil
         bottomPanel.isHidden = true
         bottomPanelHeight.constant = 0
 
@@ -170,6 +171,7 @@ class ChartsTableViewController: UIViewController {
     // MARK: - Editing mode
 
     /// Setup right bar buttons
+    /// Not used after #125
     func setupRightBarButtonsNavigation() {
         if !isEditingMode {
             let item1 = UIBarButtonItem(customView: createBarButton(#imageLiteral(resourceName: "goalsIcon"), selector: #selector(openGoals), xOffset: 0, yOffset: 0))
