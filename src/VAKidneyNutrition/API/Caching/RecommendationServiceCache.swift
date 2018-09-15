@@ -80,11 +80,12 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
         let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
-        fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            self.createStringPredicate("type", value: RecommendationType.foodSuggestion.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue),
-            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
-            ])
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSCompoundPredicate(orPredicateWithSubpredicates: [
+                self.createStringPredicate("type", value: RecommendationType.foodSuggestion.rawValue),
+                self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue)
+            ]),
+        self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")])
+        
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
 
@@ -97,11 +98,11 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
         let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
-        fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSCompoundPredicate(orPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: RecommendationType.drugConsumption.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue),
-            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
-            ])
+            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue)
+            ]),
+        self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")])
         self.get(withRequest: fetchRequest, callback, failure: failure)
     }
 
@@ -114,11 +115,11 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
         let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
-        fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSCompoundPredicate(orPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: RecommendationType.foodSuggestion.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue),
-            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
-            ])
+            self.createStringPredicate("type", value: RecommendationType.unsafeFood.rawValue)
+            ]),
+            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")])
         removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }
 
@@ -131,11 +132,11 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
         let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
 
-        fetchRequest.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSCompoundPredicate(orPredicateWithSubpredicates: [
             self.createStringPredicate("type", value: RecommendationType.drugConsumption.rawValue),
-            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue),
-            self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")
-            ])
+            self.createStringPredicate("type", value: RecommendationType.drugInteractionWarnings.rawValue)
+            ]),
+        self.createStringPredicate("userId", value: AuthenticationUtil.sharedInstance.userInfo?.id ?? "")])
         removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }
 }

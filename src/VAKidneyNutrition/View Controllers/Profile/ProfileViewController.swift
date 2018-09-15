@@ -770,7 +770,6 @@ class ProfileItemGoalsCell: ZeroMarginsCell {
             let loadingView = LoadingView(parentView: UIApplication.shared.keyWindow, dimming: true).show()
             // check food recommendations
             FoodUtils.shared.process(food: nil, callback: {
-                _ in
                 loadingView.terminate()
                 // Open goals screen
                 UIViewController.getCurrentViewController()?.openGoals()
