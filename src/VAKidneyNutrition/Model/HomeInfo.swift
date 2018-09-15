@@ -39,6 +39,9 @@ class HomeInfo {
         object.valueText = item.valueTextMultiple
         object.percent = min(1, item.value / max(1, item.targetValue))
         object.color = item.color
+        if let id = item.relatedQuantityId {
+            object.relatedQuantityIds = [id]
+        }
         return object
     }
 
