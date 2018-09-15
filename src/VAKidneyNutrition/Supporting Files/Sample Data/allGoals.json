@@ -11,7 +11,7 @@
                "minUnits": 3,
                "maxUnits": 20,
                "unitInterval": 3,
-               "oneUnitValue": 0.2
+               "oneUnitValue": 1
                },
                {
                "title": "Pills",

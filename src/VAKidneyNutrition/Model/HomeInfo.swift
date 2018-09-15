@@ -35,7 +35,8 @@ class HomeInfo {
         let object = HomeInfo()
         object.title = item.title
         object.iconName = item.iconName
-        object.value = "\(item.value.toString())/\(item.targetValue.toString())"
+        let value = item.value / Float(item.oneUnitValue != 0 ? item.oneUnitValue : 1)
+        object.value = "\(value.toString())/\(item.targetValue.toString())"
         object.valueText = item.valueTextMultiple
         object.percent = min(1, item.value / max(1, item.targetValue))
         object.color = item.color
