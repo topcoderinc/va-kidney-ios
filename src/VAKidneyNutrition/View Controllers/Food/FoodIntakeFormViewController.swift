@@ -299,7 +299,6 @@ class FoodIntakeFormViewController: UIViewController, UITextFieldDelegate, DateP
 
             // Update related data and check food recommendations
             FoodUtils.shared.process(food: food, callback: {
-                _ in
                 loadingView.terminate()
                 self.navigationController?.popViewController(animated: true)
                 sender.isEnabled = true

@@ -144,7 +144,7 @@ class RecommendationServiceCache: DataService<RecommendationMO, Recommendation> 
     func removeAllDrugResources(callback: @escaping ()->(), failure: @escaping GeneralFailureBlock) {
         let fetchRequest = NSFetchRequest<RecommendationMO>(entityName: RecommendationMO.entityName)
         fetchRequest.returnsObjectsAsFaults = false
-
+        
         fetchRequest.predicate = getAllDrugResourcesPredicate()
         removeInstancesOfRequest(fetchRequest as! NSFetchRequest<NSFetchRequestResult>, success: callback, failure: failure)
     }
