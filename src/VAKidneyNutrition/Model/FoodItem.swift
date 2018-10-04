@@ -71,5 +71,9 @@ public class FoodItem: CacheableObject {
         self.units = newUnits
         self.amount = Float(newAmount)
     }
+    
+    override public var description: String {
+        return "FoodItem[\(title), \(amount)\(units)]"
+    }
 }
 
