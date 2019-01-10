@@ -376,7 +376,7 @@ class FoodIntakeAddMealViewController: UIViewController, UITextFieldDelegate, Pi
     internal func openUnitsPicker() {
         self.view.endEditing(true)
         if type == .food {
-            let items = HealthKitUtil.shared.getFoodUnits().map({$0.unitString}).map{UnitPickerValue($0)}
+            let items = HealthKitUtil.shared.getFoodUnits().map({$0.unitString}).map{ (item: String)->UnitPickerValue in return UnitPickerValue(item)}
             let selected = items.filter({$0.string == self.selectedUnits}).first
             PickerViewController.show(title: NSLocalizedString("Select Units", comment: "Select Units"), selected: selected, data: items, delegate: self)
         }
